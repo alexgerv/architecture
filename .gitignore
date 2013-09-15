@@ -1,8 +1,8 @@
 .metadata/*
-*/.classpath
-*/.project
+.classpath
+.project
 */.settings/*
-*/target/*
+target/*
 */.checkstyle
 *.codepro
 *.aux
