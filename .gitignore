@@ -8,3 +8,6 @@ target/*
 *.aux
 *.log
 *.out
+/target
+org.eclipse.m2e.core.prefs
+.settings

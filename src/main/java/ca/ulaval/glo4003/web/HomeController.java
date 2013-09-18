@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003;
+package ca.ulaval.glo4003.web;
 
 import java.text.DateFormat;
 import java.util.Date;

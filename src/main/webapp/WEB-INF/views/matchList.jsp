@@ -2,10 +2,14 @@
 <%@ page session="false" %>
 <html>
 <head>
-    <title>Home Page!</title>
+    <title>Match List</title>
 </head>
 <body>
-<h1>Welcome home. Have a drink!</h1>
-<a href="matchList">View the match list</a>
+<h1>MatchList</h1>
+   	
+<c:forEach var="match" items="${matches}">
+	<p>Match: ${match}</p>
+</c:forEach>
+
 </body>
 </html>
