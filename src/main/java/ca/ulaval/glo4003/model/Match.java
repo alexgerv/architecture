@@ -1,56 +1,48 @@
 package ca.ulaval.glo4003.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 
 public class Match {
-	private String sport;
-	private String location;
-	private Date date;
-	private String homeTeam;
-	private String visitorTeam;
 
-	
-	private List<Ticket> tickets;
+    private String sport;
+    private String venue;
+    private Date date;
+    private String homeTeam;
+    private String visitorTeam;
 
-	public Match() {
-		tickets = new ArrayList<Ticket>();
-	}
-	
-	public void addTicket(Ticket aTicket) {
-		tickets.add(aTicket);
-	}
-	
-	public void removeTicket(Ticket aTicket) {
-		tickets.remove(aTicket);
-	}
-	public int totalTickets() {
-		return tickets.size();
-	}
+    private HashMap<String, Integer> avalaibleTicketsBySection;
 
-	public boolean isTicketAvailable(Ticket aTicket) {
-		return tickets.contains(aTicket);
-	}
+    public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam,
+                 HashMap<String, Integer> avalaibleTicketsBySection) {
+        avalaibleTicketsBySection = new HashMap<String, Integer>();
 
-	public void setSport(String sport) {
-		this.sport = sport;
-	}
-	
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	
-	public void setLocation(String location) {
-		this.location = location;
-	}
-	
-	public void setHomeTeam(String homeTeam) {
-		this.homeTeam = homeTeam;
-	}
-	
-	public void setVisitorTeam(String visitorTeam) {
-		this.visitorTeam = visitorTeam;
-	}
-	
+        this.sport = sport;
+        this.venue = venue;
+        this.date = date;
+        this.homeTeam = homeTeam;
+        this.visitorTeam = visitorTeam;
+        this.avalaibleTicketsBySection = avalaibleTicketsBySection;
+    }
+
+    public void addTicket(String sectionsName) {
+        changeNumberOfTicketsBy(sectionsName, 1);
+    }
+
+    public void removeTicket(String sectionsName) {
+        changeNumberOfTicketsBy(sectionsName, -1);
+    }
+
+    private void changeNumberOfTicketsBy(String sectionsName, int number) {
+        int actualTicketCount = avalaibleTicketsBySection.get(sectionsName);
+        avalaibleTicketsBySection.put(sectionsName, actualTicketCount + number);
+    }
+
+    public int getTotalNumberOfAvalaibleTickets() {
+        int numberOfAvalaibleTickets = 0;
+        for (Integer numberOfTickets : avalaibleTicketsBySection.values()) {
+            numberOfAvalaibleTickets += numberOfTickets;
+        }
+        return numberOfAvalaibleTickets;
+    }
 }
