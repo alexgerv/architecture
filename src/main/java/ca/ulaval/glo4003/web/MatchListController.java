@@ -2,6 +2,7 @@
 package ca.ulaval.glo4003.web;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,12 @@ public class MatchListController {
     	//TODO remove this, it is just for a fun test.
     	ArrayList<Match> matchList = new ArrayList<Match>();
     	MatchBuilder matchBuilder = new MatchBuilder();
-    	Match match = matchBuilder.setSport("Soccer").build();
-    	matchList.add(match);
+    	Date currentDate = new Date();
+    	Match match1 = matchBuilder.setSport("Soccer").setDate(currentDate).setHomeTeam("ULaval").setVenue("Stade Telus").setVisitorTeam("Sherbrook").createSection("A", 10).build();
+    	Match match2 = matchBuilder.setSport("Football").setDate(currentDate).setHomeTeam("ULaval").setVenue("Stade").setVisitorTeam("Sherbrook").createSection("A", 10).createSection("B", 20).build();
+
+    	matchList.add(match1);
+    	matchList.add(match2);
     	
         model.addAttribute("matches", matchList);
 

@@ -6,9 +6,9 @@
 </head>
 <body>
 <h1>MatchList</h1>
-   	
+
 <c:forEach var="match" items="${matches}">
-	<p>Match: ${match}</p>
+	<p>Match: ${match.sport}</p>
 </c:forEach>
 
 </body>

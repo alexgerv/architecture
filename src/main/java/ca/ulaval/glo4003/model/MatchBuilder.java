@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.model;
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class MatchBuilder {
 
@@ -11,7 +12,7 @@ public class MatchBuilder {
     private String venue;
     private String homeTeam;
     private String visitorTeam;
-    private HashMap<String, Integer> avalaibleTicketsBySection;
+    private Map<String, Integer> avalaibleTicketsBySection = new HashMap<String, Integer>();
 
     public Match build() {
         validateState();
@@ -25,14 +26,18 @@ public class MatchBuilder {
                     throw new MatchBuilderException(field.getName());
                 }
             } catch (IllegalArgumentException | IllegalAccessException e) {
-                e.printStackTrace(); // Decider de ce qu'on fait avec ça
+                e.printStackTrace(); // Decider de ce qu'on fait avec ï¿½a
             }
+        }
+        if(avalaibleTicketsBySection.isEmpty()) {
+        	throw new MatchBuilderException("avalaibleTicketsBySection");
         }
 
     }
 
-    public void createSection(String sectionsName, int numberOfTickets) {
+    public MatchBuilder createSection(String sectionsName, int numberOfTickets) {
         avalaibleTicketsBySection.put(sectionsName, numberOfTickets);
+        return this;
     }
 
     public MatchBuilder setSport(String sport) {

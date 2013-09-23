@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.model;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Match {
 
@@ -11,10 +12,10 @@ public class Match {
     private String homeTeam;
     private String visitorTeam;
 
-    private HashMap<String, Integer> avalaibleTicketsBySection;
+    private Map<String, Integer> avalaibleTicketsBySection;
 
     public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam,
-                 HashMap<String, Integer> avalaibleTicketsBySection) {
+                 Map<String, Integer> avalaibleTicketsBySection) {
         avalaibleTicketsBySection = new HashMap<String, Integer>();
 
         this.sport = sport;
@@ -44,5 +45,9 @@ public class Match {
             numberOfAvalaibleTickets += numberOfTickets;
         }
         return numberOfAvalaibleTickets;
+    }
+    
+    public String getSport() {
+    	return sport;
     }
 }
