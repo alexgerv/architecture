@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.model;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Match {
@@ -11,19 +10,19 @@ public class Match {
     private Date date;
     private String homeTeam;
     private String visitorTeam;
-
-    private Map<String, Integer> avalaibleTicketsBySection;
+    private int totalNumberOfAvailableTickets;
+    
+    private Map<String, Integer> availableTicketsBySection;
 
     public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam,
                  Map<String, Integer> avalaibleTicketsBySection) {
-        avalaibleTicketsBySection = new HashMap<String, Integer>();
-
         this.sport = sport;
         this.venue = venue;
         this.date = date;
         this.homeTeam = homeTeam;
         this.visitorTeam = visitorTeam;
-        this.avalaibleTicketsBySection = avalaibleTicketsBySection;
+        this.availableTicketsBySection = avalaibleTicketsBySection;
+        this.totalNumberOfAvailableTickets = calculateTotalNumberOfAvailableTickets();
     }
 
     public void addTicket(String sectionsName) {
@@ -35,19 +34,43 @@ public class Match {
     }
 
     private void changeNumberOfTicketsBy(String sectionsName, int number) {
-        int actualTicketCount = avalaibleTicketsBySection.get(sectionsName);
-        avalaibleTicketsBySection.put(sectionsName, actualTicketCount + number);
+        int actualTicketCount = availableTicketsBySection.get(sectionsName);
+        availableTicketsBySection.put(sectionsName, actualTicketCount + number);
     }
 
-    public int getTotalNumberOfAvalaibleTickets() {
-        int numberOfAvalaibleTickets = 0;
-        for (Integer numberOfTickets : avalaibleTicketsBySection.values()) {
-            numberOfAvalaibleTickets += numberOfTickets;
+    private int calculateTotalNumberOfAvailableTickets() {
+        int numberOfAvailableTickets = 0;
+        for (int numberOfTickets : availableTicketsBySection.values()) {
+            numberOfAvailableTickets += numberOfTickets;
         }
-        return numberOfAvalaibleTickets;
+        return numberOfAvailableTickets;
     }
     
     public String getSport() {
     	return sport;
+    }
+    
+    public String getVenue() {
+    	return venue;
+    }
+    
+    public String getHomeTeam() {
+    	return homeTeam;
+    }
+    
+    public String getVisitorTeam() {
+    	return visitorTeam;
+    }
+    
+    public Date getDate() {
+    	return date;
+    }
+    
+    public int getTotalNumberOfAvailableTickets() {
+    	return totalNumberOfAvailableTickets;
+    }
+    
+    public Map<String, Integer> getAvailableTicketsBySection() {
+    	return availableTicketsBySection;
     }
 }
