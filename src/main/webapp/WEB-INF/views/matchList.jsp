@@ -7,7 +7,7 @@
 <body>
 <h1>Match List</h1>
 <hr>
-<table class="table table-condensed table-bordered table-striped">
+<table class="table table-condensed table-bordered table-striped" id="matchList">
 <thead>
 	<tr>
 		<th></th>
