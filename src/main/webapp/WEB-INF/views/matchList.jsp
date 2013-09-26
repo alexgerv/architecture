@@ -21,7 +21,7 @@
 <tbody>
 <c:forEach var="match" items="${matches}">
 	<tr>
-		<td><a href="${match.matchID}">${match.venue}</a></td>
+		<td><a href="match/${match.matchID}">${match.venue}</a></td>
 		<td>${match.date}</td>
 		<td>${match.sport}</td>
 		<td>${match.homeTeam}</td>
