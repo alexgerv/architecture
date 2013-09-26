@@ -28,7 +28,7 @@ public class MatchListController {
     	MatchBuilder matchBuilder = new MatchBuilder();
     	Date currentDate = new Date();
     	Match match1 = matchBuilder.setSport("Soccer").setDate(currentDate).setHomeTeam("ULaval").setVenue("Stade Telus").setVisitorTeam("Sherbrooke").createSection("A", 10).build();
-    	Match match2 = matchBuilder.setSport("Football").setDate(currentDate).setHomeTeam("ULaval").setVenue("Stade").setVisitorTeam("Sherbrooke").build();
+    	Match match2 = matchBuilder.setSport("Football").setDate(currentDate).setHomeTeam("ULaval").setVenue("Stade").setVisitorTeam("Sherbrooke").createSection("A", 20).build();
 
     	repository.add(match1);
     	repository.add(match2);
