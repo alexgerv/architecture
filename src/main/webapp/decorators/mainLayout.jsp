@@ -9,6 +9,7 @@
   <title><decorator:title default="Tickets"/></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet"  type="text/css" />
+  <link href="<c:url value="/resources/css/font-awesome.min.css" />" rel="stylesheet"  type="text/css" />
   <decorator:head/>
 </head>
 <body>
@@ -24,12 +25,16 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/">Home</a></li>
-            <li><a href="matchList">Matches</a></li>
+            <li><a href="/matchList">Matches</a></li>
           </ul>
    	 	</div>
     </div>
 	<div class="container">
       <decorator:body/>
+      <footer>
+      	<hr> <p><small class="text-muted">&copy; By the B7 team.</small></p>
+      </footer>
     </div>
 </body>
+
 </html>  
