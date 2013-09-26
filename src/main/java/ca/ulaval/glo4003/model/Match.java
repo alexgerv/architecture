@@ -10,8 +10,7 @@ public class Match {
     private Date date;
     private String homeTeam;
     private String visitorTeam;
-    private int totalNumberOfAvailableTickets;
-
+    
     private Map<String, Integer> availableTicketsBySection;
 
     public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam,
@@ -22,7 +21,6 @@ public class Match {
         this.homeTeam = homeTeam;
         this.visitorTeam = visitorTeam;
         this.availableTicketsBySection = avalaibleTicketsBySection;
-        this.totalNumberOfAvailableTickets = calculateTotalNumberOfAvailableTickets();
     }
 
     public void addTicket(String sectionsName) {
@@ -37,6 +35,10 @@ public class Match {
         int actualTicketCount = availableTicketsBySection.get(sectionsName);
         availableTicketsBySection.put(sectionsName, actualTicketCount + number);
     }
+    
+    public int getTotatNumberOfAvailableTickets(){
+    	return calculateTotalNumberOfAvailableTickets();
+    }
 
     private int calculateTotalNumberOfAvailableTickets() {
         int numberOfAvailableTickets = 0;
@@ -45,32 +47,28 @@ public class Match {
         }
         return numberOfAvailableTickets;
     }
-
+    
     public String getSport() {
-        return sport;
+    	return sport;
     }
-
+    
     public String getVenue() {
-        return venue;
+    	return venue;
     }
-
+    
     public String getHomeTeam() {
-        return homeTeam;
+    	return homeTeam;
     }
-
+    
     public String getVisitorTeam() {
-        return visitorTeam;
+    	return visitorTeam;
     }
-
+    
     public Date getDate() {
-        return date;
+    	return date;
     }
-
-    public int getTotalNumberOfAvailableTickets() {
-        return totalNumberOfAvailableTickets;
-    }
-
+    
     public Map<String, Integer> getAvailableTicketsBySection() {
-        return availableTicketsBySection;
+    	return availableTicketsBySection;
     }
 }

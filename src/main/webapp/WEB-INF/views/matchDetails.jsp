@@ -6,21 +6,22 @@
 </head>
 <body>
 <h1>Match Details</h1>
-
-<table>
-
-<tr>
-	<td>Section</td><td>Number Of Available Tickets</td>
-</tr>
-
+<hr>
+<table class="table table-condensed table-bordered table-striped">
+<thead>
+	<tr>
+		<th>Section</th>
+		<th>Number Of Available Tickets</th>
+	</tr>
+</thead>
+<tbody>
 <c:forEach var="availableTicketsBySections" items="${availableTicketsBySection}">
-
-<tr>
-	<td>${availableTicketsBySections.key}</td><td>${availableTicketsBySections.value}</td>
-</tr>
-
+	<tr>
+		<td>${availableTicketsBySections.key}</td>
+		<td>${availableTicketsBySections.value}</td>
+	</tr>
 </c:forEach>
-
+</tbody>
 </table>
 
 </body>

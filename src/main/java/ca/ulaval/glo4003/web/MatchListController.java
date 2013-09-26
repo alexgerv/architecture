@@ -1,6 +1,8 @@
 
 package ca.ulaval.glo4003.web;
 
+import java.util.Date;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,13 +20,12 @@ public class MatchListController {
 	
     @RequestMapping(value = "/matchList", method = RequestMethod.GET)
     public String matchList(Model model) {
-    	
         model.addAttribute("matches", matchConverter.convert(repository.getAll()));
 
         return "matchList";
     }
 
-    @RequestMapping(value = "/{matchID}", method = RequestMethod.GET)
+    @RequestMapping(value = "/match/{matchID}", method = RequestMethod.GET)
     public String match(@PathVariable int matchID, Model model) {
 		MatchViewModel viewModel = matchConverter.convert(repository.getById(matchID));
 		model.addAttribute("availableTicketsBySection", viewModel.getAvailableTicketsBySection());
