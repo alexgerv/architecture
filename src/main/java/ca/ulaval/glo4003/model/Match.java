@@ -10,7 +10,6 @@ public class Match {
     private Date date;
     private String homeTeam;
     private String visitorTeam;
-    private int totalNumberOfAvailableTickets;
     
     private Map<String, Integer> availableTicketsBySection;
 
@@ -22,7 +21,6 @@ public class Match {
         this.homeTeam = homeTeam;
         this.visitorTeam = visitorTeam;
         this.availableTicketsBySection = avalaibleTicketsBySection;
-        this.totalNumberOfAvailableTickets = calculateTotalNumberOfAvailableTickets();
     }
 
     public void addTicket(String sectionsName) {
@@ -36,6 +34,10 @@ public class Match {
     private void changeNumberOfTicketsBy(String sectionsName, int number) {
         int actualTicketCount = availableTicketsBySection.get(sectionsName);
         availableTicketsBySection.put(sectionsName, actualTicketCount + number);
+    }
+    
+    public int getTotatNumberOfAvailableTickets(){
+    	return calculateTotalNumberOfAvailableTickets();
     }
 
     private int calculateTotalNumberOfAvailableTickets() {
@@ -64,10 +66,6 @@ public class Match {
     
     public Date getDate() {
     	return date;
-    }
-    
-    public int getTotalNumberOfAvailableTickets() {
-    	return totalNumberOfAvailableTickets;
     }
     
     public Map<String, Integer> getAvailableTicketsBySection() {
