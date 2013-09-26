@@ -14,6 +14,8 @@ public class MatchListTest {
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
+  private final String NUMBER_OF_AVALAIBLE_TICKETS_IN_FIRST_MATCH = "10";
+  private final String NUMBER_OF_AVALAIBLE_TICKETS_IN_SECOND_MATCH = "20";
 
   @Before
   public void setUp() throws Exception {
@@ -24,8 +26,8 @@ public class MatchListTest {
   @Test
   public void whenOpenningMatchListPageTheNumberOfAvalaibleTicketsIsDisplayedForEachMatch() throws Exception {
     driver.get("http://localhost:8080/matchList");
-    assertEquals("10", driver.findElement(By.xpath("//*[@id='matchList']//tr[1]//td[7]//strong")).getText());
-    assertEquals("20", driver.findElement(By.xpath("//*[@id='matchList']//tr[2]//td[7]//strong")).getText());
+    assertEquals(NUMBER_OF_AVALAIBLE_TICKETS_IN_FIRST_MATCH, driver.findElement(By.xpath("//*[@id='matchList']//tr[1]//td[7]//strong")).getText());
+    assertEquals(NUMBER_OF_AVALAIBLE_TICKETS_IN_SECOND_MATCH, driver.findElement(By.xpath("//*[@id='matchList']//tr[2]//td[7]//strong")).getText());
   }
 
   @After
