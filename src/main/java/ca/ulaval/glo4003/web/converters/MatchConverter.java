@@ -29,7 +29,7 @@ public class MatchConverter {
 		viewModel.homeTeam = entry.getHomeTeam();
 		viewModel.visitorTeam = entry.getVisitorTeam();
 		viewModel.availableTicketsBySection = entry.getAvailableTicketsBySection();
-		viewModel.totalNumberOfAvailableTickets = entry.getTotalNumberOfAvailableTickets();
+		viewModel.totalNumberOfAvailableTickets = entry.getTotatNumberOfAvailableTickets();
 		
 		return viewModel;
 	}
