@@ -9,12 +9,10 @@
   <title><decorator:title default="Tickets"/></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet"  type="text/css" />
-  <decorator:head/>   
+  <decorator:head/>
 </head>
 <body>
-	<div class="container">
-
-      <div class="navbar navbar-default">
+	<div class="navbar navbar-default navbar-static-top">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="icon-bar"></span>
@@ -28,8 +26,9 @@
             <li class="active"><a href="/">Home</a></li>
             <li><a href="matchList">Matches</a></li>
           </ul>
-        </div>
-      </div>
+   	 	</div>
+    </div>
+	<div class="container">
       <decorator:body/>
     </div>
 </body>
