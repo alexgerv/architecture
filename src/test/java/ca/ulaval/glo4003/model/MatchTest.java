@@ -6,7 +6,6 @@ import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 public class MatchTest {
 
@@ -25,11 +24,8 @@ public class MatchTest {
     private MatchBuilder matchBuilder = new MatchBuilder();
     private Match aMatch;
 
-    @Mock
-    private Ticket aTicket;
-
     @Before
-    public void setUp() {
+    public void setup() {
         aMatch = matchBuilder.setSport(A_SPORT)
                              .setDate(A_DATE)
                              .setHomeTeam(A_HOME_TEAM)

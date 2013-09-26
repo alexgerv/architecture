@@ -12,7 +12,7 @@ public class MatchBuilderTest {
     MatchBuilder aMatchBuilder;
 
     @Before
-    public void setUp() {
+    public void setup() {
         aMatchBuilder = new MatchBuilder();
     }
 
