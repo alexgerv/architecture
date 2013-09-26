@@ -18,6 +18,7 @@ public class MatchDetailTest {
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
+    private final String NUMBER_OF_TICKETS_AVAILABLE_IN_FIRST_SECTION = "10";
     
     @Before
     public void setUp() throws Exception {
@@ -28,7 +29,7 @@ public class MatchDetailTest {
     @Test
     public void whenSeeingDetailsOfAGivenMatchTheNumberOfTicketsAvailableIsDisplayedForEachSection() throws Exception {
         driver.get("http://localhost:8080/match/1");
-        assertEquals("10", driver.findElement(By.xpath("//*[@id='matchDetails']//tr[1]//td[2]")).getText());
+        assertEquals(NUMBER_OF_TICKETS_AVAILABLE_IN_FIRST_SECTION, driver.findElement(By.xpath("//*[@id='matchDetails']//tr[1]//td[2]")).getText());
     }
 
     @After
