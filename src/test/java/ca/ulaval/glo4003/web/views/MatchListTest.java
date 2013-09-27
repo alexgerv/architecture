@@ -33,7 +33,11 @@ public class MatchListTest {
     public void whenOpenningMatchListPageTheNumberOfAvalaibleTicketsIsDisplayedForEachMatch() throws Exception {
         driver.findElement(By.linkText(MATCH_LIST_HOME_LINK_TEXT)).click();
         int totalNumberOfTickets = Integer.parseInt(driver.findElement(By.xpath("//*[@id='matchList']//tr//td[7]//strong")).getText());
+        waitForPage();
+        
         driver.findElement(By.xpath("//*[@id='matchList']//tr//td[7]//a")).click();
+        waitForPage();
+        
         List<WebElement> list = driver.findElements(By.className("ticketsBySection"));
         int totalAvailableTickets = 0;
         for (WebElement element : list) {
@@ -49,6 +53,12 @@ public class MatchListTest {
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
+        }
+    }
+    
+    private void waitForPage() throws InterruptedException{
+        synchronized (driver) {
+            driver.wait(1000);
         }
     }
 }

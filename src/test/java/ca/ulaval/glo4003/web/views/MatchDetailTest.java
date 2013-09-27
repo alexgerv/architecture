@@ -28,7 +28,10 @@ public class MatchDetailTest {
     @Test
     public void whenSeeingDetailsOfAGivenMatchTheNumberOfTicketsAvailableIsDisplayedForEachSection() throws Exception {
         driver.findElement(By.linkText(MATCH_LIST_HOME_LINK_TEXT)).click();
+        waitForPage();
         driver.findElement(By.xpath("//table[@id='matchList']/tbody/tr/td[7]/a")).click();
+        waitForPage();
+        
         assertEquals(MATCH_DETAILS_PAGE_TITLE, driver.getTitle());
     }
 
@@ -38,6 +41,12 @@ public class MatchDetailTest {
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
+        }
+    }
+    
+    private void waitForPage() throws InterruptedException{
+        synchronized (driver) {
+            driver.wait(1000);
         }
     }
 }
