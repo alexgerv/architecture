@@ -1,35 +1,33 @@
 package ca.ulaval.glo4003.web.views;
 
-import java.util.regex.Pattern;
-import java.util.concurrent.TimeUnit;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import org.junit.*;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-
-import org.openqa.selenium.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class MatchDetailTest {
 
+    private static final String MATCH_DETAILS_PAGE_TITLE = "Match Details";
+    private static final String BASE_URL = "http://localhost:8080/matchList";
+
     private WebDriver driver;
-    private String baseUrl;
-    private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
-    private final String NUMBER_OF_TICKETS_AVAILABLE_IN_FIRST_SECTION = "10";
-    
+
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
-        baseUrl = "http://localhost:8080/";
     }
 
     @Test
     public void whenSeeingDetailsOfAGivenMatchTheNumberOfTicketsAvailableIsDisplayedForEachSection() throws Exception {
-        driver.get("http://localhost:8080/match/1");
-        assertEquals(NUMBER_OF_TICKETS_AVAILABLE_IN_FIRST_SECTION, driver.findElement(By.xpath("//*[@id='matchDetails']//tr[1]//td[2]")).getText());
+        driver.get(BASE_URL);
+        driver.findElement(By.xpath("//table[@id='matchList']/tbody/tr/td[7]/a")).click();
+        assertEquals(MATCH_DETAILS_PAGE_TITLE, driver.getTitle());
     }
 
     @After
@@ -38,39 +36,6 @@ public class MatchDetailTest {
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
-        }
-    }
-
-    private boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    private boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
-
-    private String closeAlertAndGetItsText() {
-        try {
-            Alert alert = driver.switchTo().alert();
-            String alertText = alert.getText();
-            if (acceptNextAlert) {
-                alert.accept();
-            } else {
-                alert.dismiss();
-            }
-            return alertText;
-        } finally {
-            acceptNextAlert = true;
         }
     }
 }
