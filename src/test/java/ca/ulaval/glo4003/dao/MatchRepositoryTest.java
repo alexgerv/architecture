@@ -3,10 +3,11 @@ package ca.ulaval.glo4003.dao;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Before;
@@ -21,6 +22,8 @@ public class MatchRepositoryTest {
 
     private static final String[] INVALID_FILES_NAME_IN_A_DIRECTORY = { "InvalidFileA.json", "InvalidFileB.json" };
     private static final String[] VALID_FILES_NAME_IN_A_DIRECTORY = { "ValidFileA.json", "ValidFileB.json" };
+    private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE =
+                                                                   "whenRootDirectoryIsNotValidNoEntriesAreAddedToTheMatchRepository: FileNotFoundException has been thrown.";
 
     private MatchRepository aMatchRepository;
 
@@ -40,9 +43,9 @@ public class MatchRepositoryTest {
     @Test
     public void whenGettingAllTheMatchEntriesNoEntryIsAddedForAnInvalidFileName() throws FileNotFoundException {
         doReturn(INVALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
-        doThrow(new FileNotFoundException("whenRootDirectoryIsNotValidNoEntriesAreAddedToTheMatchRepository: FileNotFoundException has been thrown.")).when(matchFactory)
-                                                                                                                                                      .createMatch(anyString());
-        Map<Integer, Match> entries = aMatchRepository.getAll();
+        doThrow(new FileNotFoundException(FILE_NOT_FOUND_EXCEPTION_MESSAGE)).when(matchFactory)
+                                                                            .createMatch(anyString());
+        Map<Integer, Match> entries = aMatchRepository.getAllLoadedEntries();
 
         assertTrue(entries.isEmpty());
     }
@@ -51,21 +54,23 @@ public class MatchRepositoryTest {
     public void whenGettingAllTheMatchEntriesAllTheMatchEntriesAreReturned() throws FileNotFoundException {
         doReturn(VALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
         doReturn(match).when(matchFactory).createMatch(anyString());
-        Map<Integer, Match> entries = aMatchRepository.getAll();
+        aMatchRepository.loadAllMatches();
+        Map<Integer, Match> entries = aMatchRepository.getAllLoadedEntries();
 
         assertFalse(entries.isEmpty());
     }
-    
+
     @Test
     public void whenTryingToGetAMatchByAValidIdAMatchIsReturned() throws FileNotFoundException {
         doReturn(VALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
         doReturn(match).when(matchFactory).createMatch(anyString());
-        aMatchRepository.getAll();
-        
+        aMatchRepository.loadAllMatches();
+        aMatchRepository.getAllLoadedEntries();
+
         Match returnedMatch = aMatchRepository.getById(0);
         assertEquals(match, returnedMatch);
     }
-    
+
     @Test(expected = RepositoryException.class)
     public void whenTryingToGetAMatchByAnInvalidIdAnExceptionIsThrown() throws FileNotFoundException {
         aMatchRepository.getById(0);
