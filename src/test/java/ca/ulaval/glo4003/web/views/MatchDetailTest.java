@@ -13,7 +13,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class MatchDetailTest {
 
     private static final String MATCH_DETAILS_PAGE_TITLE = "Match Details";
-    private static final String BASE_URL = "http://localhost:8080/matchList";
+    private static final String MATCH_LIST_HOME_LINK_TEXT = "View the match list";
+    private static final String BASE_URL = "http://localhost:8080/";
 
     private WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();
@@ -21,11 +22,12 @@ public class MatchDetailTest {
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
+        driver.get(BASE_URL);
     }
 
     @Test
     public void whenSeeingDetailsOfAGivenMatchTheNumberOfTicketsAvailableIsDisplayedForEachSection() throws Exception {
-        driver.get(BASE_URL);
+        driver.findElement(By.linkText(MATCH_LIST_HOME_LINK_TEXT)).click();
         driver.findElement(By.xpath("//table[@id='matchList']/tbody/tr/td[7]/a")).click();
         assertEquals(MATCH_DETAILS_PAGE_TITLE, driver.getTitle());
     }

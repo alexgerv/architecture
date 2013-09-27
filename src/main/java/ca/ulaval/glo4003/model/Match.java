@@ -22,19 +22,6 @@ public class Match {
         this.visitorTeam = visitorTeam;
         this.availableTicketsBySection = avalaibleTicketsBySection;
     }
-
-    public void addTicket(String sectionsName) {
-        changeNumberOfTicketsBy(sectionsName, 1);
-    }
-
-    public void removeTicket(String sectionsName) {
-        changeNumberOfTicketsBy(sectionsName, -1);
-    }
-
-    private void changeNumberOfTicketsBy(String sectionsName, int number) {
-        int actualTicketCount = availableTicketsBySection.get(sectionsName);
-        availableTicketsBySection.put(sectionsName, actualTicketCount + number);
-    }
     
     public int getTotatNumberOfAvailableTickets(){
     	return calculateTotalNumberOfAvailableTickets();

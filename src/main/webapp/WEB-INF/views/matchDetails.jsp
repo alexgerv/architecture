@@ -57,7 +57,7 @@
 <c:forEach var="availableTicketsBySection" items="${match.availableTicketsBySection}">
 	<tr>
 		<td>${availableTicketsBySection.key}</td>
-		<td>${availableTicketsBySection.value}</td>
+		<td class="ticketsBySection">${availableTicketsBySection.value}</td>
 	</tr>
 </c:forEach>
 </tbody>

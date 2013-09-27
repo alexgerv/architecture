@@ -14,7 +14,7 @@ public class HomeTest {
 
     private static final String BASE_URL = "http://localhost:8080/";
     private static final String MATCH_LIST_MENU_LINK_TEXT = "Matches";
-    private static final String MATCH_LIST_HOME_LINK_TEXT = "View the match list »";
+    private static final String MATCH_LIST_HOME_LINK_TEXT = "View the match list";
     private static final String MATCH_LIST_PAGE_TITLE = "Match List";
 
     private WebDriver driver;

@@ -3,17 +3,21 @@ package ca.ulaval.glo4003.web.views;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class MatchListTest {
 
     private static final String NUMBER_OF_AVALAIBLE_TICKETS_IN_FIRST_MATCH = "10";
     private static final String NUMBER_OF_AVALAIBLE_TICKETS_IN_SECOND_MATCH = "20";
+    private static final String MATCH_LIST_HOME_LINK_TEXT = "View the match list";
     private static final String BASE_URL = "http://localhost:8080/";
 
     private WebDriver driver;
@@ -27,10 +31,16 @@ public class MatchListTest {
 
     @Test
     public void whenOpenningMatchListPageTheNumberOfAvalaibleTicketsIsDisplayedForEachMatch() throws Exception {
-        assertEquals(NUMBER_OF_AVALAIBLE_TICKETS_IN_FIRST_MATCH,
-                     driver.findElement(By.xpath("//*[@id='matchList']//tr[1]//td[7]//strong")).getText());
-        assertEquals(NUMBER_OF_AVALAIBLE_TICKETS_IN_SECOND_MATCH,
-                     driver.findElement(By.xpath("//*[@id='matchList']//tr[2]//td[7]//strong")).getText());
+        driver.findElement(By.linkText(MATCH_LIST_HOME_LINK_TEXT)).click();
+        int totalNumberOfTickets = Integer.parseInt(driver.findElement(By.xpath("//*[@id='matchList']//tr//td[7]//strong")).getText());
+        driver.findElement(By.xpath("//*[@id='matchList']//tr//td[7]//a")).click();
+        List<WebElement> list = driver.findElements(By.className("ticketsBySection"));
+        int totalAvailableTickets = 0;
+        for (WebElement element : list) {
+            totalAvailableTickets += Integer.parseInt(element.getText());
+        }
+        
+        assertEquals(totalAvailableTickets, totalNumberOfTickets);
     }
 
     @After
