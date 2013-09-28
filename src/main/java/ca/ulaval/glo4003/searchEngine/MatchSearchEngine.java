@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.repository;
+package ca.ulaval.glo4003.searchEngine;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -45,26 +45,27 @@ public class MatchSearchEngine implements SearchEngine<Match> {
         Set<Integer> returnedIndexes = indexes;
         Map<MatchFilter, List<Object>> criterias = query.getQuery();
         for (MatchFilter filter : criterias.keySet()) {
-            Set<Integer> criteriaMatch = getOrIndexes(filter, criterias.get(filter));
+            Set<Integer> criteriaMatch = getIndexesFromFilterValues(filter, criterias.get(filter));
+            System.out.println(filter.toString());
             returnedIndexes = Utils.getIntersection(returnedIndexes, criteriaMatch);
         }
         return returnedIndexes;
     }
 
-    private Set<Integer> getIndexes(MatchFilter criteria, Object value) {
+    private Set<Integer> getIndexesFromFilterValues(MatchFilter criteria, List<Object> list) {
+        Set<Integer> criteriaMatch = new HashSet<Integer>();
+        for (Object val : list) {
+            criteriaMatch.addAll(getIndexesFromFilterValue(criteria, val));
+        }
+        return criteriaMatch;
+    }
+
+    private Set<Integer> getIndexesFromFilterValue(MatchFilter criteria, Object value) {
         if (criteria == MatchFilter.SPORT) {
             return sportIndex.get((String) value);
         } else if (criteria == MatchFilter.VENUE) {
             return venueIndex.get((String) value);
         }
-        throw new RuntimeException(); // TODO create exception
-    }
-
-    private Set<Integer> getOrIndexes(MatchFilter criteria, List<Object> list) {
-        Set<Integer> criteriaMatch = new HashSet<Integer>();
-        for (Object val : list) {
-            criteriaMatch.addAll(getIndexes(criteria, val));
-        }
-        return criteriaMatch;
+        throw new SearchEngineException("Invalid MatchFilter:" + criteria.toString());
     }
 }

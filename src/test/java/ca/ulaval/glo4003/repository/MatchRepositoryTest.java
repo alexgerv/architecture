@@ -18,8 +18,6 @@ import org.mockito.MockitoAnnotations;
 import ca.ulaval.glo4003.dao.FileAccessor;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.model.MatchFactoryFromJSON;
-import ca.ulaval.glo4003.repository.MatchRepository;
-import ca.ulaval.glo4003.repository.RepositoryException;
 
 public class MatchRepositoryTest {
 
@@ -44,6 +42,12 @@ public class MatchRepositoryTest {
     }
 
     @Test
+    public void newRepositoryContainsNoEntries() throws FileNotFoundException {
+        boolean repositoryIsEmpty = aMatchRepository.isEmpty();
+        assertTrue(repositoryIsEmpty);
+    }
+
+    @Test
     public void whenGettingAllTheMatchEntriesNoEntryIsAddedForAnInvalidFileName() throws FileNotFoundException {
         doReturn(INVALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
         doThrow(new FileNotFoundException(FILE_NOT_FOUND_EXCEPTION_MESSAGE)).when(matchFactory)
@@ -57,7 +61,7 @@ public class MatchRepositoryTest {
     public void whenGettingAllTheMatchEntriesAllTheMatchEntriesAreReturned() throws FileNotFoundException {
         doReturn(VALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
         doReturn(match).when(matchFactory).createMatch(anyString());
-        aMatchRepository.loadAllMatches();
+        aMatchRepository.loadAll();
         List<Match> entries = aMatchRepository.getAllLoadedEntries();
 
         assertFalse(entries.isEmpty());
@@ -67,7 +71,7 @@ public class MatchRepositoryTest {
     public void whenTryingToGetAMatchByAValidIdAMatchIsReturned() throws FileNotFoundException {
         doReturn(VALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
         doReturn(match).when(matchFactory).createMatch(anyString());
-        aMatchRepository.loadAllMatches();
+        aMatchRepository.loadAll();
         aMatchRepository.getAllLoadedEntries();
 
         Match returnedMatch = aMatchRepository.getById(0);

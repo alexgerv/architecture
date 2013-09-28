@@ -1,11 +1,11 @@
-package ca.ulaval.glo4003.repository;
+package ca.ulaval.glo4003.searchEngine;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class MatchQuery {
+public class MatchQuery implements Query<MatchFilter> {
 
     private Map<MatchFilter, List<Object>> criterias = new HashMap<MatchFilter, List<Object>>();
 

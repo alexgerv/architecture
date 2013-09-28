@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import ca.ulaval.glo4003.dao.FileAccessor;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.model.MatchFactoryFromJSON;
+import ca.ulaval.glo4003.searchEngine.MatchQuery;
+import ca.ulaval.glo4003.searchEngine.MatchSearchEngine;
 
 @Repository
 @Singleton
@@ -31,7 +33,7 @@ public class MatchRepository {
         return entries;
     }
 
-    public void loadAllMatches() {
+    public void loadAll() {
         for (String pathToMatch : fileAccessor.getFilesNameInDirectory(ROOT_REPOSITORY)) {
             Match newMatch;
             try {
@@ -44,7 +46,7 @@ public class MatchRepository {
         }
     }
 
-    public List<Match> getMatches(MatchQuery query) {
+    public List<Match> getFromQuery(MatchQuery query) {
         List<Match> matches = new ArrayList<Match>();
         Set<Integer> matchIndexes = searchEngine.getIndexesFromQuery(query);
         for (Integer i : matchIndexes) {
