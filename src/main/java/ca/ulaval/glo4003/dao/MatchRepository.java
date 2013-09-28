@@ -1,8 +1,10 @@
 package ca.ulaval.glo4003.dao;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,16 +21,15 @@ public class MatchRepository {
 
     private static final String ROOT_REPOSITORY = "./matches/";
 
-    private int currentID = 0;
     private MatchFactoryFromJSON matchFactory = new MatchFactoryFromJSON();
-    private Map<Integer, Match> entries = new HashMap<Integer, Match>();
+    private List<Match> entries = new ArrayList<Match>();
     private FileAccessor fileAccessor = new FileAccessor();
 
     private Map<String, Set<Integer>> sportIndex = new HashMap<String, Set<Integer>>();
 
     public MatchRepository() {}
 
-    public Map<Integer, Match> getAllLoadedEntries() {
+    public List<Match> getAllLoadedEntries() {
         return entries;
     }
 
@@ -37,36 +38,33 @@ public class MatchRepository {
             Match newMatch;
             try {
                 newMatch = matchFactory.createMatch(ROOT_REPOSITORY + pathToMatch);
-                entries.put(currentID, newMatch);
                 String sport = newMatch.getSport();
                 if (!sportIndex.containsKey(sport)) {
                     sportIndex.put(sport, new HashSet<Integer>());
                 }
-                sportIndex.get(sport).add(currentID);
-                currentID++;
+                sportIndex.get(sport).add(entries.size());
+                entries.add(newMatch);
             } catch (FileNotFoundException e) {
                 System.err.println(e.getMessage());
             }
         }
     }
 
-    public Map<Integer, Match> getAllMatchBySport(String sport) {
-        Map<Integer, Match> mapMatches = new HashMap<Integer, Match>();
+    public List<Match> getAllMatchBySport(String sport) {
+        if (sportIndex.isEmpty()) {
+            throw new RepositoryException("The sport index is empty.");
+        }
 
+        List<Match> sportMatches = new ArrayList<Match>();
         Set<Integer> index = sportIndex.get(sport);
         for (Integer i : index) {
-            mapMatches.put(i, entries.get(i));
+            sportMatches.add(entries.get(i));
         }
-
-        if (sportIndex.isEmpty()) {
-            throw new RuntimeException("sportIndex is empty.");
-        }
-
-        return mapMatches;
+        return sportMatches;
     }
 
     public Match getById(int id) {
-        if (entries.containsKey(id)) {
+        if (entries.size() > id) {
             return entries.get(id);
         }
         throw new RepositoryException("The repository does not contained the specified Id:" + id);

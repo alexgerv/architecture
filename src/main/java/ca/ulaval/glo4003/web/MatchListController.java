@@ -26,7 +26,7 @@ public class MatchListController {
         if (repository.isEmpty()) {
             repository.loadAllMatches();
         }
-        model.addAttribute("matches", matchConverter.convert(repository.getAllLoadedEntries()));
+        model.addAttribute("matches", matchConverter.convert(repository.getAllMatchBySport("Soccer")));
 
         return "matchList";
     }

@@ -8,7 +8,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 
 import java.io.FileNotFoundException;
-import java.util.Map;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +45,7 @@ public class MatchRepositoryTest {
         doReturn(INVALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
         doThrow(new FileNotFoundException(FILE_NOT_FOUND_EXCEPTION_MESSAGE)).when(matchFactory)
                                                                             .createMatch(anyString());
-        Map<Integer, Match> entries = aMatchRepository.getAllLoadedEntries();
+        List<Match> entries = aMatchRepository.getAllLoadedEntries();
 
         assertTrue(entries.isEmpty());
     }
@@ -55,7 +55,7 @@ public class MatchRepositoryTest {
         doReturn(VALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
         doReturn(match).when(matchFactory).createMatch(anyString());
         aMatchRepository.loadAllMatches();
-        Map<Integer, Match> entries = aMatchRepository.getAllLoadedEntries();
+        List<Match> entries = aMatchRepository.getAllLoadedEntries();
 
         assertFalse(entries.isEmpty());
     }
