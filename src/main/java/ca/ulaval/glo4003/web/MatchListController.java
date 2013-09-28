@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.web;
 
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,16 +15,17 @@ import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 @Controller
 public class MatchListController {
 
+    @Inject
     private MatchRepository repository;
+
     private MatchConverter matchConverter = new MatchConverter();
 
     @RequestMapping(value = "/matchList", method = RequestMethod.GET)
     public String matchList(Model model) {
-        if (repository == null) {
-            repository = new MatchRepository();
+
+        if (repository.isEmpty()) {
             repository.loadAllMatches();
         }
-
         model.addAttribute("matches", matchConverter.convert(repository.getAllLoadedEntries()));
 
         return "matchList";
