@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ca.ulaval.glo4003.repository.MatchFilter;
 import ca.ulaval.glo4003.repository.MatchQuery;
 import ca.ulaval.glo4003.repository.MatchRepository;
 import ca.ulaval.glo4003.web.converters.MatchConverter;
@@ -28,8 +29,9 @@ public class MatchListController {
             repository.loadAllMatches();
         }
         MatchQuery query = new MatchQuery();
-        query.addFilter("Sport", "Football");
-        query.addFilter("Venue", "Sherbrooke");
+        query.addFilter(MatchFilter.SPORT, "Soccer");
+        query.addFilter(MatchFilter.SPORT, "Football");
+        query.addFilter(MatchFilter.VENUE, "Montreal");
         model.addAttribute("matches", matchConverter.convert(repository.getMatches(query)));
         // model.addAttribute("matches",
         // matchConverter.convert(repository.getAllLoadedEntries()));

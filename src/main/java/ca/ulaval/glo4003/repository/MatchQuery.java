@@ -1,17 +1,22 @@
 package ca.ulaval.glo4003.repository;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class MatchQuery {
 
-    private Map<String, Object> criterias = new HashMap<String, Object>();
+    private Map<MatchFilter, List<Object>> criterias = new HashMap<MatchFilter, List<Object>>();
 
-    public void addFilter(String filterName, Object filterValue) {
-        criterias.put(filterName, filterValue);
+    public void addFilter(MatchFilter matchFilter, Object filterValue) {
+        if (!criterias.containsKey(matchFilter)) {
+            criterias.put(matchFilter, new LinkedList<Object>());
+        }
+        criterias.get(matchFilter).add(filterValue);
     }
 
-    public Map<String, Object> getQuery() {
+    public Map<MatchFilter, List<Object>> getQuery() {
         return criterias;
     }
 }

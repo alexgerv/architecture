@@ -2,13 +2,14 @@ package ca.ulaval.glo4003.repository;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.utils.Utils;
 
-public class MatchSearchEngine {
+public class MatchSearchEngine implements SearchEngine<Match> {
 
     private Set<Integer> indexes = new HashSet<Integer>();
     private Map<String, Set<Integer>> sportIndex = new HashMap<String, Set<Integer>>();
@@ -42,19 +43,28 @@ public class MatchSearchEngine {
 
     public Set<Integer> getIndexesFromQuery(MatchQuery query) {
         Set<Integer> returnedIndexes = indexes;
-        Map<String, Object> criterias = query.getQuery();
-        for (String s : criterias.keySet()) {
-            returnedIndexes = Utils.getIntersection(returnedIndexes, getIndexes(s, criterias.get(s)));
+        Map<MatchFilter, List<Object>> criterias = query.getQuery();
+        for (MatchFilter filter : criterias.keySet()) {
+            Set<Integer> criteriaMatch = getOrIndexes(filter, criterias.get(filter));
+            returnedIndexes = Utils.getIntersection(returnedIndexes, criteriaMatch);
         }
         return returnedIndexes;
     }
 
-    private Set<Integer> getIndexes(String criteria, Object value) {
-        if (criteria.contentEquals("Sport")) {
+    private Set<Integer> getIndexes(MatchFilter criteria, Object value) {
+        if (criteria == MatchFilter.SPORT) {
             return sportIndex.get((String) value);
-        } else if (criteria.contentEquals("Venue")) {
+        } else if (criteria == MatchFilter.VENUE) {
             return venueIndex.get((String) value);
         }
         throw new RuntimeException(); // TODO create exception
+    }
+
+    private Set<Integer> getOrIndexes(MatchFilter criteria, List<Object> list) {
+        Set<Integer> criteriaMatch = new HashSet<Integer>();
+        for (Object val : list) {
+            criteriaMatch.addAll(getIndexes(criteria, val));
+        }
+        return criteriaMatch;
     }
 }
