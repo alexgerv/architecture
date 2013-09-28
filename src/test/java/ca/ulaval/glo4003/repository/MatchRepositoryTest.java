@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.dao;
+package ca.ulaval.glo4003.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,8 +15,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import ca.ulaval.glo4003.dao.FileAccessor;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.model.MatchFactoryFromJSON;
+import ca.ulaval.glo4003.repository.MatchRepository;
+import ca.ulaval.glo4003.repository.RepositoryException;
 
 public class MatchRepositoryTest {
 

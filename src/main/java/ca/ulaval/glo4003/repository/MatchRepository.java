@@ -1,17 +1,15 @@
-package ca.ulaval.glo4003.dao;
+package ca.ulaval.glo4003.repository;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Singleton;
 
 import org.springframework.stereotype.Repository;
 
+import ca.ulaval.glo4003.dao.FileAccessor;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.model.MatchFactoryFromJSON;
 
@@ -25,7 +23,7 @@ public class MatchRepository {
     private List<Match> entries = new ArrayList<Match>();
     private FileAccessor fileAccessor = new FileAccessor();
 
-    private Map<String, Set<Integer>> sportIndex = new HashMap<String, Set<Integer>>();
+    private MatchSearchEngine searchEngine = new MatchSearchEngine();
 
     public MatchRepository() {}
 
@@ -38,11 +36,7 @@ public class MatchRepository {
             Match newMatch;
             try {
                 newMatch = matchFactory.createMatch(ROOT_REPOSITORY + pathToMatch);
-                String sport = newMatch.getSport();
-                if (!sportIndex.containsKey(sport)) {
-                    sportIndex.put(sport, new HashSet<Integer>());
-                }
-                sportIndex.get(sport).add(entries.size());
+                searchEngine.add(newMatch, entries.size());
                 entries.add(newMatch);
             } catch (FileNotFoundException e) {
                 System.err.println(e.getMessage());
@@ -50,17 +44,13 @@ public class MatchRepository {
         }
     }
 
-    public List<Match> getAllMatchBySport(String sport) {
-        if (sportIndex.isEmpty()) {
-            throw new RepositoryException("The sport index is empty.");
+    public List<Match> getMatches(MatchQuery query) {
+        List<Match> matches = new ArrayList<Match>();
+        Set<Integer> matchIndexes = searchEngine.getIndexesFromQuery(query);
+        for (Integer i : matchIndexes) {
+            matches.add(entries.get(i));
         }
-
-        List<Match> sportMatches = new ArrayList<Match>();
-        Set<Integer> index = sportIndex.get(sport);
-        for (Integer i : index) {
-            sportMatches.add(entries.get(i));
-        }
-        return sportMatches;
+        return matches;
     }
 
     public Match getById(int id) {

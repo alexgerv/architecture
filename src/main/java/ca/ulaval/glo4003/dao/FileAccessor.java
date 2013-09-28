@@ -2,6 +2,8 @@ package ca.ulaval.glo4003.dao;
 
 import java.io.File;
 
+import ca.ulaval.glo4003.repository.RepositoryException;
+
 
 public class FileAccessor {
     
