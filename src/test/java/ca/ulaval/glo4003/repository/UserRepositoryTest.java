@@ -16,14 +16,14 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4003.dao.FileAccessor;
-import ca.ulaval.glo4003.dao.JSONUserConverter;
 import ca.ulaval.glo4003.dao.RepositoryException;
+import ca.ulaval.glo4003.fileAccess.FileAccessor;
+import ca.ulaval.glo4003.fileAccess.JSONUserConverter;
 import ca.ulaval.glo4003.model.User;
 
 public class UserRepositoryTest {
 
-    private static final String A_USERNAME = "AUsername";
+    private static final String A_USERNAME = "a_username";
     private static final String[] VALID_FILES_NAME_IN_A_DIRECTORY = {"ValidFile.json"};
 
     private UserRepository aUserRepository;

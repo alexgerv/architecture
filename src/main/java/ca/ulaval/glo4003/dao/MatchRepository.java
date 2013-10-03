@@ -8,6 +8,8 @@ import javax.inject.Singleton;
 
 import org.springframework.stereotype.Repository;
 
+import ca.ulaval.glo4003.fileAccess.FileAccessor;
+import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
 import ca.ulaval.glo4003.model.Match;
 
 @Repository

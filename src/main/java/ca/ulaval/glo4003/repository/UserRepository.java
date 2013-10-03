@@ -9,16 +9,16 @@ import javax.inject.Singleton;
 
 import org.springframework.stereotype.Repository;
 
-import ca.ulaval.glo4003.dao.FileAccessor;
-import ca.ulaval.glo4003.dao.JSONUserConverter;
 import ca.ulaval.glo4003.dao.RepositoryException;
-import ca.ulaval.glo4003.dao.UserConverter;
+import ca.ulaval.glo4003.fileAccess.FileAccessor;
+import ca.ulaval.glo4003.fileAccess.JSONUserConverter;
+import ca.ulaval.glo4003.fileAccess.UserConverter;
 import ca.ulaval.glo4003.model.User;
 
 @Repository
 @Singleton
 public class UserRepository {
-    private static final String ROOT_REPOSITORY = "./Users/";
+    private static final String ROOT_REPOSITORY = "./users/";
     private List<User> users = new ArrayList<User>();
     private FileAccessor fileAccessor = new FileAccessor();
     private UserConverter userConverter = new JSONUserConverter();
@@ -54,7 +54,8 @@ public class UserRepository {
         throw new RepositoryException("User \"" + username + "\" is not found");
     }
 
-    public void addNewUser(String username) {
+    public void addNewUser(String username) throws ExistingUsernameException {
+        username = username.toLowerCase();
         if(!usernameIsAvailable(username)) {
             throw new ExistingUsernameException("Username \"" + username + "\" is already taken");
         }
@@ -74,7 +75,7 @@ public class UserRepository {
 
     private void saveUser(User user) {
         try {
-            userConverter.save(user, ROOT_REPOSITORY + "/" + user.getUsername());
+            userConverter.save(user, ROOT_REPOSITORY + "/" + user.getUsername() + ".json");
         } catch (IOException e) {
             //FIXME Should try saving again later.
             e.printStackTrace();

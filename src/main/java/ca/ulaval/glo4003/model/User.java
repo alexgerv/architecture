@@ -10,7 +10,7 @@ public class User {
     }
 
     public boolean hasUsername(String username) {
-        return username == this.username;
+        return username.equals(this.username);
     }
 
     public String getUsername() {

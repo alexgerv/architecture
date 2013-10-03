@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ca.ulaval.glo4003.dao.MatchRepository;
-import ca.ulaval.glo4003.web.converters.MatchConverter;
+import ca.ulaval.glo4003.web.converters.MatchViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 
 @Controller
 public class MatchListController {
 
     private MatchRepository repository;
-    private MatchConverter matchConverter = new MatchConverter();
+    private MatchViewConverter matchConverter = new MatchViewConverter();
 
     @RequestMapping(value = "/matchList", method = RequestMethod.GET)
     public String matchList(Model model) {

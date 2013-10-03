@@ -15,6 +15,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import ca.ulaval.glo4003.fileAccess.FileAccessor;
+import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
 import ca.ulaval.glo4003.model.Match;
 
 public class MatchRepositoryTest {

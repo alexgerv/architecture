@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 
-public class MatchConverter {
+public class MatchViewConverter {
 	
 	public Collection<MatchViewModel> convert(Map<Integer, Match> entries) {
 		Collection<MatchViewModel> viewModels = new LinkedList<MatchViewModel>();
