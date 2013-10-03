@@ -3,8 +3,10 @@ package ca.ulaval.glo4003.repository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,9 +17,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.dao.FileAccessor;
+import ca.ulaval.glo4003.dao.JSONUserConverter;
 import ca.ulaval.glo4003.dao.RepositoryException;
 import ca.ulaval.glo4003.model.User;
-import ca.ulaval.glo4003.model.UserJSONConverter;
 
 public class UserRepositoryTest {
 
@@ -27,7 +29,7 @@ public class UserRepositoryTest {
     private UserRepository aUserRepository;
     
     @Mock
-    private UserJSONConverter userJSONConverter;
+    private JSONUserConverter JSONUserConverter;
     @Mock
     private FileAccessor fileAccessor;
     @Mock
@@ -36,7 +38,7 @@ public class UserRepositoryTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        aUserRepository = new UserRepository(fileAccessor, userJSONConverter);
+        aUserRepository = new UserRepository(fileAccessor, JSONUserConverter);
     }
     
     @Test
@@ -48,7 +50,7 @@ public class UserRepositoryTest {
     @Test
     public void whenLoadingAllUsersRepositoryContainsAllUsers() throws FileNotFoundException {
         doReturn(VALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
-        doReturn(user).when(userJSONConverter).load(anyString());
+        doReturn(user).when(JSONUserConverter).load(anyString());
         aUserRepository.loadAll();
         
         boolean repositoryIsEmpty = aUserRepository.isEmpty();
@@ -58,7 +60,7 @@ public class UserRepositoryTest {
     @Test
     public void canRetrieveUserByItsUsername() throws FileNotFoundException {
         doReturn(VALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
-        doReturn(user).when(userJSONConverter).load(anyString());
+        doReturn(user).when(JSONUserConverter).load(anyString());
         doReturn(true).when(user).hasUsername(A_USERNAME);
         aUserRepository.loadAll();
         
@@ -84,7 +86,7 @@ public class UserRepositoryTest {
     @Test
     public void userIsSavedAfterAdding() throws IOException {
         aUserRepository.addNewUser(A_USERNAME);
-        verify(userJSONConverter).save((User) anyObject(), anyString());
+        verify(JSONUserConverter).save((User) anyObject(), anyString());
     }
     
     @Test(expected = ExistingUsernameException.class)

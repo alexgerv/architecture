@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.model;
+package ca.ulaval.glo4003.dao;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,7 +9,7 @@ import java.io.Reader;
 
 import com.google.gson.Gson;
 
-public class JSONConverter<T> {
+public class JSONConverter<T>  {
     
     private Class<T> type;
     

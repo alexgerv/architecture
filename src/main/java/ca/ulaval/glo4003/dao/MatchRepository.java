@@ -9,7 +9,6 @@ import javax.inject.Singleton;
 import org.springframework.stereotype.Repository;
 
 import ca.ulaval.glo4003.model.Match;
-import ca.ulaval.glo4003.model.MatchJSONConverter;
 
 @Repository
 @Singleton
@@ -18,12 +17,11 @@ public class MatchRepository {
     private static final String ROOT_REPOSITORY = "./matches/";
 
     private int currentID = 0;
-    private MatchJSONConverter matchJSONConverter = new MatchJSONConverter();
+    private JSONMatchConverter JSONMatchConverter = new JSONMatchConverter();
     private Map<Integer, Match> entries = new HashMap<Integer, Match>();
     private FileAccessor fileAccessor = new FileAccessor();
 
     public MatchRepository() {
-
     }
 
     public Map<Integer, Match> getAllLoadedEntries() {
@@ -34,7 +32,7 @@ public class MatchRepository {
         for (String pathToMatch : fileAccessor.getFilesNameInDirectory(ROOT_REPOSITORY)) {
             Match newMatch;
             try {
-                newMatch = matchJSONConverter.load(ROOT_REPOSITORY + pathToMatch);
+                newMatch = JSONMatchConverter.load(ROOT_REPOSITORY + pathToMatch);
                 entries.put(currentID, newMatch);
                 currentID++;
             } catch (FileNotFoundException e) {
@@ -51,8 +49,8 @@ public class MatchRepository {
     }
 
     // For tests purposes only
-    protected MatchRepository(FileAccessor fileAccessor, MatchJSONConverter matchJSONConverter) {
+    protected MatchRepository(FileAccessor fileAccessor, JSONMatchConverter JSONMatchConverter) {
         this.fileAccessor = fileAccessor;
-        this.matchJSONConverter = matchJSONConverter;
+        this.JSONMatchConverter = JSONMatchConverter;
     }
 }

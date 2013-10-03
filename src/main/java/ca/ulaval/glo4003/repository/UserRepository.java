@@ -10,9 +10,10 @@ import javax.inject.Singleton;
 import org.springframework.stereotype.Repository;
 
 import ca.ulaval.glo4003.dao.FileAccessor;
+import ca.ulaval.glo4003.dao.JSONUserConverter;
 import ca.ulaval.glo4003.dao.RepositoryException;
+import ca.ulaval.glo4003.dao.UserConverter;
 import ca.ulaval.glo4003.model.User;
-import ca.ulaval.glo4003.model.UserJSONConverter;
 
 @Repository
 @Singleton
@@ -20,7 +21,7 @@ public class UserRepository {
     private static final String ROOT_REPOSITORY = "./Users/";
     private List<User> users = new ArrayList<User>();
     private FileAccessor fileAccessor = new FileAccessor();
-    private UserJSONConverter userJSONConverter = new UserJSONConverter();
+    private UserConverter userConverter = new JSONUserConverter();
     public UserRepository() {}
     
     public boolean isEmpty() {
@@ -31,7 +32,7 @@ public class UserRepository {
         for (String pathToUser : fileAccessor.getFilesNameInDirectory(ROOT_REPOSITORY)) {
             User newUser;
             try {
-                newUser = userJSONConverter.load(ROOT_REPOSITORY + pathToUser);
+                newUser = userConverter.load(ROOT_REPOSITORY + pathToUser);
                 users.add(newUser);
             } catch (FileNotFoundException e) {
                 System.err.println(e.getMessage());
@@ -39,9 +40,9 @@ public class UserRepository {
         }
     }
     
-    protected UserRepository(FileAccessor fileAccessor, UserJSONConverter userJSONConverter)  {
+    protected UserRepository(FileAccessor fileAccessor, JSONUserConverter userConverter)  {
         this.fileAccessor = fileAccessor;
-        this.userJSONConverter = userJSONConverter;
+        this.userConverter = userConverter;
     }
 
     public User getUser(String username) {
@@ -73,7 +74,7 @@ public class UserRepository {
 
     private void saveUser(User user) {
         try {
-            userJSONConverter.save(user, ROOT_REPOSITORY + "/" + user.getUsername());
+            userConverter.save(user, ROOT_REPOSITORY + "/" + user.getUsername());
         } catch (IOException e) {
             //FIXME Should try saving again later.
             e.printStackTrace();
