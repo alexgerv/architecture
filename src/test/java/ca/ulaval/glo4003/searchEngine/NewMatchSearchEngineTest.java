@@ -35,7 +35,7 @@ public class NewMatchSearchEngineTest {
     
     @Test
     public void canReturnMatchesFromQueryWithASpecifiedRange(){
-        NewMatchSearchEngine aSearchEngine = new NewMatchSearchEngine(aMatchIndex, aMatchRepository);
+        MatchSearchEngine aSearchEngine = new MatchSearchEngine(aMatchIndex, aMatchRepository);
         
 
         doReturn(A_LIST_OF_INDEXES_FROM_QUERY).when(aMatchIndex).getIndexesFromQuery(aMatchQuery);
