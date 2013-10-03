@@ -9,14 +9,14 @@ import java.util.Set;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.utils.Utils;
 
-public class MatchSearchEngine implements SearchEngine<Match> {
+public class MatchIndex implements Index<Match> {
 
     private Set<Integer> indexes = new HashSet<Integer>();
     private Map<String, Set<Integer>> sportIndex = new HashMap<String, Set<Integer>>();
     private Map<String, Set<Integer>> venueIndex = new HashMap<String, Set<Integer>>();
 
-    public void add(Match newMatch, int id) {
-        indexMatch(newMatch, id);
+    public void add(Match newMatch) {
+        indexMatch(newMatch, indexes.size());
     }
 
     private void indexMatch(Match match, int id) {

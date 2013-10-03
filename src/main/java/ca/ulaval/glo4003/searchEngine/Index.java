@@ -2,9 +2,9 @@ package ca.ulaval.glo4003.searchEngine;
 
 import java.util.Set;
 
-public interface SearchEngine<T> {
+public interface Index<T> {
 
-    public void add(T item, int id);
+    public void add(T item);
 
     public Set<Integer> getIndexesFromQuery(MatchQuery query);
 }

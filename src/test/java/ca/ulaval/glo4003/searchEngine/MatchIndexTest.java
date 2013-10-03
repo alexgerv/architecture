@@ -17,20 +17,19 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.model.Match;
 
-public class MatchSearchEngineTest {
+public class MatchIndexTest {
 
     private static final String A_SPORT = "Soccer";
     private static final String ANOTHER_SPORT = "Football";
     private static final String UNQUERIED_SPORT = "Hockey";
     private static final int A_QUERIED_INDEX = 0;
     private static final int ANOTHER_QUERIED_INDEX = 1;
-    private static final int UNQUERIED_INDEX = 2;
     private static final String A_VENUE = "ULaval";
     private static final String UNQUERIED_VENUE = "Sherbrook";
 
     Map<MatchFilter, List<Object>> aMatchQueryContent;
 
-    MatchSearchEngine aSearchEngine;
+    MatchIndex aMatchIndex;
 
     @Mock
     private Match aMatch;
@@ -44,7 +43,7 @@ public class MatchSearchEngineTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        aSearchEngine = new MatchSearchEngine();
+        aMatchIndex = new MatchIndex();
     }
 
     @Test
@@ -58,9 +57,9 @@ public class MatchSearchEngineTest {
         doReturn(UNQUERIED_SPORT).when(unqueriedMatch).getSport();
         doReturn(aMatchQueryContent).when(aMatchQuery).getQuery();
 
-        aSearchEngine.add(aMatch, A_QUERIED_INDEX);
-        aSearchEngine.add(unqueriedMatch, UNQUERIED_INDEX);
-        Set<Integer> returnedIndexes = aSearchEngine.getIndexesFromQuery(aMatchQuery);
+        aMatchIndex.add(aMatch);
+        aMatchIndex.add(unqueriedMatch);
+        Set<Integer> returnedIndexes = aMatchIndex.getIndexesFromQuery(aMatchQuery);
 
         boolean returnedIntexContainsOnlyDesiredSports = returnedIndexes.size() == 1 && returnedIndexes.contains(0);
         assertTrue(returnedIntexContainsOnlyDesiredSports);
@@ -79,9 +78,9 @@ public class MatchSearchEngineTest {
         doReturn(UNQUERIED_SPORT).when(unqueriedMatch).getSport();
         doReturn(aMatchQueryContent).when(aMatchQuery).getQuery();
 
-        aSearchEngine.add(aMatch, A_QUERIED_INDEX);
-        aSearchEngine.add(anotherMatch, ANOTHER_QUERIED_INDEX);
-        Set<Integer> returnedIndexes = aSearchEngine.getIndexesFromQuery(aMatchQuery);
+        aMatchIndex.add(aMatch);
+        aMatchIndex.add(anotherMatch);
+        Set<Integer> returnedIndexes = aMatchIndex.getIndexesFromQuery(aMatchQuery);
 
         boolean returnedIntexContainsOnlyDesiredSports =
                                                          returnedIndexes.size() == 2
@@ -109,10 +108,10 @@ public class MatchSearchEngineTest {
         doReturn(A_SPORT).when(unqueriedMatch).getSport();
         doReturn(UNQUERIED_VENUE).when(unqueriedMatch).getVenue();
 
-        aSearchEngine.add(aMatch, A_QUERIED_INDEX);
-        aSearchEngine.add(anotherMatch, ANOTHER_QUERIED_INDEX);
-        aSearchEngine.add(unqueriedMatch, UNQUERIED_INDEX);
-        Set<Integer> returnedIndexes = aSearchEngine.getIndexesFromQuery(aMatchQuery);
+        aMatchIndex.add(aMatch);
+        aMatchIndex.add(anotherMatch);
+        aMatchIndex.add(unqueriedMatch);
+        Set<Integer> returnedIndexes = aMatchIndex.getIndexesFromQuery(aMatchQuery);
 
         boolean returnedIntexContainsOnlyDesiredSports =
                                                          returnedIndexes.size() == 1
