@@ -73,4 +73,9 @@ public class MatchRepository {
         this.fileAccessor = fileAccessor;
         this.JSONMatchConverter = JSONMatchConverter;
     }
+
+    public void getMatchesByIndex(int[] refinedMatches) {
+        // TODO Auto-generated method stub
+        
+    }
 }
