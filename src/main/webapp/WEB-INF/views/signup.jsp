@@ -6,17 +6,29 @@
 <html lang="en">
 <head>
   <title>Tickets</title>
+  <link href="<c:url value="/resources/css/forms.css" />" rel="stylesheet"  type="text/css" />
 </head>
 <body>
 	<h1>Signup</h1>
 <hr>
 
 <c:if test="${not empty message}"><div class="alert alert-info">${message}</div></c:if>
-<form:form modelAttribute="userDAO">
-      <label for="usernameInput">Username: </label>
-      <form:input path="username" id="usernameInput" />
-      <br/>
-<input type="submit" value="Submit" />
+<form:form modelAttribute="userDAO" class="form-signin">
+	<h2 class="form-signin-heading">Please register</h2>
+      <label class="control-label" for="login">Username:</label>
+      <div class="control-group">
+	      <div class="controls">
+	      	<form:input path="username" size="50" id="usernameInput" class="form-control" placeholder="Enter desired username"/>
+	      </div>
+	  </div>
+	  <div class="control-group">
+            <label class="control-label" for="password">Password:</label>
+            <div class="controls">
+                <input size="50" name="password" id="password" value="" type="password" class="form-control" placeholder="Password">
+            </div>
+       </div>
+        <button name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary btn-block">Sign in</button>
 </form:form>
 </body>
 </html>  
+
