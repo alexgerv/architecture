@@ -11,6 +11,7 @@ public class MatchBuilder {
     private static final String VENUE_KEY = "Venue";
     private static final String HOME_TEAM_KEY = "HomeTeam";
     private static final String VISITOR_TEAM_KEY = "VisitorTeam";
+    private static final String SEX_KEY = "Sex";
     private static final String AVAILABLE_SECTIONS_KEY = "AvailableSections";
 
     private Map<String, Object> matchAttributes = new HashMap<String, Object>();
@@ -25,6 +26,7 @@ public class MatchBuilder {
         this.matchAttributes.put(VENUE_KEY, null);
         this.matchAttributes.put(HOME_TEAM_KEY, null);
         this.matchAttributes.put(VISITOR_TEAM_KEY, null);
+        this.matchAttributes.put(SEX_KEY, null);
         this.matchAttributes.put(AVAILABLE_SECTIONS_KEY, null);
     }
 
@@ -49,6 +51,7 @@ public class MatchBuilder {
                                    (Date) (matchAttributes.get(DATE_KEY)),
                                    (String) (matchAttributes.get(HOME_TEAM_KEY)),
                                    (String) (matchAttributes.get(VISITOR_TEAM_KEY)),
+                                   (String) (matchAttributes.get(SEX_KEY)),
                                    (Map<String, Integer>) (matchAttributes.get(AVAILABLE_SECTIONS_KEY)));
         return newMatch;
     }
@@ -86,6 +89,11 @@ public class MatchBuilder {
 
     public MatchBuilder setVisitorTeam(String visitorTeam) {
         this.matchAttributes.put(VISITOR_TEAM_KEY, visitorTeam);
+        return this;
+    }
+    
+    public MatchBuilder setSex(String sex) {
+        this.matchAttributes.put(SEX_KEY, sex);
         return this;
     }
 }
