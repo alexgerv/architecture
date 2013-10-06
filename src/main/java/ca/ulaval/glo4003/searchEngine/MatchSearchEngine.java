@@ -1,11 +1,9 @@
 package ca.ulaval.glo4003.searchEngine;
 
-import java.math.BigInteger;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import org.bouncycastle.util.Arrays;
-
+import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
 public class MatchSearchEngine {
@@ -20,29 +18,29 @@ public class MatchSearchEngine {
         this.numberOfResultPerPage = numberOfResultPerPage;
     }
 
-    public void getSpecifiedPageMatchesFromQuery(MatchQuery aMatchQuery, int aPageNumber) {
-        Set<Integer> queryMatches = matchIndex.getIndexesFromQuery(aMatchQuery);
-        int[] refinedMatches = refineMatchesForSpecifiedPage(queryMatches, aPageNumber);
-        matchRepository.getMatchesByIndex(refinedMatches);
+    public List<Match> getSpecifiedPageMatchesFromQuery(MatchQuery aMatchQuery, int aPageNumber) {
+        Set<Integer> queryMatchesIndex = matchIndex.getIndexesFromQuery(aMatchQuery);
+        
+        Integer[] refinedMatches = refineMatchesForSpecifiedPage(queryMatchesIndex, aPageNumber);
+        
+        return matchRepository.getMatchesByIndex(refinedMatches);
     }
     
-    private int[] refineMatchesForSpecifiedPage(Set<Integer> matches, Integer pageNumber){
-        Integer startPosition = pageNumber * numberOfResultPerPage;
+    private Integer[] refineMatchesForSpecifiedPage(Set<Integer> matches, Integer pageNumber){
+        Integer startPosition = (pageNumber-1) * numberOfResultPerPage;
         Integer endPosition = startPosition + numberOfResultPerPage;
         
-        return Arrays.copyOfRange(setToArrayOfInt(matches), startPosition, endPosition);
+        return rangeOfIntegerSetToArray(matches, startPosition, endPosition);
     }
     
-    private int[] setToArrayOfInt(Set<Integer> set){
+    private Integer[] rangeOfIntegerSetToArray(Set<Integer> set, int start, int end){
+        Integer[] newArray = new Integer[numberOfResultPerPage];
+        Object[] setArray = set.toArray();
+        int newArrayPosition = 0;
         
-        int[] newArray = new int[set.size()];
-        
-        int index = 0;
-        
-        for(Integer i : set){
-            newArray[index++] = i;
-        }
-        
+        for(int i=start; i<end; i++){
+            newArray[newArrayPosition++] = (Integer)setArray[i];
+        } 
         return newArray;
     }
 

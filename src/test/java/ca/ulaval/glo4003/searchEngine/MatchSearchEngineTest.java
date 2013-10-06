@@ -20,7 +20,7 @@ public class MatchSearchEngineTest {
     private static final Set<Integer> A_LIST_OF_INDEXES_FROM_QUERY = new HashSet<Integer>(Arrays.asList(0, 1, 2, 3, 4));
     private static final int NUMBER_OF_RESULT_PER_PAGE = 3;
     private static final int A_PAGE_NUMBER = 1;
-    private static final int[] EXPECTED_INDEXES_FOR_SPECIFIED_PAGE = {0, 1, 2};
+    private static final Integer[] EXPECTED_INDEXES_FOR_SPECIFIED_PAGE = {0, 1, 2};
 
     @Mock
     private MatchRepository aMatchRepository;
@@ -40,7 +40,6 @@ public class MatchSearchEngineTest {
     public void whenGettingMatchesForASpecificPageRightRageOfMatchIsAskedToTheRepository() {
         MatchSearchEngine aSearchEngine = new MatchSearchEngine(aMatchIndex, aMatchRepository, NUMBER_OF_RESULT_PER_PAGE);
         doReturn(A_LIST_OF_INDEXES_FROM_QUERY).when(aMatchIndex).getIndexesFromQuery(aMatchQuery);
-        doReturn(aListOfMatches).when(aMatchRepository).getFromQuery(aMatchQuery);
 
         aSearchEngine.getSpecifiedPageMatchesFromQuery(aMatchQuery, A_PAGE_NUMBER);
         
