@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verifyZeroInteractions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import org.junit.After;
@@ -17,7 +18,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
 import ca.ulaval.glo4003.model.Match;
 
@@ -26,6 +26,8 @@ public class MatchRepositoryTest {
     private static final Integer[] VALID_MATCH_INDEXES = {0, 1, 2, 3, 4,};
     private static final Integer[] INVALID_MATCH_INDEXES = {5};
     private static final String AN_ERROR_MESSAGE = "Error";
+    private static final Integer VALID_MATCH_ID_TO_ADD = 8;
+    private static final Integer INVALID_MATCH_ID_TO_ADD = 9;
     private static final String ROOT_REPOSITORY = "./matches/";
 
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -35,7 +37,7 @@ public class MatchRepositoryTest {
     @Mock
     private JSONMatchConverter JSONMatchConverter;
     @Mock
-    private Match match;
+    private Match aMatch;
 
     @Before
     public void setup() {
@@ -60,7 +62,7 @@ public class MatchRepositoryTest {
     
     @Test
     public void whenGettingAListOfMatchesIfAMatchIsLoadedThenItIsReturned() throws FileNotFoundException{
-        doReturn(match).when(JSONMatchConverter).load(anyString());
+        doReturn(aMatch).when(JSONMatchConverter).load(anyString());
         aMatchRepository.getMatchesByIndex(VALID_MATCH_INDEXES);
         reset(JSONMatchConverter);
         
@@ -74,6 +76,22 @@ public class MatchRepositoryTest {
         doThrow(new FileNotFoundException(AN_ERROR_MESSAGE)).when(JSONMatchConverter).load(anyString());
         
         aMatchRepository.getMatchesByIndex(INVALID_MATCH_INDEXES);
+        
+        assertEquals(AN_ERROR_MESSAGE + "\n", errContent.toString());
+    }
+    
+    @Test
+    public void whenAddingNewMatchItIsSaved() throws IOException{
+        aMatchRepository.add(aMatch, VALID_MATCH_ID_TO_ADD);
+        
+        verify(JSONMatchConverter).save(aMatch, ROOT_REPOSITORY + VALID_MATCH_ID_TO_ADD);
+    }
+    
+    @Test
+    public void whenNewMatchIsSavedInTheRepositoryAnyErrorsArePrintedToTheErrorStream() throws IOException{
+        doThrow(new FileNotFoundException(AN_ERROR_MESSAGE)).when(JSONMatchConverter).save(aMatch, ROOT_REPOSITORY + INVALID_MATCH_ID_TO_ADD);
+        
+        aMatchRepository.add(aMatch, INVALID_MATCH_ID_TO_ADD);
         
         assertEquals(AN_ERROR_MESSAGE + "\n", errContent.toString());
     }

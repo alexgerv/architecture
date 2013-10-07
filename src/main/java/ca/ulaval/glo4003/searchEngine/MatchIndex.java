@@ -20,8 +20,10 @@ public class MatchIndex implements Index<Match> {
     private Map<String, Set<Integer>> visitorTeamIndex = new HashMap<String, Set<Integer>>();
     private Map<String, Set<Integer>> sexIndex = new HashMap<String, Set<Integer>>();
 
-    public void add(Match newMatch) {
-        indexMatch(newMatch, indexes.size());
+    public Integer add(Match newMatch) {
+        Integer newMatchId = indexes.size();
+        indexMatch(newMatch, newMatchId);
+        return newMatchId;
     }
 
     private void indexMatch(Match match, int id) {

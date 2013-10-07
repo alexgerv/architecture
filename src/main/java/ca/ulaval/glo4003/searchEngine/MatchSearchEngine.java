@@ -1,8 +1,11 @@
 package ca.ulaval.glo4003.searchEngine;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Set;
 
+import ca.ulaval.glo4003.fileAccess.FileAccessor;
+import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
@@ -16,9 +19,26 @@ public class MatchSearchEngine {
         this.matchIndex = matchIndex;
         this.matchRepository = matchRepository;
         this.numberOfResultPerPage = numberOfResultPerPage;
+        
+        temporarilyIndexAllMatch();
     }
 
-    public List<Match> getSpecifiedPageMatchesFromQuery(MatchQuery aMatchQuery, int aPageNumber) {
+    private void temporarilyIndexAllMatch() {
+        FileAccessor tempFileAccessor = new FileAccessor();
+        JSONMatchConverter converter = new JSONMatchConverter();
+        String rootDirectory = "./matches/";
+        for(String file : tempFileAccessor.getFilesNameInDirectory(rootDirectory)){
+            try {
+                Match newMatch = converter.load(rootDirectory + file);
+                add(newMatch);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        
+    }
+
+    public List<Match> getMatchesForSpecifiedPageFromQuery(MatchQuery aMatchQuery, int aPageNumber) {
         Set<Integer> queryMatchesIndex = matchIndex.getIndexesFromQuery(aMatchQuery);
         
         Integer[] refinedMatches = refineMatchesForSpecifiedPage(queryMatchesIndex, aPageNumber);
@@ -42,6 +62,11 @@ public class MatchSearchEngine {
             newArray[newArrayPosition++] = (Integer)setArray[i];
         } 
         return newArray;
+    }
+
+    public void add(Match match) {
+        Integer newMatchId = matchIndex.add(match);
+        matchRepository.add(match, newMatchId);
     }
 
 }

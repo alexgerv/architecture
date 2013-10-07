@@ -1,10 +1,12 @@
 package ca.ulaval.glo4003.repository;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.inject.Singleton;
 
 import org.springframework.stereotype.Repository;
@@ -39,7 +41,7 @@ public class MatchRepository {
         return matches;
     }
     
-    private void loadMatch(int id) {
+    private void loadMatch(Integer id) {
         Match newMatch;
         try {
             newMatch = JSONMatchConverter.load(ROOT_REPOSITORY + id);
@@ -47,6 +49,14 @@ public class MatchRepository {
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         }   
+    }
+    
+    public void add(Match match, Integer id){
+        try {
+            JSONMatchConverter.save(match, ROOT_REPOSITORY + id.toString());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     // For tests purposes only
