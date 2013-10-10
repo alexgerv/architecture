@@ -16,83 +16,80 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4003.repository.RepositoryException;
 import ca.ulaval.glo4003.fileAccess.FileAccessor;
 import ca.ulaval.glo4003.fileAccess.JSONUserConverter;
-import ca.ulaval.glo4003.model.User;
+import ca.ulaval.glo4003.model.DbUser;
 
 public class UserRepositoryTest {
 
     private static final String A_USERNAME = "a_username";
-    private static final String[] VALID_FILES_NAME_IN_A_DIRECTORY = {"ValidFile.json"};
+    private static final String[] VALID_FILES_NAME_IN_A_DIRECTORY = { "ValidFile.json" };
 
-    private UserRepository aUserRepository;
-    
     @Mock
     private JSONUserConverter JSONUserConverter;
     @Mock
     private FileAccessor fileAccessor;
     @Mock
-    private User user;
-    
+    private DbUser user;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        aUserRepository = new UserRepository(fileAccessor, JSONUserConverter);
+        UserRepository.load(new UserRepository(fileAccessor, JSONUserConverter));
     }
-    
+
     @Test
     public void newRepositoryContainsNoEntries() {
-        boolean repositoryIsEmpty = aUserRepository.isEmpty();
+        boolean repositoryIsEmpty = UserRepository.getInstance().isEmpty();
         assertTrue(repositoryIsEmpty);
     }
-    
+
     @Test
     public void whenLoadingAllUsersRepositoryContainsAllUsers() throws FileNotFoundException {
         doReturn(VALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
         doReturn(user).when(JSONUserConverter).load(anyString());
-        aUserRepository.loadAll();
-        
-        boolean repositoryIsEmpty = aUserRepository.isEmpty();
+        UserRepository.getInstance().loadAll();
+
+        boolean repositoryIsEmpty = UserRepository.getInstance().isEmpty();
         assertFalse(repositoryIsEmpty);
     }
-    
+
     @Test
     public void canRetrieveUserByItsUsername() throws FileNotFoundException {
         doReturn(VALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
         doReturn(user).when(JSONUserConverter).load(anyString());
         doReturn(true).when(user).hasUsername(A_USERNAME);
-        aUserRepository.loadAll();
-        
-        User retrievedUser = aUserRepository.getUser(A_USERNAME);
+        UserRepository.getInstance().loadAll();
+
+        DbUser retrievedUser = UserRepository.getInstance().getUser(A_USERNAME);
         assertEquals(user, retrievedUser);
     }
-    
+
     @Test(expected = RepositoryException.class)
     public void cannotRetrieveInexistantUser() throws FileNotFoundException {
-        aUserRepository.getUser(A_USERNAME);
+        UserRepository.getInstance().getUser(A_USERNAME);
     }
-    
-   //FIXME This is not a Unit test
+
+    // FIXME This is not a Unit test
     @Test
     public void canAddNewUser() {
         doReturn(true).when(user).hasUsername(A_USERNAME);
-        aUserRepository.addNewUser(A_USERNAME);
-        
-        User retrievedUser = aUserRepository.getUser(A_USERNAME);
+        UserRepository.getInstance().addNewUser(A_USERNAME);
+
+        DbUser retrievedUser = UserRepository.getInstance().getUser(A_USERNAME);
         assertTrue(retrievedUser.hasUsername(A_USERNAME));
     }
-    
+
     @Test
     public void userIsSavedAfterAdding() throws IOException {
-        aUserRepository.addNewUser(A_USERNAME);
-        verify(JSONUserConverter).save((User) anyObject(), anyString());
+        UserRepository.getInstance().addNewUser(A_USERNAME);
+        verify(JSONUserConverter).save((DbUser) anyObject(), anyString());
     }
-    
+
     @Test(expected = ExistingUsernameException.class)
     public void cannotAddTheSameUsernameTwice() {
-        aUserRepository.addNewUser(A_USERNAME);
-        aUserRepository.addNewUser(A_USERNAME);
+        UserRepository.getInstance().addNewUser(A_USERNAME);
+        UserRepository.getInstance().addNewUser(A_USERNAME);
     }
-    
+
 }
