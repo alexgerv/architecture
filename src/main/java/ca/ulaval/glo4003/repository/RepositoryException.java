@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.dao;
+package ca.ulaval.glo4003.repository;
 
 public class RepositoryException extends RuntimeException {
 

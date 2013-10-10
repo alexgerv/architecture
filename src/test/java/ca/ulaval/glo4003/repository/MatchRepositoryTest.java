@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.dao;
+package ca.ulaval.glo4003.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -42,8 +42,15 @@ public class MatchRepositoryTest {
     }
 
     @Test
+    public void newRepositoryContainsNoEntries() throws FileNotFoundException {
+        boolean repositoryIsEmpty = aMatchRepository.isEmpty();
+        assertTrue(repositoryIsEmpty);
+    }
+
+    @Test
     public void whenGettingAllTheMatchEntriesNoEntryIsAddedForAnInvalidFileName() throws FileNotFoundException {
         doReturn(INVALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
+
         doThrow(new FileNotFoundException(FILE_NOT_FOUND_EXCEPTION_MESSAGE)).when(JSONMatchConverter)
                                                                             .load(anyString());
         Map<Integer, Match> entries = aMatchRepository.getAllLoadedEntries();
