@@ -8,6 +8,8 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
@@ -21,8 +23,8 @@ import ca.ulaval.glo4003.model.Match;
 
 public class MatchRepositoryTest {
 
-    private static final String[] INVALID_FILES_NAME_IN_A_DIRECTORY = { "InvalidFileA.json", "InvalidFileB.json" };
-    private static final String[] VALID_FILES_NAME_IN_A_DIRECTORY = { "ValidFileA.json", "ValidFileB.json" };
+    private static final List<String> INVALID_FILES_NAME_IN_A_DIRECTORY = new ArrayList<String>();
+    private static final List<String> VALID_FILES_NAME_IN_A_DIRECTORY = new ArrayList<String>();
     private static final String FILE_NOT_FOUND_EXCEPTION_MESSAGE =
                                                                    "whenRootDirectoryIsNotValidNoEntriesAreAddedToTheMatchRepository: FileNotFoundException has been thrown.";
 
@@ -39,6 +41,8 @@ public class MatchRepositoryTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         aMatchRepository = new MatchRepository(fileAccessor, JSONMatchConverter);
+        INVALID_FILES_NAME_IN_A_DIRECTORY.add("InvalidFileA.json");
+        VALID_FILES_NAME_IN_A_DIRECTORY.add("ValidFileA.json");
     }
 
     @Test

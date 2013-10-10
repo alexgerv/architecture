@@ -10,6 +10,8 @@ import static org.mockito.Mockito.verify;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,24 +20,27 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.fileAccess.FileAccessor;
 import ca.ulaval.glo4003.fileAccess.JSONUserConverter;
-import ca.ulaval.glo4003.model.DbUser;
+import ca.ulaval.glo4003.model.User;
 
 public class UserRepositoryTest {
 
     private static final String A_USERNAME = "a_username";
-    private static final String[] VALID_FILES_NAME_IN_A_DIRECTORY = { "ValidFile.json" };
+    private static final String A_PASSWORD = "a_password";
+    private static final Integer AN_ACCESS_LEVEL = 0;
+    private static final List<String> VALID_FILES_NAME_IN_A_DIRECTORY = new ArrayList<String>();
 
     @Mock
     private JSONUserConverter JSONUserConverter;
     @Mock
     private FileAccessor fileAccessor;
     @Mock
-    private DbUser user;
+    private User user;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         UserRepository.load(new UserRepository(fileAccessor, JSONUserConverter));
+        VALID_FILES_NAME_IN_A_DIRECTORY.add("ValidFileA.json");
     }
 
     @Test
@@ -61,7 +66,7 @@ public class UserRepositoryTest {
         doReturn(true).when(user).hasUsername(A_USERNAME);
         UserRepository.getInstance().loadAll();
 
-        DbUser retrievedUser = UserRepository.getInstance().getUser(A_USERNAME);
+        User retrievedUser = UserRepository.getInstance().getUser(A_USERNAME);
         assertEquals(user, retrievedUser);
     }
 
@@ -74,22 +79,22 @@ public class UserRepositoryTest {
     @Test
     public void canAddNewUser() {
         doReturn(true).when(user).hasUsername(A_USERNAME);
-        UserRepository.getInstance().addNewUser(A_USERNAME);
+        UserRepository.getInstance().addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
 
-        DbUser retrievedUser = UserRepository.getInstance().getUser(A_USERNAME);
+        User retrievedUser = UserRepository.getInstance().getUser(A_USERNAME);
         assertTrue(retrievedUser.hasUsername(A_USERNAME));
     }
 
     @Test
     public void userIsSavedAfterAdding() throws IOException {
-        UserRepository.getInstance().addNewUser(A_USERNAME);
-        verify(JSONUserConverter).save((DbUser) anyObject(), anyString());
+        UserRepository.getInstance().addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
+        verify(JSONUserConverter).save((User) anyObject(), anyString());
     }
 
     @Test(expected = ExistingUsernameException.class)
     public void cannotAddTheSameUsernameTwice() {
-        UserRepository.getInstance().addNewUser(A_USERNAME);
-        UserRepository.getInstance().addNewUser(A_USERNAME);
+        UserRepository.getInstance().addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
+        UserRepository.getInstance().addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
     }
 
 }

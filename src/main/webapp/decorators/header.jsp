@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <div class="navbar navbar-default navbar-static-top">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -13,8 +14,14 @@
 			<li><a href="/matchList">Matches</a></li>
 		</ul>
 		<div class="navbar-form navbar-right">
-			<a id="logIn" class="btn btn-info" href="#">Log In</a>
-			<a id="signUp" class="btn btn-default" href="/signup">Sign Up</a>
+			<sec:authorize access="isAnonymous()">
+ 				<a id="logIn" class="btn btn-info" href="/login">Log In</a>
+				<a id="signUp" class="btn btn-default" href="/signup">Sign Up</a>
+			</sec:authorize>
+			<sec:authorize access="isAuthenticated()">
+				<label>Hello <sec:authentication property="principal.username"/></label>
+				<a id="logout" class="btn btn-danger" href="/logout">Logout</a>
+			</sec:authorize>
 		</div>
 	</div>
 </div>

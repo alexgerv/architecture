@@ -10,19 +10,21 @@ import org.springframework.stereotype.Repository;
 import ca.ulaval.glo4003.fileAccess.FileAccessor;
 import ca.ulaval.glo4003.fileAccess.JSONUserConverter;
 import ca.ulaval.glo4003.fileAccess.UserConverter;
-import ca.ulaval.glo4003.model.DbUser;
+import ca.ulaval.glo4003.model.User;
 
 @Repository
 public class UserRepository {
 
     private static final String ROOT_REPOSITORY = "./users/";
-    private List<DbUser> users = new ArrayList<DbUser>();
+    private List<User> users = new ArrayList<User>();
     private FileAccessor fileAccessor = new FileAccessor();
     private UserConverter userConverter = new JSONUserConverter();
 
     private static UserRepository instance;
 
-    public UserRepository() {}
+    public UserRepository() {
+        this.loadAll();
+    }
 
     public static void load(UserRepository repository) {
         instance = repository;
@@ -41,7 +43,7 @@ public class UserRepository {
 
     public void loadAll() {
         for (String pathToUser : fileAccessor.getFilesNameInDirectory(ROOT_REPOSITORY)) {
-            DbUser newUser;
+            User newUser;
             try {
                 newUser = userConverter.load(ROOT_REPOSITORY + pathToUser);
                 users.add(newUser);
@@ -51,8 +53,8 @@ public class UserRepository {
         }
     }
 
-    public DbUser getUser(String username) {
-        for (DbUser user : users) {
+    public User getUser(String username) {
+        for (User user : users) {
             if (user.hasUsername(username)) {
                 return user;
             }
@@ -60,18 +62,18 @@ public class UserRepository {
         throw new RepositoryException("User \"" + username + "\" is not found");
     }
 
-    public void addNewUser(String username) throws ExistingUsernameException {
+    public void addNewUser(String username, String password, Integer access) throws ExistingUsernameException {
         username = username.toLowerCase();
         if (!usernameIsAvailable(username)) {
             throw new ExistingUsernameException("Username \"" + username + "\" is already taken");
         }
-        DbUser user = new DbUser(username);
+        User user = new User(username, password, access);
         users.add(user);
         saveUser(user);
     }
 
     private boolean usernameIsAvailable(String username) {
-        for (DbUser user : users) {
+        for (User user : users) {
             if (user.hasUsername(username)) {
                 return false;
             }
@@ -79,7 +81,7 @@ public class UserRepository {
         return true;
     }
 
-    private void saveUser(DbUser user) {
+    private void saveUser(User user) {
         try {
             userConverter.save(user, ROOT_REPOSITORY + "/" + user.getUsername() + ".json");
         } catch (IOException e) {

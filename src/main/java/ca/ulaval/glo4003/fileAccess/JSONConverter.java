@@ -19,8 +19,8 @@ public class JSONConverter<T>  {
 
     public T load(String pathToJSON) throws FileNotFoundException {
         Gson gson = new Gson();
-        Reader reader = new BufferedReader(new FileReader(pathToJSON));
-        
+        BufferedReader reader = new BufferedReader(new FileReader(pathToJSON));
+
         return gson.fromJson(reader, type);
     }
     
