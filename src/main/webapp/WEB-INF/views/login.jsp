@@ -9,14 +9,14 @@
   <link href="<c:url value="/resources/css/forms.css" />" rel="stylesheet"  type="text/css" />
 </head>
 <body>
-	<h1>Sign Up</h1>
+	<h1>Log In</h1>
 <hr>
 
 <c:if test="${not empty message}">
 	<div class="alert alert-info">${message}</div>
 </c:if>
 <form:form modelAttribute="userDAO" class="form-signin">
-	<h2 class="form-signin-heading">Please register</h2>
+	<h2 class="form-signin-heading">Please log in</h2>
       <label class="control-label" for="login">Username:</label>
       <div class="control-group">
 	      <div class="controls">
@@ -29,7 +29,7 @@
                 <input size="50" name="password" id="password" value="" type="password" class="form-control" placeholder="Password">
             </div>
        </div>
-       <button name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary btn-block">Sign Up</button>
+       <button name="submit" id="submit" value="" type="submit" class="btn btn-large btn-primary btn-block">Log In</button>
 </form:form>
 </body>
 </html>  

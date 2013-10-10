@@ -12,5 +12,9 @@
 			<li class="active"><a href="/">Home</a></li>
 			<li><a href="/matchList">Matches</a></li>
 		</ul>
+		<div class="navbar-form navbar-right">
+			<a id="logIn" class="btn btn-info" href="#">Log In</a>
+			<a id="signUp" class="btn btn-default" href="/signup">Sign Up</a>
+		</div>
 	</div>
 </div>

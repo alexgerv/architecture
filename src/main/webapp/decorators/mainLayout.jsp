@@ -10,6 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet"  type="text/css" />
   <link href="<c:url value="/resources/css/font-awesome.min.css" />" rel="stylesheet"  type="text/css" />
+  <script src="<c:url value="/resources/js/jquery.js" />"></script>
   <decorator:head/>
 </head>
 <body>
