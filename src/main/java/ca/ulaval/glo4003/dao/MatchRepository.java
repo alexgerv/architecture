@@ -8,8 +8,9 @@ import javax.inject.Singleton;
 
 import org.springframework.stereotype.Repository;
 
+import ca.ulaval.glo4003.fileAccess.FileAccessor;
+import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
 import ca.ulaval.glo4003.model.Match;
-import ca.ulaval.glo4003.model.MatchFactoryFromJSON;
 
 @Repository
 @Singleton
@@ -18,12 +19,11 @@ public class MatchRepository {
     private static final String ROOT_REPOSITORY = "./matches/";
 
     private int currentID = 0;
-    private MatchFactoryFromJSON matchFactory = new MatchFactoryFromJSON();
+    private JSONMatchConverter JSONMatchConverter = new JSONMatchConverter();
     private Map<Integer, Match> entries = new HashMap<Integer, Match>();
     private FileAccessor fileAccessor = new FileAccessor();
 
     public MatchRepository() {
-
     }
 
     public Map<Integer, Match> getAllLoadedEntries() {
@@ -34,7 +34,7 @@ public class MatchRepository {
         for (String pathToMatch : fileAccessor.getFilesNameInDirectory(ROOT_REPOSITORY)) {
             Match newMatch;
             try {
-                newMatch = matchFactory.createMatch(ROOT_REPOSITORY + pathToMatch);
+                newMatch = JSONMatchConverter.load(ROOT_REPOSITORY + pathToMatch);
                 entries.put(currentID, newMatch);
                 currentID++;
             } catch (FileNotFoundException e) {
@@ -51,8 +51,8 @@ public class MatchRepository {
     }
 
     // For tests purposes only
-    protected MatchRepository(FileAccessor fileAccessor, MatchFactoryFromJSON matchFactory) {
+    protected MatchRepository(FileAccessor fileAccessor, JSONMatchConverter JSONMatchConverter) {
         this.fileAccessor = fileAccessor;
-        this.matchFactory = matchFactory;
+        this.JSONMatchConverter = JSONMatchConverter;
     }
 }

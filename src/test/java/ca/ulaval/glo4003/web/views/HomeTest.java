@@ -29,12 +29,16 @@ public class HomeTest {
     @Test
     public void whenOnHomePageclickingOnViewMatchListButtonNavigatesToMatchListPage() throws Exception {
         driver.findElement(By.linkText(MATCH_LIST_HOME_LINK_TEXT)).click();
+        waitForPage();
+
         assertEquals(MATCH_LIST_PAGE_TITLE, driver.getTitle());
     }
 
     @Test
     public void whenOnHomePageclickingOnMatchesButtonNavigatesToMatchListPage() throws Exception {
         driver.findElement(By.linkText(MATCH_LIST_MENU_LINK_TEXT)).click();
+        waitForPage();
+        
         assertEquals(MATCH_LIST_PAGE_TITLE, driver.getTitle());
     }
 
@@ -44,6 +48,12 @@ public class HomeTest {
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
+        }
+    }
+    
+    private void waitForPage() throws InterruptedException{
+        synchronized (driver) {
+            driver.wait(1000);
         }
     }
 }
