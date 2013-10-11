@@ -62,18 +62,10 @@ public class MatchIndex implements Index<Match> {
     }
 
     private Set<Integer> getIndexesFromFilterValue(MatchFilter criteria, Object value) {
-        if (criteria == MatchFilter.SPORT) {
-            return sportIndex.get((String) value);
-        } else if (criteria == MatchFilter.VENUE) {
-            return venueIndex.get((String) value);
-        } else if (criteria == MatchFilter.DATE) {
-            return dateIndex.get((Date) value);
-        } else if (criteria == MatchFilter.HOME_TEAM) {
-            return homeTeamIndex.get((String) value);
-        } else if (criteria == MatchFilter.VISITOR_TEAM) {
-            return visitorTeamIndex.get((String) value);
-        } else if (criteria == MatchFilter.SEX) {
-            return sexIndex.get((String) value);
+        for(filter : filterList){
+            if(filter.isConcernedBy(criteria)){
+                return filter.getIndexes()
+            }
         }
         throw new SearchEngineException("Invalid MatchFilter:" + criteria.toString());
     }

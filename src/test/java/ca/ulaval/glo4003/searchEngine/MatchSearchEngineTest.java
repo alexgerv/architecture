@@ -45,7 +45,7 @@ public class MatchSearchEngineTest {
 
         aSearchEngine.getMatchesForSpecifiedPageFromQuery(aMatchQuery, A_PAGE_NUMBER);
         
-        verify(aMatchRepository, times(1)).getMatchesByIndex(EXPECTED_INDEXES_FOR_SPECIFIED_PAGE);
+        verify(aMatchRepository, times(1)).getMatchesById(EXPECTED_INDEXES_FOR_SPECIFIED_PAGE);
     }
     
     @Test

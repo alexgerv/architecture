@@ -13,24 +13,19 @@ import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 @Controller
 public class MatchListController {
 
-    private MatchRepository repository;
     private MatchViewConverter matchConverter = new MatchViewConverter();
 
     @RequestMapping(value = "/matchList", method = RequestMethod.GET)
     public String matchList(Model model) {
-        if (repository == null) {
-            repository = new MatchRepository();
-            repository.loadAllMatches();
-        }
 
-        model.addAttribute("matches", matchConverter.convert(repository.getAllLoadedEntries()));
+        model.addAttribute("matches", matchConverter.convert(MatchRepository.getInstance().getAllLoadedEntries()));
 
         return "matchList";
     }
 
     @RequestMapping(value = "/match/{matchID}", method = RequestMethod.GET)
     public String match(@PathVariable int matchID, Model model) {
-        MatchViewModel viewModel = matchConverter.convert(repository.getById(matchID));
+        MatchViewModel viewModel = matchConverter.convert(MatchRepository.getInstance().getMatchById(matchID));
         model.addAttribute("match", viewModel);
 
         return "matchDetails";

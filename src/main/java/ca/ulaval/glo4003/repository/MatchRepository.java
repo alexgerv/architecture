@@ -2,9 +2,7 @@ package ca.ulaval.glo4003.repository;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Singleton;
@@ -15,30 +13,35 @@ import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
 import ca.ulaval.glo4003.model.Match;
 
 @Repository
-@Singleton
 public class MatchRepository {
 
     private static final String ROOT_REPOSITORY = "./matches/";
     
+    private static MatchRepository repository;
     private JSONMatchConverter JSONMatchConverter = new JSONMatchConverter();
     private Map<Integer, Match> loadedEntries = new HashMap<Integer, Match>();
 
-    public MatchRepository() {}
-
-    public List<Match> getMatchesByIndex(Integer[] matchesId) {
-        List<Match> matches = new ArrayList<Match>();
+    private MatchRepository() {
         
-        for(int id : matchesId){
-            if(loadedEntries.containsKey(id)){
-                matches.add(loadedEntries.get(id));
-            }
-            else{
-                loadMatch(id);
-                matches.add(loadedEntries.get(id));
-            }
+    }
+    
+    public static MatchRepository getInstance(){
+        if(repository == null){
+            repository = new MatchRepository();
         }
         
-        return matches;
+        return repository;            
+    }
+    
+    
+    public Match getMatchById(Integer matchId){
+        if(loadedEntries.containsKey(matchId)){
+            return loadedEntries.get(matchId);
+        }
+        else{
+            loadMatch(matchId);
+            return loadedEntries.get(matchId);
+        }
     }
     
     private void loadMatch(Integer id) {
@@ -49,6 +52,19 @@ public class MatchRepository {
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         }   
+    }
+
+    public Map<Integer, Match> getMatchesById(Integer[] matchesId) {
+        Map<Integer, Match> matches = new HashMap<Integer, Match>();
+        for(int id : matchesId){
+            matches.put(id, getMatchById(id));
+        }
+        
+        return matches;
+    }    
+    
+    public Map<Integer, Match> getAllLoadedEntries(){
+        return loadedEntries;
     }
     
     public void add(Match match, Integer id){
