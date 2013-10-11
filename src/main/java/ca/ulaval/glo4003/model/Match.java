@@ -3,6 +3,8 @@ package ca.ulaval.glo4003.model;
 import java.util.Date;
 import java.util.Map;
 
+import ca.ulaval.glo4003.searchEngine.Sex;
+
 public class Match {
 
     private String sport;
@@ -10,11 +12,11 @@ public class Match {
     private Date date;
     private String homeTeam;
     private String visitorTeam;
-    private String sex;
+    private Sex sex;
 
     private Map<String, Integer> availableTicketsBySection;
 
-    public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam, String sex,
+    public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex,
                  Map<String, Integer> avalaibleTicketsBySection) {
         this.sport = sport;
         this.venue = venue;
@@ -53,7 +55,7 @@ public class Match {
         return visitorTeam;
     }
     
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 

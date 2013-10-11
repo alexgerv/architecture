@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import ca.ulaval.glo4003.searchEngine.Sex;
+
 public class MatchBuilder {
 
     private static final String SPORT_KEY = "Sport";
@@ -46,12 +48,12 @@ public class MatchBuilder {
     }
 
     private Match buildMatch() {
-        Match newMatch = new Match((String) (matchAttributes.get(SPORT_KEY)),
-                                   (String) (matchAttributes.get(VENUE_KEY)),
-                                   (Date) (matchAttributes.get(DATE_KEY)),
+        Match newMatch =
+                         new Match((String) (matchAttributes.get(SPORT_KEY)),
+                                   (String) (matchAttributes.get(VENUE_KEY)), (Date) (matchAttributes.get(DATE_KEY)),
                                    (String) (matchAttributes.get(HOME_TEAM_KEY)),
                                    (String) (matchAttributes.get(VISITOR_TEAM_KEY)),
-                                   (String) (matchAttributes.get(SEX_KEY)),
+                                   (Sex) (matchAttributes.get(SEX_KEY)),
                                    (Map<String, Integer>) (matchAttributes.get(AVAILABLE_SECTIONS_KEY)));
         return newMatch;
     }
@@ -91,7 +93,7 @@ public class MatchBuilder {
         this.matchAttributes.put(VISITOR_TEAM_KEY, visitorTeam);
         return this;
     }
-    
+
     public MatchBuilder setSex(String sex) {
         this.matchAttributes.put(SEX_KEY, sex);
         return this;

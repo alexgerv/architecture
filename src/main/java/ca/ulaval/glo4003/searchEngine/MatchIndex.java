@@ -7,18 +7,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import ca.ulaval.glo4003.matchFilter.DateFilterIndex;
+import ca.ulaval.glo4003.matchFilter.HomeTeamFilterIndex;
+import ca.ulaval.glo4003.matchFilter.SexFilterIndex;
+import ca.ulaval.glo4003.matchFilter.SportFilterIndex;
+import ca.ulaval.glo4003.matchFilter.VenueFilterIndex;
+import ca.ulaval.glo4003.matchFilter.VisitorTeamFilterIndex;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.utils.Utils;
 
 public class MatchIndex implements Index<Match> {
 
     private Set<Integer> indexes = new HashSet<Integer>();
-    private Map<String, Set<Integer>> sportIndex = new HashMap<String, Set<Integer>>();
-    private Map<String, Set<Integer>> venueIndex = new HashMap<String, Set<Integer>>();
-    private Map<Date, Set<Integer>> dateIndex = new HashMap<Date, Set<Integer>>();
-    private Map<String, Set<Integer>> homeTeamIndex = new HashMap<String, Set<Integer>>();
-    private Map<String, Set<Integer>> visitorTeamIndex = new HashMap<String, Set<Integer>>();
-    private Map<String, Set<Integer>> sexIndex = new HashMap<String, Set<Integer>>();
+    private SportFilterIndex sportIndex = new SportFilterIndex();
+    private VenueFilterIndex venueIndex = new VenueFilterIndex();
+    private DateFilterIndex dateIndex = new DateFilterIndex();
+    private HomeTeamFilterIndex homeTeamIndex = new HomeTeamFilterIndex();
+    private VisitorTeamFilterIndex visitorTeamIndex = new VisitorTeamFilterIndex();
+    private SexFilterIndex sexIndex = new SexFilterIndex();
 
     public Integer add(Match newMatch) {
         Integer newMatchId = indexes.size();
@@ -28,60 +34,12 @@ public class MatchIndex implements Index<Match> {
 
     private void indexMatch(Match match, int id) {
         indexes.add(id);
-        indexSport(match, id);
-        indexVenue(match, id);
-        indexDate(match, id);
-        indexHomeTeam(match, id);
-        indexVisitorTeam(match, id);
-        indexSex(match, id);
-    }
-
-    private void indexSport(Match match, int id) {
-        String sport = match.getSport();
-        if (!sportIndex.containsKey(sport)) {
-            sportIndex.put(sport, new HashSet<Integer>());
-        }
-        sportIndex.get(sport).add(id);
-    }
-
-    private void indexVenue(Match match, int id) {
-        String venue = match.getVenue();
-        if (!venueIndex.containsKey(venue)) {
-            venueIndex.put(venue, new HashSet<Integer>());
-        }
-        venueIndex.get(venue).add(id);
-    }
-    
-    private void indexDate(Match match, int id) {
-        Date date = match.getDate();
-        if (!dateIndex.containsKey(date)) {
-            dateIndex.put(date, new HashSet<Integer>());
-        }
-        dateIndex.get(date).add(id);
-    }
-    
-    private void indexHomeTeam(Match match, int id) {
-        String homeTeam = match.getHomeTeam();
-        if (!homeTeamIndex.containsKey(homeTeam)) {
-            homeTeamIndex.put(homeTeam, new HashSet<Integer>());
-        }
-        homeTeamIndex.get(homeTeam).add(id);
-    }
-    
-    private void indexVisitorTeam(Match match, int id) {
-        String visitorTeam = match.getVisitorTeam();
-        if (!visitorTeamIndex.containsKey(visitorTeam)) {
-            visitorTeamIndex.put(visitorTeam, new HashSet<Integer>());
-        }
-        visitorTeamIndex.get(visitorTeam).add(id);
-    }
-    
-    private void indexSex(Match match, int id) {
-        String sex = match.getSex();
-        if (!sexIndex.containsKey(sex)) {
-            sexIndex.put(sex, new HashSet<Integer>());
-        }
-        sexIndex.get(sex).add(id);
+        sportIndex.indexFilter(match, id);
+        venueIndex.indexFilter(match, id);
+        dateIndex.indexFilter(match, id);
+        homeTeamIndex.indexFilter(match, id);
+        visitorTeamIndex.indexFilter(match, id);
+        sexIndex.indexFilter(match, id);
     }
 
     public Set<Integer> getIndexesFromQuery(MatchQuery query) {
