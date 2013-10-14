@@ -1,6 +1,5 @@
 package ca.ulaval.glo4003.searchEngine;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import ca.ulaval.glo4003.matchFilter.DateFilterIndex;
-import ca.ulaval.glo4003.matchFilter.HomeTeamFilterIndex;
+import ca.ulaval.glo4003.matchFilter.MatchFilterIndex;
 import ca.ulaval.glo4003.matchFilter.SexFilterIndex;
 import ca.ulaval.glo4003.matchFilter.SportFilterIndex;
 import ca.ulaval.glo4003.matchFilter.VenueFilterIndex;
@@ -19,13 +18,18 @@ import ca.ulaval.glo4003.utils.Utils;
 public class MatchIndex implements Index<Match> {
 
     private Set<Integer> indexes = new HashSet<Integer>();
-    private SportFilterIndex sportIndex = new SportFilterIndex();
-    private VenueFilterIndex venueIndex = new VenueFilterIndex();
-    private DateFilterIndex dateIndex = new DateFilterIndex();
-    private HomeTeamFilterIndex homeTeamIndex = new HomeTeamFilterIndex();
-    private VisitorTeamFilterIndex visitorTeamIndex = new VisitorTeamFilterIndex();
-    private SexFilterIndex sexIndex = new SexFilterIndex();
+    private Map<MatchFilter, MatchFilterIndex> filters = new HashMap<MatchFilter, MatchFilterIndex>();
+    
 
+    public MatchIndex(){
+        filters.put(MatchFilter.SPORT, new SportFilterIndex());
+        filters.put(MatchFilter.VENUE, new VenueFilterIndex());
+        filters.put(MatchFilter.DATE, new DateFilterIndex());
+        filters.put(MatchFilter.HOME_TEAM, new SportFilterIndex());
+        filters.put(MatchFilter.VISITOR_TEAM, new VisitorTeamFilterIndex());
+        filters.put(MatchFilter.SEX, new SexFilterIndex());        
+    }
+    
     public Integer add(Match newMatch) {
         Integer newMatchId = indexes.size();
         indexMatch(newMatch, newMatchId);
@@ -34,12 +38,9 @@ public class MatchIndex implements Index<Match> {
 
     private void indexMatch(Match match, int id) {
         indexes.add(id);
-        sportIndex.indexFilter(match, id);
-        venueIndex.indexFilter(match, id);
-        dateIndex.indexFilter(match, id);
-        homeTeamIndex.indexFilter(match, id);
-        visitorTeamIndex.indexFilter(match, id);
-        sexIndex.indexFilter(match, id);
+        for(MatchFilter filter: MatchFilter.values()){
+            filters.get(filter).indexFilter(match, id);
+        }
     }
 
     public Set<Integer> getIndexesFromQuery(MatchQuery query) {
@@ -62,11 +63,6 @@ public class MatchIndex implements Index<Match> {
     }
 
     private Set<Integer> getIndexesFromFilterValue(MatchFilter criteria, Object value) {
-        for(filter : filterList){
-            if(filter.isConcernedBy(criteria)){
-                return filter.getIndexes()
-            }
-        }
-        throw new SearchEngineException("Invalid MatchFilter:" + criteria.toString());
+        return filters.get(criteria).getIndexes(value);
     }
 }

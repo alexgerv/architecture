@@ -8,6 +8,7 @@ public class VenueFilterIndex extends MatchFilterIndex<String> {
     public VenueFilterIndex(){
         this.filter = MatchFilter.VENUE;
     }
+    
     String getValue(Match match) {
         return match.getVenue();
     }

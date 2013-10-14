@@ -24,8 +24,10 @@ public abstract class MatchFilterIndex<T> {
     public boolean isConcernedBy(MatchFilter filter){
         return this.filter == filter;
     }
+    
+    public Set<Integer> getIndexes(T value){
+        return indexes.get(value);
+    }
 
     abstract T getValue(Match match);
-    
-    abstract Set<Integer> getIndexes(T value);
 }
