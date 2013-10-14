@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.model;
 import java.util.Date;
 import java.util.Map;
 
+import ca.ulaval.glo4003.dto.MatchDTO;
 import ca.ulaval.glo4003.searchEngine.Sex;
 
 public class Match {
@@ -39,6 +40,17 @@ public class Match {
         return numberOfAvailableTickets;
     }
 
+    public MatchDTO createMatchDTO() {
+        MatchDTO matchDTO = new MatchDTO();
+        matchDTO.sport = this.getSport();
+        matchDTO.venue = this.getVenue();
+        matchDTO.date = this.getDate();
+        matchDTO.homeTeam = this.getHomeTeam();
+        matchDTO.visitorTeam = this.getVisitorTeam();
+        matchDTO.sex = this.getSex();
+        return matchDTO;
+    }
+
     public String getSport() {
         return sport;
     }
@@ -54,7 +66,7 @@ public class Match {
     public String getVisitorTeam() {
         return visitorTeam;
     }
-    
+
     public Sex getSex() {
         return sex;
     }
