@@ -4,7 +4,7 @@ import java.util.Set;
 
 public interface Index<T> {
 
-    public void add(T item);
+    public Integer add(T item);
 
     public Set<Integer> getIndexesFromQuery(MatchQuery query);
 }

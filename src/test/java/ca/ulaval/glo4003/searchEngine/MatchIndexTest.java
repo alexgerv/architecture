@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -61,7 +60,9 @@ public class MatchIndexTest {
         aMatchIndex.add(unqueriedMatch);
         Set<Integer> returnedIndexes = aMatchIndex.getIndexesFromQuery(aMatchQuery);
 
-        boolean returnedIntexContainsOnlyDesiredSports = returnedIndexes.size() == 1 && returnedIndexes.contains(0);
+        boolean returnedIntexContainsOnlyDesiredSports =
+                                                         returnedIndexes.size() == 1
+                                                                 && returnedIndexes.contains(A_QUERIED_INDEX);
         assertTrue(returnedIntexContainsOnlyDesiredSports);
     }
 
@@ -89,7 +90,6 @@ public class MatchIndexTest {
         assertTrue(returnedIntexContainsOnlyDesiredSports);
     }
 
-    @Ignore
     @Test
     public void returnOnlyIndexesWithDesiredFiltersWhenQueryingWithMultipleFilters() {
         aMatchQueryContent = new HashMap<MatchFilter, List<Object>>();
@@ -103,16 +103,16 @@ public class MatchIndexTest {
 
         doReturn(A_SPORT).when(aMatch).getSport();
         doReturn(A_VENUE).when(aMatch).getVenue();
-        doReturn(A_SPORT).when(anotherMatch).getSport();
+        doReturn(ANOTHER_SPORT).when(anotherMatch).getSport();
         doReturn(A_VENUE).when(anotherMatch).getVenue();
-        doReturn(A_SPORT).when(unqueriedMatch).getSport();
+        doReturn(UNQUERIED_SPORT).when(unqueriedMatch).getSport();
         doReturn(UNQUERIED_VENUE).when(unqueriedMatch).getVenue();
+        doReturn(aMatchQueryContent).when(aMatchQuery).getQuery();
 
         aMatchIndex.add(aMatch);
         aMatchIndex.add(anotherMatch);
         aMatchIndex.add(unqueriedMatch);
         Set<Integer> returnedIndexes = aMatchIndex.getIndexesFromQuery(aMatchQuery);
-
         boolean returnedIntexContainsOnlyDesiredSports =
                                                          returnedIndexes.size() == 1
                                                                  && returnedIndexes.contains(A_QUERIED_INDEX);
