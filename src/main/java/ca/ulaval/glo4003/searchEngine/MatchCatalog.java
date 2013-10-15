@@ -11,28 +11,28 @@ import ca.ulaval.glo4003.fileAccess.JSONMatchIndexConverter;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
-public class MatchSearchEngine {
+public class MatchCatalog {
     
     private static final int DEFAULT_NUMBER_OF_RESULTS_PER_PAGE = 30;
     private static final String MATCH_INDEX_PERSISTENCY_PATH = "./MatchSearchEngine/MatchSearchEngine.java";
     private static final String MATCHES_PATH = "./matches/";
     
-    private static MatchSearchEngine searchEngine;
+    private static MatchCatalog searchEngine;
     private MatchIndex matchIndex;
     private MatchRepository matchRepository;
     private Integer numberOfResultPerPage;
    
     private JSONMatchIndexConverter JSONMatchIndexConverter = new JSONMatchIndexConverter();
 
-    private MatchSearchEngine(){
+    private MatchCatalog(){
         loadSearchEngine();
         this.matchRepository = MatchRepository.getInstance();
         this.numberOfResultPerPage = DEFAULT_NUMBER_OF_RESULTS_PER_PAGE;
     }
     
-    public static MatchSearchEngine getInstance(){
+    public static MatchCatalog getInstance(){
         if(searchEngine == null){
-            searchEngine = new MatchSearchEngine();
+            searchEngine = new MatchCatalog();
         }
         return searchEngine;
     }
@@ -100,7 +100,7 @@ public class MatchSearchEngine {
     }
 
     // For tests purposes only
-    protected MatchSearchEngine(MatchIndex matchIndex, MatchRepository matchRepository, int numberOfResultPerPage) {
+    protected MatchCatalog(MatchIndex matchIndex, MatchRepository matchRepository, int numberOfResultPerPage) {
         this.matchIndex = matchIndex;
         this.matchRepository = matchRepository;
         this.numberOfResultPerPage = numberOfResultPerPage;

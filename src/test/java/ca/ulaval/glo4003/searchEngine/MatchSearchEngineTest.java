@@ -22,7 +22,7 @@ public class MatchSearchEngineTest {
     private static final Integer[] EXPECTED_INDEXES_FOR_SPECIFIED_PAGE = {0, 1, 2};
     private static final int AN_INDEX_FOR_NEW_MATCH = 0;
     
-    MatchSearchEngine aSearchEngine;
+    MatchCatalog aSearchEngine;
 
     @Mock
     private MatchRepository aMatchRepository;
@@ -36,7 +36,7 @@ public class MatchSearchEngineTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        aSearchEngine = new MatchSearchEngine(aMatchIndex, aMatchRepository, NUMBER_OF_RESULT_PER_PAGE);
+        aSearchEngine = new MatchCatalog(aMatchIndex, aMatchRepository, NUMBER_OF_RESULT_PER_PAGE);
     }
 
     @Test

@@ -25,7 +25,7 @@ public class MatchListController {
 
     @RequestMapping(value = "/match/{matchID}", method = RequestMethod.GET)
     public String match(@PathVariable int matchID, Model model) {
-        MatchViewModel viewModel = matchConverter.convert(MatchRepository.getInstance().getMatchById(matchID));
+        MatchViewModel viewModel = matchConverter.convert(MatchRepository.getInstance().getMatchByIdentifier(matchID));
         model.addAttribute("match", viewModel);
 
         return "matchDetails";

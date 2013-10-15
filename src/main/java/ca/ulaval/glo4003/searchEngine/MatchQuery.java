@@ -5,18 +5,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class MatchQuery implements Query<MatchFilter> {
+import matchCatalog.MatchFilterCategories;
 
-    private Map<MatchFilter, List<Object>> criterias = new HashMap<MatchFilter, List<Object>>();
+public class MatchQuery implements Query<MatchFilterCategories> {
 
-    public void addFilter(MatchFilter matchFilter, Object filterValue) {
+    private Map<MatchFilterCategories, List<Object>> criterias = new HashMap<MatchFilterCategories, List<Object>>();
+
+    public void addFilter(MatchFilterCategories matchFilter, Object filterValue) {
         if (!criterias.containsKey(matchFilter)) {
             criterias.put(matchFilter, new LinkedList<Object>());
         }
         criterias.get(matchFilter).add(filterValue);
     }
 
-    public Map<MatchFilter, List<Object>> getQuery() {
+    public Map<MatchFilterCategories, List<Object>> getQuery() {
         return criterias;
     }
 }

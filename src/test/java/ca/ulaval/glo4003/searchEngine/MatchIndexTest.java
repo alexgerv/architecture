@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import matchCatalog.MatchFilterCategories;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -26,7 +28,7 @@ public class MatchIndexTest {
     private static final String A_VENUE = "ULaval";
     private static final String UNQUERIED_VENUE = "Sherbrook";
 
-    Map<MatchFilter, List<Object>> aMatchQueryContent;
+    Map<MatchFilterCategories, List<Object>> aMatchQueryContent;
 
     MatchIndex aMatchIndex;
 
@@ -47,10 +49,10 @@ public class MatchIndexTest {
 
     @Test
     public void returnOnlyIndexesWithDesiredSportWhenQueryingForASpecificSport() {
-        aMatchQueryContent = new HashMap<MatchFilter, List<Object>>();
+        aMatchQueryContent = new HashMap<MatchFilterCategories, List<Object>>();
         List<Object> filterValues = new ArrayList<Object>();
         filterValues.add(A_SPORT);
-        aMatchQueryContent.put(MatchFilter.SPORT, filterValues);
+        aMatchQueryContent.put(MatchFilterCategories.SPORT, filterValues);
 
         doReturn(A_SPORT).when(aMatch).getSport();
         doReturn(UNQUERIED_SPORT).when(unqueriedMatch).getSport();
@@ -68,11 +70,11 @@ public class MatchIndexTest {
 
     @Test
     public void returnOnlyIndexesWithDesiredSportWhenQueryingForMultipleSpecificSports() {
-        aMatchQueryContent = new HashMap<MatchFilter, List<Object>>();
+        aMatchQueryContent = new HashMap<MatchFilterCategories, List<Object>>();
         List<Object> filterValues = new ArrayList<Object>();
         filterValues.add(A_SPORT);
         filterValues.add(ANOTHER_SPORT);
-        aMatchQueryContent.put(MatchFilter.SPORT, filterValues);
+        aMatchQueryContent.put(MatchFilterCategories.SPORT, filterValues);
 
         doReturn(A_SPORT).when(aMatch).getSport();
         doReturn(ANOTHER_SPORT).when(anotherMatch).getSport();
@@ -92,14 +94,14 @@ public class MatchIndexTest {
 
     @Test
     public void returnOnlyIndexesWithDesiredFiltersWhenQueryingWithMultipleFilters() {
-        aMatchQueryContent = new HashMap<MatchFilter, List<Object>>();
+        aMatchQueryContent = new HashMap<MatchFilterCategories, List<Object>>();
         List<Object> sportValues = new ArrayList<Object>();
         sportValues.add(A_SPORT);
-        aMatchQueryContent.put(MatchFilter.SPORT, sportValues);
+        aMatchQueryContent.put(MatchFilterCategories.SPORT, sportValues);
 
         List<Object> venueValues = new ArrayList<Object>();
         venueValues.add(A_VENUE);
-        aMatchQueryContent.put(MatchFilter.VENUE, venueValues);
+        aMatchQueryContent.put(MatchFilterCategories.VENUE, venueValues);
 
         doReturn(A_SPORT).when(aMatch).getSport();
         doReturn(A_VENUE).when(aMatch).getVenue();
