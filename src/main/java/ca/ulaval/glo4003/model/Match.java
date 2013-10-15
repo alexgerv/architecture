@@ -4,11 +4,9 @@ import java.util.Date;
 import java.util.Map;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
-
 import matchCatalog.FilterCategoryException;
 import matchCatalog.Indexable;
 import matchCatalog.MatchFilterCategories;
-import ca.ulaval.glo4003.searchEngine.Sex;
 
 public class Match implements Indexable<MatchFilterCategories> {
 
@@ -85,9 +83,7 @@ public class Match implements Indexable<MatchFilterCategories> {
         case HOME_TEAM:
             return homeTeam;
         case VISITOR_TEAM:
-            return visitorTeam;
-        case SEX:
-            return sex.toString();     
+            return visitorTeam;   
         }
         throw new FilterCategoryException("FilterCategory does not conrrespond to an argument in match");
     }

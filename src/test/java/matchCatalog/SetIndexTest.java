@@ -36,7 +36,7 @@ public class SetIndexTest {
         filterListByCategories.add(filterOfCategory2);
         filterListByCategories.add(filterOfCategory3);
         
-        anIndex = new SetIndex<FilterCategories>(filterListByCategories);
+        anIndex = new IndexWithList<FilterCategories>(filterListByCategories);
     }
 
     @Test

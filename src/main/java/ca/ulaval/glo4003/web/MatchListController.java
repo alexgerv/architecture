@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.web;
 
+import matchCatalog.MatchCatalog;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,14 +20,15 @@ public class MatchListController {
     @RequestMapping(value = "/matchList", method = RequestMethod.GET)
     public String matchList(Model model) {
 
+        MatchCatalog.getInstance();
         model.addAttribute("matches", matchConverter.convert(MatchRepository.getInstance().getAllLoadedEntries()));
 
         return "matchList";
     }
 
-    @RequestMapping(value = "/match/{matchID}", method = RequestMethod.GET)
-    public String match(@PathVariable int matchID, Model model) {
-        MatchViewModel viewModel = matchConverter.convert(MatchRepository.getInstance().getMatchByIdentifier(matchID));
+    @RequestMapping(value = "/match/{matchIdentifier}", method = RequestMethod.GET)
+    public String match(@PathVariable String matchIdentifier, Model model) {
+        MatchViewModel viewModel = matchConverter.convert(MatchRepository.getInstance().getMatchByIdentifier(matchIdentifier));
         model.addAttribute("match", viewModel);
 
         return "matchDetails";

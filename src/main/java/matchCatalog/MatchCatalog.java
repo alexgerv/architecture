@@ -1,15 +1,13 @@
 package matchCatalog;
 
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import ca.ulaval.glo4003.fileAccess.FileAccessor;
 import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
-import ca.ulaval.glo4003.fileAccess.JSONMatchIndexConverter;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
@@ -26,7 +24,11 @@ public class MatchCatalog {
         this.queryResolver = queryResolver;
         this.index = index;
         this.matchRepository = matchRepository;
+        
         loadAllMatchFrom(MATCHES_PATH);
+        Query<MatchFilterCategories> query = new Query<MatchFilterCategories>();
+        query.addFilterValue(MatchFilterCategories.SPORT, "Basketball");
+        getMatchesFromQuery(query);
     }
     
     // Creer un builder 
@@ -37,7 +39,7 @@ public class MatchCatalog {
             for(MatchFilterCategories category : MatchFilterCategories.values()){
                 filterListByCategories.add(new Filter<MatchFilterCategories>(category));
             }
-            Index<MatchFilterCategories> index = new SetIndex<MatchFilterCategories>(filterListByCategories);           
+            Index<MatchFilterCategories> index = new IndexWithList<MatchFilterCategories>(filterListByCategories);           
             QueryResolver<MatchFilterCategories> queryResolver = new QueryResolver<MatchFilterCategories>(index);
             
             matchCatalog = new MatchCatalog(queryResolver, index, MatchRepository.getInstance());
@@ -50,11 +52,14 @@ public class MatchCatalog {
         FileAccessor fileAccessor = new FileAccessor();
         JSONMatchConverter converter = new JSONMatchConverter();
         for(String file : fileAccessor.getFilesNameInDirectory(path)){
-            try {
-                Match newMatch = converter.load(path + file);
-                add(newMatch);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            File testFile = new File(path + file);
+            if (!testFile.isDirectory()){
+                try {
+                    Match newMatch = converter.load(path + file);
+                    add(newMatch);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }    
     }

@@ -20,7 +20,6 @@ public class MatchCatalogTest {
                                                                               "terrain2/2010-05-30 12:30:00",
                                                                               "terrain3/2010-05-30 20:30:00",
                                                                               "terrain4/2010-05-30 17:30:00");
-    private static final String AN_IDENTIFIER_FOR_NEW_MATCH = "stadeTelus/2010-05-30_22:00:00";
     
     MatchCatalog aMatchCatalog;
 
