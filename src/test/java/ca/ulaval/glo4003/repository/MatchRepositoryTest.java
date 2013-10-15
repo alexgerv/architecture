@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.reset;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
 import java.io.ByteArrayOutputStream;
@@ -72,7 +72,7 @@ public class MatchRepositoryTest {
         doReturn(aMatch).when(JSONMatchConverter).load(anyString());
         aMatchRepository.getMatchesById(VALID_MATCH_INDENTIFIER);
         reset(JSONMatchConverter);
-
+        
         aMatchRepository.getMatchesById(VALID_MATCH_INDENTIFIER);
 
         verifyZeroInteractions(JSONMatchConverter);
