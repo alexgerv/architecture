@@ -7,6 +7,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import matchCatalog.FilterCategoryException;
 import matchCatalog.Indexable;
 import matchCatalog.MatchFilterCategories;
+import ca.ulaval.glo4003.dto.MatchDTO;
 
 public class Match implements Indexable<MatchFilterCategories> {
 
@@ -43,6 +44,17 @@ public class Match implements Indexable<MatchFilterCategories> {
         return numberOfAvailableTickets;
     }
 
+    public MatchDTO createMatchDTO() {
+        MatchDTO matchDTO = new MatchDTO();
+        matchDTO.sport = this.getSport();
+        matchDTO.venue = this.getVenue();
+        matchDTO.date = this.getDate();
+        matchDTO.homeTeam = this.getHomeTeam();
+        matchDTO.visitorTeam = this.getVisitorTeam();
+        matchDTO.sex = this.getSex();
+        return matchDTO;
+    }
+
     public String getSport() {
         return sport;
     }
@@ -58,7 +70,7 @@ public class Match implements Indexable<MatchFilterCategories> {
     public String getVisitorTeam() {
         return visitorTeam;
     }
-    
+
     public Sex getSex() {
         return sex;
     }
