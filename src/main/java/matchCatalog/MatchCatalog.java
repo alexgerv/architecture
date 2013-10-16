@@ -67,7 +67,7 @@ public class MatchCatalog {
     public Map<String, Match> getMatchesFromQuery(Query<MatchFilterCategories> aMatchQuery) {
         List<String> matchesIdentifier = queryResolver.resolve(aMatchQuery);
         
-        return matchRepository.getMatchesById(matchesIdentifier);
+        return matchRepository.getMatchesByIdentifier(matchesIdentifier);
     }
 
     public void add(Match match) {

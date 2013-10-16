@@ -26,9 +26,9 @@ public class MatchListController {
         return "matchList";
     }
 
-    @RequestMapping(value = "/match/{matchIdentifier}", method = RequestMethod.GET)
-    public String match(@PathVariable String matchIdentifier, Model model) {
-        MatchViewModel viewModel = matchConverter.convert(MatchRepository.getInstance().getMatchByIdentifier(matchIdentifier));
+    @RequestMapping(value = "/match/{venue}/{date}", method = RequestMethod.GET)
+    public String match(@PathVariable String venue, @PathVariable String date, Model model) {
+        MatchViewModel viewModel = matchConverter.convert(MatchRepository.getInstance().getMatchByIdentifier(venue + "/" + date));
         model.addAttribute("match", viewModel);
 
         return "matchDetails";

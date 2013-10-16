@@ -6,32 +6,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Repository;
-
 import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
 import ca.ulaval.glo4003.model.Match;
 
-@Repository
 public class MatchRepository {
 
     private static final String ROOT_REPOSITORY = "./matches/";
     
     private static MatchRepository repository;
-    private JSONMatchConverter JSONMatchConverter = new JSONMatchConverter();
+    private JSONMatchConverter JSONMatchConverter;
     private Map<String, Match> loadedEntries = new HashMap<String, Match>();
 
-    private MatchRepository() {
-        
+    protected MatchRepository(JSONMatchConverter JSONMatchConverter) {
+        this.JSONMatchConverter = JSONMatchConverter;
     }
     
     public static MatchRepository getInstance(){
         if(repository == null){
-            repository = new MatchRepository();
+            JSONMatchConverter JSONMatchConverter = new JSONMatchConverter();
+            repository = new MatchRepository(JSONMatchConverter);
         }
-        
         return repository;            
     }
-    
     
     public Match getMatchByIdentifier(String matchIdentifier){
         if(loadedEntries.containsKey(matchIdentifier)){
@@ -53,12 +49,11 @@ public class MatchRepository {
         }   
     }
 
-    public Map<String, Match> getMatchesById(List<String> matchesIdentifier) {
+    public Map<String, Match> getMatchesByIdentifier(List<String> matchesIdentifier) {
         Map<String, Match> matches = new HashMap<String, Match>();
         for(String identifier : matchesIdentifier){
             matches.put(identifier, getMatchByIdentifier(identifier));
         }
-        
         return matches;
     }    
     
@@ -74,9 +69,5 @@ public class MatchRepository {
             System.err.println(e.getMessage());
         }
     }
-
-    // For tests purposes only
-    protected MatchRepository(JSONMatchConverter JSONMatchConverter) {
-        this.JSONMatchConverter = JSONMatchConverter;
-    }
+    
 }

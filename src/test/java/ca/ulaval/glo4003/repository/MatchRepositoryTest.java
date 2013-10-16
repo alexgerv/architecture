@@ -62,7 +62,7 @@ public class MatchRepositoryTest {
     public void whenGettingAListOfMatchesIfAMatchIsNotLoadedThenItIsLoaded() throws FileNotFoundException {
         String expectedPathOfFileToLoad = ROOT_REPOSITORY + VALID_MATCH_INDENTIFIER.get(0);
 
-        aMatchRepository.getMatchesById(VALID_MATCH_INDENTIFIER);
+        aMatchRepository.getMatchesByIdentifier(VALID_MATCH_INDENTIFIER);
 
         verify(JSONMatchConverter).load(expectedPathOfFileToLoad);
     }
@@ -70,10 +70,10 @@ public class MatchRepositoryTest {
     @Test
     public void whenGettingAListOfMatchesIfAMatchIsLoadedThenItIsReturned() throws FileNotFoundException {
         doReturn(aMatch).when(JSONMatchConverter).load(anyString());
-        aMatchRepository.getMatchesById(VALID_MATCH_INDENTIFIER);
+        aMatchRepository.getMatchesByIdentifier(VALID_MATCH_INDENTIFIER);
         reset(JSONMatchConverter);
         
-        aMatchRepository.getMatchesById(VALID_MATCH_INDENTIFIER);
+        aMatchRepository.getMatchesByIdentifier(VALID_MATCH_INDENTIFIER);
 
         verifyZeroInteractions(JSONMatchConverter);
     }
@@ -82,7 +82,7 @@ public class MatchRepositoryTest {
     public void whenGettingAMatchAnyErrorsArePrintToTheErrorStream() throws FileNotFoundException {
         doThrow(new FileNotFoundException(AN_ERROR_MESSAGE)).when(JSONMatchConverter).load(anyString());
 
-        aMatchRepository.getMatchesById(INVALID_MATCH_INDENTIFIER);
+        aMatchRepository.getMatchesByIdentifier(INVALID_MATCH_INDENTIFIER);
 
         assertEquals(AN_ERROR_MESSAGE + "\n", errContent.toString());
     }

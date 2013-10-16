@@ -46,7 +46,7 @@ public class MatchCatalogTest {
 
         aMatchCatalog.getMatchesFromQuery(aQuery);
         
-        verify(aMatchRepository, times(1)).getMatchesById(VALID_MATCH_INDENTIFIER);
+        verify(aMatchRepository, times(1)).getMatchesByIdentifier(VALID_MATCH_INDENTIFIER);
     }
     
     @Test
