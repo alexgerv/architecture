@@ -1,4 +1,4 @@
-package matchCatalog;
+package ca.ulaval.glo4003.matchCatalog;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -15,8 +15,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class MatchListTest {
 
-    private static final String NUMBER_OF_AVALAIBLE_TICKETS_IN_FIRST_MATCH = "10";
-    private static final String NUMBER_OF_AVALAIBLE_TICKETS_IN_SECOND_MATCH = "20";
     private static final String MATCH_LIST_HOME_LINK_TEXT = "View the match list";
     private static final String BASE_URL = "http://localhost:8080/";
 

@@ -1,11 +1,14 @@
-package matchCatalog;
+package ca.ulaval.glo4003.matchCatalog;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import ca.ulaval.glo4003.matchCatalog.Query;
 
 public class QueryTest {
 

@@ -1,4 +1,4 @@
-package matchCatalog;
+package ca.ulaval.glo4003.matchCatalog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +8,9 @@ import java.util.Map;
 
 import ca.ulaval.glo4003.fileAccess.FileAccessor;
 import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
+import ca.ulaval.glo4003.matchCatalog.index.Filter;
+import ca.ulaval.glo4003.matchCatalog.index.Index;
+import ca.ulaval.glo4003.matchCatalog.index.IndexWithList;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.repository.MatchRepository;
 

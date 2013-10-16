@@ -1,4 +1,4 @@
-package matchCatalog;
+package ca.ulaval.glo4003.matchCatalog.index;
 
 public class FilterCategoryException extends RuntimeException {
 

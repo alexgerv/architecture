@@ -1,13 +1,12 @@
 package ca.ulaval.glo4003.web;
 
-import matchCatalog.MatchCatalog;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.repository.MatchRepository;
 import ca.ulaval.glo4003.web.converters.MatchViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;

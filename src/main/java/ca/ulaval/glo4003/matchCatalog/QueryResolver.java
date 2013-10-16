@@ -1,7 +1,9 @@
-package matchCatalog;
+package ca.ulaval.glo4003.matchCatalog;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.ulaval.glo4003.matchCatalog.index.Index;
 
 
 public class QueryResolver<E extends Enum<E>> {

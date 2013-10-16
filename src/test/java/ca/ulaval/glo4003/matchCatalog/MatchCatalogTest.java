@@ -1,4 +1,4 @@
-package matchCatalog;
+package ca.ulaval.glo4003.matchCatalog;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +9,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.*;
+import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
+import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
+import ca.ulaval.glo4003.matchCatalog.Query;
+import ca.ulaval.glo4003.matchCatalog.QueryResolver;
+import ca.ulaval.glo4003.matchCatalog.index.Index;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.repository.MatchRepository;
 

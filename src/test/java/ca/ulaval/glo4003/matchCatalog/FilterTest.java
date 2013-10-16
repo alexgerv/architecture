@@ -1,4 +1,4 @@
-package matchCatalog;
+package ca.ulaval.glo4003.matchCatalog;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import ca.ulaval.glo4003.matchCatalog.index.Filter;
+import ca.ulaval.glo4003.matchCatalog.index.Indexable;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.doReturn;
 
