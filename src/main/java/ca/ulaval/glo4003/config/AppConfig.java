@@ -3,6 +3,8 @@ package ca.ulaval.glo4003.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
+import ca.ulaval.glo4003.matchCatalog.MatchCatalogFactory;
 import ca.ulaval.glo4003.persistence.JSONMatchRepository;
 import ca.ulaval.glo4003.persistence.JSONUserRepository;
 import ca.ulaval.glo4003.repository.MatchRepository;
@@ -19,5 +21,11 @@ public class AppConfig {
     @Bean
     public UserRepository userRepository() throws Exception {
         return new JSONUserRepository();
+    }
+
+    @Bean
+    public MatchCatalog matchCatalog() throws Exception {
+        MatchCatalogFactory catalogFactory = new MatchCatalogFactory(matchRepository());
+        return catalogFactory.createMatchCatalog();
     }
 }
