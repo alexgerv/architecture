@@ -6,11 +6,15 @@
 </head>
 <body>
 	<div class="row">
-		<div class="col-sm-3"><div class="well"><%@include file="searchBar.jsp"%></div></div>
+		<div class="col-sm-3">
+			<div class="well"><%@include file="searchBar.jsp"%></div>
+		</div>
 		<div class="col-sm-9">
 			<div style="display: inline-block; float: clear">
 				<h1>Match List</h1>
 				<hr>
+				<div id="searchMessage" class="alert alert-info" hidden="hidden">
+					Your search produced no results.</div>
 				<table class="table table-condensed table-bordered table-striped"
 					id="matchList">
 					<thead>
