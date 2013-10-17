@@ -23,11 +23,14 @@ public class SearchBarController {
     @Inject
     MatchCatalog matchCatalog;
 
+    @Inject
+    MatchQueryFactory matchQueryFactory;
+
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public @ResponseBody
     List<MatchViewModel> searchResults(@RequestBody String request) {
-        MatchQueryFactory factory = new MatchQueryFactory();
-        Query<MatchFilterCategories> query = factory.create(request);
+
+        Query<MatchFilterCategories> query = matchQueryFactory.create(request);
         MatchViewConverter converter = new MatchViewConverter();
         List<MatchViewModel> matchList =
                                          (List<MatchViewModel>) converter.convert(matchCatalog.getMatchesFromQuery(query));
