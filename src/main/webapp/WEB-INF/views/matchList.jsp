@@ -25,6 +25,7 @@
 							<th>Sport</th>
 							<th>Host</th>
 							<th>Visitor</th>
+							<th>Sex</th>
 							<th>Number of Available Tickets</th>
 						</tr>
 					</thead>
@@ -39,6 +40,7 @@
 								<td>${match.sport}</td>
 								<td>${match.homeTeam}</td>
 								<td>${match.visitorTeam}</td>
+								<td>${match.sex}</td>
 								<td><strong>${match.totalNumberOfAvailableTickets}</strong>
 									(<a href="match/${match.matchIdentifier}">view by section</a>)</td>
 							</tr>

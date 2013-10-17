@@ -28,6 +28,7 @@ public class MatchViewConverter {
 	    viewModel.date = entry.getDate();
 		viewModel.homeTeam = entry.getHomeTeam();
 		viewModel.visitorTeam = entry.getVisitorTeam();
+		viewModel.sex = entry.getSex();
 		viewModel.availableTicketsBySection = entry.getAvailableTicketsBySection();
 		viewModel.totalNumberOfAvailableTickets = entry.getTotatNumberOfAvailableTickets();
 		

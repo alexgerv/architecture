@@ -70,6 +70,7 @@ $("#searchForm").change(function(){
 				'<td>' + matchList[index].sport + '</td>'+
 				'<td>' + matchList[index].homeTeam + '</td>'+
 				'<td>' + matchList[index].visitorTeam + '</td>'+
+				'<td>' + matchList[index].sex + '</td>'+
 				'<td><strong>' + matchList[index].totalNumberOfAvailableTickets + '</strong>'+
 					'(<a href="match/' + matchList[index].matchID + '">view by section</a>)</td>'+
 			'</tr>');		
