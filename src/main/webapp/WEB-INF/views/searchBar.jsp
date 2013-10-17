@@ -67,10 +67,14 @@
 	</div>
 </form>
 <script type="text/javascript">
+$(document).ready(requestMatches());
 
 $("#searchForm").change(function(){
-	debugger;
- 	var $form = $(this);
+ 	requestMatches();
+ });
+ 
+function requestMatches(){
+ 	var $form = $("searchForm");
 	var $inputs = $form.find("input, select, button, textarea");
 	var formArray = {};
 	formArray['SPORT'] = $("#SPORT :input").serializeArray();
@@ -89,7 +93,7 @@ $("#searchForm").change(function(){
 				$inputs.prop("disabled", false);
 			}
         });
- });
+ }
  
  function displayMatches(matchList){
  	if($.isArray(matchList) && !$.isEmptyObject(matchList)){
