@@ -32,7 +32,13 @@ public class Filter<E extends Enum<E>> {
     }
 
     public List<String> getIdentifiersFor(String filterValue) {
-        return identifiers.get(filterValue);     
+        if(identifiers.containsKey(filterValue)){
+            return identifiers.get(filterValue);   
+        }
+        else{
+            return new ArrayList<String>();
+        }
+  
     }
 
 }

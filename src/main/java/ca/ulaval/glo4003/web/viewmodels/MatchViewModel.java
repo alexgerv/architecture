@@ -9,7 +9,7 @@ public class MatchViewModel {
 	public String matchIdentifier;
     public String sport;
     public String venue;
-    public Date date;
+    public String date;
 	public String homeTeam;
 	public String visitorTeam;
 	public Sex sex;
@@ -36,11 +36,11 @@ public class MatchViewModel {
     	this.venue = venue;
     }
     
-    public Date getDate() {
+    public String getDate() {
 		return date;
 	}
     
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	
