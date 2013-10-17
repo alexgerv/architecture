@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
-import ca.ulaval.glo4003.dto.MatchDTO;
 import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 import ca.ulaval.glo4003.matchCatalog.index.FilterCategoryException;
 import ca.ulaval.glo4003.matchCatalog.index.Indexable;
@@ -43,17 +42,6 @@ public class Match implements Indexable<MatchFilterCategories> {
             numberOfAvailableTickets += numberOfTickets;
         }
         return numberOfAvailableTickets;
-    }
-
-    public MatchDTO createMatchDTO() {
-        MatchDTO matchDTO = new MatchDTO();
-        matchDTO.sport = this.getSport();
-        matchDTO.venue = this.getVenue();
-        matchDTO.date = this.getDate();
-        matchDTO.homeTeam = this.getHomeTeam();
-        matchDTO.visitorTeam = this.getVisitorTeam();
-        matchDTO.sex = this.getSex();
-        return matchDTO;
     }
 
     public String getSport() {
