@@ -16,7 +16,9 @@ public class MatchCatalog {
     private static final String MATCHES_PATH = "./matches/";
 
     private QueryResolver<MatchFilterCategories> queryResolver;
+
     private MatchRepository matchRepository;
+
     private Index<MatchFilterCategories> index;
 
     public MatchCatalog(QueryResolver<MatchFilterCategories> queryResolver, Index<MatchFilterCategories> index,
@@ -24,11 +26,8 @@ public class MatchCatalog {
         this.queryResolver = queryResolver;
         this.index = index;
         this.matchRepository = matchRepository;
-
+        //
         loadAllMatchFrom(MATCHES_PATH);
-        Query<MatchFilterCategories> query = new Query<MatchFilterCategories>();
-        query.addFilterValue(MatchFilterCategories.SPORT, "Basketball");
-        getMatchesFromQuery(query);
     }
 
     // Mettre dans le builder ou trouver autre chose
