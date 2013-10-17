@@ -12,7 +12,7 @@ import ca.ulaval.glo4003.matchCatalog.index.Indexable;
 
 public class Match implements Indexable<MatchFilterCategories> {
 
-    private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd_HH:mm:SS";
+    private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd_HH-mm-SS";
     
     private String sport;
     private String venue;
