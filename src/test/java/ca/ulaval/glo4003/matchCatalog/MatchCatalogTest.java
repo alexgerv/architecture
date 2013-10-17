@@ -1,5 +1,9 @@
 package ca.ulaval.glo4003.matchCatalog;
 
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,15 +12,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.*;
-import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
-import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
-import ca.ulaval.glo4003.matchCatalog.Query;
-import ca.ulaval.glo4003.matchCatalog.QueryResolver;
 import ca.ulaval.glo4003.matchCatalog.index.Index;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.repository.MatchRepository;
-
 
 public class MatchCatalogTest {
 
@@ -25,7 +23,7 @@ public class MatchCatalogTest {
                                                                               "terrain2/2010-05-30 12:30:00",
                                                                               "terrain3/2010-05-30 20:30:00",
                                                                               "terrain4/2010-05-30 17:30:00");
-    
+
     MatchCatalog aMatchCatalog;
 
     @Mock
@@ -50,22 +48,22 @@ public class MatchCatalogTest {
         doReturn(VALID_MATCH_INDENTIFIER).when(queryResolver).resolve(aQuery);
 
         aMatchCatalog.getMatchesFromQuery(aQuery);
-        
+
         verify(aMatchRepository, times(1)).getMatchesByIdentifier(VALID_MATCH_INDENTIFIER);
     }
-    
+
     @Test
-    public void whenAMatchIsAddedItIsIndexed(){
+    public void whenAMatchIsAddedItIsIndexed() {
         aMatchCatalog.add(aMatch);
-        
+
         verify(anIndex, times(1)).add(aMatch);
     }
-    
+
     @Test
-    public void whenAMatchIsAddedItIsAddedToTheRepository(){        
+    public void whenAMatchIsAddedItIsAddedToTheRepository() {
         aMatchCatalog.add(aMatch);
-        
-        verify(aMatchRepository, times(1)).add(aMatch);        
+
+        verify(aMatchRepository, times(1)).add(aMatch);
     }
 
 }

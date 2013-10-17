@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.repository;
+package ca.ulaval.glo4003.persistence;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -21,6 +21,9 @@ import org.mockito.MockitoAnnotations;
 import ca.ulaval.glo4003.fileAccess.FileAccessor;
 import ca.ulaval.glo4003.fileAccess.JSONUserConverter;
 import ca.ulaval.glo4003.model.User;
+import ca.ulaval.glo4003.persistence.JSONUserRepository;
+import ca.ulaval.glo4003.repository.ExistingUsernameException;
+import ca.ulaval.glo4003.repository.RepositoryException;
 
 public class UserRepositoryTest {
 
@@ -28,6 +31,9 @@ public class UserRepositoryTest {
     private static final String A_PASSWORD = "a_password";
     private static final Integer AN_ACCESS_LEVEL = 0;
     private static final List<String> VALID_FILES_NAME_IN_A_DIRECTORY = new ArrayList<String>();
+    private static final String ANOTHER_USERNAME = "another_username";
+
+    private JSONUserRepository userRepository;
 
     @Mock
     private JSONUserConverter JSONUserConverter;
@@ -39,13 +45,13 @@ public class UserRepositoryTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        UserRepository.load(new UserRepository(fileAccessor, JSONUserConverter));
+        userRepository = new JSONUserRepository(fileAccessor, JSONUserConverter);
         VALID_FILES_NAME_IN_A_DIRECTORY.add("ValidFileA.json");
     }
 
     @Test
     public void newRepositoryContainsNoEntries() {
-        boolean repositoryIsEmpty = UserRepository.getInstance().isEmpty();
+        boolean repositoryIsEmpty = userRepository.isEmpty();
         assertTrue(repositoryIsEmpty);
     }
 
@@ -53,9 +59,9 @@ public class UserRepositoryTest {
     public void whenLoadingAllUsersRepositoryContainsAllUsers() throws FileNotFoundException {
         doReturn(VALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
         doReturn(user).when(JSONUserConverter).load(anyString());
-        UserRepository.getInstance().loadAll();
+        userRepository.loadAll();
 
-        boolean repositoryIsEmpty = UserRepository.getInstance().isEmpty();
+        boolean repositoryIsEmpty = userRepository.isEmpty();
         assertFalse(repositoryIsEmpty);
     }
 
@@ -64,37 +70,43 @@ public class UserRepositoryTest {
         doReturn(VALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
         doReturn(user).when(JSONUserConverter).load(anyString());
         doReturn(true).when(user).hasUsername(A_USERNAME);
-        UserRepository.getInstance().loadAll();
+        userRepository.loadAll();
 
-        User retrievedUser = UserRepository.getInstance().getUser(A_USERNAME);
+        User retrievedUser = userRepository.getUser(A_USERNAME);
         assertEquals(user, retrievedUser);
     }
 
     @Test(expected = RepositoryException.class)
     public void cannotRetrieveInexistantUser() throws FileNotFoundException {
-        UserRepository.getInstance().getUser(A_USERNAME);
+        userRepository.getUser(A_USERNAME);
     }
 
     // FIXME This is not a Unit test
     @Test
     public void canAddNewUser() {
         doReturn(true).when(user).hasUsername(A_USERNAME);
-        UserRepository.getInstance().addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
+        userRepository.addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
 
-        User retrievedUser = UserRepository.getInstance().getUser(A_USERNAME);
+        User retrievedUser = userRepository.getUser(A_USERNAME);
         assertTrue(retrievedUser.hasUsername(A_USERNAME));
     }
 
     @Test
     public void userIsSavedAfterAdding() throws IOException {
-        UserRepository.getInstance().addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
+        userRepository.addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
         verify(JSONUserConverter).save((User) anyObject(), anyString());
     }
 
     @Test(expected = ExistingUsernameException.class)
     public void cannotAddTheSameUsernameTwice() {
-        UserRepository.getInstance().addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
-        UserRepository.getInstance().addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
+        userRepository.addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
+        userRepository.addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
+    }
+
+    @Test
+    public void canAddMultipleUsersIfTheyHaveDifferentUsernames() {
+        userRepository.addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
+        userRepository.addNewUser(ANOTHER_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
     }
 
 }

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.repository;
+package ca.ulaval.glo4003.persistence;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
@@ -23,6 +23,7 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
 import ca.ulaval.glo4003.model.Match;
+import ca.ulaval.glo4003.persistence.JSONMatchRepository;
 
 public class MatchRepositoryTest {
 
@@ -39,18 +40,20 @@ public class MatchRepositoryTest {
 
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
-    private MatchRepository aMatchRepository;
+    private JSONMatchRepository aMatchRepository;
 
     @Mock
     private JSONMatchConverter JSONMatchConverter;
     @Mock
     private Match aMatch;
+    @Mock
+    private Match anotherMatch;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         System.setErr(new PrintStream(errContent));
-        aMatchRepository = new MatchRepository(JSONMatchConverter);
+        aMatchRepository = new JSONMatchRepository(JSONMatchConverter);
     }
 
     @After
@@ -72,7 +75,7 @@ public class MatchRepositoryTest {
         doReturn(aMatch).when(JSONMatchConverter).load(anyString());
         aMatchRepository.getMatchesByIdentifier(VALID_MATCH_INDENTIFIER);
         reset(JSONMatchConverter);
-        
+
         aMatchRepository.getMatchesByIdentifier(VALID_MATCH_INDENTIFIER);
 
         verifyZeroInteractions(JSONMatchConverter);
@@ -84,13 +87,13 @@ public class MatchRepositoryTest {
 
         aMatchRepository.getMatchesByIdentifier(INVALID_MATCH_INDENTIFIER);
 
-        assertEquals(AN_ERROR_MESSAGE + "\n", errContent.toString());
+        assertEquals(AN_ERROR_MESSAGE, errContent.toString().trim());
     }
 
     @Test
     public void whenAddingNewMatchItIsSaved() throws IOException {
         doReturn(VALID_MATCH_IDENTIFIER_TO_ADD).when(aMatch).getIdentifier();
-        
+
         aMatchRepository.add(aMatch);
 
         verify(JSONMatchConverter).save(aMatch, ROOT_REPOSITORY + VALID_MATCH_IDENTIFIER_TO_ADD);
@@ -105,7 +108,6 @@ public class MatchRepositoryTest {
 
         aMatchRepository.add(aMatch);
 
-        assertEquals(AN_ERROR_MESSAGE + "\n", errContent.toString());
+        assertEquals(AN_ERROR_MESSAGE, errContent.toString().trim());
     }
-
 }
