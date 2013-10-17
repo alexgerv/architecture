@@ -45,17 +45,6 @@ public class Match implements Indexable<MatchFilterCategories> {
         return numberOfAvailableTickets;
     }
 
-    public MatchDTO createMatchDTO() {
-        MatchDTO matchDTO = new MatchDTO();
-        matchDTO.sport = this.getSport();
-        matchDTO.venue = this.getVenue();
-        matchDTO.date = this.getDate();
-        matchDTO.homeTeam = this.getHomeTeam();
-        matchDTO.visitorTeam = this.getVisitorTeam();
-        matchDTO.sex = this.getSex();
-        return matchDTO;
-    }
-
     public String getSport() {
         return sport;
     }
