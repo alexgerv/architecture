@@ -14,20 +14,38 @@
 			</label>
 		</div>
 	</div>
+	<h4>Venues</h4>
+	<div id="venue" style="margin-left: 10px;">
+		<div class="checkbox">
+			<label> <input type="checkbox" name="stade telus"/> Stade Telus
+			</label>
+		</div>
+		<div class="checkbox">
+			<label> <input type="checkbox" name="montreal"/> Montréal
+			</label>
+		</div>
+		<div class="checkbox">
+			<label> <input type="checkbox" name="sherbrooke"/> Sherbrooke
+			</label>
+		</div>
+	</div>
 </form>
 <script type="text/javascript">
 
- $("#searchForm").change(function(){
- 	
+$("#searchForm").change(function(){
+	debugger;
  	var $form = $(this);
 	var $inputs = $form.find("input, select, button, textarea");
-	var serializedData = $form.serialize();
+	var formArray = {};
+	formArray['sports'] = $("#sports :input").serializeArray();
+	formArray['venue'] = $("#venue :input").serializeArray();
 	$inputs.prop("disabled", true);
+	var serializedData = JSON.stringify(formArray);
 	console.log(serializedData);
 	$.ajax( {url: '/search',
 			data: serializedData,
 			type: 'POST',
-			dataType: 'json',
+			contentType:'application/json',
 			processData: false,
 			success: function(response){
 				$("#matchList tbody tr").remove();
