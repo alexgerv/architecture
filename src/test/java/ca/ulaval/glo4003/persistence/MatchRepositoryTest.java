@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.repository;
+package ca.ulaval.glo4003.persistence;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
@@ -23,6 +23,7 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
 import ca.ulaval.glo4003.model.Match;
+import ca.ulaval.glo4003.persistence.JSONMatchRepository;
 
 public class MatchRepositoryTest {
 
@@ -39,7 +40,7 @@ public class MatchRepositoryTest {
 
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
-    private MatchRepository aMatchRepository;
+    private JSONMatchRepository aMatchRepository;
 
     @Mock
     private JSONMatchConverter JSONMatchConverter;
@@ -52,7 +53,7 @@ public class MatchRepositoryTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         System.setErr(new PrintStream(errContent));
-        aMatchRepository = new MatchRepository(JSONMatchConverter);
+        aMatchRepository = new JSONMatchRepository(JSONMatchConverter);
     }
 
     @After

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.repository;
+package ca.ulaval.glo4003.persistence;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -21,6 +21,9 @@ import org.mockito.MockitoAnnotations;
 import ca.ulaval.glo4003.fileAccess.FileAccessor;
 import ca.ulaval.glo4003.fileAccess.JSONUserConverter;
 import ca.ulaval.glo4003.model.User;
+import ca.ulaval.glo4003.persistence.JSONUserRepository;
+import ca.ulaval.glo4003.repository.ExistingUsernameException;
+import ca.ulaval.glo4003.repository.RepositoryException;
 
 public class UserRepositoryTest {
 
@@ -30,7 +33,7 @@ public class UserRepositoryTest {
     private static final List<String> VALID_FILES_NAME_IN_A_DIRECTORY = new ArrayList<String>();
     private static final String ANOTHER_USERNAME = "another_username";
 
-    private UserRepository userRepository;
+    private JSONUserRepository userRepository;
 
     @Mock
     private JSONUserConverter JSONUserConverter;
@@ -42,7 +45,7 @@ public class UserRepositoryTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        userRepository = new UserRepository(fileAccessor, JSONUserConverter);
+        userRepository = new JSONUserRepository(fileAccessor, JSONUserConverter);
         VALID_FILES_NAME_IN_A_DIRECTORY.add("ValidFileA.json");
     }
 
