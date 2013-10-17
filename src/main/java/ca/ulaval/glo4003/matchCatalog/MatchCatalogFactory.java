@@ -6,8 +6,15 @@ import java.util.List;
 import ca.ulaval.glo4003.matchCatalog.index.Filter;
 import ca.ulaval.glo4003.matchCatalog.index.Index;
 import ca.ulaval.glo4003.matchCatalog.index.IndexWithList;
+import ca.ulaval.glo4003.repository.MatchRepository;
 
 public class MatchCatalogFactory {
+
+    MatchRepository matchRepository;
+
+    public MatchCatalogFactory(MatchRepository matchRepository) {
+        this.matchRepository = matchRepository;
+    }
 
     public MatchCatalog createMatchCatalog(String pathToCatalogueFile) {
         return null;
@@ -21,7 +28,7 @@ public class MatchCatalogFactory {
         Index<MatchFilterCategories> index = new IndexWithList<MatchFilterCategories>(filterListByCategories);
         QueryResolver<MatchFilterCategories> queryResolver = new QueryResolver<MatchFilterCategories>(index);
 
-        matchCatalog = new MatchCatalog(queryResolver, index, matchRepository);
+        return new MatchCatalog(queryResolver, index, matchRepository);
     }
 
 }

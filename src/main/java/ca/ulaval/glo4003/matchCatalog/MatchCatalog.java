@@ -2,29 +2,25 @@ package ca.ulaval.glo4003.matchCatalog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import ca.ulaval.glo4003.fileAccess.FileAccessor;
 import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
-import ca.ulaval.glo4003.matchCatalog.index.Filter;
 import ca.ulaval.glo4003.matchCatalog.index.Index;
-import ca.ulaval.glo4003.matchCatalog.index.IndexWithList;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
 public class MatchCatalog {
 
     private static final String MATCHES_PATH = "./matches/";
-    private static MatchCatalog matchCatalog;
 
     private QueryResolver<MatchFilterCategories> queryResolver;
     private MatchRepository matchRepository;
     private Index<MatchFilterCategories> index;
 
-    protected MatchCatalog(QueryResolver<MatchFilterCategories> queryResolver, Index<MatchFilterCategories> index,
-                           MatchRepository matchRepository) {
+    public MatchCatalog(QueryResolver<MatchFilterCategories> queryResolver, Index<MatchFilterCategories> index,
+                        MatchRepository matchRepository) {
         this.queryResolver = queryResolver;
         this.index = index;
         this.matchRepository = matchRepository;
@@ -33,22 +29,6 @@ public class MatchCatalog {
         Query<MatchFilterCategories> query = new Query<MatchFilterCategories>();
         query.addFilterValue(MatchFilterCategories.SPORT, "Basketball");
         getMatchesFromQuery(query);
-    }
-
-    // Creer un builder
-    public static MatchCatalog getInstance(MatchRepository matchRepository) {
-        if (matchCatalog == null) {
-
-            List<Filter<MatchFilterCategories>> filterListByCategories = new ArrayList<Filter<MatchFilterCategories>>();
-            for (MatchFilterCategories category : MatchFilterCategories.values()) {
-                filterListByCategories.add(new Filter<MatchFilterCategories>(category));
-            }
-            Index<MatchFilterCategories> index = new IndexWithList<MatchFilterCategories>(filterListByCategories);
-            QueryResolver<MatchFilterCategories> queryResolver = new QueryResolver<MatchFilterCategories>(index);
-
-            matchCatalog = new MatchCatalog(queryResolver, index, matchRepository);
-        }
-        return matchCatalog;
     }
 
     // Mettre dans le builder ou trouver autre chose
