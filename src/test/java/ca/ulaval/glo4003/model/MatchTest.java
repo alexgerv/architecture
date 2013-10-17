@@ -3,6 +3,8 @@ package ca.ulaval.glo4003.model;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +15,7 @@ public class MatchTest {
     private static final int INITIAL_NUMBER_OF_TICKETS_IN_SECOND_SECTION = 6;
     private static final int INITIAL_NUMBER_OF_AVALAIBLE_TICKETS = INITIAL_NUMBER_OF_TICKETS_IN_FIRST_SECTION
                                                                    + INITIAL_NUMBER_OF_TICKETS_IN_SECOND_SECTION;
-    MatchBuilder matchBuilder = new MatchBuilder();
+    private static final Sex A_SEX = Sex.MEN;
     private final String A_SPORT = "aSport";
     private final String A_HOME_TEAM = "HomeTeam";
     private final String A_VISITOR_TEAM = "VisitorTeam";
@@ -21,19 +23,15 @@ public class MatchTest {
     private final String FIRST_SECTION_NAME = "Section A";
     private final String SECOND_SECTION_NAME = "Section B";
     private final Date A_DATE = new Date();
-    
+
     private Match aMatch;
+    private Map<String, Integer> tickets = new HashMap<String, Integer>();
 
     @Before
     public void setup() {
-        aMatch = matchBuilder.setSport(A_SPORT)
-                             .setDate(A_DATE)
-                             .setHomeTeam(A_HOME_TEAM)
-                             .setVisitorTeam(A_VISITOR_TEAM)
-                             .setVenue(A_VENUE)
-                             .createSection(FIRST_SECTION_NAME, INITIAL_NUMBER_OF_TICKETS_IN_FIRST_SECTION)
-                             .createSection(SECOND_SECTION_NAME, INITIAL_NUMBER_OF_TICKETS_IN_SECOND_SECTION)
-                             .build();
+        tickets.put(FIRST_SECTION_NAME, INITIAL_NUMBER_OF_TICKETS_IN_FIRST_SECTION);
+        tickets.put(SECOND_SECTION_NAME, INITIAL_NUMBER_OF_TICKETS_IN_SECOND_SECTION);
+        aMatch = new Match(A_SPORT, A_VENUE, A_DATE, A_HOME_TEAM, A_VISITOR_TEAM, A_SEX, tickets);
     }
 
     @Test

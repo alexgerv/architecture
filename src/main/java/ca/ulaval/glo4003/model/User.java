@@ -1,12 +1,20 @@
 package ca.ulaval.glo4003.model;
 
-
 public class User {
 
     private String username;
-    
-    public User(String username) {
+    private String password;
+    private Integer access;
+
+
+    public User(String username, String password, Integer access) {
         this.username = username;
+        this.password = password;
+        this.access = access;
+    }
+
+    public User() {
+
     }
 
     public boolean hasUsername(String username) {
@@ -14,7 +22,14 @@ public class User {
     }
 
     public String getUsername() {
-        return this.username;
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
     
+    public Integer getAccess() {
+        return access;
+    }
 }

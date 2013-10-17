@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.web;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,8 +15,8 @@ import ca.ulaval.glo4003.repository.UserRepository;
 @Controller
 public class SignupController {
     
-    @Inject 
-    private UserRepository repository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
     
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signup(Model model) {
@@ -29,13 +29,18 @@ public class SignupController {
     public String submitForm(@ModelAttribute UserDAO user, Model m) {
         String message = "Successfully created user";
         try {
-            repository.addNewUser(user.getUsername());
+            UserRepository.getInstance().addNewUser(user.getUsername(), hashPassword(user.getPassword()), 0);
         } catch (ExistingUsernameException e) {
            message = e.getMessage();
         }
         m.addAttribute("message", message);
         
-        return "signup";
+        return "login";
+    }
+    
+    private String hashPassword(String password) {
+        return passwordEncoder.encodePassword(password, null);
+        
     }
 
 }

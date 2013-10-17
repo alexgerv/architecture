@@ -5,29 +5,42 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Singleton;
-
 import org.springframework.stereotype.Repository;
 
-import ca.ulaval.glo4003.dao.RepositoryException;
 import ca.ulaval.glo4003.fileAccess.FileAccessor;
 import ca.ulaval.glo4003.fileAccess.JSONUserConverter;
 import ca.ulaval.glo4003.fileAccess.UserConverter;
 import ca.ulaval.glo4003.model.User;
 
 @Repository
-@Singleton
 public class UserRepository {
+
     private static final String ROOT_REPOSITORY = "./users/";
     private List<User> users = new ArrayList<User>();
     private FileAccessor fileAccessor = new FileAccessor();
     private UserConverter userConverter = new JSONUserConverter();
-    public UserRepository() {}
-    
+
+    private static UserRepository instance;
+
+    public UserRepository() {
+        this.loadAll();
+    }
+
+    public static void load(UserRepository repository) {
+        instance = repository;
+    }
+
+    public static UserRepository getInstance() {
+        if (instance == null) {
+            instance = new UserRepository();
+        }
+        return instance;
+    }
+
     public boolean isEmpty() {
         return users.isEmpty();
     };
-    
+
     public void loadAll() {
         for (String pathToUser : fileAccessor.getFilesNameInDirectory(ROOT_REPOSITORY)) {
             User newUser;
@@ -39,34 +52,29 @@ public class UserRepository {
             }
         }
     }
-    
-    protected UserRepository(FileAccessor fileAccessor, JSONUserConverter userConverter)  {
-        this.fileAccessor = fileAccessor;
-        this.userConverter = userConverter;
-    }
 
     public User getUser(String username) {
         for (User user : users) {
-            if(user.hasUsername(username)) {
+            if (user.hasUsername(username)) {
                 return user;
             }
         }
         throw new RepositoryException("User \"" + username + "\" is not found");
     }
 
-    public void addNewUser(String username) throws ExistingUsernameException {
+    public void addNewUser(String username, String password, Integer access) throws ExistingUsernameException {
         username = username.toLowerCase();
-        if(!usernameIsAvailable(username)) {
+        if (!usernameIsAvailable(username)) {
             throw new ExistingUsernameException("Username \"" + username + "\" is already taken");
         }
-        User user = new User(username);
+        User user = new User(username, password, access);
         users.add(user);
         saveUser(user);
     }
 
     private boolean usernameIsAvailable(String username) {
-        for(User user : users) {
-            if(user.hasUsername(username)) {
+        for (User user : users) {
+            if (user.hasUsername(username)) {
                 return false;
             }
         }
@@ -77,9 +85,14 @@ public class UserRepository {
         try {
             userConverter.save(user, ROOT_REPOSITORY + "/" + user.getUsername() + ".json");
         } catch (IOException e) {
-            //FIXME Should try saving again later.
+            // FIXME Should try saving again later.
             e.printStackTrace();
         }
+    }
+
+    protected UserRepository(FileAccessor fileAccessor, JSONUserConverter userConverter) {
+        this.fileAccessor = fileAccessor;
+        this.userConverter = userConverter;
     }
 
 }
