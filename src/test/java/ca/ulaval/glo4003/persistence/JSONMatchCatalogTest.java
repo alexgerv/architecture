@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.matchCatalog;
+package ca.ulaval.glo4003.persistence;
 
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
@@ -12,11 +12,16 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
+import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
+import ca.ulaval.glo4003.matchCatalog.Query;
+import ca.ulaval.glo4003.matchCatalog.QueryResolver;
 import ca.ulaval.glo4003.matchCatalog.index.Index;
 import ca.ulaval.glo4003.model.Match;
+import ca.ulaval.glo4003.persistence.JSONMatchCatalog;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
-public class MatchCatalogTest {
+public class JSONMatchCatalogTest {
 
     private static final List<String> VALID_MATCH_INDENTIFIER = Arrays.asList("stadeTelus/2010-05-30_22:00:00",
                                                                               "peps/2010-05-31 15:15:00",
@@ -40,7 +45,7 @@ public class MatchCatalogTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        aMatchCatalog = new MatchCatalog(queryResolver, anIndex, aMatchRepository);
+        aMatchCatalog = new JSONMatchCatalog(queryResolver, anIndex, aMatchRepository);
     }
 
     @Test
