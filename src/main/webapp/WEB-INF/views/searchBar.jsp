@@ -13,6 +13,42 @@
 			<label> <input type="checkbox" name="Soccer"/> Soccer
 			</label>
 		</div>
+        <div class="checkbox">
+            <label> <input type="checkbox" name="Badminton"/> Badminton
+            </label>
+        </div>
+        <div class="checkbox">
+            <label> <input type="checkbox" name="Basketball"/> BasketBall
+            </label>
+        </div>
+        <div class="checkbox">
+            <label> <input type="checkbox" name="Cheerleading"/> Cheerleading
+            </label>
+        </div>
+        <div class="checkbox">
+            <label> <input type="checkbox" name="Cross-country"/> Cross-country
+            </label>
+        </div>  
+        <div class="checkbox">
+            <label> <input type="checkbox" name="Golf"/> Golf
+            </label>
+        </div> 
+        <div class="checkbox">
+            <label> <input type="checkbox" name="Natation"/> Natation
+            </label>
+        </div> 
+        <div class="checkbox">
+            <label> <input type="checkbox" name="Plongeon"/> Plongeon
+            </label>
+        </div> 
+        <div class="checkbox">
+            <label> <input type="checkbox" name="Ski"/> Ski
+            </label>
+        </div> 
+        <div class="checkbox">
+            <label> <input type="checkbox" name="Volleyball"/> Volleyball
+            </label>
+        </div> 
 	</div>
 	<h4>Venues</h4>
 	<div id="VENUE" style="margin-left: 10px;">
@@ -21,7 +57,7 @@
 			</label>
 		</div>
 		<div class="checkbox">
-			<label> <input type="checkbox" name="Montreal"/> Montréal
+			<label> <input type="checkbox" name="Montreal"/> MontrÃ©al
 			</label>
 		</div>
 		<div class="checkbox">
@@ -63,7 +99,7 @@ $("#searchForm").change(function(){
 	 		$("#matchList tbody").append(
 	 		'<tr>' +
 				'<td style="text-align: center;"><a'+
-						'href="match/' + matchList[index].matchID + '" class="btn btn-default btn-xs"><i'+
+						'href="match/' + matchList[index].matchIdentifier + '" class="btn btn-default btn-xs"><i'+
 						'class="icon icon-search"></i></a></td>'+
 				'<td>' + matchList[index].venue + '</td>'+
 				'<td>' + matchList[index].date + '</td>'+
@@ -71,7 +107,7 @@ $("#searchForm").change(function(){
 				'<td>' + matchList[index].homeTeam + '</td>'+
 				'<td>' + matchList[index].visitorTeam + '</td>'+
 				'<td><strong>' + matchList[index].totalNumberOfAvailableTickets + '</strong>'+
-					'(<a href="match/' + matchList[index].matchID + '">view by section</a>)</td>'+
+					'(<a href="match/' + matchList[index].matchIdentifier + '">view by section</a>)</td>'+
 			'</tr>');		
 	 	}
  	}
