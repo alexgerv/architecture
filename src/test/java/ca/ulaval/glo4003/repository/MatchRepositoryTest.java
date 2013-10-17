@@ -45,6 +45,8 @@ public class MatchRepositoryTest {
     private JSONMatchConverter JSONMatchConverter;
     @Mock
     private Match aMatch;
+    @Mock
+    private Match anotherMatch;
 
     @Before
     public void setup() {
@@ -72,7 +74,7 @@ public class MatchRepositoryTest {
         doReturn(aMatch).when(JSONMatchConverter).load(anyString());
         aMatchRepository.getMatchesByIdentifier(VALID_MATCH_INDENTIFIER);
         reset(JSONMatchConverter);
-        
+
         aMatchRepository.getMatchesByIdentifier(VALID_MATCH_INDENTIFIER);
 
         verifyZeroInteractions(JSONMatchConverter);
@@ -84,13 +86,13 @@ public class MatchRepositoryTest {
 
         aMatchRepository.getMatchesByIdentifier(INVALID_MATCH_INDENTIFIER);
 
-        assertEquals(AN_ERROR_MESSAGE + "\n", errContent.toString());
+        assertEquals(AN_ERROR_MESSAGE, errContent.toString().trim());
     }
 
     @Test
     public void whenAddingNewMatchItIsSaved() throws IOException {
         doReturn(VALID_MATCH_IDENTIFIER_TO_ADD).when(aMatch).getIdentifier();
-        
+
         aMatchRepository.add(aMatch);
 
         verify(JSONMatchConverter).save(aMatch, ROOT_REPOSITORY + VALID_MATCH_IDENTIFIER_TO_ADD);
@@ -105,7 +107,6 @@ public class MatchRepositoryTest {
 
         aMatchRepository.add(aMatch);
 
-        assertEquals(AN_ERROR_MESSAGE + "\n", errContent.toString());
+        assertEquals(AN_ERROR_MESSAGE, errContent.toString().trim());
     }
-
 }

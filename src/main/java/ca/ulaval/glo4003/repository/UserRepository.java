@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import org.springframework.stereotype.Repository;
 
 import ca.ulaval.glo4003.fileAccess.FileAccessor;
@@ -13,6 +15,7 @@ import ca.ulaval.glo4003.fileAccess.UserConverter;
 import ca.ulaval.glo4003.model.User;
 
 @Repository
+@Singleton
 public class UserRepository {
 
     private static final String ROOT_REPOSITORY = "./users/";
@@ -20,21 +23,8 @@ public class UserRepository {
     private FileAccessor fileAccessor = new FileAccessor();
     private UserConverter userConverter = new JSONUserConverter();
 
-    private static UserRepository instance;
-
     public UserRepository() {
         this.loadAll();
-    }
-
-    public static void load(UserRepository repository) {
-        instance = repository;
-    }
-
-    public static UserRepository getInstance() {
-        if (instance == null) {
-            instance = new UserRepository();
-        }
-        return instance;
     }
 
     public boolean isEmpty() {
