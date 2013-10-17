@@ -10,11 +10,11 @@ import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 
 public class MatchViewConverter {
 	
-	public Collection<MatchViewModel> convert(Map<Integer, Match> entries) {
+	public Collection<MatchViewModel> convert(Map<String, Match> entries) {
 		Collection<MatchViewModel> viewModels = new LinkedList<MatchViewModel>();
-		for (Entry<Integer, Match> entry : entries.entrySet()) {
+		for (Entry<String, Match> entry : entries.entrySet()) {
 			MatchViewModel viewModel = convert(entry.getValue());
-			viewModel.matchID = entry.getKey();
+			viewModel.matchIdentifier = entry.getKey();
 			viewModels.add(viewModel);
 		}
 		return viewModels;

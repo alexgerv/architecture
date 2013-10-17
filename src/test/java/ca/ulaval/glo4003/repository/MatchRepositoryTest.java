@@ -12,6 +12,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,11 +26,15 @@ import ca.ulaval.glo4003.model.Match;
 
 public class MatchRepositoryTest {
 
-    private static final Integer[] VALID_MATCH_INDEXES = { 0, 1, 2, 3, 4, };
-    private static final Integer[] INVALID_MATCH_INDEXES = { 5 };
+    private static final List<String> VALID_MATCH_INDENTIFIER = Arrays.asList("stadeTelus/2010-05-30_22:00:00",
+                                                                              "peps/2010-05-31 15:15:00",
+                                                                              "terrain2/2010-05-30 12:30:00",
+                                                                              "terrain3/2010-05-30 20:30:00",
+                                                                              "terrain4/2010-05-30 17:30:00");
+    private static final List<String> INVALID_MATCH_INDENTIFIER = Arrays.asList("terrain/2010-05-30 12:30:00");
     private static final String AN_ERROR_MESSAGE = "Error";
-    private static final Integer VALID_MATCH_ID_TO_ADD = 8;
-    private static final Integer INVALID_MATCH_ID_TO_ADD = 9;
+    private static final String VALID_MATCH_IDENTIFIER_TO_ADD = "terrain/2010-08-30 12:30:00";
+    private static final String INVALID_MATCH_IDENTIFIER_TO_ADD = "terrain2/2010-10-30 12:30:00";
     private static final String ROOT_REPOSITORY = "./matches/";
 
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -54,9 +60,9 @@ public class MatchRepositoryTest {
 
     @Test
     public void whenGettingAListOfMatchesIfAMatchIsNotLoadedThenItIsLoaded() throws FileNotFoundException {
-        String expectedPathOfFileToLoad = ROOT_REPOSITORY + VALID_MATCH_INDEXES[0];
+        String expectedPathOfFileToLoad = ROOT_REPOSITORY + VALID_MATCH_INDENTIFIER.get(0);
 
-        aMatchRepository.getMatchesById(VALID_MATCH_INDEXES);
+        aMatchRepository.getMatchesByIdentifier(VALID_MATCH_INDENTIFIER);
 
         verify(JSONMatchConverter).load(expectedPathOfFileToLoad);
     }
@@ -64,10 +70,10 @@ public class MatchRepositoryTest {
     @Test
     public void whenGettingAListOfMatchesIfAMatchIsLoadedThenItIsReturned() throws FileNotFoundException {
         doReturn(aMatch).when(JSONMatchConverter).load(anyString());
-        aMatchRepository.getMatchesById(VALID_MATCH_INDEXES);
+        aMatchRepository.getMatchesByIdentifier(VALID_MATCH_INDENTIFIER);
         reset(JSONMatchConverter);
-
-        aMatchRepository.getMatchesById(VALID_MATCH_INDEXES);
+        
+        aMatchRepository.getMatchesByIdentifier(VALID_MATCH_INDENTIFIER);
 
         verifyZeroInteractions(JSONMatchConverter);
     }
@@ -76,24 +82,28 @@ public class MatchRepositoryTest {
     public void whenGettingAMatchAnyErrorsArePrintToTheErrorStream() throws FileNotFoundException {
         doThrow(new FileNotFoundException(AN_ERROR_MESSAGE)).when(JSONMatchConverter).load(anyString());
 
-        aMatchRepository.getMatchesById(INVALID_MATCH_INDEXES);
+        aMatchRepository.getMatchesByIdentifier(INVALID_MATCH_INDENTIFIER);
 
         assertEquals(AN_ERROR_MESSAGE + "\n", errContent.toString());
     }
 
     @Test
     public void whenAddingNewMatchItIsSaved() throws IOException {
-        aMatchRepository.add(aMatch, VALID_MATCH_ID_TO_ADD);
+        doReturn(VALID_MATCH_IDENTIFIER_TO_ADD).when(aMatch).getIdentifier();
+        
+        aMatchRepository.add(aMatch);
 
-        verify(JSONMatchConverter).save(aMatch, ROOT_REPOSITORY + VALID_MATCH_ID_TO_ADD);
+        verify(JSONMatchConverter).save(aMatch, ROOT_REPOSITORY + VALID_MATCH_IDENTIFIER_TO_ADD);
     }
 
     @Test
     public void whenNewMatchIsSavedInTheRepositoryAnyErrorsArePrintedToTheErrorStream() throws IOException {
+        doReturn(INVALID_MATCH_IDENTIFIER_TO_ADD).when(aMatch).getIdentifier();
         doThrow(new FileNotFoundException(AN_ERROR_MESSAGE)).when(JSONMatchConverter)
-                                                            .save(aMatch, ROOT_REPOSITORY + INVALID_MATCH_ID_TO_ADD);
+                                                            .save(aMatch,
+                                                                  ROOT_REPOSITORY + INVALID_MATCH_IDENTIFIER_TO_ADD);
 
-        aMatchRepository.add(aMatch, INVALID_MATCH_ID_TO_ADD);
+        aMatchRepository.add(aMatch);
 
         assertEquals(AN_ERROR_MESSAGE + "\n", errContent.toString());
     }

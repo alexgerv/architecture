@@ -9,8 +9,6 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.ulaval.glo4003.searchEngine.Sex;
-
 public class MatchTest {
 
     private static final int INITIAL_NUMBER_OF_TICKETS_IN_FIRST_SECTION = 4;

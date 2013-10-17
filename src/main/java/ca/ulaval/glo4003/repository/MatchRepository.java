@@ -3,80 +3,71 @@ package ca.ulaval.glo4003.repository;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import javax.inject.Singleton;
-
-import org.springframework.stereotype.Repository;
 
 import ca.ulaval.glo4003.fileAccess.JSONMatchConverter;
 import ca.ulaval.glo4003.model.Match;
 
-@Repository
 public class MatchRepository {
 
     private static final String ROOT_REPOSITORY = "./matches/";
     
     private static MatchRepository repository;
-    private JSONMatchConverter JSONMatchConverter = new JSONMatchConverter();
-    private Map<Integer, Match> loadedEntries = new HashMap<Integer, Match>();
+    private JSONMatchConverter JSONMatchConverter;
+    private Map<String, Match> loadedEntries = new HashMap<String, Match>();
 
-    private MatchRepository() {
-        
+    protected MatchRepository(JSONMatchConverter JSONMatchConverter) {
+        this.JSONMatchConverter = JSONMatchConverter;
     }
     
     public static MatchRepository getInstance(){
         if(repository == null){
-            repository = new MatchRepository();
+            JSONMatchConverter JSONMatchConverter = new JSONMatchConverter();
+            repository = new MatchRepository(JSONMatchConverter);
         }
-        
         return repository;            
     }
     
-    
-    public Match getMatchById(Integer matchId){
-        if(loadedEntries.containsKey(matchId)){
-            return loadedEntries.get(matchId);
+    public Match getMatchByIdentifier(String matchIdentifier){
+        if(loadedEntries.containsKey(matchIdentifier)){
+            return loadedEntries.get(matchIdentifier);
         }
         else{
-            loadMatch(matchId);
-            return loadedEntries.get(matchId);
+            loadMatch(matchIdentifier);
+            return loadedEntries.get(matchIdentifier);
         }
     }
     
-    private void loadMatch(Integer id) {
+    private void loadMatch(String identifier) {
         Match newMatch;
         try {
-            newMatch = JSONMatchConverter.load(ROOT_REPOSITORY + id);
-            loadedEntries.put(id, newMatch);
+            newMatch = JSONMatchConverter.load(ROOT_REPOSITORY + identifier);
+            loadedEntries.put(identifier, newMatch);
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         }   
     }
 
-    public Map<Integer, Match> getMatchesById(Integer[] matchesId) {
-        Map<Integer, Match> matches = new HashMap<Integer, Match>();
-        for(int id : matchesId){
-            matches.put(id, getMatchById(id));
+    public Map<String, Match> getMatchesByIdentifier(List<String> matchesIdentifier) {
+        Map<String, Match> matches = new HashMap<String, Match>();
+        for(String identifier : matchesIdentifier){
+            matches.put(identifier, getMatchByIdentifier(identifier));
         }
-        
         return matches;
     }    
     
-    public Map<Integer, Match> getAllLoadedEntries(){
+    public Map<String, Match> getAllLoadedEntries(){
         return loadedEntries;
     }
     
-    public void add(Match match, Integer id){
+    public void add(Match match){
+        String matchIdentifier = match.getIdentifier();
         try {
-            JSONMatchConverter.save(match, ROOT_REPOSITORY + id.toString());
+            JSONMatchConverter.save(match, ROOT_REPOSITORY + matchIdentifier);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
-
-    // For tests purposes only
-    protected MatchRepository(JSONMatchConverter JSONMatchConverter) {
-        this.JSONMatchConverter = JSONMatchConverter;
-    }
+    
 }

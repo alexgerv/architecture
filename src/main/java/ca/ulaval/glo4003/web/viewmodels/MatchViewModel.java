@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Map;
 
 public class MatchViewModel {
-	public Integer matchID;
+	public String matchIdentifier;
     public String sport;
     public String venue;
     public Date date;
@@ -13,8 +13,8 @@ public class MatchViewModel {
 	public Map<String, Integer> availableTicketsBySection;
 	public int totalNumberOfAvailableTickets;
 	
-	public Integer getMatchID() {
-		return matchID;
+	public String getMatchIdentifier() {
+		return matchIdentifier;
 	}
     
 	public String getSport() {
