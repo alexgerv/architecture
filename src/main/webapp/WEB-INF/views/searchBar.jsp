@@ -1,31 +1,31 @@
 <form id="searchForm">
 	<h4>Sports</h4>
-	<div id="sports" style="margin-left: 10px;">
+	<div id="SPORT" style="margin-left: 10px;">
 		<div class="checkbox">
-			<label> <input type="checkbox" name="football"/> Football
+			<label> <input type="checkbox" name="Football"/> Football
 			</label>
 		</div>
 		<div class="checkbox">
-			<label> <input type="checkbox" name="rugby"/> Rugby
+			<label> <input type="checkbox" name="Rugby"/> Rugby
 			</label>
 		</div>
 		<div class="checkbox">
-			<label> <input type="checkbox" name="soccer"/> Soccer
+			<label> <input type="checkbox" name="Soccer"/> Soccer
 			</label>
 		</div>
 	</div>
 	<h4>Venues</h4>
-	<div id="venue" style="margin-left: 10px;">
+	<div id="VENUE" style="margin-left: 10px;">
 		<div class="checkbox">
-			<label> <input type="checkbox" name="stade telus"/> Stade Telus
+			<label> <input type="checkbox" name="Stade Telus"/> Stade Telus
 			</label>
 		</div>
 		<div class="checkbox">
-			<label> <input type="checkbox" name="montreal"/> Montréal
+			<label> <input type="checkbox" name="Montreal"/> Montréal
 			</label>
 		</div>
 		<div class="checkbox">
-			<label> <input type="checkbox" name="sherbrooke"/> Sherbrooke
+			<label> <input type="checkbox" name="Sherbrooke"/> Sherbrooke
 			</label>
 		</div>
 	</div>
@@ -37,14 +37,14 @@ $("#searchForm").change(function(){
  	var $form = $(this);
 	var $inputs = $form.find("input, select, button, textarea");
 	var formArray = {};
-	formArray['sports'] = $("#sports :input").serializeArray();
-	formArray['venue'] = $("#venue :input").serializeArray();
+	formArray['SPORT'] = $("#SPORT :input").serializeArray();
+	formArray['VENUE'] = $("#VENUE :input").serializeArray();
 	$inputs.prop("disabled", true);
 	var serializedData = JSON.stringify(formArray);
-	console.log(serializedData);
 	$.ajax( {url: '/search',
 			data: serializedData,
 			type: 'POST',
+			dataType: 'json',
 			contentType:'application/json',
 			processData: false,
 			success: function(response){
@@ -56,7 +56,7 @@ $("#searchForm").change(function(){
  });
  
  function displayMatches(matchList){
- 	if(!$.isArray(matchList)){
+ 	if($.isArray(matchList) && !$.isEmptyObject(matchList)){
  		$("#matchList").show();
  		$("#searchMessage").hide();
 	 	for(index in matchList){
