@@ -188,6 +188,11 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>3.1.4.RELEASE</version>
 		</dependency>
+		<dependency>
+		<groupId>org.json</groupId>
+		<artifactId>json</artifactId>
+		<version>20090211</version>
+		</dependency>
 
 		<!-- DATE -->
 		<dependency>

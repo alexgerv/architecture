@@ -1,33 +1,51 @@
 <form id="searchForm">
 	<h4>Sports</h4>
-	<div id="sports" style="margin-left: 10px;">
+	<div id="SPORT" style="margin-left: 10px;">
 		<div class="checkbox">
-			<label> <input type="checkbox" name="football"/> Football
+			<label> <input type="checkbox" name="Football"/> Football
 			</label>
 		</div>
 		<div class="checkbox">
-			<label> <input type="checkbox" name="rugby"/> Rugby
+			<label> <input type="checkbox" name="Rugby"/> Rugby
 			</label>
 		</div>
 		<div class="checkbox">
-			<label> <input type="checkbox" name="soccer"/> Soccer
+			<label> <input type="checkbox" name="Soccer"/> Soccer
+			</label>
+		</div>
+	</div>
+	<h4>Venues</h4>
+	<div id="VENUE" style="margin-left: 10px;">
+		<div class="checkbox">
+			<label> <input type="checkbox" name="Stade Telus"/> Stade Telus
+			</label>
+		</div>
+		<div class="checkbox">
+			<label> <input type="checkbox" name="Montreal"/> Montréal
+			</label>
+		</div>
+		<div class="checkbox">
+			<label> <input type="checkbox" name="Sherbrooke"/> Sherbrooke
 			</label>
 		</div>
 	</div>
 </form>
 <script type="text/javascript">
 
- $("#searchForm").change(function(){
- 	
+$("#searchForm").change(function(){
+	debugger;
  	var $form = $(this);
 	var $inputs = $form.find("input, select, button, textarea");
-	var serializedData = $form.serialize();
+	var formArray = {};
+	formArray['SPORT'] = $("#SPORT :input").serializeArray();
+	formArray['VENUE'] = $("#VENUE :input").serializeArray();
 	$inputs.prop("disabled", true);
-	console.log(serializedData);
+	var serializedData = JSON.stringify(formArray);
 	$.ajax( {url: '/search',
 			data: serializedData,
 			type: 'POST',
 			dataType: 'json',
+			contentType:'application/json',
 			processData: false,
 			success: function(response){
 				$("#matchList tbody tr").remove();
@@ -38,7 +56,7 @@
  });
  
  function displayMatches(matchList){
- 	if(!$.isArray(matchList)){
+ 	if($.isArray(matchList) && !$.isEmptyObject(matchList)){
  		$("#matchList").show();
  		$("#searchMessage").hide();
 	 	for(index in matchList){
