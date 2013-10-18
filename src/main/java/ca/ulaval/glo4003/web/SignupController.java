@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.web;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +18,7 @@ import ca.ulaval.glo4003.web.viewmodels.UserViewModel;
 public class SignupController {
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    Md5PasswordEncoder passwordEncoder;
 
     @Inject
     UserRepository userRepository;
@@ -44,7 +44,7 @@ public class SignupController {
     }
 
     private String hashPassword(String password) {
-        return passwordEncoder.encode(password);
+        return passwordEncoder.encodePassword(password, null);
     }
 
 }

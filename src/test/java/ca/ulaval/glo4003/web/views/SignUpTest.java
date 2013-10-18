@@ -14,7 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SingUpTest {
+public class SignUpTest {
 
     private static final String BASE_URL = "http://localhost:8080/";
     private static final String SIGN_UP_LINK_NAME = "Sign Up";
