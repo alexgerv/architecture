@@ -44,13 +44,6 @@ public class AuthenticationServiceTest {
     }
 
     @Test
-    public void userHasUserRoleAuthorities() {
-        Collection<GrantedAuthority> grantedAuthorities = authenticationService.getAuthorities(USER);
-        boolean userHasUserRoleAuthorities = grantedAuthorities.contains(new SimpleGrantedAuthority("USER_ROLE"));
-        assertTrue(userHasUserRoleAuthorities);
-    }
-
-    @Test
     public void userDoesNotHaveAdminRoleAuthorities() {
         Collection<GrantedAuthority> grantedAuthorities = authenticationService.getAuthorities(USER);
         boolean userHasAdminRoleAuthorities = grantedAuthorities.contains(new SimpleGrantedAuthority("ADMIN_ROLE"));
@@ -58,16 +51,10 @@ public class AuthenticationServiceTest {
     }
 
     @Test
-    public void adminHasUserRoleAuthorities() {
+    public void adminHasUserAndAdminRoleAuthorities() {
         Collection<GrantedAuthority> grantedAuthorities = authenticationService.getAuthorities(ADMIN);
-        boolean adminHasAdminRoleAuthorities = grantedAuthorities.contains(new SimpleGrantedAuthority("USER_ROLE"));
+        boolean adminHasAdminRoleAuthorities = grantedAuthorities.size() == 2;
         assertTrue(adminHasAdminRoleAuthorities);
     }
 
-    @Test
-    public void adminHasAdminRoleAuthorities() {
-        Collection<GrantedAuthority> grantedAuthorities = authenticationService.getAuthorities(ADMIN);
-        boolean adminHasAdminRoleAuthorities = grantedAuthorities.contains(new SimpleGrantedAuthority("ADMIN_ROLE"));
-        assertTrue(adminHasAdminRoleAuthorities);
-    }
 }

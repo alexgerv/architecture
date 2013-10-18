@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -20,13 +21,13 @@ public class UserTest {
     }
 
     @Test
-    public void hasUsernameReturnsTrueWhenUsernamesAreSame(String username) {
+    public void hasUsernameReturnsTrueWhenUsernamesAreSame() {
         assertTrue(aUser.hasUsername(USERNAME));
     }
 
     @Test
-    public void hasUsernameReturnsFalseWhenUsernamesAreSame(String username) {
-        assertTrue(aUser.hasUsername(DIFFERENT_USERNAME));
+    public void hasUsernameReturnsFalseWhenUsernamesAreSame() {
+        assertFalse(aUser.hasUsername(DIFFERENT_USERNAME));
     }
 
     @Test
