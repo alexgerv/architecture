@@ -12,13 +12,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4003.index.Index;
 import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
-import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
+import ca.ulaval.glo4003.matchCatalog.MatchIndex;
 import ca.ulaval.glo4003.matchCatalog.MatchQuery;
 import ca.ulaval.glo4003.matchCatalog.MatchQueryResolver;
 import ca.ulaval.glo4003.model.Match;
-import ca.ulaval.glo4003.persistence.json.JSONMatchCatalog;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
 public class JSONMatchCatalogTest {
@@ -36,7 +34,7 @@ public class JSONMatchCatalogTest {
     @Mock
     private MatchQueryResolver queryResolver;
     @Mock
-    private Index<MatchFilterCategories> anIndex;
+    private MatchIndex anIndex;
     @Mock
     private MatchQuery aQuery;
     @Mock
