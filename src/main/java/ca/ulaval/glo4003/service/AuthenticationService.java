@@ -21,8 +21,13 @@ import ca.ulaval.glo4003.repository.UserRepository;
 @Transactional(readOnly = true)
 public class AuthenticationService implements UserDetailsService {
 
+    private static final Integer ADMIN_ACCESS = 1;
     @Inject
     UserRepository userRepository;
+
+    public AuthenticationService() {
+
+    }
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
 
@@ -51,9 +56,16 @@ public class AuthenticationService implements UserDetailsService {
         authList.add(new SimpleGrantedAuthority("ROLE_USER"));
 
         if (access.compareTo(1) == 0) {
+
+        }
+        if (access.compareTo(ADMIN_ACCESS) == 0) {
             authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
 
         return authList;
+    }
+
+    protected AuthenticationService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 }
