@@ -2,8 +2,6 @@ package ca.ulaval.glo4003.web;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 import java.util.List;
 import java.util.Map;
@@ -13,7 +11,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.ui.Model;
 
 import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.matchCatalog.MatchQuery;
@@ -24,7 +21,8 @@ import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 
 public class SearchBarControllerTest {
 
-    private final String SERIALIZED_QUERY = "{\"SPORT\":[{\"name\":\"Football\",\"value\":\"on\"},{\"name\":\"Cross-country\",\"value\":\"on\"}],\"VENUE\":[{\"name\":\"Sherbrooke\",\"value\":\"on\"}]}";
+    private final String SERIALIZED_QUERY =
+                                            "{\"SPORT\":[{\"name\":\"Football\",\"value\":\"on\"},{\"name\":\"Cross-country\",\"value\":\"on\"}],\"VENUE\":[{\"name\":\"Sherbrooke\",\"value\":\"on\"}]}";
 
     @Mock
     private MatchCatalog matchCatalog;
@@ -37,12 +35,12 @@ public class SearchBarControllerTest {
 
     @Mock
     private MatchQuery matchQuery;
-    
+
     @Mock
     private Map<String, Match> matchMap;
-    
+
     @Mock
-    private List<MatchViewModel> matchList; 
+    private List<MatchViewModel> matchList;
 
     @InjectMocks
     private SearchBarController controller;
@@ -55,9 +53,9 @@ public class SearchBarControllerTest {
         doReturn(matchMap).when(matchCatalog).getMatchesFromQuery(matchQuery);
         doReturn(matchList).when(matchViewConverter).convert(matchMap);
     }
-    
+
     @Test
-    public void canGetAMatchListFromQuery(){
+    public void canGetAMatchListFromQuery() {
         assertEquals(controller.searchResults(SERIALIZED_QUERY), matchList);
     }
 

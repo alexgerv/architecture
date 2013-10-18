@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.web;
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,7 +44,7 @@ public class SignupController {
     }
 
     private String hashPassword(String password) {
-        return passwordEncoder.encodePassword(password, null);
+        return passwordEncoder.encode(password);
     }
 
 }
