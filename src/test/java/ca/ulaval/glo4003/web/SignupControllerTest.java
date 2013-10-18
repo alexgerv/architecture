@@ -14,8 +14,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.ui.Model;
 
-import ca.ulaval.glo4003.dao.UserDAO;
 import ca.ulaval.glo4003.repository.UserRepository;
+import ca.ulaval.glo4003.web.viewmodels.UserViewModel;
 
 public class SignupControllerTest {
 
@@ -29,7 +29,7 @@ public class SignupControllerTest {
     private HttpSession session;
 
     @Mock
-    private UserDAO user;
+    private UserViewModel user;
 
     @Mock
     private UserRepository repository;

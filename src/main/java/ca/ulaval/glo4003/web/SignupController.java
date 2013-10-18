@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ca.ulaval.glo4003.dao.UserDAO;
 import ca.ulaval.glo4003.repository.ExistingUsernameException;
 import ca.ulaval.glo4003.repository.UserRepository;
+import ca.ulaval.glo4003.web.viewmodels.UserViewModel;
 
 @Controller
 public class SignupController {
@@ -26,15 +26,15 @@ public class SignupController {
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signup(Model model) {
 
-        model.addAttribute("userDAO", new UserDAO());
+        model.addAttribute("userDAO", new UserViewModel());
         return "signup";
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String submitForm(@ModelAttribute UserDAO user, Model m) {
+    public String submitForm(@ModelAttribute UserViewModel user, Model m) {
         String message = "Successfully created user";
         try {
-            userRepository.addNewUser(user.username, hashPassword(user.password), 0);
+            userRepository.addNewUser(user.getUsername(), hashPassword(user.getPassword()), 0);
         } catch (ExistingUsernameException e) {
             message = e.getMessage();
         }
