@@ -3,12 +3,7 @@ package ca.ulaval.glo4003.matchCatalog;
 import java.util.Iterator;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-
 
 public class MatchQueryFactory {
 
