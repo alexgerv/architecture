@@ -18,7 +18,7 @@ public class MatchViewConverter {
 		Collection<MatchViewModel> viewModels = new LinkedList<MatchViewModel>();
 		for (Entry<String, Match> entry : entries.entrySet()) {
 			MatchViewModel viewModel = convert(entry.getValue());
-			viewModel.matchIdentifier = entry.getKey();
+			viewModel.setMatchIdentifier(entry.getKey());
 			viewModels.add(viewModel);
 		}
 		return viewModels;
@@ -27,14 +27,14 @@ public class MatchViewConverter {
 	public MatchViewModel convert(Match entry) {
 		MatchViewModel viewModel = new MatchViewModel();
 		
-	    viewModel.sport = entry.getSport();
-	    viewModel.venue = entry.getVenue();
-	    viewModel.date = DateFormatUtils.format(entry.getDate(), DATE_FORMAT_TEMPLATE);
-		viewModel.homeTeam = entry.getHomeTeam();
-		viewModel.visitorTeam = entry.getVisitorTeam();
-		viewModel.sex = entry.getSex();
-		viewModel.availableTicketsBySection = entry.getAvailableTicketsBySection();
-		viewModel.totalNumberOfAvailableTickets = entry.getTotatNumberOfAvailableTickets();
+	    viewModel.setSport(entry.getSport());
+	    viewModel.setVenue(entry.getVenue());
+	    viewModel.setDate(DateFormatUtils.format(entry.getDate(), DATE_FORMAT_TEMPLATE));
+		viewModel.setHomeTeam(entry.getHomeTeam());
+		viewModel.setVisitorTeam(entry.getVisitorTeam());
+		viewModel.setSex(entry.getSex());
+		viewModel.setAvailableTicketsBySection(entry.getAvailableTicketsBySection());
+		viewModel.setTotalNumberOfAvailableTickets(entry.getTotatNumberOfAvailableTickets());
 		
 		return viewModel;
 	}

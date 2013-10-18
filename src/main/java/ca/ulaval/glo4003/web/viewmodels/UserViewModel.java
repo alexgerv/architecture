@@ -1,6 +1,6 @@
-package ca.ulaval.glo4003.dao;
+package ca.ulaval.glo4003.web.viewmodels;
 
-public class UserDAO {
+public class UserViewModel {
 
     private String username;
     private String password;

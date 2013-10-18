@@ -6,8 +6,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.junit.Before;
 import org.junit.Test;
+
+import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 
 public class MatchTest {
 
@@ -38,5 +41,73 @@ public class MatchTest {
     public void canTellItsTotalNumberOfAvalaibleTickets() {
         int numberOfAvalaibleTickets = aMatch.getTotatNumberOfAvailableTickets();
         assertEquals(numberOfAvalaibleTickets, INITIAL_NUMBER_OF_AVALAIBLE_TICKETS);
+    }
+
+    @Test
+    public void canGetTheSportOfAMatch() {
+        assertEquals(aMatch.getSport(), A_SPORT);
+    }
+
+    @Test
+    public void canGetTheVenueOfAMatch() {
+        assertEquals(aMatch.getVenue(), A_VENUE);
+    }
+
+    @Test
+    public void canGetTheHomeTeamOfAMatch() {
+        assertEquals(aMatch.getHomeTeam(), A_HOME_TEAM);
+    }
+
+    @Test
+    public void canGetTheVisitorTeamOfAMatch() {
+        assertEquals(aMatch.getVisitorTeam(), A_VISITOR_TEAM);
+    }
+
+    @Test
+    public void canGetTheSexOfAMatch() {
+        assertEquals(aMatch.getSex(), A_SEX);
+    }
+
+    @Test
+    public void canGetTheDateOfAMatch() {
+        assertEquals(aMatch.getDate(), A_DATE);
+    }
+
+    @Test
+    public void canGetTheAvailableTicketsBySectionOfAMatch() {
+        assertEquals(aMatch.getAvailableTicketsBySection(), tickets);
+    }
+
+    @Test
+    public void canGetTheIdentifierOfAMatch() {
+        String formatedDate = DateFormatUtils.format(A_DATE, "yyyy-MM-dd_HH-mm-SS");
+        String identifier = A_VENUE + "/" + formatedDate;
+        assertEquals(aMatch.getIdentifier(), identifier);
+    }
+
+    @Test
+    public void canGetASportFilterValue() {
+        assertEquals(A_SPORT, aMatch.getFilterValueOfCategory(MatchFilterCategories.SPORT));
+    }
+
+    @Test
+    public void canGetAVenueFilterValue() {
+        assertEquals(A_VENUE, aMatch.getFilterValueOfCategory(MatchFilterCategories.VENUE));
+    }
+
+    @Test
+    public void canGetADateFilterValue() {
+        assertEquals(DateFormatUtils.format(A_DATE, "yyyy-MM-dd_HH-mm-SS"),
+                     aMatch.getFilterValueOfCategory(MatchFilterCategories.DATE));
+    }
+
+    @Test
+    public void canGetAHomeTeamFilterValue() {
+        assertEquals(A_HOME_TEAM, aMatch.getFilterValueOfCategory(MatchFilterCategories.HOME_TEAM));
+    }
+
+    @Test
+    public void canGetAVisitorTeamFilterValue() {
+        assertEquals(A_VISITOR_TEAM, aMatch.getFilterValueOfCategory(MatchFilterCategories.VISITOR_TEAM));
     }
 }

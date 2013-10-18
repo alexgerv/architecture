@@ -54,10 +54,6 @@ public class AuthenticationService implements UserDetailsService {
         List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>(2);
 
         authList.add(new SimpleGrantedAuthority("ROLE_USER"));
-
-        if (access.compareTo(1) == 0) {
-
-        }
         if (access.compareTo(ADMIN_ACCESS) == 0) {
             authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }

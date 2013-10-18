@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.persistence.json;
 import java.util.Iterator;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
@@ -14,8 +15,9 @@ public class JSONMatchQueryFactory implements MatchQueryFactory {
     public MatchQuery create(String serializedQuery) {
         MatchQuery query = new MatchQuery();
 
+        JSONObject unSerializeQuery;
         try {
-            JSONObject unSerializeQuery = new JSONObject(serializedQuery);
+            unSerializeQuery = new JSONObject(serializedQuery);
             Iterator<?> categories = unSerializeQuery.keys();
 
             while (categories.hasNext()) {
@@ -30,8 +32,7 @@ public class JSONMatchQueryFactory implements MatchQueryFactory {
                     query.addFilterValue(cat, filterValue);
                 }
             }
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return query;

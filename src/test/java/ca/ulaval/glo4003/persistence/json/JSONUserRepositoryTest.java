@@ -20,8 +20,6 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.model.User;
 import ca.ulaval.glo4003.persistence.FileAccessor;
-import ca.ulaval.glo4003.persistence.json.JSONUserConverter;
-import ca.ulaval.glo4003.persistence.json.JSONUserRepository;
 import ca.ulaval.glo4003.repository.ExistingUsernameException;
 import ca.ulaval.glo4003.repository.RepositoryException;
 

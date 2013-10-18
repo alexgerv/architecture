@@ -24,6 +24,10 @@ public class MatchListController {
 
     private MatchViewConverter matchConverter = new MatchViewConverter();
 
+    public MatchListController() {
+
+    }
+
     @RequestMapping(value = "/matchList", method = RequestMethod.GET)
     public String matchList(Model model) {
 
@@ -31,10 +35,15 @@ public class MatchListController {
     }
 
     @RequestMapping(value = "/match/{venue}/{date}", method = RequestMethod.GET)
-    public String match(@PathVariable String venue, @PathVariable String date, Model model) {
+    public String getMatch(@PathVariable String venue, @PathVariable String date, Model model) {
         MatchViewModel viewModel = matchConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date));
         model.addAttribute("match", viewModel);
 
         return "matchDetails";
+    }
+
+    protected MatchListController(MatchRepository matchRepository, MatchViewConverter matchViewConverter) {
+        this.matchConverter = matchViewConverter;
+        this.matchRepository = matchRepository;
     }
 }
