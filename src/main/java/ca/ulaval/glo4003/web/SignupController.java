@@ -34,7 +34,7 @@ public class SignupController {
     public String submitForm(@ModelAttribute UserDAO user, Model m) {
         String message = "Successfully created user";
         try {
-            userRepository.addNewUser(user.username, hashPassword(user.password), 0);
+            userRepository.addNewUser(user.getUsername(), hashPassword(user.getPassword()), 0);
         } catch (ExistingUsernameException e) {
             message = e.getMessage();
         }
