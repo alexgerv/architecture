@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
+import ca.ulaval.glo4003.index.FilterCategoryException;
+import ca.ulaval.glo4003.index.Indexable;
 import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
-import ca.ulaval.glo4003.matchCatalog.index.FilterCategoryException;
-import ca.ulaval.glo4003.matchCatalog.index.Indexable;
 
 public class Match implements Indexable<MatchFilterCategories> {
 
