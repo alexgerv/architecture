@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.converters;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,11 +38,14 @@ public class MatchViewConverterTest {
     
     @Test
     public void whenConvertingAMatchToAMacthViewModelTheConverterReturnsAMatchViewModel() {
+        Mockito.when(aMatch.getDate()).thenReturn(new Date());
         assertTrue(aMatchViewConverter.convert(aMatch) instanceof MatchViewModel);
     }
     
     @Test
     public void whenConvertingAMatchToAMachViewModelTheConverterUsesTheMatchAttributesToCreateTheModel() {
+        Mockito.when(aMatch.getDate()).thenReturn(new Date());
+        
         aMatchViewConverter.convert(aMatch);
         
         Mockito.verify(aMatch).getAvailableTicketsBySection();
