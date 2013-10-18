@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.web.views;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 
@@ -51,12 +52,18 @@ public class SignUpTest {
 
     @Test
     public void canCreateAccountWhenNotLoggedIn() throws Exception {
-        assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.cssSelector(SELECTOR_SINGUP_SUCCESS_MESSAGE), EXPECTED_SUCCESS_MESSAGE)));
+        String successMessage = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(SELECTOR_SINGUP_SUCCESS_MESSAGE)))
+                                          .getText();
+        
+        assertEquals(EXPECTED_SUCCESS_MESSAGE, successMessage);
     }
     
     @Test
     public void whenTringToCreateAnAccountWithAnExistingUserAnErrorMessageIsShown(){
-        assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.cssSelector(SELECTOR_SINGUP_SUCCESS_MESSAGE), EXPECTED_FAIL_MESSAGE)));      
+        String failMessage = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(SELECTOR_SINGUP_SUCCESS_MESSAGE)))
+                                          .getText();
+        
+        assertEquals(EXPECTED_FAIL_MESSAGE, failMessage);        
     }
 
     @After

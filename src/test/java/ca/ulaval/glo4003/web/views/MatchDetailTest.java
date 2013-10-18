@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.web.views;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,7 +36,8 @@ public class MatchDetailTest {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[name='" + A_PARTICULAR_SPORT + "']"))).click();
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@id='matchList']/tbody/tr/td[8]/a"))).click();
         
-        assertTrue(driverWait.until(ExpectedConditions.titleIs(MATCH_DETAILS_PAGE_TITLE)));
+        driverWait.until(ExpectedConditions.titleIs(MATCH_DETAILS_PAGE_TITLE));
+        assertEquals(MATCH_DETAILS_PAGE_TITLE, driver.getTitle());
     }
 
     @After

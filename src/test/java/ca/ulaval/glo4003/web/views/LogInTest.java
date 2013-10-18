@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.web.views;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -63,8 +64,9 @@ public class LogInTest {
     }
 
     private void assertLoggedIn() {
-        assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.cssSelector(SELECTOR_HELLO_MESSAGE),
-                                                                                EXPECTED_LOGGED_IN_MESSAGE)));
+        String successMessage = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(SELECTOR_HELLO_MESSAGE)))
+                                          .getText();
+        assertEquals(EXPECTED_LOGGED_IN_MESSAGE, successMessage);
     }
 
     @Test
@@ -75,8 +77,11 @@ public class LogInTest {
                   .sendKeys(AN_INVALID_PASSWORD);
         driverWait.until(ExpectedConditions.elementToBeClickable(By.id(SUBMIT_BUTTON_ID))).click();
 
-        assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.cssSelector(SELECTOR_INVALID_PASSWORD_MESSAGE),
-                                                                                EXPECTED_FAIL_MESSAGE)));
+        String failMessage = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(SELECTOR_INVALID_PASSWORD_MESSAGE)))
+                                       .getText();
+
+        assertEquals(EXPECTED_FAIL_MESSAGE, failMessage);
+
     }
 
     @Test
@@ -99,8 +104,10 @@ public class LogInTest {
         navigateToMatchDetails();
         driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(LOGOUT_LINK_TEXT))).click();
 
-        assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.linkText(SIGN_UP_LINK_NAME),
-                                                                                EXPECTED_BUTTON_AFTER_LOGOUT)));
+        String signUpButtonText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.linkText(SIGN_UP_LINK_NAME)))
+                                            .getText();
+
+        assertEquals(EXPECTED_BUTTON_AFTER_LOGOUT, signUpButtonText);
     }
 
     @After
