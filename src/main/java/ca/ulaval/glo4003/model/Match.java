@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
-import ca.ulaval.glo4003.dto.MatchDTO;
 import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 import ca.ulaval.glo4003.matchCatalog.index.FilterCategoryException;
 import ca.ulaval.glo4003.matchCatalog.index.Indexable;
