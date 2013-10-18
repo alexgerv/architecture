@@ -24,16 +24,22 @@ public class SearchBarController {
 
     @Inject
     MatchQueryFactory matchQueryFactory;
+    
+    private MatchViewConverter matchConverter = new MatchViewConverter();
 
+    public SearchBarController(){}
+    
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public @ResponseBody
     List<MatchViewModel> searchResults(@RequestBody String request) {
-
         MatchQuery query = matchQueryFactory.create(request);
-        MatchViewConverter converter = new MatchViewConverter();
-        List<MatchViewModel> matchList =
-                                         (List<MatchViewModel>) converter.convert(matchCatalog.getMatchesFromQuery(query));
-
+        List<MatchViewModel> matchList = (List<MatchViewModel>) matchConverter.convert(matchCatalog.getMatchesFromQuery(query));
         return matchList;
+    }
+    
+    protected SearchBarController(MatchCatalog matchCatalog, MatchQueryFactory matchQueryFactory, MatchViewConverter matchViewConverter){
+        this.matchCatalog = matchCatalog;
+        this.matchQueryFactory = matchQueryFactory;
+        this.matchConverter = matchViewConverter;
     }
 }
