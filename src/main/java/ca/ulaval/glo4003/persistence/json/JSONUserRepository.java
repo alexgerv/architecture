@@ -77,7 +77,6 @@ public class JSONUserRepository implements UserRepository {
         try {
             userConverter.save(user, ROOT_REPOSITORY + "/" + user.getUsername() + ".json");
         } catch (IOException e) {
-            // FIXME Should try saving again later.
             e.printStackTrace();
         }
     }
