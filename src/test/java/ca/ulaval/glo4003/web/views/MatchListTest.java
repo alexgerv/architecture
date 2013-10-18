@@ -3,6 +3,8 @@ package ca.ulaval.glo4003.web.views;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.thoughtworks.selenium.*;
+
 import java.util.List;
 
 import org.junit.After;
@@ -16,6 +18,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class MatchListTest {
 
     private static final String MATCH_LIST_HOME_LINK_TEXT = "View the match list";
+    private static final String A_PARTICULAR_SPORT = "Football";
     private static final String BASE_URL = "http://localhost:8080/";
 
     private WebDriver driver;
@@ -28,20 +31,26 @@ public class MatchListTest {
     }
 
     @Test
-    public void whenOpenningMatchListPageTheNumberOfAvalaibleTicketsIsDisplayedForEachMatch() throws Exception {
+    public void whenOpenningMatchListPageTheNumberOfAvalaibleTicketsIsDisplayedForAParticularSport() throws Exception {
         driver.findElement(By.linkText(MATCH_LIST_HOME_LINK_TEXT)).click();
-        int totalNumberOfTickets = Integer.parseInt(driver.findElement(By.xpath("//*[@id='matchList']//tr//td[7]//strong")).getText());
+        waitForPage();
+        driver.findElement(By.cssSelector("input[name='" + A_PARTICULAR_SPORT + "']")).click();
         waitForPage();
         
-        driver.findElement(By.xpath("//*[@id='matchList']//tr//td[7]//a")).click();
+        int totalNumberOfTickets =
+                                   Integer.parseInt(driver.findElement(By.xpath("//*[@id='matchList']//tr//td[8]//strong"))
+                                                          .getText());
         waitForPage();
-        
+
+        driver.findElement(By.xpath("//*[@id='matchList']//tr//td[8]//a")).click();
+        waitForPage();
+
         List<WebElement> list = driver.findElements(By.className("ticketsBySection"));
         int totalAvailableTickets = 0;
         for (WebElement element : list) {
             totalAvailableTickets += Integer.parseInt(element.getText());
         }
-        
+
         assertEquals(totalAvailableTickets, totalNumberOfTickets);
     }
 
@@ -53,8 +62,8 @@ public class MatchListTest {
             fail(verificationErrorString);
         }
     }
-    
-    private void waitForPage() throws InterruptedException{
+
+    private void waitForPage() throws InterruptedException {
         synchronized (driver) {
             driver.wait(1000);
         }

@@ -3,6 +3,8 @@ package ca.ulaval.glo4003.web.viewmodels;
 import java.util.Date;
 import java.util.Map;
 
+import ca.ulaval.glo4003.model.Sex;
+
 public class MatchViewModel {
 	public String matchIdentifier;
     public String sport;
@@ -10,6 +12,7 @@ public class MatchViewModel {
     public String date;
 	public String homeTeam;
 	public String visitorTeam;
+	public Sex sex;
 	public Map<String, Integer> availableTicketsBySection;
 	public int totalNumberOfAvailableTickets;
 	
@@ -56,6 +59,14 @@ public class MatchViewModel {
 	public void setVisitorTeam(String visitorTeam) {
 		this.visitorTeam = visitorTeam;
 	}
+	
+    public Sex getSex() {
+        return sex;
+    }
+    
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
 	
 	public Map<String, Integer> getAvailableTicketsBySection() {
 		return availableTicketsBySection;
