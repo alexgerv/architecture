@@ -50,14 +50,10 @@ public class AuthenticationService implements UserDetailsService {
 
         authList.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        // Check if this user has admin access
-        // We interpret Integer(1) as an admin user
         if (access.compareTo(1) == 0) {
-            // User has admin access
             authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
 
-        // Return list of granted authorities
         return authList;
     }
 }
