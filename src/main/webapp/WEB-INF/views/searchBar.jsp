@@ -34,11 +34,11 @@
             </label>
         </div> 
         <div class="checkbox">
-            <label> <input type="checkbox" name="Natation"/> Swimming
+            <label> <input type="checkbox" name="Swimming"/> Swimming
             </label>
         </div> 
         <div class="checkbox">
-            <label> <input type="checkbox" name="Plongeon"/> Diving
+            <label> <input type="checkbox" name="Diving"/> Diving
             </label>
         </div> 
         <div class="checkbox">
