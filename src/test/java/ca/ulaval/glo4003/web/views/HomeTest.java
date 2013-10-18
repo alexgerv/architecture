@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.web.views;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -34,16 +33,14 @@ public class HomeTest {
     public void whenOnHomePageclickingOnViewMatchListButtonNavigatesToMatchListPage() throws Exception {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(MATCH_LIST_HOME_LINK_TEXT))).click();
 
-        driverWait.until(ExpectedConditions.titleIs(MATCH_LIST_PAGE_TITLE));
-        assertEquals(MATCH_LIST_PAGE_TITLE, driver.getTitle());
+        assertTrue(driverWait.until(ExpectedConditions.titleIs(MATCH_LIST_PAGE_TITLE)));
     }
 
     @Test
     public void whenOnHomePageclickingOnMatchesButtonNavigatesToMatchListPage() throws Exception {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(MATCH_LIST_MENU_LINK_TEXT))).click();
         
-        driverWait.until(ExpectedConditions.titleIs(MATCH_LIST_PAGE_TITLE));
-        assertEquals(MATCH_LIST_PAGE_TITLE, driver.getTitle());
+        assertTrue(driverWait.until(ExpectedConditions.titleIs(MATCH_LIST_PAGE_TITLE)));
     }
 
     @After
