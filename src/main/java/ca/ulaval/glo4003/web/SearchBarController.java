@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
-import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
+import ca.ulaval.glo4003.matchCatalog.MatchQuery;
 import ca.ulaval.glo4003.matchCatalog.MatchQueryFactory;
-import ca.ulaval.glo4003.matchCatalog.Query;
 import ca.ulaval.glo4003.web.converters.MatchViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 
@@ -30,7 +29,7 @@ public class SearchBarController {
     public @ResponseBody
     List<MatchViewModel> searchResults(@RequestBody String request) {
 
-        Query<MatchFilterCategories> query = matchQueryFactory.create(request);
+        MatchQuery query = matchQueryFactory.create(request);
         MatchViewConverter converter = new MatchViewConverter();
         List<MatchViewModel> matchList =
                                          (List<MatchViewModel>) converter.convert(matchCatalog.getMatchesFromQuery(query));
