@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import ca.ulaval.glo4003.testFixture.TestFixture;
 
-public class HomeTest {
+public class UserCanSeeNumberOfAvailableTicketsPerSectionTest {
 
     private TestFixture fixture;
 
@@ -18,15 +18,11 @@ public class HomeTest {
     }
 
     @Test
-    public void whenOnHomePageclickingOnViewMatchListButtonNavigatesToMatchListPage() throws Exception {
-        fixture.clickOnMatchListButton();
-        fixture.assertUserIsOnMatchListPage();
-    }
-
-    @Test
-    public void whenOnHomePageclickingOnMatchesButtonNavigatesToMatchListPage() throws Exception {
+    public void whenLookingAtAMatchsDetailsTheUserCanSeeTheNumberOfTicketsAvailableIsDisplayedForEachSection() throws Exception {
         fixture.clickOnMatchesButtonInNavigationMenu();
-        fixture.assertUserIsOnMatchListPage();
+        fixture.FilterSportsForAParticularSport();
+        fixture.assertNumberOfAvailableTicketsForAMatchIsDisplayedForEachSection();
+
     }
 
     @After

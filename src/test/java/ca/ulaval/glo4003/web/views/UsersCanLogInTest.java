@@ -4,23 +4,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.ulaval.glo4003.testFixture.LoginFixture;
+import ca.ulaval.glo4003.testFixture.TestFixture;
 
 public class UsersCanLogInTest {
 
-    private LoginFixture fixture;
+    private TestFixture fixture;
 
     @Before
     public void setUp() throws Exception {
-        fixture = new LoginFixture();
+        fixture = new TestFixture();
         fixture.init();
         fixture.goOnHomePage();
         fixture.goOnLoginPage();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        fixture.close();
     }
 
     @Test
@@ -50,6 +45,11 @@ public class UsersCanLogInTest {
         fixture.logOut();
 
         fixture.assertUserIsAnonymous();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        fixture.close();
     }
 
 }
