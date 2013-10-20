@@ -34,11 +34,11 @@
             </label>
         </div> 
         <div class="checkbox">
-            <label> <input type="checkbox" name="Natation"/> Natation
+            <label> <input type="checkbox" name="Swimming"/> Swimming
             </label>
         </div> 
         <div class="checkbox">
-            <label> <input type="checkbox" name="Plongeon"/> Plongeon
+            <label> <input type="checkbox" name="Diving"/> Diving
             </label>
         </div> 
         <div class="checkbox">
@@ -57,7 +57,7 @@
 			</label>
 		</div>
 		<div class="checkbox">
-			<label> <input type="checkbox" name="Montreal"/> Montréal
+			<label> <input type="checkbox" name="Montreal"/> Montreal
 			</label>
 		</div>
 		<div class="checkbox">
