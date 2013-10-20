@@ -23,6 +23,10 @@ public class SignupController {
     @Inject
     UserRepository userRepository;
 
+    public SignupController() {
+
+    }
+
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signup(Model model) {
 
