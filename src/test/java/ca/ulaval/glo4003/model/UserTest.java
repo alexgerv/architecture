@@ -44,4 +44,5 @@ public class UserTest {
     public void canGetAccess() {
         assertEquals(aUser.getAccess(), ACCESS);
     }
+
 }

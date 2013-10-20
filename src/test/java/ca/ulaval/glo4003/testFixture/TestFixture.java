@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -43,10 +44,16 @@ public class TestFixture {
     private static final String A_PARTICULAR_SPORT = "Football";
 
     private static final String A_SPORT_WITHOUT_MATCHES = "Cheerleading";
-    private static final String SELECTOR_FOR_MATCH_A_SPORT_WITHOUT_MATCHES = "input[name='" + A_SPORT_WITHOUT_MATCHES;
+    private static final String SELECTOR_FOR_MATCH_A_SPORT_WITHOUT_MATCHES = "input[name='" + A_SPORT_WITHOUT_MATCHES
+                                                                             + "']";
     private static final String XPATH_FOR_MATCH_SPORT = "//*[@id='matchList']//tr//td[4]";
     private static final String ID_MESSAGE_WITH_NO_MATCH = "searchMessage";
     private static final String EXPECTED_NO_MATCH_MESSAGE = "Your search produced no results.";
+
+    private static final String A_NEW_USER_NAME = "olivier_dugas";
+    private static final String SELECTOR_SINGUP_SUCCESS_MESSAGE = "div[class=\"alert alert-info\"]";
+    private static final String EXPECTED_SUCCESS_MESSAGE = "Successfully created user";
+    private static final String PATH_TO_CREATED_USER_FILE = "./users/olivier_dugas.json";
 
     public WebDriver driver;
     public WebDriverWait driverWait;
@@ -157,4 +164,30 @@ public class TestFixture {
         }
     }
 
+    public void goOnSignUpPage() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(SIGN_UP_LINK_NAME))).click();
+    }
+
+    public void signUp() {
+        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.id(USER_NAME_INPUT_FIELD_ID)))
+                  .sendKeys(A_NEW_USER_NAME);
+        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.id(PASSWORD_INPUT_FIELD_ID)))
+                  .sendKeys(A_PASSWORD);
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.id(SUBMIT_BUTTON_ID))).click();
+    }
+
+    public void assertSignUpWasSuccessful() {
+        assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.cssSelector(SELECTOR_SINGUP_SUCCESS_MESSAGE),
+                                                                                EXPECTED_SUCCESS_MESSAGE)));
+    }
+
+    public void removeCreatedUser() {
+        File file = new File(PATH_TO_CREATED_USER_FILE);
+        file.delete();
+    }
+
+    public void assertSignUpWasNotSuccessulAndAnErrorMessageWasDisplayed() {
+        assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.cssSelector(SELECTOR_SINGUP_SUCCESS_MESSAGE),
+                                                                                EXPECTED_FAIL_MESSAGE)));
+    }
 }
