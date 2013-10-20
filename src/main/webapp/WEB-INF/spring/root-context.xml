@@ -9,9 +9,8 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:annotation-config />
-	<context:component-scan base-package="ca.ulaval.glo4003" use-default-filters="false">
-	   <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-	   <context:include-filter type="regex" expression="ca.ulaval.glo4003.persistence.json.JSONUserRepository"/>
+	<context:component-scan base-package="ca.ulaval.glo4003" >
+	   <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
 </beans>
