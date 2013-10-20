@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 
@@ -35,7 +37,7 @@ public class SignupControllerTest {
     private UserRepository repository;
 
     @Mock
-    PasswordEncoder passwordEncoder;
+    Md5PasswordEncoder passwordEncoder;
 
     @InjectMocks
     private SignupController controller;
