@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.ui.Model;
 
 import ca.ulaval.glo4003.repository.UserRepository;
@@ -35,7 +35,7 @@ public class SignupControllerTest {
     private UserRepository repository;
 
     @Mock
-    PasswordEncoder passwordEncoder;
+    Md5PasswordEncoder passwordEncoder;
 
     @InjectMocks
     private SignupController controller;
@@ -43,6 +43,7 @@ public class SignupControllerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        controller = new SignupController(repository, passwordEncoder);
         doReturn(session).when(request).getSession();
     }
 

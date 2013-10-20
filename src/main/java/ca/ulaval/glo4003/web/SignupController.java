@@ -47,4 +47,9 @@ public class SignupController {
         return passwordEncoder.encodePassword(password, null);
     }
 
+    protected SignupController(UserRepository repository, Md5PasswordEncoder passwordEncoder) {
+        this.userRepository = repository;
+        this.passwordEncoder = new Md5PasswordEncoder();
+    }
+
 }
