@@ -56,6 +56,9 @@ public class TestFixture {
     private static final String EXPECTED_FAIL_SIGNUP_MESSAGE = "Username \"" + A_NEW_USER_NAME + "\" is already taken";
     private static final String PATH_TO_CREATED_USER_FILE = "./users/olivier_dugas.json";
 
+    private static final String XPATH_FOR_MATCH_LIST_TICKETS_NUMBER = "//*[@id='matchList']//tr//td[8]//strong";
+    private static final String CLASS_NAME_FOR_TICKET_BY_SECTION = "ticketsBySection";
+
     public WebDriver driver;
     public WebDriverWait driverWait;
     private StringBuffer verificationErrors = new StringBuffer();
@@ -190,5 +193,27 @@ public class TestFixture {
     public void assertSignUpWasNotSuccessulAndAnErrorMessageWasDisplayed() {
         assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.cssSelector(SELECTOR_SINGUP_SUCCESS_MESSAGE),
                                                                                 EXPECTED_FAIL_SIGNUP_MESSAGE)));
+    }
+
+    public int getTotalNumberOfTicketsForAParticularMatch() {
+        String totalNumberOfTicketsText =
+                                          driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_FOR_MATCH_LIST_TICKETS_NUMBER)))
+                                                    .getText();
+
+        return Integer.parseInt(totalNumberOfTicketsText);
+    }
+
+    public void clickOnAParticularMatch() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_MATCH_LIST_LINK))).click();
+        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.className(CLASS_NAME_FOR_TICKET_BY_SECTION)));
+    }
+
+    public int getTotalNumberOfTicketsFromSubSectionsForAParticularMatch() {
+        List<WebElement> list = driver.findElements(By.className("ticketsBySection"));
+        int totalAvailableTickets = 0;
+        for (WebElement element : list) {
+            totalAvailableTickets += Integer.parseInt(element.getText());
+        }
+        return totalAvailableTickets;
     }
 }
