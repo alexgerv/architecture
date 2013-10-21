@@ -13,7 +13,8 @@
 			<div style="display: inline-block; float: clear">
 				<h1>Match List</h1>
 				<hr>
-				<div id="searchMessage" class="alert alert-info">Your search produced no results.</div>
+				<div id="searchMessage" class="alert alert-info" hidden="hidden">
+					Your search produced no results.</div>
 				<table class="table table-condensed table-bordered table-striped"
 					id="matchList">
 					<thead>

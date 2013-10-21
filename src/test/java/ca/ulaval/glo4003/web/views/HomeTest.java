@@ -1,5 +1,9 @@
 package ca.ulaval.glo4003.web.views;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+>>>>>>> master
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
