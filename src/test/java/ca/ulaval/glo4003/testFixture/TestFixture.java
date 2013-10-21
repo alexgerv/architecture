@@ -53,6 +53,7 @@ public class TestFixture {
     private static final String A_NEW_USER_NAME = "olivier_dugas";
     private static final String SELECTOR_SINGUP_SUCCESS_MESSAGE = "div[class=\"alert alert-info\"]";
     private static final String EXPECTED_SUCCESS_MESSAGE = "Successfully created user";
+    private static final String EXPECTED_FAIL_SIGNUP_MESSAGE = "Username \"" + A_NEW_USER_NAME + "\" is already taken";
     private static final String PATH_TO_CREATED_USER_FILE = "./users/olivier_dugas.json";
 
     public WebDriver driver;
@@ -188,6 +189,6 @@ public class TestFixture {
 
     public void assertSignUpWasNotSuccessulAndAnErrorMessageWasDisplayed() {
         assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.cssSelector(SELECTOR_SINGUP_SUCCESS_MESSAGE),
-                                                                                EXPECTED_FAIL_MESSAGE)));
+                                                                                EXPECTED_FAIL_SIGNUP_MESSAGE)));
     }
 }

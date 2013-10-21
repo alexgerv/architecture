@@ -30,6 +30,7 @@ public class UsersCanCreateANewAccount {
     }
 
     public void anErrorMessageIsShownWhenTryingToCreateAnAccountWithAnExistingUser() {
+        fixture.goOnSignUpPage();
         fixture.signUp();
         fixture.assertSignUpWasNotSuccessulAndAnErrorMessageWasDisplayed();
     }
