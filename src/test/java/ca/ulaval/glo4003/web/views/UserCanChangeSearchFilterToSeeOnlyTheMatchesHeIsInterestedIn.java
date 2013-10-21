@@ -24,14 +24,6 @@ public class UserCanChangeSearchFilterToSeeOnlyTheMatchesHeIsInterestedIn {
         fixture.assertAllShownMatchesAreOfTheSelectedSport();
     }
 
-    @Test
-    public void whenSelectingSearchCriteriasWithNoMatchingMatchesAMessageIsDisplayed() {
-        fixture.clickOnMatchesButtonInNavigationMenu();
-        fixture.searchForASportWithoutAnyMatches();
-        fixture.assertAMessageSayingNoSportsMatchesTheSearchCriteriasIsDisplayed();
-
-    }
-
     @After
     public void tearDown() throws Exception {
         fixture.close();

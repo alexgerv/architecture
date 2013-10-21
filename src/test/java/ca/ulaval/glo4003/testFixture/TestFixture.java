@@ -47,8 +47,6 @@ public class TestFixture {
     private static final String SELECTOR_FOR_MATCH_A_SPORT_WITHOUT_MATCHES = "input[name='" + A_SPORT_WITHOUT_MATCHES
                                                                              + "']";
     private static final String XPATH_FOR_MATCH_SPORT = "//*[@id='matchList']//tr//td[4]";
-    private static final String ID_MESSAGE_WITH_NO_MATCH = "searchMessage";
-    private static final String EXPECTED_NO_MATCH_MESSAGE = "Your search produced no results.";
 
     private static final String A_NEW_USER_NAME = "olivier_dugas";
     private static final String SELECTOR_SINGUP_SUCCESS_MESSAGE = "div[class=\"alert alert-info\"]";
@@ -153,11 +151,6 @@ public class TestFixture {
     public void searchForASportWithoutAnyMatches() {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(SELECTOR_FOR_MATCH_A_SPORT_WITHOUT_MATCHES)))
                   .click();
-    }
-
-    public void assertAMessageSayingNoSportsMatchesTheSearchCriteriasIsDisplayed() {
-        assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.id(ID_MESSAGE_WITH_NO_MATCH),
-                                                                                EXPECTED_NO_MATCH_MESSAGE)));
     }
 
     public void assertAllShownMatchesAreOfTheSelectedSport() {
