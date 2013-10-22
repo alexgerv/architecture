@@ -11,6 +11,7 @@ import javax.inject.Singleton;
 import org.springframework.stereotype.Repository;
 
 import ca.ulaval.glo4003.model.Match;
+import ca.ulaval.glo4003.persistence.MatchConverter;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
 @Repository
@@ -18,17 +19,8 @@ import ca.ulaval.glo4003.repository.MatchRepository;
 public class JSONMatchRepository implements MatchRepository {
 
     private static final String ROOT_REPOSITORY = "./matches/";
-
-    private JSONMatchConverter JSONMatchConverter;
+    private MatchConverter matchConverter = new JSONMatchConverter();
     private Map<String, Match> loadedEntries = new HashMap<String, Match>();
-
-    public JSONMatchRepository() {
-        this.JSONMatchConverter = new JSONMatchConverter();
-    }
-
-    protected JSONMatchRepository(JSONMatchConverter JSONMatchConverter) {
-        this.JSONMatchConverter = JSONMatchConverter;
-    }
 
     public Match getMatchByIdentifier(String matchIdentifier) {
         if (loadedEntries.containsKey(matchIdentifier)) {
@@ -42,7 +34,7 @@ public class JSONMatchRepository implements MatchRepository {
     private void loadMatch(String identifier) {
         Match newMatch;
         try {
-            newMatch = JSONMatchConverter.load(ROOT_REPOSITORY + identifier);
+            newMatch = matchConverter.load(ROOT_REPOSITORY + identifier);
             loadedEntries.put(identifier, newMatch);
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
@@ -64,10 +56,14 @@ public class JSONMatchRepository implements MatchRepository {
     public void add(Match match) {
         String matchIdentifier = match.getIdentifier();
         try {
-            JSONMatchConverter.save(match, ROOT_REPOSITORY + matchIdentifier);
+            matchConverter.save(match, ROOT_REPOSITORY + matchIdentifier);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+    
+    protected JSONMatchRepository(JSONMatchConverter JSONMatchConverter) {
+        this.matchConverter = JSONMatchConverter;
     }
 
 }
