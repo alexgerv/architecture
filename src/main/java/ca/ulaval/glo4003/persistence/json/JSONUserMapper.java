@@ -4,10 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import ca.ulaval.glo4003.model.User;
-import ca.ulaval.glo4003.persistence.UserConverter;
+import ca.ulaval.glo4003.repository.UserMapper;
 
-public class JSONUserConverter extends JSONConverter<User> implements UserConverter{
-    public JSONUserConverter() {
+public class JSONUserMapper extends JSONConverter<User> implements UserMapper{
+    public JSONUserMapper() {
         super(User.class);
     }
     

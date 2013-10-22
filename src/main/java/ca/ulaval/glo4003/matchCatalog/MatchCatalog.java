@@ -1,13 +1,34 @@
 package ca.ulaval.glo4003.matchCatalog;
 
+import java.util.List;
 import java.util.Map;
 
+import ca.ulaval.glo4003.index.Index;
 import ca.ulaval.glo4003.model.Match;
+import ca.ulaval.glo4003.repository.MatchRepository;
 
-public interface MatchCatalog {
+public abstract class MatchCatalog {
 
-    public Map<String, Match> getMatchesFromQuery(MatchQuery aMatchQuery);
+    private MatchQueryResolver queryResolver;
 
-    public void add(Match match);
+    private Index<MatchFilterCategories> index;
+
+    private MatchRepository matchRepository;
+
+    public MatchCatalog(MatchQueryResolver queryResolver, MatchIndex index, MatchRepository matchRepository){
+        this.queryResolver = queryResolver;
+        this.index = index;
+        this.matchRepository = matchRepository;
+    }
+    public Map<String, Match> getMatchesFromQuery(MatchQuery aMatchQuery) {
+        List<String> matchesIdentifier = queryResolver.resolve(aMatchQuery);
+
+        return matchRepository.getMatchesByIdentifier(matchesIdentifier);
+    }
+
+    public void add(Match match) {
+        index.add(match);
+        matchRepository.add(match);
+    }
 
 }

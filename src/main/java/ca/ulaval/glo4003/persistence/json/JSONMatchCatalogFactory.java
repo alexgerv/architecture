@@ -27,7 +27,7 @@ public class JSONMatchCatalogFactory implements MatchCatalogFactory {
         }
         MatchIndex index = new MatchIndex(filterListByCategories);
         MatchQueryResolver queryResolver = new MatchQueryResolver(index);
-        JSONMatchConverter converter = new JSONMatchConverter();
+        JSONMatchMapper converter = new JSONMatchMapper();
         FileAccessor fileAccessor = new FileAccessor();
 
         return new JSONMatchCatalog(queryResolver, index, matchRepository, converter, fileAccessor);

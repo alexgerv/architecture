@@ -4,10 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import ca.ulaval.glo4003.model.Match;
-import ca.ulaval.glo4003.persistence.MatchConverter;
+import ca.ulaval.glo4003.repository.MatchMapper;
 
-public class JSONMatchConverter extends JSONConverter<Match> implements MatchConverter{
-    public JSONMatchConverter() {
+public class JSONMatchMapper extends JSONConverter<Match> implements MatchMapper{
+    public JSONMatchMapper() {
         super(Match.class);
     }
     

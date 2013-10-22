@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import ca.ulaval.glo4003.model.User;
 import ca.ulaval.glo4003.persistence.FileAccessor;
-import ca.ulaval.glo4003.persistence.UserConverter;
 import ca.ulaval.glo4003.repository.ExistingUsernameException;
 import ca.ulaval.glo4003.repository.RepositoryException;
+import ca.ulaval.glo4003.repository.UserMapper;
 import ca.ulaval.glo4003.repository.UserRepository;
 
 @Repository
@@ -23,7 +23,7 @@ public class JSONUserRepository implements UserRepository {
     private static final String ROOT_REPOSITORY = "./users/";
     private List<User> users = new ArrayList<User>();
     private FileAccessor fileAccessor = new FileAccessor();
-    private UserConverter userConverter = new JSONUserConverter();
+    private UserMapper userMapper = new JSONUserMapper();
 
     public JSONUserRepository() {
         this.loadAll();
@@ -37,7 +37,7 @@ public class JSONUserRepository implements UserRepository {
         for (String pathToUser : fileAccessor.getFilesNameInDirectory(ROOT_REPOSITORY)) {
             User newUser;
             try {
-                newUser = userConverter.load(ROOT_REPOSITORY + pathToUser);
+                newUser = userMapper.load(ROOT_REPOSITORY + pathToUser);
                 users.add(newUser);
             } catch (FileNotFoundException e) {
                 System.err.println(e.getMessage());
@@ -75,15 +75,15 @@ public class JSONUserRepository implements UserRepository {
 
     private void saveUser(User user) {
         try {
-            userConverter.save(user, ROOT_REPOSITORY + "/" + user.getUsername() + ".json");
+            userMapper.save(user, ROOT_REPOSITORY + "/" + user.getUsername() + ".json");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    protected JSONUserRepository(FileAccessor fileAccessor, JSONUserConverter userConverter) {
+    protected JSONUserRepository(FileAccessor fileAccessor, JSONUserMapper userConverter) {
         this.fileAccessor = fileAccessor;
-        this.userConverter = userConverter;
+        this.userMapper = userConverter;
     }
 
 }
