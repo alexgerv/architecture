@@ -57,6 +57,8 @@ public class TestFixture {
     private static final String XPATH_FOR_MATCH_LIST_TICKETS_NUMBER = "//*[@id='matchList']//tr//td[8]//strong";
     private static final String CLASS_NAME_FOR_TICKET_BY_SECTION = "ticketsBySection";
 
+    private static final String SELECTOR_FOR_MATCH_A_PARTICULAR_VENUE = "input[name='Stade Telus']";
+
     public WebDriver driver;
     public WebDriverWait driverWait;
     private StringBuffer verificationErrors = new StringBuffer();
@@ -128,11 +130,11 @@ public class TestFixture {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(MATCH_LIST_HOME_LINK_TEXT))).click();
     }
 
-    public void clickOnMatchesButtonInNavigationMenu() {
+    public void goOnMatchListPage() {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(MATCH_LIST_MENU_LINK_TEXT))).click();
     }
 
-    public void FilterSportsForAParticularSport() {
+    public void SearchForAParticularSport() {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(SELECTOR_FOR_A_PARTICULAR_SPORT)))
                   .click();
     }
@@ -208,5 +210,19 @@ public class TestFixture {
             totalAvailableTickets += Integer.parseInt(element.getText());
         }
         return totalAvailableTickets;
+    }
+
+    public void SearchForAParticularVenue() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(SELECTOR_FOR_MATCH_A_PARTICULAR_VENUE)))
+                  .click();
+    }
+
+    public List<WebElement> getSearchResults() {
+        return driverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(XPATH_FOR_MATCH_SPORT)));
+    }
+
+    public void unFilterSearchForAParticularVenue() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(SELECTOR_FOR_MATCH_A_PARTICULAR_VENUE)))
+                  .click();
     }
 }

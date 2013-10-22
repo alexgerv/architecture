@@ -22,7 +22,7 @@ public class MatchListTest {
     @Test
     public void whenOpenningMatchListPageTheNumberOfAvalaibleTicketsIsDisplayedForAParticularSport() throws Exception {
         fixture.clickOnMatchListButton();
-        fixture.FilterSportsForAParticularSport();
+        fixture.SearchForAParticularSport();
         int totalNumberOfTicketsForAParticularMatch = fixture.getTotalNumberOfTicketsForAParticularMatch();
         fixture.clickOnAParticularMatch();
         int totalNumberOfTicketsForAParticularMatchFromDetailedPage =

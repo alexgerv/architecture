@@ -25,7 +25,7 @@ public class HomeTest {
 
     @Test
     public void whenOnHomePageclickingOnMatchesButtonNavigatesToMatchListPage() throws Exception {
-        fixture.clickOnMatchesButtonInNavigationMenu();
+        fixture.goOnMatchListPage();
         fixture.assertUserIsOnMatchListPage();
     }
 

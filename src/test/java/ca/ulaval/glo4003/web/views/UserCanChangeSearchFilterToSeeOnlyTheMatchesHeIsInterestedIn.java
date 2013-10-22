@@ -1,8 +1,13 @@
 package ca.ulaval.glo4003.web.views;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.WebElement;
 
 import ca.ulaval.glo4003.testFixture.TestFixture;
 
@@ -19,9 +24,23 @@ public class UserCanChangeSearchFilterToSeeOnlyTheMatchesHeIsInterestedIn {
 
     @Test
     public void whenChoosingASportOnlyTheMatchesForThisSportAreDisplayed() {
-        fixture.clickOnMatchesButtonInNavigationMenu();
-        fixture.FilterSportsForAParticularSport();
+        fixture.goOnMatchListPage();
+        fixture.SearchForAParticularSport();
         fixture.assertAllShownMatchesAreOfTheSelectedSport();
+    }
+
+    @Test
+    public void testRemovingCriteraFromSearchExpandsDisplayedResults() {
+        fixture.clickOnMatchListButton();
+        fixture.SearchForAParticularSport();
+        fixture.SearchForAParticularVenue();
+
+        List<WebElement> firstSearchResults = fixture.getSearchResults();
+
+        fixture.unFilterSearchForAParticularVenue();
+        List<WebElement> secondSearchResults = fixture.getSearchResults();
+
+        assertTrue(firstSearchResults.size() <= secondSearchResults.size());
     }
 
     @After
