@@ -29,7 +29,6 @@ public class JSONMatchCatalog implements MatchCatalog {
         this.queryResolver = queryResolver;
         this.index = index;
         this.matchRepository = matchRepository;
-        //
         loadAllMatchFrom(MATCHES_PATH);
     }
 
