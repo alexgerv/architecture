@@ -21,6 +21,10 @@ public class JSONMatchRepository implements MatchRepository {
     private static final String ROOT_REPOSITORY = "./matches/";
     private MatchConverter matchConverter = new JSONMatchConverter();
     private Map<String, Match> loadedEntries = new HashMap<String, Match>();
+    
+    public JSONMatchRepository() {
+        
+    }
 
     public Match getMatchByIdentifier(String matchIdentifier) {
         if (loadedEntries.containsKey(matchIdentifier)) {
