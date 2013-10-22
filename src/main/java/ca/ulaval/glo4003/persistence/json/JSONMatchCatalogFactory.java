@@ -9,6 +9,7 @@ import ca.ulaval.glo4003.matchCatalog.MatchCatalogFactory;
 import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 import ca.ulaval.glo4003.matchCatalog.MatchIndex;
 import ca.ulaval.glo4003.matchCatalog.MatchQueryResolver;
+import ca.ulaval.glo4003.persistence.FileAccessor;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
 public class JSONMatchCatalogFactory implements MatchCatalogFactory {
@@ -26,7 +27,9 @@ public class JSONMatchCatalogFactory implements MatchCatalogFactory {
         }
         MatchIndex index = new MatchIndex(filterListByCategories);
         MatchQueryResolver queryResolver = new MatchQueryResolver(index);
+        JSONMatchConverter converter = new JSONMatchConverter();
+        FileAccessor fileAccessor = new FileAccessor();
 
-        return new JSONMatchCatalog(queryResolver, index, matchRepository);
+        return new JSONMatchCatalog(queryResolver, index, matchRepository, converter, fileAccessor);
     }
 }

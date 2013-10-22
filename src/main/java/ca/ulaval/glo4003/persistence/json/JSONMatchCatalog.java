@@ -21,21 +21,25 @@ public class JSONMatchCatalog implements MatchCatalog {
 
     private MatchQueryResolver queryResolver;
 
-    private MatchRepository matchRepository;
-
     private Index<MatchFilterCategories> index;
 
-    public JSONMatchCatalog(MatchQueryResolver queryResolver, MatchIndex index, MatchRepository matchRepository) {
+    private MatchRepository matchRepository;
+
+    private JSONMatchConverter converter;
+
+    private FileAccessor fileAccessor;
+
+    public JSONMatchCatalog(MatchQueryResolver queryResolver, MatchIndex index, MatchRepository matchRepository,
+                            JSONMatchConverter converter, FileAccessor fileAccessor) {
         this.queryResolver = queryResolver;
         this.index = index;
         this.matchRepository = matchRepository;
+        this.converter = converter;
+        this.fileAccessor = fileAccessor;
         loadAllMatchFrom(MATCHES_PATH);
     }
 
-    // Mettre dans le builder ou trouver autre chose
     private void loadAllMatchFrom(String path) {
-        FileAccessor fileAccessor = new FileAccessor();
-        JSONMatchConverter converter = new JSONMatchConverter();
         for (String file : fileAccessor.getFilesNameInDirectory(path)) {
             File testFile = new File(path + file);
             if (!testFile.isDirectory()) {
