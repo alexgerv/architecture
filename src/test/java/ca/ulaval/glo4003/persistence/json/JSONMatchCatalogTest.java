@@ -17,6 +17,7 @@ import ca.ulaval.glo4003.matchCatalog.MatchIndex;
 import ca.ulaval.glo4003.matchCatalog.MatchQuery;
 import ca.ulaval.glo4003.matchCatalog.MatchQueryResolver;
 import ca.ulaval.glo4003.model.Match;
+import ca.ulaval.glo4003.persistence.FileAccessor;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
 public class JSONMatchCatalogTest {
@@ -39,11 +40,15 @@ public class JSONMatchCatalogTest {
     private MatchQuery aQuery;
     @Mock
     private Match aMatch;
+    @Mock
+    private JSONMatchConverter converter;
+    @Mock
+    private FileAccessor fileAccessor;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        aMatchCatalog = new JSONMatchCatalog(queryResolver, anIndex, aMatchRepository);
+        aMatchCatalog = new JSONMatchCatalog(queryResolver, anIndex, aMatchRepository, converter, fileAccessor);
     }
 
     @Test
