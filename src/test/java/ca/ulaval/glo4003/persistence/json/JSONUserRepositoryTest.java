@@ -34,7 +34,7 @@ public class JSONUserRepositoryTest {
     private JSONUserRepository userRepository;
 
     @Mock
-    private JSONUserConverter JSONUserConverter;
+    private JSONUserMapper JSONUserConverter;
     @Mock
     private FileAccessor fileAccessor;
     @Mock

@@ -1,6 +1,7 @@
-package ca.ulaval.glo4003.persistence;
+package ca.ulaval.glo4003.repository;
 
 import ca.ulaval.glo4003.model.User;
+import ca.ulaval.glo4003.persistence.Mapper;
 
-public interface UserConverter extends Converter<User>{
+public interface UserMapper extends Mapper<User>{
 }
