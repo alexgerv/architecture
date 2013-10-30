@@ -21,9 +21,9 @@ public abstract class MatchCatalog {
         this.matchRepository = matchRepository;
     }
     public Map<String, Match> getMatchesFromQuery(MatchQuery aMatchQuery) {
-        List<String> matchesIdentifier = queryResolver.resolve(aMatchQuery);
+        List<String> matchesIdentifiers = queryResolver.resolve(aMatchQuery);
 
-        return matchRepository.getMatchesByIdentifier(matchesIdentifier);
+        return matchRepository.getMatchesByIdentifier(matchesIdentifiers);
     }
 
     public void add(Match match) {

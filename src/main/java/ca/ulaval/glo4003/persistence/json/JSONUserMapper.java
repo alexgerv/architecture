@@ -6,7 +6,7 @@ import java.io.IOException;
 import ca.ulaval.glo4003.model.User;
 import ca.ulaval.glo4003.repository.UserMapper;
 
-public class JSONUserMapper extends JSONConverter<User> implements UserMapper{
+public class JSONUserMapper extends JSONMapper<User> implements UserMapper{
     public JSONUserMapper() {
         super(User.class);
     }
