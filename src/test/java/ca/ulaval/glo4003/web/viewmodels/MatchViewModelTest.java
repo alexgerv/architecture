@@ -12,10 +12,6 @@ import ca.ulaval.glo4003.model.Sex;
 
 public class MatchViewModelTest {
 
-    private static final int INITIAL_NUMBER_OF_TICKETS_IN_FIRST_SECTION = 4;
-    private static final int INITIAL_NUMBER_OF_TICKETS_IN_SECOND_SECTION = 6;
-    private static final int INITIAL_NUMBER_OF_AVALAIBLE_TICKETS = INITIAL_NUMBER_OF_TICKETS_IN_FIRST_SECTION
-                                                                   + INITIAL_NUMBER_OF_TICKETS_IN_SECOND_SECTION;
     private static final Sex A_SEX = Sex.MEN;
     private final String A_MATCH_IDENTIFIER = "Venue/2013/10/31";
     private final String A_SPORT = "aSport";
@@ -27,12 +23,25 @@ public class MatchViewModelTest {
     private final String SECOND_SECTION_NAME = "Section B";
 
     private MatchViewModel aMatchViewModel;
-    private Map<String, Integer> availableTicketsBySection = new HashMap<String, Integer>();
+
+    private static int[] avalaibleTicketsInFirstSection = { 1, 2, 3, 4 };
+    private static int[] unavalaibleTicketsInFirstSection = { 11, 12, 13, 14 };
+    private static int[] avalaibleTicketsInSecondSection = { 5, 6, 7 };
+    private static int[] unavalaibleTicketsInSecondSection = { 15 };
+
+    private static Map<Integer, Boolean> firstSection = new HashMap<Integer, Boolean>();
+    private static Map<Integer, Boolean> secondSection = new HashMap<Integer, Boolean>();
+    private static Map<String, Map<Integer, Boolean>> tickets = new HashMap<String, Map<Integer, Boolean>>();
+
+    private static final int INITIAL_NUMBER_OF_AVALAIBLE_TICKETS = avalaibleTicketsInFirstSection.length
+                                                                   + avalaibleTicketsInSecondSection.length;
 
     @Before
     public void setup() {
-        availableTicketsBySection.put(FIRST_SECTION_NAME, INITIAL_NUMBER_OF_TICKETS_IN_FIRST_SECTION);
-        availableTicketsBySection.put(SECOND_SECTION_NAME, INITIAL_NUMBER_OF_TICKETS_IN_SECOND_SECTION);
+        initializeFirstSection();
+        initializeSecondSection();
+        tickets.put(FIRST_SECTION_NAME, firstSection);
+        tickets.put(SECOND_SECTION_NAME, secondSection);
         aMatchViewModel = new MatchViewModel();
         aMatchViewModel.setMatchIdentifier(A_MATCH_IDENTIFIER);
         aMatchViewModel.setSport(A_SPORT);
@@ -41,8 +50,8 @@ public class MatchViewModelTest {
         aMatchViewModel.setHomeTeam(A_HOME_TEAM);
         aMatchViewModel.setVisitorTeam(A_VISITOR_TEAM);
         aMatchViewModel.setSex(A_SEX);
-        aMatchViewModel.setAvailableTicketsBySection(availableTicketsBySection);
-        aMatchViewModel.setTotalNumberOfAvailableTickets(INITIAL_NUMBER_OF_AVALAIBLE_TICKETS);
+        aMatchViewModel.setTicketsBySection(tickets);
+        aMatchViewModel.setTotalNumberOfTickets(INITIAL_NUMBER_OF_AVALAIBLE_TICKETS);
     }
 
     @Test
@@ -64,29 +73,47 @@ public class MatchViewModelTest {
     public void canGetTheDateOfAMatchViewModel() {
         assertEquals(aMatchViewModel.getDate(), A_DATE);
     }
-    
+
     @Test
     public void canGetTheHomeTeamOfAMatchViewModel() {
         assertEquals(aMatchViewModel.getHomeTeam(), A_HOME_TEAM);
     }
-    
+
     @Test
     public void canGetTheVisitorTeamOfAMatchViewModel() {
         assertEquals(aMatchViewModel.getVisitorTeam(), A_VISITOR_TEAM);
     }
-    
+
     @Test
     public void canGetTheSexOfAMatchViewModel() {
         assertEquals(aMatchViewModel.getSex(), A_SEX);
     }
-    
+
     @Test
     public void canGetTheAvailableTicketsBySectionOfAMatchViewModel() {
-        assertEquals(aMatchViewModel.getAvailableTicketsBySection(), availableTicketsBySection);
+        assertEquals(aMatchViewModel.getAvailableTicketsBySection(), tickets);
     }
-    
+
     @Test
     public void canGetTheTotalNumberOfAvailableTicketsOfAMatchViewModel() {
-        assertEquals(aMatchViewModel.getTotalNumberOfAvailableTickets(), INITIAL_NUMBER_OF_AVALAIBLE_TICKETS);
+        assertEquals(aMatchViewModel.getTotalNumberOfTickets(), INITIAL_NUMBER_OF_AVALAIBLE_TICKETS);
+    }
+
+    private void initializeFirstSection() {
+        for (int i = 0; i < avalaibleTicketsInFirstSection.length; i++) {
+            firstSection.put(avalaibleTicketsInFirstSection[i], true);
+        }
+        for (int i = 0; i < unavalaibleTicketsInFirstSection.length; i++) {
+            firstSection.put(unavalaibleTicketsInFirstSection[i], false);
+        }
+    }
+
+    private void initializeSecondSection() {
+        for (int i = 0; i < avalaibleTicketsInSecondSection.length; i++) {
+            secondSection.put(avalaibleTicketsInSecondSection[i], true);
+        }
+        for (int i = 0; i < unavalaibleTicketsInSecondSection.length; i++) {
+            secondSection.put(unavalaibleTicketsInSecondSection[i], false);
+        }
     }
 }

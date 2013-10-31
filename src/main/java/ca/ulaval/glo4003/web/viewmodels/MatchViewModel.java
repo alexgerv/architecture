@@ -13,7 +13,7 @@ public class MatchViewModel {
     private String homeTeam;
     private String visitorTeam;
     private Sex sex;
-    private Map<String, Integer> availableTicketsBySection;
+    private Map<String, Map<Integer, Boolean>> ticketsBySection;
     private int totalNumberOfAvailableTickets;
 
     public String getMatchIdentifier() {
@@ -72,19 +72,19 @@ public class MatchViewModel {
         this.sex = sex;
     }
 
-    public Map<String, Integer> getAvailableTicketsBySection() {
-        return availableTicketsBySection;
+    public Map<String, Map<Integer, Boolean>> getAvailableTicketsBySection() {
+        return ticketsBySection;
     }
 
-    public void setAvailableTicketsBySection(Map<String, Integer> availableTicketsBySection) {
-        this.availableTicketsBySection = availableTicketsBySection;
+    public void setTicketsBySection(Map<String, Map<Integer, Boolean>> ticketsBySection) {
+        this.ticketsBySection = ticketsBySection;
     }
 
-    public int getTotalNumberOfAvailableTickets() {
+    public int getTotalNumberOfTickets() {
         return totalNumberOfAvailableTickets;
     }
 
-    public void setTotalNumberOfAvailableTickets(int totalNumberOfAvailableTickets) {
+    public void setTotalNumberOfTickets(int totalNumberOfAvailableTickets) {
         this.totalNumberOfAvailableTickets = totalNumberOfAvailableTickets;
     }
 }

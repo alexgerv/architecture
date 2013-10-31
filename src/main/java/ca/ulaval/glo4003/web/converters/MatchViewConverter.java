@@ -33,8 +33,8 @@ public class MatchViewConverter {
 		viewModel.setHomeTeam(entry.getHomeTeam());
 		viewModel.setVisitorTeam(entry.getVisitorTeam());
 		viewModel.setSex(entry.getSex());
-		viewModel.setAvailableTicketsBySection(entry.getAvailableTicketsBySection());
-		viewModel.setTotalNumberOfAvailableTickets(entry.getTotatNumberOfAvailableTickets());
+		viewModel.setTicketsBySection(entry.getTicketsBySection());
+		viewModel.setTotalNumberOfTickets(entry.getTotatNumberOfAvailableTickets());
 		
 		return viewModel;
 	}

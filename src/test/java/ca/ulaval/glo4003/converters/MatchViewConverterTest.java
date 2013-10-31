@@ -71,7 +71,7 @@ public class MatchViewConverterTest {
 
         aMatchViewConverter.convert(aMatch);
 
-        Mockito.verify(aMatch).getAvailableTicketsBySection();
+        Mockito.verify(aMatch).getTicketsBySection();
         Mockito.verify(aMatch).getDate();
         Mockito.verify(aMatch).getHomeTeam();
         Mockito.verify(aMatch).getVisitorTeam();

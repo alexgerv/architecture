@@ -14,26 +14,34 @@ import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 
 public class MatchTest {
 
-    private static final int INITIAL_NUMBER_OF_TICKETS_IN_FIRST_SECTION = 4;
-    private static final int INITIAL_NUMBER_OF_TICKETS_IN_SECOND_SECTION = 6;
-    private static final int INITIAL_NUMBER_OF_AVALAIBLE_TICKETS = INITIAL_NUMBER_OF_TICKETS_IN_FIRST_SECTION
-                                                                   + INITIAL_NUMBER_OF_TICKETS_IN_SECOND_SECTION;
     private static final Sex A_SEX = Sex.MEN;
-    private final String A_SPORT = "aSport";
-    private final String A_HOME_TEAM = "HomeTeam";
-    private final String A_VISITOR_TEAM = "VisitorTeam";
-    private final String A_VENUE = "Venue";
-    private final String FIRST_SECTION_NAME = "Section A";
-    private final String SECOND_SECTION_NAME = "Section B";
-    private final Date A_DATE = new Date();
+    private static final String A_SPORT = "aSport";
+    private static final String A_HOME_TEAM = "HomeTeam";
+    private static final String A_VISITOR_TEAM = "VisitorTeam";
+    private static final String A_VENUE = "Venue";
+    private static final String FIRST_SECTION_NAME = "Section A";
+    private static final String SECOND_SECTION_NAME = "Section B";
+    private static final Date A_DATE = new Date();
 
-    private Match aMatch;
-    private Map<String, Integer> tickets = new HashMap<String, Integer>();
+    private static int[] avalaibleTicketsInFirstSection = { 1, 2, 3, 4 };
+    private static int[] unavalaibleTicketsInFirstSection = { 11, 12, 13, 14 };
+    private static int[] avalaibleTicketsInSecondSection = { 5, 6, 7 };
+    private static int[] unavalaibleTicketsInSecondSection = { 15 };
+
+    private static Match aMatch;
+    private static Map<Integer, Boolean> firstSection = new HashMap<Integer, Boolean>();
+    private static Map<Integer, Boolean> secondSection = new HashMap<Integer, Boolean>();
+    private static Map<String, Map<Integer, Boolean>> tickets = new HashMap<String, Map<Integer, Boolean>>();
+
+    private static final int INITIAL_NUMBER_OF_AVALAIBLE_TICKETS = avalaibleTicketsInFirstSection.length
+                                                                   + avalaibleTicketsInSecondSection.length;
 
     @Before
     public void setup() {
-        tickets.put(FIRST_SECTION_NAME, INITIAL_NUMBER_OF_TICKETS_IN_FIRST_SECTION);
-        tickets.put(SECOND_SECTION_NAME, INITIAL_NUMBER_OF_TICKETS_IN_SECOND_SECTION);
+        initializeFirstSection();
+        initializeSecondSection();
+        tickets.put(FIRST_SECTION_NAME, firstSection);
+        tickets.put(SECOND_SECTION_NAME, secondSection);
         aMatch = new Match(A_SPORT, A_VENUE, A_DATE, A_HOME_TEAM, A_VISITOR_TEAM, A_SEX, tickets);
     }
 
@@ -75,7 +83,7 @@ public class MatchTest {
 
     @Test
     public void canGetTheAvailableTicketsBySectionOfAMatch() {
-        assertEquals(aMatch.getAvailableTicketsBySection(), tickets);
+        assertEquals(aMatch.getTicketsBySection(), tickets);
     }
 
     @Test
@@ -109,5 +117,23 @@ public class MatchTest {
     @Test
     public void canGetAVisitorTeamFilterValue() {
         assertEquals(A_VISITOR_TEAM, aMatch.getFilterValueOfCategory(MatchFilterCategories.VISITOR_TEAM));
+    }
+
+    private void initializeFirstSection() {
+        for (int i = 0; i < avalaibleTicketsInFirstSection.length; i++) {
+            firstSection.put(avalaibleTicketsInFirstSection[i], true);
+        }
+        for (int i = 0; i < unavalaibleTicketsInFirstSection.length; i++) {
+            firstSection.put(unavalaibleTicketsInFirstSection[i], false);
+        }
+    }
+
+    private void initializeSecondSection() {
+        for (int i = 0; i < avalaibleTicketsInSecondSection.length; i++) {
+            secondSection.put(avalaibleTicketsInSecondSection[i], true);
+        }
+        for (int i = 0; i < unavalaibleTicketsInSecondSection.length; i++) {
+            secondSection.put(unavalaibleTicketsInSecondSection[i], false);
+        }
     }
 }
