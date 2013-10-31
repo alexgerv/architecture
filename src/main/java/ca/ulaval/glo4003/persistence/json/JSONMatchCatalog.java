@@ -2,14 +2,9 @@ package ca.ulaval.glo4003.persistence.json;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.Map;
 
-import ca.ulaval.glo4003.index.Index;
 import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
-import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 import ca.ulaval.glo4003.matchCatalog.MatchIndex;
-import ca.ulaval.glo4003.matchCatalog.MatchQuery;
 import ca.ulaval.glo4003.matchCatalog.MatchQueryResolver;
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.persistence.FileAccessor;
@@ -32,17 +27,37 @@ public class JSONMatchCatalog extends MatchCatalog {
     }
 
     private void loadAllMatchFrom(String path) {
-        for (String file : fileAccessor.getFilesNameInDirectory(path)) {
-            File testFile = new File(path + file);
-            if (!testFile.isDirectory()) {
+        File root = new File(path);
+        File[] list = root.listFiles();
+
+        if (list == null)
+            return;
+
+        for (File f : list) {
+            if (f.isDirectory()) {
+                loadAllMatchFrom(f.getAbsolutePath());
+            } else {
                 try {
-                    Match newMatch = mapper.load(path + file);
+                    Match newMatch = mapper.load(f.getAbsolutePath());
                     add(newMatch);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
             }
         }
+        // for (String file : fileAccessor.getFilesNameInDirectory(path)) {
+        // File testFile = new File(path + file);
+        // if (!testFile.isDirectory()) {
+        // try {
+        // Match newMatch = mapper.load(path + file);
+        // add(newMatch);
+        // } catch (FileNotFoundException e) {
+        // e.printStackTrace();
+        // }
+        // } else {
+        // loadAllMatchFrom(path + file);
+        // }
+        // }
     }
 
 }

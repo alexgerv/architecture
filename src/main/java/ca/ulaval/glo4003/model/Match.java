@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.model;
 
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
@@ -19,17 +19,17 @@ public class Match implements Indexable<MatchFilterCategories> {
     private String homeTeam;
     private String visitorTeam;
     private Sex sex;
-    private Map<String, Map<Integer, Boolean>> ticketsBySection;
+    private List<Section> sections;
 
     public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex,
-                 Map<String, Map<Integer, Boolean>> avalaibleTicketsBySection) {
+                 List<Section> sections) {
         this.sport = sport;
         this.venue = venue;
         this.date = date;
         this.homeTeam = homeTeam;
         this.visitorTeam = visitorTeam;
         this.sex = sex;
-        this.ticketsBySection = avalaibleTicketsBySection;
+        this.sections = sections;
     }
 
     public int getTotatNumberOfAvailableTickets() {
@@ -38,12 +38,8 @@ public class Match implements Indexable<MatchFilterCategories> {
 
     private int calculateTotalNumberOfAvailableTickets() {
         int numberOfAvailableTickets = 0;
-        for (Map<Integer, Boolean> section : ticketsBySection.values()) {
-            for (Boolean ticketIsAvailable : section.values()) {
-                if (ticketIsAvailable) {
-                    numberOfAvailableTickets++;
-                }
-            }
+        for (Section section : sections) {
+            numberOfAvailableTickets += section.getNumberOfAvailableTickets();
         }
         return numberOfAvailableTickets;
     }
@@ -72,8 +68,8 @@ public class Match implements Indexable<MatchFilterCategories> {
         return date;
     }
 
-    public Map<String, Map<Integer, Boolean>> getTicketsBySection() {
-        return ticketsBySection;
+    public List<Section> getTicketsBySection() {
+        return sections;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.web.viewmodels;
 
-import java.util.Map;
+import java.util.List;
 
 import ca.ulaval.glo4003.model.Sex;
 
@@ -13,7 +13,7 @@ public class MatchViewModel {
     private String homeTeam;
     private String visitorTeam;
     private Sex sex;
-    private Map<String, Map<Integer, Boolean>> ticketsBySection;
+    private List<SectionViewModel> sections;
     private int totalNumberOfAvailableTickets;
 
     public String getMatchIdentifier() {
@@ -72,15 +72,15 @@ public class MatchViewModel {
         this.sex = sex;
     }
 
-    public Map<String, Map<Integer, Boolean>> getAvailableTicketsBySection() {
-        return ticketsBySection;
+    public List<SectionViewModel> getAvailableTicketsBySection() {
+        return sections;
     }
 
-    public void setTicketsBySection(Map<String, Map<Integer, Boolean>> ticketsBySection) {
-        this.ticketsBySection = ticketsBySection;
+    public void setTicketsBySection(List<SectionViewModel> ticketsBySection) {
+        this.sections = ticketsBySection;
     }
 
-    public int getTotalNumberOfTickets() {
+    public int getTotalNumberOfAvailableTickets() {
         return totalNumberOfAvailableTickets;
     }
 
