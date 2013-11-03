@@ -26,7 +26,7 @@ public class SectionViewConverter {
         SectionViewModel viewModel = new SectionViewModel();
 
         viewModel.setSport(entry.getSport());
-        viewModel.setVenue(entry.getName());
+        viewModel.setSection(entry.getName());
         viewModel.setDate(DateFormatUtils.format(entry.getDate(), DATE_FORMAT_TEMPLATE));
         viewModel.setHomeTeam(entry.getHomeTeam());
         viewModel.setVisitorTeam(entry.getVisitorTeam());
@@ -34,6 +34,7 @@ public class SectionViewConverter {
         viewModel.setName(entry.getName());
         viewModel.setAvailableTickets(entry.getNumberOfAvailableTickets());
         viewModel.setPrice(entry.getPrice());
+        viewModel.setAdmissionType(entry.getAdmissionType());
 
         return viewModel;
     }

@@ -121,7 +121,7 @@ public class MatchTest {
 
     @Test
     public void whenAskedAValidSectionNameTheRightSectionIsReturned() {
-        doReturn(true).when(sectionA).isSameName(A_VALID_SECTION_NAME);
+        doReturn(true).when(sectionA).hasSameName(A_VALID_SECTION_NAME);
 
         Section validSection = aMatch.getSectionByName(A_VALID_SECTION_NAME);
 
@@ -130,8 +130,8 @@ public class MatchTest {
 
     @Test(expected = SectionNotFoundException.class)
     public void aSectionNotFoundExceptionIsThrownIfAccessingAnInvalidSectionName() {
-        doReturn(false).when(sectionA).isSameName(A_VALID_SECTION_NAME);
-        doReturn(false).when(sectionB).isSameName(A_VALID_SECTION_NAME);
+        doReturn(false).when(sectionA).hasSameName(A_VALID_SECTION_NAME);
+        doReturn(false).when(sectionB).hasSameName(A_VALID_SECTION_NAME);
 
         aMatch.getSectionByName(A_VALID_SECTION_NAME);
     }

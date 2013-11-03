@@ -26,6 +26,10 @@
 						<td><strong>Visitor team</strong></td>
 						<td>${section.visitorTeam}</td>
 					</tr>
+					<tr>
+						<td><strong>Admission Type</strong></td>
+						<td>${section.admissionType}</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -37,8 +41,8 @@
 						<td>${section.date}</td>
 					</tr>
 					<tr>
-						<td><strong>Venue</strong></td>
-						<td>${section.venue}</td>
+						<td><strong>Section</strong></td>
+						<td>${section.name}</td>
 					</tr>
 					<tr>
 						<td><strong>Sex</strong></td>

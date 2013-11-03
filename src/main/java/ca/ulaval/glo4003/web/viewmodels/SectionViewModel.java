@@ -1,11 +1,12 @@
 package ca.ulaval.glo4003.web.viewmodels;
 
+import ca.ulaval.glo4003.model.AdmissionType;
 import ca.ulaval.glo4003.model.Sex;
 
 public class SectionViewModel {
 
     private String sport;
-    private String venue;
+    private String section;
     private String date;
     private String homeTeam;
     private String visitorTeam;
@@ -13,21 +14,30 @@ public class SectionViewModel {
     private String name;
     private int availableTickets;
     private float price;
+    private AdmissionType admissionType;
 
     public String getSport() {
         return sport;
+    }
+
+    public AdmissionType getAdmissionType() {
+        return admissionType;
+    }
+
+    public void setAdmissionType(AdmissionType admissionType) {
+        this.admissionType = admissionType;
     }
 
     public void setSport(String sport) {
         this.sport = sport;
     }
 
-    public String getVenue() {
-        return venue;
+    public String getSection() {
+        return section;
     }
 
-    public void setVenue(String venue) {
-        this.venue = venue;
+    public void setSection(String section) {
+        this.section = section;
     }
 
     public String getDate() {

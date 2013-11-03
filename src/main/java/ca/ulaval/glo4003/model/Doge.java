@@ -12,6 +12,7 @@ public class Doge {
     private Sex sex;
 
     public Doge(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex) {
+        // Wow such doge
         this.sport = sport;
         this.venue = venue;
         this.date = date;
@@ -36,6 +37,7 @@ public class Doge {
         this.venue = venue;
     }
 
+    // amaze
     public Date getDate() {
         return date;
     }
@@ -44,6 +46,7 @@ public class Doge {
         this.date = date;
     }
 
+    // much home
     public String getHomeTeam() {
         return homeTeam;
     }
@@ -52,6 +55,7 @@ public class Doge {
         this.homeTeam = homeTeam;
     }
 
+    // so visitor
     public String getVisitorTeam() {
         return visitorTeam;
     }
@@ -60,10 +64,12 @@ public class Doge {
         this.visitorTeam = visitorTeam;
     }
 
+    // such sex
     public Sex getSex() {
         return sex;
     }
 
+    // wow
     public void setSex(Sex sex) {
         this.sex = sex;
     }

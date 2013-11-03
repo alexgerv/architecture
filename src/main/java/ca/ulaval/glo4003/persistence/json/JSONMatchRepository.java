@@ -2,40 +2,27 @@ package ca.ulaval.glo4003.persistence.json;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.inject.Singleton;
 
 import org.springframework.stereotype.Repository;
 
 import ca.ulaval.glo4003.model.Match;
-import ca.ulaval.glo4003.repository.MatchMapper;
+import ca.ulaval.glo4003.repository.MatchMarshaller;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
 @Repository
 @Singleton
-public class JSONMatchRepository implements MatchRepository {
+public class JSONMatchRepository extends MatchRepository {
 
     private static final String ROOT_REPOSITORY = "./matches/";
-    private MatchMapper matchMarshaller = new JSONMatchMarshaller();
-    private Map<String, Match> loadedEntries = new HashMap<String, Match>();
+    private MatchMarshaller matchMarshaller = new JSONMatchMarshaller();
 
     public JSONMatchRepository() {
 
     }
 
-    public Match getMatchByIdentifier(String matchIdentifier) {
-        if (loadedEntries.containsKey(matchIdentifier)) {
-            return loadedEntries.get(matchIdentifier);
-        } else {
-            loadMatch(matchIdentifier);
-            return loadedEntries.get(matchIdentifier);
-        }
-    }
-
-    private void loadMatch(String identifier) {
+    protected void loadMatch(String identifier) {
         Match newMatch;
         try {
             newMatch = matchMarshaller.load(ROOT_REPOSITORY + identifier);
@@ -43,18 +30,6 @@ public class JSONMatchRepository implements MatchRepository {
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         }
-    }
-
-    public Map<String, Match> getMatchesByIdentifier(List<String> matchesIdentifier) {
-        Map<String, Match> matches = new HashMap<String, Match>();
-        for (String identifier : matchesIdentifier) {
-            matches.put(identifier, getMatchByIdentifier(identifier));
-        }
-        return matches;
-    }
-
-    public Map<String, Match> getAllLoadedEntries() {
-        return loadedEntries;
     }
 
     public void add(Match match) {

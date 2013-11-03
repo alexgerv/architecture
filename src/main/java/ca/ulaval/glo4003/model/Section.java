@@ -33,7 +33,7 @@ public class Section {
         return name;
     }
 
-    public boolean isSameName(String sectionName) {
+    public boolean hasSameName(String sectionName) {
         return name.equals(sectionName);
     }
 
@@ -59,5 +59,13 @@ public class Section {
 
     public float getPrice() {
         return price;
+    }
+
+    public String getVenue() {
+        return doge.getVenue();
+    }
+
+    public AdmissionType getAdmissionType() {
+        return admissionType;
     }
 }

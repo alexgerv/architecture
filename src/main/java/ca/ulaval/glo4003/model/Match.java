@@ -87,7 +87,7 @@ public class Match implements Indexable<MatchFilterCategories> {
 
     public Section getSectionByName(String sectionName) {
         for (Section section : sections) {
-            if (section.isSameName(sectionName)) {
+            if (section.hasSameName(sectionName)) {
                 return section;
             }
         }
