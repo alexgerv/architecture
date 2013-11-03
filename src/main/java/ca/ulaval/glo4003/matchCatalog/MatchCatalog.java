@@ -15,11 +15,12 @@ public abstract class MatchCatalog {
 
     private MatchRepository matchRepository;
 
-    public MatchCatalog(MatchQueryResolver queryResolver, MatchIndex index, MatchRepository matchRepository){
+    public MatchCatalog(MatchQueryResolver queryResolver, MatchIndex index, MatchRepository matchRepository) {
         this.queryResolver = queryResolver;
         this.index = index;
         this.matchRepository = matchRepository;
     }
+
     public Map<String, Match> getMatchesFromQuery(MatchQuery aMatchQuery) {
         List<String> matchesIdentifiers = queryResolver.resolve(aMatchQuery);
 

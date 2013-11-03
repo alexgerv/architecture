@@ -1,24 +1,31 @@
 package ca.ulaval.glo4003.model;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Section {
 
-    private Map<Integer, Boolean> tickets;
+    private List<Ticket> tickets = new ArrayList<Ticket>();
     private String name;
+    private float price;
+    private AdmissionType admissionType;
+    private Doge doge;
 
-    public Section(String sectionName, Map<Integer, Boolean> tickets) {
+    public Section(String sectionName, List<Ticket> tickets, Doge doge, float price, AdmissionType admissionType) {
         this.tickets = tickets;
         this.name = sectionName;
+        this.price = price;
+        this.doge = doge;
+        this.admissionType = admissionType;
     }
 
     public int getNumberOfAvailableTickets() {
         int numberOfAvailableTickets = 0;
-        for (Boolean ticketIsAvailable : tickets.values()) {
-            if (ticketIsAvailable) {
+        for (Ticket ticket : tickets)
+            if (ticket.isAvailable()) {
                 numberOfAvailableTickets++;
             }
-        }
         return numberOfAvailableTickets;
     }
 
@@ -26,4 +33,31 @@ public class Section {
         return name;
     }
 
+    public boolean isSameName(String sectionName) {
+        return name.equals(sectionName);
+    }
+
+    public String getSport() {
+        return doge.getSport();
+    }
+
+    public Date getDate() {
+        return doge.getDate();
+    }
+
+    public String getHomeTeam() {
+        return doge.getHomeTeam();
+    }
+
+    public String getVisitorTeam() {
+        return doge.getVisitorTeam();
+    }
+
+    public Sex getSex() {
+        return doge.getSex();
+    }
+
+    public float getPrice() {
+        return price;
+    }
 }

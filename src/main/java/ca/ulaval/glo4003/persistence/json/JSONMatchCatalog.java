@@ -14,14 +14,14 @@ public class JSONMatchCatalog extends MatchCatalog {
 
     private static final String MATCHES_PATH = "./matches/";
 
-    private JSONMatchMapper mapper;
+    private JSONMatchMarshaller marshaller;
 
     private FileAccessor fileAccessor;
 
     public JSONMatchCatalog(MatchQueryResolver queryResolver, MatchIndex index, MatchRepository matchRepository,
-                            JSONMatchMapper mapper, FileAccessor fileAccessor) {
+                            JSONMatchMarshaller marshaller, FileAccessor fileAccessor) {
         super(queryResolver, index, matchRepository);
-        this.mapper = mapper;
+        this.marshaller = marshaller;
         this.fileAccessor = fileAccessor;
         loadAllMatchFrom(MATCHES_PATH);
     }
@@ -30,34 +30,18 @@ public class JSONMatchCatalog extends MatchCatalog {
         File root = new File(path);
         File[] list = root.listFiles();
 
-        if (list == null)
-            return;
-
         for (File f : list) {
             if (f.isDirectory()) {
                 loadAllMatchFrom(f.getAbsolutePath());
             } else {
                 try {
-                    Match newMatch = mapper.load(f.getAbsolutePath());
+                    Match newMatch = marshaller.load(f.getAbsolutePath());
                     add(newMatch);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
             }
         }
-        // for (String file : fileAccessor.getFilesNameInDirectory(path)) {
-        // File testFile = new File(path + file);
-        // if (!testFile.isDirectory()) {
-        // try {
-        // Match newMatch = mapper.load(path + file);
-        // add(newMatch);
-        // } catch (FileNotFoundException e) {
-        // e.printStackTrace();
-        // }
-        // } else {
-        // loadAllMatchFrom(path + file);
-        // }
-        // }
     }
 
 }

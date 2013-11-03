@@ -41,7 +41,7 @@ public class JSONMatchCatalogTest {
     @Mock
     private Match aMatch;
     @Mock
-    private JSONMatchMapper converter;
+    private JSONMatchMarshaller converter;
     @Mock
     private FileAccessor fileAccessor;
 

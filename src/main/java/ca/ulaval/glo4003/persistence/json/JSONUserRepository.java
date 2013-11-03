@@ -13,7 +13,7 @@ import ca.ulaval.glo4003.model.User;
 import ca.ulaval.glo4003.persistence.FileAccessor;
 import ca.ulaval.glo4003.repository.ExistingUsernameException;
 import ca.ulaval.glo4003.repository.RepositoryException;
-import ca.ulaval.glo4003.repository.UserMapper;
+import ca.ulaval.glo4003.repository.UserMarshaller;
 import ca.ulaval.glo4003.repository.UserRepository;
 
 @Repository
@@ -23,7 +23,7 @@ public class JSONUserRepository implements UserRepository {
     private static final String ROOT_REPOSITORY = "./users/";
     private List<User> users = new ArrayList<User>();
     private FileAccessor fileAccessor = new FileAccessor();
-    private UserMapper userMapper = new JSONUserMapper();
+    private UserMarshaller userMarshaller = new JSONUserMarshaller();
 
     public JSONUserRepository() {
         this.loadAll();
@@ -37,7 +37,7 @@ public class JSONUserRepository implements UserRepository {
         for (String pathToUser : fileAccessor.getFilesNameInDirectory(ROOT_REPOSITORY)) {
             User newUser;
             try {
-                newUser = userMapper.load(ROOT_REPOSITORY + pathToUser);
+                newUser = userMarshaller.load(ROOT_REPOSITORY + pathToUser);
                 users.add(newUser);
             } catch (FileNotFoundException e) {
                 System.err.println(e.getMessage());
@@ -75,15 +75,15 @@ public class JSONUserRepository implements UserRepository {
 
     private void saveUser(User user) {
         try {
-            userMapper.save(user, ROOT_REPOSITORY + "/" + user.getUsername() + ".json");
+            userMarshaller.save(user, ROOT_REPOSITORY + "/" + user.getUsername() + ".json");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    protected JSONUserRepository(FileAccessor fileAccessor, JSONUserMapper userConverter) {
+    protected JSONUserRepository(FileAccessor fileAccessor, JSONUserMarshaller userConverter) {
         this.fileAccessor = fileAccessor;
-        this.userMapper = userConverter;
+        this.userMarshaller = userConverter;
     }
 
 }

@@ -9,11 +9,11 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
-public class JSONMapper<T>  {
+public class JSONMarshaller<T>  {
     
     private Class<T> type;
     
-    public JSONMapper (Class<T> classType) {
+    public JSONMarshaller (Class<T> classType) {
         this.type = classType;
     }
 

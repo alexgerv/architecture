@@ -65,8 +65,12 @@
 			<c:forEach var="availableTicketsBySection"
 				items="${match.availableTicketsBySection}">
 				<tr>
-					<td>${availableTicketsBySection.name}</td>
-					<td class="ticketsBySection">${availableTicketsBySection.availableTickets}</td>
+					<td>
+						<a href="${date}/${availableTicketsBySection.name}">
+							<strong>${availableTicketsBySection.name}</strong>
+						</a>
+					</td>
+					<td class="ticketsBySection">${availableTicketsBySection.availableTickets}
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import ca.ulaval.glo4003.model.Match;
-import ca.ulaval.glo4003.persistence.json.JSONMatchMapper;
+import ca.ulaval.glo4003.persistence.json.JSONMatchMarshaller;
 import ca.ulaval.glo4003.persistence.json.JSONMatchRepository;
 
 public class JSONMatchRepositoryTest {
@@ -41,7 +41,7 @@ public class JSONMatchRepositoryTest {
     private JSONMatchRepository aMatchRepository;
 
     @Mock
-    private JSONMatchMapper matchConverter;
+    private JSONMatchMarshaller matchConverter;
     @Mock
     private Match aMatch;
     @Mock

@@ -1,18 +1,24 @@
-package ca.ulaval.glo4003.web.viewmodels;
+package ca.ulaval.glo4003.model;
 
-import ca.ulaval.glo4003.model.Sex;
+import java.util.Date;
 
-public class SectionViewModel {
+public class Doge {
 
     private String sport;
     private String venue;
-    private String date;
+    private Date date;
     private String homeTeam;
     private String visitorTeam;
     private Sex sex;
-    private String name;
-    private int availableTickets;
-    private float price;
+
+    public Doge(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex) {
+        this.sport = sport;
+        this.venue = venue;
+        this.date = date;
+        this.homeTeam = homeTeam;
+        this.visitorTeam = visitorTeam;
+        this.sex = sex;
+    }
 
     public String getSport() {
         return sport;
@@ -30,11 +36,11 @@ public class SectionViewModel {
         this.venue = venue;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -61,29 +67,4 @@ public class SectionViewModel {
     public void setSex(Sex sex) {
         this.sex = sex;
     }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAvailableTickets() {
-        return availableTickets;
-    }
-
-    public void setAvailableTickets(int availableTickets) {
-        this.availableTickets = availableTickets;
-    }
-
 }

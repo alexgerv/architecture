@@ -13,22 +13,12 @@ public class Match implements Indexable<MatchFilterCategories> {
 
     private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd_HH-mm-SS";
 
-    private String sport;
-    private String venue;
-    private Date date;
-    private String homeTeam;
-    private String visitorTeam;
-    private Sex sex;
+    private Doge doge;
     private List<Section> sections;
 
     public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex,
                  List<Section> sections) {
-        this.sport = sport;
-        this.venue = venue;
-        this.date = date;
-        this.homeTeam = homeTeam;
-        this.visitorTeam = visitorTeam;
-        this.sex = sex;
+        doge = new Doge(sport, venue, date, homeTeam, visitorTeam, sex);
         this.sections = sections;
     }
 
@@ -45,27 +35,27 @@ public class Match implements Indexable<MatchFilterCategories> {
     }
 
     public String getSport() {
-        return sport;
+        return doge.getSport();
     }
 
     public String getVenue() {
-        return venue;
+        return doge.getVenue();
     }
 
     public String getHomeTeam() {
-        return homeTeam;
+        return doge.getHomeTeam();
     }
 
     public String getVisitorTeam() {
-        return visitorTeam;
+        return doge.getVisitorTeam();
     }
 
     public Sex getSex() {
-        return sex;
+        return doge.getSex();
     }
 
     public Date getDate() {
-        return date;
+        return doge.getDate();
     }
 
     public List<Section> getTicketsBySection() {
@@ -76,22 +66,31 @@ public class Match implements Indexable<MatchFilterCategories> {
     public String getFilterValueOfCategory(MatchFilterCategories category) {
         switch (category) {
         case SPORT:
-            return sport;
+            return doge.getSport();
         case VENUE:
-            return venue;
+            return doge.getVenue();
         case DATE:
-            return DateFormatUtils.format(date, DATE_FORMAT_TEMPLATE);
+            return DateFormatUtils.format(doge.getDate(), DATE_FORMAT_TEMPLATE);
         case HOME_TEAM:
-            return homeTeam;
+            return doge.getHomeTeam();
         case VISITOR_TEAM:
-            return visitorTeam;
+            return doge.getVisitorTeam();
         }
         throw new FilterCategoryException("FilterCategory does not conrrespond to an argument in match");
     }
 
     @Override
     public String getIdentifier() {
-        String formatedDate = DateFormatUtils.format(date, DATE_FORMAT_TEMPLATE);
-        return venue + "/" + formatedDate;
+        String formatedDate = DateFormatUtils.format(doge.getDate(), DATE_FORMAT_TEMPLATE);
+        return doge.getVenue() + "/" + formatedDate;
+    }
+
+    public Section getSectionByName(String sectionName) {
+        for (Section section : sections) {
+            if (section.isSameName(sectionName)) {
+                return section;
+            }
+        }
+        throw new SectionNotFoundException("Section: " + sectionName + " was not found.");
     }
 }

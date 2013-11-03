@@ -19,11 +19,11 @@ import ca.ulaval.glo4003.repository.MatchRepository;
 public class JSONMatchRepository implements MatchRepository {
 
     private static final String ROOT_REPOSITORY = "./matches/";
-    private MatchMapper matchMapper = new JSONMatchMapper();
+    private MatchMapper matchMarshaller = new JSONMatchMarshaller();
     private Map<String, Match> loadedEntries = new HashMap<String, Match>();
-    
+
     public JSONMatchRepository() {
-        
+
     }
 
     public Match getMatchByIdentifier(String matchIdentifier) {
@@ -38,7 +38,7 @@ public class JSONMatchRepository implements MatchRepository {
     private void loadMatch(String identifier) {
         Match newMatch;
         try {
-            newMatch = matchMapper.load(ROOT_REPOSITORY + identifier);
+            newMatch = matchMarshaller.load(ROOT_REPOSITORY + identifier);
             loadedEntries.put(identifier, newMatch);
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
@@ -60,14 +60,14 @@ public class JSONMatchRepository implements MatchRepository {
     public void add(Match match) {
         String matchIdentifier = match.getIdentifier();
         try {
-            matchMapper.save(match, ROOT_REPOSITORY + matchIdentifier);
+            matchMarshaller.save(match, ROOT_REPOSITORY + matchIdentifier);
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
     }
-    
-    protected JSONMatchRepository(JSONMatchMapper JSONMatchConverter) {
-        this.matchMapper = JSONMatchConverter;
+
+    protected JSONMatchRepository(JSONMatchMarshaller JSONMatchConverter) {
+        this.matchMarshaller = JSONMatchConverter;
     }
 
 }

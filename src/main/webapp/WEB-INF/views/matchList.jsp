@@ -33,7 +33,7 @@
 						<c:forEach var="match" items="${matches}">
 							<tr>
 								<td style="text-align: center;"><a
-									href="match/${match.matchIdentifier}" class="btn btn-default btn-xs"><i
+									href="match/${match.venue}" class="btn btn-default btn-xs"><i
 										class="icon icon-search"></i></a></td>
 								<td>${match.venue}</td>
 								<td>${match.date}</td>
@@ -42,7 +42,8 @@
 								<td>${match.visitorTeam}</td>
 								<td>${match.sex}</td>
 								<td><strong>${match.totalNumberOfAvailableTickets}</strong>
-									(<a href="match/${match.matchIdentifier}">view by section</a>)</td>
+									(<a href="match/${match.venue}/${match.date}">view by section</a>)
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

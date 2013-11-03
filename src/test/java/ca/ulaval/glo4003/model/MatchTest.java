@@ -26,6 +26,7 @@ public class MatchTest {
     private static final Object INITIAL_NUMBER_OF_AVALAIBLE_TICKETS_IN_SECTION_A = 4;
     private static final Object INITIAL_NUMBER_OF_AVALAIBLE_TICKETS_IN_SECTION_B = 3;
     private static final Object INITIAL_NUMBER_OF_AVALAIBLE_TICKETS = 7;
+    private static final String A_VALID_SECTION_NAME = "A";
 
     private Match aMatch;
     private List<Section> sections = new ArrayList<Section>();
@@ -116,6 +117,23 @@ public class MatchTest {
     @Test
     public void canGetAVisitorTeamFilterValue() {
         assertEquals(A_VISITOR_TEAM, aMatch.getFilterValueOfCategory(MatchFilterCategories.VISITOR_TEAM));
+    }
+
+    @Test
+    public void whenAskedAValidSectionNameTheRightSectionIsReturned() {
+        doReturn(true).when(sectionA).isSameName(A_VALID_SECTION_NAME);
+
+        Section validSection = aMatch.getSectionByName(A_VALID_SECTION_NAME);
+
+        assertEquals(sectionA, validSection);
+    }
+
+    @Test(expected = SectionNotFoundException.class)
+    public void aSectionNotFoundExceptionIsThrownIfAccessingAnInvalidSectionName() {
+        doReturn(false).when(sectionA).isSameName(A_VALID_SECTION_NAME);
+        doReturn(false).when(sectionB).isSameName(A_VALID_SECTION_NAME);
+
+        aMatch.getSectionByName(A_VALID_SECTION_NAME);
     }
 
     private void initializeSectionList() {

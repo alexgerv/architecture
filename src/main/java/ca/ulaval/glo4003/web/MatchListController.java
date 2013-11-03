@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.repository.MatchRepository;
 import ca.ulaval.glo4003.web.converters.MatchViewConverter;
+import ca.ulaval.glo4003.web.converters.SectionViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
+import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 
 @Controller
 public class MatchListController {
@@ -23,6 +25,7 @@ public class MatchListController {
     MatchCatalog matchCatalog;
 
     private MatchViewConverter matchConverter = new MatchViewConverter();
+    private SectionViewConverter sectionConverter = new SectionViewConverter();
 
     public MatchListController() {
 
@@ -40,6 +43,16 @@ public class MatchListController {
         model.addAttribute("match", viewModel);
 
         return "matchDetails";
+    }
+
+    @RequestMapping(value = "/match/{venue}/{date}/{sectionName}", method = RequestMethod.GET)
+    public String getSection(@PathVariable String venue, @PathVariable String date, Model model, @PathVariable String sectionName) {
+        SectionViewModel viewModel =
+                                     sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
+                                                                             .getSectionByName(sectionName));
+        model.addAttribute("section", viewModel);
+
+        return "sectionDetails";
     }
 
     protected MatchListController(MatchRepository matchRepository, MatchViewConverter matchViewConverter) {

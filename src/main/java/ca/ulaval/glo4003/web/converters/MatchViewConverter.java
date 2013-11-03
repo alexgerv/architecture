@@ -12,7 +12,7 @@ import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 
 public class MatchViewConverter {
 
-    private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd HH:mm";
+    private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd_HH-mm-ss";
     private SectionViewConverter sectionConverter = new SectionViewConverter();
 
     public Collection<MatchViewModel> convert(Map<String, Match> entries) {
@@ -36,6 +36,7 @@ public class MatchViewConverter {
         viewModel.setSex(entry.getSex());
         viewModel.setTicketsBySection(sectionConverter.convert(entry.getTicketsBySection()));
         viewModel.setTotalNumberOfTickets(entry.getTotatNumberOfAvailableTickets());
+        viewModel.setMatchIdentifier(entry.getIdentifier());
 
         return viewModel;
     }
