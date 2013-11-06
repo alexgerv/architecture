@@ -17,12 +17,15 @@ import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 
 public class MatchTest {
 
+    private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd HH'h'mm";
+
     private static final Sex A_SEX = Sex.MEN;
     private static final String A_SPORT = "aSport";
     private static final String A_HOME_TEAM = "HomeTeam";
     private static final String A_VISITOR_TEAM = "VisitorTeam";
     private static final String A_VENUE = "Venue";
     private static final Date A_DATE = new Date();
+    private static final String A_FORMATED_DATE = DateFormatUtils.format(A_DATE, DATE_FORMAT_TEMPLATE);
     private static final Object INITIAL_NUMBER_OF_AVALAIBLE_TICKETS_IN_SECTION_A = 4;
     private static final Object INITIAL_NUMBER_OF_AVALAIBLE_TICKETS_IN_SECTION_B = 3;
     private static final Object INITIAL_NUMBER_OF_AVALAIBLE_TICKETS = 7;
@@ -78,7 +81,7 @@ public class MatchTest {
 
     @Test
     public void canGetTheDateOfAMatch() {
-        assertEquals(aMatch.getDate(), A_DATE);
+        assertEquals(aMatch.getDate(), A_FORMATED_DATE);
     }
 
     @Test
@@ -88,8 +91,7 @@ public class MatchTest {
 
     @Test
     public void canGetTheIdentifierOfAMatch() {
-        String formatedDate = DateFormatUtils.format(A_DATE, "yyyy-MM-dd_HH-mm-SS");
-        String identifier = A_VENUE + "/" + formatedDate;
+        String identifier = A_VENUE + "/" + A_FORMATED_DATE;
         assertEquals(aMatch.getIdentifier(), identifier);
     }
 
@@ -105,8 +107,7 @@ public class MatchTest {
 
     @Test
     public void canGetADateFilterValue() {
-        assertEquals(DateFormatUtils.format(A_DATE, "yyyy-MM-dd_HH-mm-SS"),
-                     aMatch.getFilterValueOfCategory(MatchFilterCategories.DATE));
+        assertEquals(A_FORMATED_DATE, aMatch.getFilterValueOfCategory(MatchFilterCategories.DATE));
     }
 
     @Test

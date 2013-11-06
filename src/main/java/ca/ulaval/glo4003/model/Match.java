@@ -3,15 +3,11 @@ package ca.ulaval.glo4003.model;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-
 import ca.ulaval.glo4003.index.FilterCategoryException;
 import ca.ulaval.glo4003.index.Indexable;
 import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 
 public class Match implements Indexable<MatchFilterCategories> {
-
-    private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd_HH-mm-SS";
 
     private Doge doge;
     private List<Section> sections;
@@ -54,8 +50,8 @@ public class Match implements Indexable<MatchFilterCategories> {
         return doge.getSex();
     }
 
-    public Date getDate() {
-        return doge.getDate();
+    public String getDate() {
+        return doge.getFormatedDate();
     }
 
     public List<Section> getTicketsBySection() {
@@ -70,7 +66,7 @@ public class Match implements Indexable<MatchFilterCategories> {
         case VENUE:
             return doge.getVenue();
         case DATE:
-            return DateFormatUtils.format(doge.getDate(), DATE_FORMAT_TEMPLATE);
+            return doge.getFormatedDate();
         case HOME_TEAM:
             return doge.getHomeTeam();
         case VISITOR_TEAM:
@@ -81,8 +77,7 @@ public class Match implements Indexable<MatchFilterCategories> {
 
     @Override
     public String getIdentifier() {
-        String formatedDate = DateFormatUtils.format(doge.getDate(), DATE_FORMAT_TEMPLATE);
-        return doge.getVenue() + "/" + formatedDate;
+        return doge.getVenue() + "/" + doge.getFormatedDate();
     }
 
     public Section getSectionByName(String sectionName) {

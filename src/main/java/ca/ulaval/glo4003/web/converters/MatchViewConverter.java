@@ -5,14 +5,11 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-
 import ca.ulaval.glo4003.model.Match;
 import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 
 public class MatchViewConverter {
 
-    private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd_HH-mm-ss";
     private SectionViewConverter sectionConverter = new SectionViewConverter();
 
     public Collection<MatchViewModel> convert(Map<String, Match> entries) {
@@ -30,7 +27,7 @@ public class MatchViewConverter {
 
         viewModel.setSport(entry.getSport());
         viewModel.setVenue(entry.getVenue());
-        viewModel.setDate(DateFormatUtils.format(entry.getDate(), DATE_FORMAT_TEMPLATE));
+        viewModel.setDate(entry.getDate());
         viewModel.setHomeTeam(entry.getHomeTeam());
         viewModel.setVisitorTeam(entry.getVisitorTeam());
         viewModel.setSex(entry.getSex());

@@ -6,6 +6,7 @@ import ca.ulaval.glo4003.model.Sex;
 public class SectionViewModel {
 
     private String sport;
+    private String venue;
     private String section;
     private String date;
     private String homeTeam;
@@ -19,6 +20,18 @@ public class SectionViewModel {
     public String getSport() {
         return sport;
     }
+    
+    public void setSport(String sport) {
+        this.sport = sport;
+    }
+    
+    public String getVenue(){
+        return venue;
+    }
+    
+    public void setVenue(String venue){
+        this.venue = venue;
+    }
 
     public AdmissionType getAdmissionType() {
         return admissionType;
@@ -26,10 +39,6 @@ public class SectionViewModel {
 
     public void setAdmissionType(AdmissionType admissionType) {
         this.admissionType = admissionType;
-    }
-
-    public void setSport(String sport) {
-        this.sport = sport;
     }
 
     public String getSection() {

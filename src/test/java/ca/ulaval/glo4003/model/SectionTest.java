@@ -89,7 +89,7 @@ public class SectionTest {
     @Test
     public void canGetDateGetsDogeDate() {
         aSection.getDate();
-        verify(doge).getDate();
+        verify(doge).getFormatedDate();
     }
 
     @Test

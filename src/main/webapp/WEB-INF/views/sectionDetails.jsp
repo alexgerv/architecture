@@ -52,6 +52,13 @@
 			</table>
 		</div>
 	</div>
-	<h4>Price: ${section.price}$</h4>
+	<form action="/purchase/${section.venue}/${section.date}/${section.name}" method="get">
+	    <h4>
+	        Price: ${section.price}$ x 
+            <input type="number" name="quantity" value="1" min="1" max="${section.availableTickets}" />
+            <input  type="submit" value="Buy"/>
+        </h4>
+	</form>
+	
 </body>
 </html>

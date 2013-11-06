@@ -2,8 +2,12 @@ package ca.ulaval.glo4003.model;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 public class Doge {
 
+    private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd HH'h'mm";
+    
     private String sport;
     private String venue;
     private Date date;
@@ -38,8 +42,8 @@ public class Doge {
     }
 
     // amaze
-    public Date getDate() {
-        return date;
+    public String getFormatedDate() {
+        return DateFormatUtils.format(date, DATE_FORMAT_TEMPLATE);
     }
 
     public void setDate(Date date) {

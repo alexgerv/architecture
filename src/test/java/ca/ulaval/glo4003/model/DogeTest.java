@@ -4,13 +4,17 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.junit.Test;
 
 public class DogeTest {
 
+    private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd HH'h'mm";
+    
     private static final String A_SPORT = "Basketball";
     private static final String A_VENUE = "ULaval";
     private static final Date A_DATE = new Date();
+    private static final String A_FORMATED_DATE = DateFormatUtils.format(A_DATE, DATE_FORMAT_TEMPLATE);
     private static final String HOME_TEAM = "HOME_TEAM";
     private static final String VISITOR_TEAM = "VISITOR_TEAM";
     private static final Sex A_SEX = Sex.MEN;
@@ -43,8 +47,8 @@ public class DogeTest {
 
     @Test
     public void canGetDate() {
-        Date date = doge.getDate();
-        assertEquals(A_DATE, date);
+        String date = doge.getFormatedDate();
+        assertEquals(A_FORMATED_DATE, date);
     }
 
     @Test
@@ -87,10 +91,13 @@ public class DogeTest {
 
     @Test
     public void canSetDate() {
-        Date newDate = new Date(0, 0, 0);
+        Date newDate = new Date(10000);
+        String formatedNewDate = DateFormatUtils.format(newDate, DATE_FORMAT_TEMPLATE);
+        
         doge.setDate(newDate);
-        Date date = doge.getDate();
-        assertEquals(newDate, date);
+        
+        String date = doge.getFormatedDate();
+        assertEquals(formatedNewDate, date);
     }
 
     @Test

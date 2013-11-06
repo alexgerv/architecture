@@ -41,8 +41,8 @@ public class Section {
         return doge.getSport();
     }
 
-    public Date getDate() {
-        return doge.getDate();
+    public String getDate() {
+        return doge.getFormatedDate();
     }
 
     public String getHomeTeam() {

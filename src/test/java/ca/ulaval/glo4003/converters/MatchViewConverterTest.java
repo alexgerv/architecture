@@ -24,6 +24,7 @@ import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 
 public class MatchViewConverterTest {
 
+    private static final String A_FORMATED_DATE = "2013-11-05 11h38";
     @Mock
     Match aMatch;
 
@@ -39,7 +40,7 @@ public class MatchViewConverterTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         aMatchViewConverter = new MatchViewConverter();
-        doReturn(new Date()).when(aMatch).getDate();
+        doReturn(A_FORMATED_DATE).when(aMatch).getDate();
     }
 
     @Test
@@ -61,13 +62,13 @@ public class MatchViewConverterTest {
 
     @Test
     public void whenConvertingAMatchToAMacthViewModelTheConverterReturnsAMatchViewModel() {
-        Mockito.when(aMatch.getDate()).thenReturn(new Date());
+        Mockito.when(aMatch.getDate()).thenReturn(A_FORMATED_DATE);
         assertTrue(aMatchViewConverter.convert(aMatch) instanceof MatchViewModel);
     }
 
     @Test
     public void whenConvertingAMatchToAMachViewModelTheConverterUsesTheMatchAttributesToCreateTheModel() {
-        Mockito.when(aMatch.getDate()).thenReturn(new Date());
+        Mockito.when(aMatch.getDate()).thenReturn(A_FORMATED_DATE);
 
         aMatchViewConverter.convert(aMatch);
 
