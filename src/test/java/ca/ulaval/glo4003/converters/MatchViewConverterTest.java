@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.converters;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;

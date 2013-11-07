@@ -25,20 +25,29 @@ public class TicketPurchaseController {
 
     }
 
-    @RequestMapping(value = "/purchase/{venue}/{date}/{sectionName}", method = RequestMethod.GET)
-    public String getTicketQuantityBySection(@PathVariable String venue, @PathVariable String date,
-                                             @PathVariable String sectionName,
-                                             @RequestParam(value = "quantity", required = true) int quantity,
-                                             Model model) {
+    @RequestMapping(value = "/purchaseReview/{venue}/{date}/{sectionName}", method = RequestMethod.GET)
+    public String reviewSelectedTicketsForSection(@PathVariable String venue, @PathVariable String date,
+                                                  @PathVariable String sectionName,
+                                                  @RequestParam(value = "quantity", required = true) int quantity,
+                                                  Model model) {
         SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
                                                                              .getSectionByName(sectionName));
         model.addAttribute("section", viewModel);
         model.addAttribute("quantity", quantity);
 
-        return "ticketPurchase";
+        return "ticketPurchaseReview";
     }
 
-    protected TicketPurchaseController(MatchRepository matchRepository) {
+    @RequestMapping(value = "/purchaseConfirm/{venue}/{date}/{sectionName}", method = RequestMethod.POST)
+    public String purchaseSelectedTicketsForSection(@PathVariable String venue, @PathVariable String date,
+                                                    @PathVariable String sectionName,
+                                                    @RequestParam(value = "quantity", required = true) int quantity,
+                                                    Model model) {
+        return "home";
+    }
+
+    protected TicketPurchaseController(MatchRepository matchRepository, SectionViewConverter sectionConverter) {
         this.matchRepository = matchRepository;
+        this.sectionConverter = sectionConverter;
     }
 }

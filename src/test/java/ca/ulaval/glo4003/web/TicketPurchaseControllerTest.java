@@ -25,6 +25,7 @@ public class TicketPurchaseControllerTest {
     private static final String A_SECTION_NAME = "A";
     private static final int A_NUMBER_OF_TICKET_TO_BUY = 10;
     private static final String QUANTITY_IDENTIFIER = "quantity";
+    private static final String SECTION_IDENTIFIER = "section";
 
     @Mock
     private MatchRepository matchRepository;
@@ -45,15 +46,21 @@ public class TicketPurchaseControllerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = new TicketPurchaseController(matchRepository);
+        controller = new TicketPurchaseController(matchRepository, sectionConverter);
         doReturn(match).when(matchRepository).getMatchByIdentifier(MATCH_IDENTIFIER);
         doReturn(section).when(match).getSectionByName(A_SECTION_NAME);
         doReturn(sectionViewModel).when(sectionConverter).convert(section);
     }
 
     @Test
-    public void whenRequestingPageToBuyANumberOfTicketForASectionTheRightNumberOfTicketIsAddedToTheModel() {
-        controller.getTicketQuantityBySection(A_VENUE, A_DATE, A_SECTION_NAME, A_NUMBER_OF_TICKET_TO_BUY, model);
+    public void whenReviewingAPurchaseTheQuantityIsPassedToTheView() {
+        controller.reviewSelectedTicketsForSection(A_VENUE, A_DATE, A_SECTION_NAME, A_NUMBER_OF_TICKET_TO_BUY, model);
         verify(model, times(1)).addAttribute(QUANTITY_IDENTIFIER, A_NUMBER_OF_TICKET_TO_BUY);
+    }
+    
+    @Test
+    public void whenReviewingAPurchaseTheSectionInformationsArePassedToTheView(){
+        controller.reviewSelectedTicketsForSection(A_VENUE, A_DATE, A_SECTION_NAME, A_NUMBER_OF_TICKET_TO_BUY, model);
+        verify(model, times(1)).addAttribute(SECTION_IDENTIFIER, sectionViewModel);
     }
 }

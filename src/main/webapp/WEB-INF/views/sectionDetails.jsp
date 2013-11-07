@@ -52,7 +52,7 @@
 			</table>
 		</div>
 	</div>
-	<form action="/purchase/${section.venue}/${section.date}/${section.name}" method="get">
+	<form action="/purchaseReview/${section.venue}/${section.date}/${section.name}" method="get">
 	    <h4>
 	        Price: ${section.price}$ x 
             <input type="number" name="quantity" value="1" min="1" max="${section.availableTickets}" />

@@ -23,6 +23,7 @@ import ca.ulaval.glo4003.web.HomeControllerTest;
 import ca.ulaval.glo4003.web.LoginLogoutControllerTest;
 import ca.ulaval.glo4003.web.SearchBarControllerTest;
 import ca.ulaval.glo4003.web.SignupControllerTest;
+import ca.ulaval.glo4003.web.TicketPurchaseControllerTest;
 import ca.ulaval.glo4003.web.viewmodels.MatchViewModelTest;
 
 @RunWith(Suite.class)
@@ -31,7 +32,7 @@ import ca.ulaval.glo4003.web.viewmodels.MatchViewModelTest;
                JSONMatchQueryFactoryTest.class, JSONMatchRepositoryTest.class, JSONUserRepositoryTest.class,
                AuthenticationServiceTest.class, HomeControllerTest.class, LoginLogoutControllerTest.class,
                SearchBarControllerTest.class, SignupControllerTest.class, MatchViewModelTest.class, SectionTest.class,
-               TicketTest.class, DogeTest.class })
+               TicketTest.class, DogeTest.class, TicketPurchaseControllerTest.class })
 public class UnitTestSuite {
 
 }
