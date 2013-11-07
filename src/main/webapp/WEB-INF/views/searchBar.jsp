@@ -67,7 +67,9 @@
 	</div>
 </form>
 <script type="text/javascript">
-$(document).ready(requestMatches());
+$(document).ready(function(){
+	requestMatches();
+});
 
 $("#searchForm").change(function(){
  	requestMatches();
@@ -88,38 +90,46 @@ function requestMatches(){
 			contentType:'application/json',
 			processData: false,
 			success: function(response){
-				$("#matchList tbody tr").remove();
-				displayMatches(response);
+				if(response.length == 0){
+					$("#searchMessage").show();
+					$("#dataTable_wrapper").hide();
+					$("#dataTable").hide();
+				}else{
+					$("#dataTable").dataTable({
+						"bProcessing": true,
+						"aaData": response,
+						"bDestroy" : true,
+						"aoColumns":[
+							{"mData" : "matchIdentifier", 
+								"mRender": function(data, type, full){
+									return '<a '+
+									'href="match/' + data + '" class="btn btn-default btn-xs"><i '+
+									'class="icon icon-search"></i></a>';
+								}
+							},
+							{"mData" : "venue"},
+							{"mData" : "date"},
+							{"mData" : "sport"},
+							{"mData" : "homeTeam"},
+							{"mData" : "visitorTeam"},
+							{"mData" : "sex"},
+							{"mData" : "totalNumberOfAvailableTickets",
+								"bSortable" : false, 
+								"mRender": function(data, type, full){
+									return '<strong>' + data + '</strong>'+
+									'(<a href="match/' + full.matchIdentifier + '">view by section</a>)</td>';
+								},
+							}
+						]
+					});
+					$("#searchMessage").hide();
+					$("#dataTable").show();
+					$("#dataTable_wrapper").show();
+				
+				}
 				$inputs.prop("disabled", false);
 			}
         });
- }
- 
- function displayMatches(matchList){
- 	if($.isArray(matchList) && !$.isEmptyObject(matchList)){
- 		$("#matchList").show();
- 		$("#searchMessage").hide();
-	 	for(index in matchList){
-	 		$("#matchList tbody").append(
-	 		'<tr>' +
-				'<td style="text-align: center;"><a'+
-						'href="match/' + matchList[index].matchIdentifier + '" class="btn btn-default btn-xs"><i'+
-						'class="icon icon-search"></i></a></td>'+
-				'<td>' + matchList[index].venue + '</td>'+
-				'<td>' + matchList[index].date + '</td>'+
-				'<td>' + matchList[index].sport + '</td>'+
-				'<td>' + matchList[index].homeTeam + '</td>'+
-				'<td>' + matchList[index].visitorTeam + '</td>'+
-				'<td>' + matchList[index].sex + '</td>'+
-				'<td><strong>' + matchList[index].totalNumberOfAvailableTickets + '</strong>'+
-					'(<a href="match/' + matchList[index].matchIdentifier + '">view by section</a>)</td>'+
-			'</tr>');		
-	 	}
- 	}
- 	else {
- 		$("#searchMessage").show();
- 		$("#matchList").hide();
- 	}
  }
 
  </script>

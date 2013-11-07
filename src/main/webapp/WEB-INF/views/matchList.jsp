@@ -15,8 +15,8 @@
 				<hr>
 				<div id="searchMessage" class="alert alert-info" hidden="hidden">
 					Your search produced no results.</div>
-				<table class="table table-condensed table-bordered table-striped"
-					id="matchList">
+				<table id="dataTable"
+					class="table table-bordered table-condensed table-striped">
 					<thead>
 						<tr>
 							<th></th>
@@ -29,23 +29,6 @@
 							<th>Number of Available Tickets</th>
 						</tr>
 					</thead>
-					<tbody>
-						<c:forEach var="match" items="${matches}">
-							<tr>
-								<td style="text-align: center;"><a
-									href="match/${match.matchIdentifier}" class="btn btn-default btn-xs"><i
-										class="icon icon-search"></i></a></td>
-								<td>${match.venue}</td>
-								<td>${match.date}</td>
-								<td>${match.sport}</td>
-								<td>${match.homeTeam}</td>
-								<td>${match.visitorTeam}</td>
-								<td>${match.sex}</td>
-								<td><strong>${match.totalNumberOfAvailableTickets}</strong>
-									(<a href="match/${match.matchIdentifier}">view by section</a>)</td>
-							</tr>
-						</c:forEach>
-					</tbody>
 				</table>
 			</div>
 		</div>
