@@ -31,14 +31,16 @@ public class JSONMatchCatalog extends MatchCatalog {
         File[] list = root.listFiles();
 
         for (File f : list) {
-            if (f.isDirectory()) {
-                loadAllMatchFrom(f.getAbsolutePath());
-            } else {
-                try {
-                    Match newMatch = marshaller.load(f.getAbsolutePath());
-                    add(newMatch);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+            if(!f.isHidden()) {  
+                if (f.isDirectory()) {
+                    loadAllMatchFrom(f.getAbsolutePath());
+                } else {
+                    try {
+                        Match newMatch = marshaller.load(f.getAbsolutePath());
+                        add(newMatch);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
