@@ -7,7 +7,7 @@ import java.util.Date;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.junit.Test;
 
-public class DogeTest {
+public class MatchInformationsTest {
 
     private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd HH'h'mm";
     
@@ -19,73 +19,73 @@ public class DogeTest {
     private static final String VISITOR_TEAM = "VISITOR_TEAM";
     private static final Sex A_SEX = Sex.MEN;
 
-    private Doge doge = new Doge(A_SPORT, A_VENUE, A_DATE, HOME_TEAM, VISITOR_TEAM, A_SEX);
+    private MatchInformations matchInformations = new MatchInformations(A_SPORT, A_VENUE, A_DATE, HOME_TEAM, VISITOR_TEAM, A_SEX);
 
     @Test
     public void canGetHomeTeam() {
-        String homeTeam = doge.getHomeTeam();
+        String homeTeam = matchInformations.getHomeTeam();
         assertEquals(HOME_TEAM, homeTeam);
     }
 
     @Test
     public void canGetVisitorTeam() {
-        String visitorTeam = doge.getVisitorTeam();
+        String visitorTeam = matchInformations.getVisitorTeam();
         assertEquals(VISITOR_TEAM, visitorTeam);
     }
 
     @Test
     public void canGetSport() {
-        String sport = doge.getSport();
+        String sport = matchInformations.getSport();
         assertEquals(A_SPORT, sport);
     }
 
     @Test
     public void canGetVenue() {
-        String venue = doge.getVenue();
+        String venue = matchInformations.getVenue();
         assertEquals(A_VENUE, venue);
     }
 
     @Test
     public void canGetDate() {
-        String date = doge.getFormatedDate();
+        String date = matchInformations.getFormatedDate();
         assertEquals(A_FORMATED_DATE, date);
     }
 
     @Test
     public void canGetSex() {
-        Sex sex = doge.getSex();
+        Sex sex = matchInformations.getSex();
         assertEquals(A_SEX, sex);
     }
 
     @Test
     public void canSetHomeTeam() {
         String newHomeTeam = "team";
-        doge.setHomeTeam(newHomeTeam);
-        String homeTeam = doge.getHomeTeam();
+        matchInformations.setHomeTeam(newHomeTeam);
+        String homeTeam = matchInformations.getHomeTeam();
         assertEquals(newHomeTeam, homeTeam);
     }
 
     @Test
     public void canSetVisitorTeam() {
         String newVisitorTeam = "team";
-        doge.setVisitorTeam(newVisitorTeam);
-        String visitorTeam = doge.getVisitorTeam();
+        matchInformations.setVisitorTeam(newVisitorTeam);
+        String visitorTeam = matchInformations.getVisitorTeam();
         assertEquals(newVisitorTeam, visitorTeam);
     }
 
     @Test
     public void canSetSport() {
         String newSport = "sport";
-        doge.setSport(newSport);
-        String sport = doge.getSport();
+        matchInformations.setSport(newSport);
+        String sport = matchInformations.getSport();
         assertEquals(newSport, sport);
     }
 
     @Test
     public void canSetVenue() {
         String newVenue = "venue";
-        doge.setVenue(newVenue);
-        String venue = doge.getVenue();
+        matchInformations.setVenue(newVenue);
+        String venue = matchInformations.getVenue();
         assertEquals(newVenue, venue);
     }
 
@@ -94,17 +94,17 @@ public class DogeTest {
         Date newDate = new Date(10000);
         String formatedNewDate = DateFormatUtils.format(newDate, DATE_FORMAT_TEMPLATE);
         
-        doge.setDate(newDate);
+        matchInformations.setDate(newDate);
         
-        String date = doge.getFormatedDate();
+        String date = matchInformations.getFormatedDate();
         assertEquals(formatedNewDate, date);
     }
 
     @Test
     public void canSetSex() {
         Sex newSex = Sex.WOMEN;
-        doge.setSex(newSex);
-        Sex sex = doge.getSex();
+        matchInformations.setSex(newSex);
+        Sex sex = matchInformations.getSex();
         assertEquals(newSex, sex);
     }
 

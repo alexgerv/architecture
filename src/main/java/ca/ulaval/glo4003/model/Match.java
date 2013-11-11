@@ -9,12 +9,12 @@ import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 
 public class Match implements Indexable<MatchFilterCategories> {
 
-    private Doge doge;
+    private MatchInformations matchInformations;
     private List<Section> sections;
 
     public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex,
                  List<Section> sections) {
-        doge = new Doge(sport, venue, date, homeTeam, visitorTeam, sex);
+        matchInformations = new MatchInformations(sport, venue, date, homeTeam, visitorTeam, sex);
         this.sections = sections;
     }
 
@@ -31,27 +31,27 @@ public class Match implements Indexable<MatchFilterCategories> {
     }
 
     public String getSport() {
-        return doge.getSport();
+        return matchInformations.getSport();
     }
 
     public String getVenue() {
-        return doge.getVenue();
+        return matchInformations.getVenue();
     }
 
     public String getHomeTeam() {
-        return doge.getHomeTeam();
+        return matchInformations.getHomeTeam();
     }
 
     public String getVisitorTeam() {
-        return doge.getVisitorTeam();
+        return matchInformations.getVisitorTeam();
     }
 
     public Sex getSex() {
-        return doge.getSex();
+        return matchInformations.getSex();
     }
 
     public String getDate() {
-        return doge.getFormatedDate();
+        return matchInformations.getFormatedDate();
     }
 
     public List<Section> getTicketsBySection() {
@@ -62,22 +62,22 @@ public class Match implements Indexable<MatchFilterCategories> {
     public String getFilterValueOfCategory(MatchFilterCategories category) {
         switch (category) {
         case SPORT:
-            return doge.getSport();
+            return matchInformations.getSport();
         case VENUE:
-            return doge.getVenue();
+            return matchInformations.getVenue();
         case DATE:
-            return doge.getFormatedDate();
+            return matchInformations.getFormatedDate();
         case HOME_TEAM:
-            return doge.getHomeTeam();
+            return matchInformations.getHomeTeam();
         case VISITOR_TEAM:
-            return doge.getVisitorTeam();
+            return matchInformations.getVisitorTeam();
         }
         throw new FilterCategoryException("FilterCategory does not conrrespond to an argument in match");
     }
 
     @Override
     public String getIdentifier() {
-        return doge.getVenue() + "/" + doge.getFormatedDate();
+        return matchInformations.getVenue() + "/" + matchInformations.getFormatedDate();
     }
 
     public Section getSectionByName(String sectionName) {

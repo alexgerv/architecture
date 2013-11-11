@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
-public class Doge {
+public class MatchInformations {
 
     private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd HH'h'mm";
     
@@ -15,8 +15,7 @@ public class Doge {
     private String visitorTeam;
     private Sex sex;
 
-    public Doge(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex) {
-        // Wow such doge
+    public MatchInformations(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex) {
         this.sport = sport;
         this.venue = venue;
         this.date = date;
@@ -41,7 +40,6 @@ public class Doge {
         this.venue = venue;
     }
 
-    // amaze
     public String getFormatedDate() {
         return DateFormatUtils.format(date, DATE_FORMAT_TEMPLATE);
     }
@@ -50,7 +48,6 @@ public class Doge {
         this.date = date;
     }
 
-    // much home
     public String getHomeTeam() {
         return homeTeam;
     }
@@ -59,7 +56,6 @@ public class Doge {
         this.homeTeam = homeTeam;
     }
 
-    // so visitor
     public String getVisitorTeam() {
         return visitorTeam;
     }
@@ -68,12 +64,10 @@ public class Doge {
         this.visitorTeam = visitorTeam;
     }
 
-    // such sex
     public Sex getSex() {
         return sex;
     }
 
-    // wow
     public void setSex(Sex sex) {
         this.sex = sex;
     }

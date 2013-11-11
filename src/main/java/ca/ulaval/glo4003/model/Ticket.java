@@ -5,12 +5,12 @@ public class Ticket {
     private int id;
     private boolean available;
 
-    private Doge doge;
+    private MatchInformations matchInformations;
 
-    public Ticket(int id, boolean available, Doge doge) {
+    public Ticket(int id, boolean available, MatchInformations matchInformations) {
         this.id = id;
         this.available = available;
-        this.doge = doge;
+        this.matchInformations = matchInformations;
     }
 
     public boolean isAvailable() {

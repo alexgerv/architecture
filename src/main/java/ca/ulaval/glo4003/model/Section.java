@@ -10,13 +10,13 @@ public class Section {
     private String name;
     private float price;
     private AdmissionType admissionType;
-    private Doge doge;
+    private MatchInformations matchInformations;
 
-    public Section(String sectionName, List<Ticket> tickets, Doge doge, float price, AdmissionType admissionType) {
+    public Section(String sectionName, List<Ticket> tickets, MatchInformations matchInformations, float price, AdmissionType admissionType) {
         this.tickets = tickets;
         this.name = sectionName;
         this.price = price;
-        this.doge = doge;
+        this.matchInformations = matchInformations;
         this.admissionType = admissionType;
     }
 
@@ -38,23 +38,23 @@ public class Section {
     }
 
     public String getSport() {
-        return doge.getSport();
+        return matchInformations.getSport();
     }
 
     public String getDate() {
-        return doge.getFormatedDate();
+        return matchInformations.getFormatedDate();
     }
 
     public String getHomeTeam() {
-        return doge.getHomeTeam();
+        return matchInformations.getHomeTeam();
     }
 
     public String getVisitorTeam() {
-        return doge.getVisitorTeam();
+        return matchInformations.getVisitorTeam();
     }
 
     public Sex getSex() {
-        return doge.getSex();
+        return matchInformations.getSex();
     }
 
     public float getPrice() {
@@ -62,7 +62,7 @@ public class Section {
     }
 
     public String getVenue() {
-        return doge.getVenue();
+        return matchInformations.getVenue();
     }
 
     public AdmissionType getAdmissionType() {

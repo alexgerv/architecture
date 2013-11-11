@@ -33,7 +33,7 @@ public class SectionTest {
     private List<Ticket> tickets = new ArrayList<Ticket>();
 
     @Mock
-    private Doge doge;
+    private MatchInformations matchInformations;
     @Mock
     private Ticket anAvailableTicket;
     @Mock
@@ -45,7 +45,7 @@ public class SectionTest {
         tickets.add(anAvailableTicket);
         tickets.add(anUnavailableTicket);
 
-        aSection = new Section(A_SECTION_NAME, tickets, doge, SECTION_PRICE, AN_ADMISSION_TYPE);
+        aSection = new Section(A_SECTION_NAME, tickets, matchInformations, SECTION_PRICE, AN_ADMISSION_TYPE);
     }
 
     @Test
@@ -93,39 +93,39 @@ public class SectionTest {
     }
 
     @Test
-    public void canGetDateGetsDogeDate() {
+    public void canGetDate() {
         aSection.getDate();
-        verify(doge).getFormatedDate();
+        verify(matchInformations).getFormatedDate();
     }
 
     @Test
-    public void canGetHomeTeamGetsDogeHomeTeam() {
+    public void canGetHomeTeam() {
         aSection.getHomeTeam();
-        verify(doge).getHomeTeam();
+        verify(matchInformations).getHomeTeam();
     }
 
     @Test
-    public void canGetSexGetsDogeSex() {
+    public void canGetSex() {
         aSection.getSex();
-        verify(doge).getSex();
+        verify(matchInformations).getSex();
     }
 
     @Test
-    public void canGetSportGetsDogeSport() {
+    public void canGetSport() {
         aSection.getSport();
-        verify(doge).getSport();
+        verify(matchInformations).getSport();
     }
 
     @Test
-    public void canGetVenueGetsDogeVenue() {
+    public void canGetVenue() {
         aSection.getVenue();
-        verify(doge).getVenue();
+        verify(matchInformations).getVenue();
     }
 
     @Test
-    public void canGetVisitorTeamGetsDogeVisitorTeam() {
+    public void canGetVisitorTeam() {
         aSection.getVisitorTeam();
-        verify(doge).getVisitorTeam();
+        verify(matchInformations).getVisitorTeam();
     }
 
     @Test

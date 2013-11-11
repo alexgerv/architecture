@@ -12,13 +12,13 @@ public class TicketTest {
 
     private static final int anID = 1;
 
-    private static final Doge doge = new Doge("A_SPORT", "A_VENUE", new Date(), "HOME_TEAM", "VISITOR_TEAM", Sex.MIXED);
+    private static final MatchInformations matchInformations = new MatchInformations("A_SPORT", "A_VENUE", new Date(), "HOME_TEAM", "VISITOR_TEAM", Sex.MIXED);
 
     Ticket aTicket;
 
     @Before
     public void setup() {
-        aTicket = new Ticket(anID, true, doge);
+        aTicket = new Ticket(anID, true, matchInformations);
     }
 
     @Test
