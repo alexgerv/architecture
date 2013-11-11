@@ -22,6 +22,12 @@ public class SectionTest {
 
     private static final AdmissionType AN_ADMISSION_TYPE = AdmissionType.GENERAL;
 
+    private static final int A_QUANTITY_OF_AVAILABLE_TICKETS = 1;
+
+    private static final int MORE_THAN_AVAILABLE_TICKETS = 2;
+
+    private static final int A_NEGATIVE_NUMBER = -1;
+
     private Section aSection;
 
     private List<Ticket> tickets = new ArrayList<Ticket>();
@@ -120,5 +126,22 @@ public class SectionTest {
     public void canGetVisitorTeamGetsDogeVisitorTeam() {
         aSection.getVisitorTeam();
         verify(doge).getVisitorTeam();
+    }
+
+    @Test
+    public void whenBuyingANumberOfTicketsAndTheyAreAvailableTheTicketsAreBought() {
+        doReturn(true).when(anAvailableTicket).isAvailable();
+        aSection.buyTickets(A_QUANTITY_OF_AVAILABLE_TICKETS);
+        verify(anAvailableTicket).buy();
+    }
+
+    @Test(expected = NoAvailableTicketsException.class)
+    public void whenBuyingMoreThanAvailableTicketsANoAvailableTicketsException() {
+        aSection.buyTickets(MORE_THAN_AVAILABLE_TICKETS);
+    }
+
+    @Test(expected = InvalidQuantityException.class)
+    public void whenBuyingANegativeQuantityOfTicketsAnInvalidQuantityExceptionIsThrown() {
+        aSection.buyTickets(A_NEGATIVE_NUMBER);
     }
 }

@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +31,8 @@ public class MatchTest {
     private static final Object INITIAL_NUMBER_OF_AVALAIBLE_TICKETS_IN_SECTION_B = 3;
     private static final Object INITIAL_NUMBER_OF_AVALAIBLE_TICKETS = 7;
     private static final String A_VALID_SECTION_NAME = "A";
+
+    private static final int A_VALID_TICKET_QUANTITY = 1;
 
     private Match aMatch;
     private List<Section> sections = new ArrayList<Section>();
@@ -135,6 +138,13 @@ public class MatchTest {
         doReturn(false).when(sectionB).hasSameName(A_VALID_SECTION_NAME);
 
         aMatch.getSectionByName(A_VALID_SECTION_NAME);
+    }
+
+    @Test
+    public void whenBuyingAnAvailableQUantityOfTicketsInASectionTheTicketsAreBought() {
+        doReturn(true).when(sectionA).hasSameName(A_VALID_SECTION_NAME);
+        aMatch.buyTickets(A_VALID_SECTION_NAME, A_VALID_TICKET_QUANTITY);
+        verify(sectionA).buyTickets(A_VALID_TICKET_QUANTITY);
     }
 
     private void initializeSectionList() {

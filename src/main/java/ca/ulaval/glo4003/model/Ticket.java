@@ -17,4 +17,11 @@ public class Ticket {
         return available;
     }
 
+    public void buy() {
+        if (!isAvailable()) {
+            throw new UnavailableTicketException("The ticket is unavailable.");
+        }
+        available = false;
+    }
+
 }

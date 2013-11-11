@@ -34,4 +34,5 @@ public abstract class MatchRepository {
     public abstract void add(Match match);
 
     protected abstract void loadMatch(String identifier);
+
 }

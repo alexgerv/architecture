@@ -88,4 +88,9 @@ public class Match implements Indexable<MatchFilterCategories> {
         }
         throw new SectionNotFoundException("Section: " + sectionName + " was not found.");
     }
+
+    public void buyTickets(String sectionName, int quantity) {
+        Section section = getSectionByName(sectionName);
+        section.buyTickets(quantity);
+    }
 }

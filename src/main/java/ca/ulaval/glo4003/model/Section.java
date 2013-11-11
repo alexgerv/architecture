@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Section {
@@ -66,5 +67,26 @@ public class Section {
 
     public AdmissionType getAdmissionType() {
         return admissionType;
+    }
+
+    public void buyTickets(int quantity) {
+        if (quantity <= 0) {
+            throw new InvalidQuantityException("The ticket quantity must be >= 0,");
+        }
+        for (int i = 0; i < quantity; i++) {
+            buyTicket();
+        }
+    }
+
+    private void buyTicket() {
+        Iterator<Ticket> iterator = tickets.iterator();
+
+        for (Ticket ticket : tickets) {
+            if (ticket.isAvailable()) {
+                ticket.buy();
+                return;
+            }
+        }
+        throw new NoAvailableTicketsException("There are no tickets available.");
     }
 }

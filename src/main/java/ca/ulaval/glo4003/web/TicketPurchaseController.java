@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ca.ulaval.glo4003.model.NoAvailableTicketsException;
 import ca.ulaval.glo4003.repository.MatchRepository;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
@@ -43,6 +44,13 @@ public class TicketPurchaseController {
                                                     @PathVariable String sectionName,
                                                     @RequestParam(value = "quantity", required = true) int quantity,
                                                     Model model) {
+        try {
+            matchRepository.getMatchByIdentifier(venue + "/" + date).buyTickets(sectionName, quantity);
+        } catch (NoAvailableTicketsException e) {
+            String message = "There are not enough available tickets";
+            model.addAttribute("message", message);
+            return "sectionDetails";
+        }
         return "home";
     }
 

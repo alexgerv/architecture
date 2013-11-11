@@ -9,7 +9,7 @@
 <body>
 	<div class="jumbotron">
     	<h2>Welcome. Please buy some tickets!</h2>
-        <a class="btn btn-lg btn-primary" href="matchList">View the match list</a>
+        <a class="btn btn-lg btn-primary" href="/matchList">View the match list</a>
     </div>
 </body>
 </html>  
