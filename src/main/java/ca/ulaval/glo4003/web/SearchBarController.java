@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
-import ca.ulaval.glo4003.matchCatalog.MatchQuery;
-import ca.ulaval.glo4003.matchCatalog.MatchQueryFactory;
+import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
+import ca.ulaval.glo4003.domain.matchCatalog.MatchQuery;
+import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryFactory;
 import ca.ulaval.glo4003.web.converters.MatchViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 

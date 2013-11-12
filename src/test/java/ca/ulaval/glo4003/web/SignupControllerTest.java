@@ -14,7 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.ui.Model;
 
-import ca.ulaval.glo4003.repository.UserRepository;
+import ca.ulaval.glo4003.domain.repository.UserRepository;
 import ca.ulaval.glo4003.web.viewmodels.UserViewModel;
 
 public class SignupControllerTest {

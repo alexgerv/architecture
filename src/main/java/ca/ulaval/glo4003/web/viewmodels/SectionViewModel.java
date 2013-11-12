@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.web.viewmodels;
 
-import ca.ulaval.glo4003.model.AdmissionType;
-import ca.ulaval.glo4003.model.Sex;
+import ca.ulaval.glo4003.domain.match.AdmissionType;
+import ca.ulaval.glo4003.domain.match.Sex;
 
 public class SectionViewModel {
 

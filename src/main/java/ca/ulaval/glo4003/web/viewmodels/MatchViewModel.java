@@ -2,7 +2,7 @@ package ca.ulaval.glo4003.web.viewmodels;
 
 import java.util.List;
 
-import ca.ulaval.glo4003.model.Sex;
+import ca.ulaval.glo4003.domain.match.Sex;
 
 public class MatchViewModel {
 

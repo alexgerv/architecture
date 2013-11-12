@@ -11,9 +11,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 
-import ca.ulaval.glo4003.model.Match;
-import ca.ulaval.glo4003.model.Section;
-import ca.ulaval.glo4003.repository.MatchRepository;
+import ca.ulaval.glo4003.domain.match.Match;
+import ca.ulaval.glo4003.domain.match.Section;
+import ca.ulaval.glo4003.domain.repository.MatchRepository;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 

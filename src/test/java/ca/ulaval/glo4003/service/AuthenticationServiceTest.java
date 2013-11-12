@@ -15,8 +15,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import ca.ulaval.glo4003.repository.RepositoryException;
-import ca.ulaval.glo4003.repository.UserRepository;
+import ca.ulaval.glo4003.domain.repository.RepositoryException;
+import ca.ulaval.glo4003.domain.repository.UserRepository;
 
 public class AuthenticationServiceTest {
 

@@ -14,9 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ca.ulaval.glo4003.model.User;
-import ca.ulaval.glo4003.repository.RepositoryException;
-import ca.ulaval.glo4003.repository.UserRepository;
+import ca.ulaval.glo4003.domain.repository.RepositoryException;
+import ca.ulaval.glo4003.domain.repository.UserRepository;
+import ca.ulaval.glo4003.domain.user.User;
 
 @Service("UserDetailsService")
 @Transactional(readOnly = true)

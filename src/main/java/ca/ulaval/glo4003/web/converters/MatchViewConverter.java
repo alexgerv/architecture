@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import ca.ulaval.glo4003.model.Match;
+import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 
 public class MatchViewConverter {

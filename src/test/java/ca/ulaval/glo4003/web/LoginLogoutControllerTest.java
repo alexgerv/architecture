@@ -13,8 +13,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.ModelMap;
 
-import ca.ulaval.glo4003.model.User;
-import ca.ulaval.glo4003.repository.UserRepository;
+import ca.ulaval.glo4003.domain.repository.UserRepository;
+import ca.ulaval.glo4003.domain.user.User;
 
 public class LoginLogoutControllerTest {
 
