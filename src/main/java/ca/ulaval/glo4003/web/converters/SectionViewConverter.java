@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.web.converters;
 import java.util.LinkedList;
 import java.util.List;
 
-import ca.ulaval.glo4003.model.Section;
+import ca.ulaval.glo4003.domain.match.Section;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 
 public class SectionViewConverter {

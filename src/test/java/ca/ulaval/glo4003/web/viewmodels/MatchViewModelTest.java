@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.ulaval.glo4003.model.Sex;
+import ca.ulaval.glo4003.domain.match.Sex;
 
 public class MatchViewModelTest {
 

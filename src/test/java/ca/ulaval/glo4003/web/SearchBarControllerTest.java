@@ -12,10 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
-import ca.ulaval.glo4003.matchCatalog.MatchQuery;
-import ca.ulaval.glo4003.matchCatalog.MatchQueryFactory;
-import ca.ulaval.glo4003.model.Match;
+import ca.ulaval.glo4003.domain.match.Match;
+import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
+import ca.ulaval.glo4003.domain.matchCatalog.MatchQuery;
+import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryFactory;
 import ca.ulaval.glo4003.web.converters.MatchViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 

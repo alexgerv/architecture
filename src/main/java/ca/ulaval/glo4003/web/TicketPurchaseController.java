@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ca.ulaval.glo4003.model.NoAvailableTicketsException;
-import ca.ulaval.glo4003.repository.MatchRepository;
+import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
+import ca.ulaval.glo4003.domain.repository.MatchRepository;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 
