@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.model;
 import java.util.Date;
 import java.util.List;
 
-import ca.ulaval.glo4003.index.FilterCategoryException;
 import ca.ulaval.glo4003.index.Indexable;
 
 public class Match implements Indexable<MatchAttribute> {
@@ -58,7 +57,7 @@ public class Match implements Indexable<MatchAttribute> {
     }
 
     @Override
-    public String getFilterValueOfCategory(MatchAttribute category) {
+    public String getAttributeValue(MatchAttribute category) {
         switch (category) {
         case SPORT:
             return matchInformations.getSport();
@@ -71,7 +70,7 @@ public class Match implements Indexable<MatchAttribute> {
         case VISITOR_TEAM:
             return matchInformations.getVisitorTeam();
         }
-        throw new FilterCategoryException("FilterCategory does not conrrespond to an argument in match");
+        throw new MatchAttributeException("MatchAttribute does not conrrespond to a valid attribute in match");
     }
 
     @Override
