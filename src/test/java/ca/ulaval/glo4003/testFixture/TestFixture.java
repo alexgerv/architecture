@@ -32,7 +32,7 @@ public class TestFixture {
 
     public static final String MATCH_LIST_HOME_LINK_TEXT = "View the match list";
     public static final String SELECTOR_FOR_A_PARTICULAR_SPORT = "input[name='Football']";
-    public static final String XPATH_FOR_MATCH_LIST_LINK = "//*[@id='matchList']//tr//td[8]//a";
+    public static final String XPATH_FOR_MATCH_LIST_LINK = "//*[@id='dataTable']//tr//td[8]//a";
     public static final String MATCH_LIST_MENU_LINK_TEXT = "Matches";
     public static final String MATCH_LIST_PAGE_TITLE = "Match List";
 
@@ -41,12 +41,14 @@ public class TestFixture {
     public static final String EXPECTED_BUTTON_AFTER_LOGOUT = "Sign Up";
 
     private static final String MATCH_DETAILS_PAGE_TITLE = "Match Details";
+    private static final String XPATH_FOR_MATCH_LIST_VIEW_BY_SECTION_LINK = "//*[@id='dataTable']//tr//td[8]//a";
+
     private static final String A_PARTICULAR_SPORT = "Football";
 
     private static final String A_SPORT_WITHOUT_MATCHES = "Cheerleading";
     private static final String SELECTOR_FOR_MATCH_A_SPORT_WITHOUT_MATCHES = "input[name='" + A_SPORT_WITHOUT_MATCHES
                                                                              + "']";
-    private static final String XPATH_FOR_MATCH_SPORT = "//*[@id='matchList']//tr//td[4]";
+    private static final String XPATH_FOR_MATCH_SPORT = "//*[@id='dataTable']//tr//td[4]";
 
     private static final String A_NEW_USER_NAME = "olivier_dugas";
     private static final String SELECTOR_SINGUP_SUCCESS_MESSAGE = "div[class=\"alert alert-info\"]";
@@ -54,7 +56,7 @@ public class TestFixture {
     private static final String EXPECTED_FAIL_SIGNUP_MESSAGE = "Username \"" + A_NEW_USER_NAME + "\" is already taken";
     private static final String PATH_TO_CREATED_USER_FILE = "./users/olivier_dugas.json";
 
-    private static final String XPATH_FOR_MATCH_LIST_TICKETS_NUMBER = "//*[@id='matchList']//tr//td[8]//strong";
+    private static final String XPATH_FOR_MATCH_LIST_TICKETS_NUMBER = "//*[@id='dataTable']//tr//td[8]//strong";
     private static final String CLASS_NAME_FOR_TICKET_BY_SECTION = "ticketsBySection";
 
     private static final String SELECTOR_FOR_MATCH_A_PARTICULAR_VENUE = "input[name='Stade Telus']";
@@ -144,7 +146,7 @@ public class TestFixture {
     }
 
     public void assertNumberOfAvailableTicketsForAMatchIsDisplayedForEachSection() {
-        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//table[@id='matchList']/tbody/tr/td[8]/a")))
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_MATCH_LIST_VIEW_BY_SECTION_LINK)))
                   .click();
 
         assertTrue(driverWait.until(ExpectedConditions.titleIs(MATCH_DETAILS_PAGE_TITLE)));
@@ -156,8 +158,7 @@ public class TestFixture {
     }
 
     public void assertAllShownMatchesAreOfTheSelectedSport() {
-        List<WebElement> sports =
-                                  driverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(XPATH_FOR_MATCH_SPORT)));
+        List<WebElement> sports = driverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(XPATH_FOR_MATCH_SPORT)));
         for (WebElement sport : sports) {
             assertEquals(A_PARTICULAR_SPORT, sport.getText());
         }
@@ -191,8 +192,7 @@ public class TestFixture {
     }
 
     public int getTotalNumberOfTicketsForAParticularMatch() {
-        String totalNumberOfTicketsText =
-                                          driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_FOR_MATCH_LIST_TICKETS_NUMBER)))
+        String totalNumberOfTicketsText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_FOR_MATCH_LIST_TICKETS_NUMBER)))
                                                     .getText();
 
         return Integer.parseInt(totalNumberOfTicketsText);

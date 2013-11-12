@@ -18,7 +18,7 @@ public class UsersCanSeeNumberOfAvailableTicketsPerSectionTest {
     }
 
     @Test
-    public void whenLookingAtAMatchsDetailsTheUserCanSeeTheNumberOfTicketsAvailableIsDisplayedForEachSection() throws Exception {
+    public void whenLookingAtAMatchsDetailsTheUserCanSeeTheNumberOfTicketsAvailableForEachSection() throws Exception {
         fixture.goOnMatchListPage();
         fixture.SearchForAParticularSport();
         fixture.assertNumberOfAvailableTicketsForAMatchIsDisplayedForEachSection();
