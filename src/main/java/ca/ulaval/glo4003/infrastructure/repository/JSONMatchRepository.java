@@ -7,8 +7,8 @@ import javax.inject.Singleton;
 
 import org.springframework.stereotype.Repository;
 
-import ca.ulaval.domain.persistence.MatchMarshaller;
 import ca.ulaval.glo4003.domain.match.Match;
+import ca.ulaval.glo4003.domain.persistence.MatchMarshaller;
 import ca.ulaval.glo4003.domain.repository.MatchRepository;
 import ca.ulaval.glo4003.infrastructure.persistence.JSONMatchMarshaller;
 

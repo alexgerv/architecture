@@ -15,7 +15,7 @@ public class Filter<E extends Enum<E>> {
     }
 
     public void add(Indexable<E> anIndexable) {
-        String filterValue = anIndexable.getFilterValueOfCategory(category);
+        String filterValue = anIndexable.getAttributeValue(category);
         String identifier = anIndexable.getIdentifier();
         addInMap(filterValue, identifier);
     }

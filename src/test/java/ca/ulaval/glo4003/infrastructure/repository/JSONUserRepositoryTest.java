@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.domain.persistence.FileAccessor;
+import ca.ulaval.glo4003.domain.persistence.FileAccessor;
 import ca.ulaval.glo4003.domain.repository.ExistingUsernameException;
 import ca.ulaval.glo4003.domain.repository.RepositoryException;
 import ca.ulaval.glo4003.domain.user.User;

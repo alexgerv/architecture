@@ -3,13 +3,13 @@ package ca.ulaval.glo4003.infrastructure.matchCatalog;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.ulaval.domain.persistence.FileAccessor;
 import ca.ulaval.glo4003.domain.index.Filter;
 import ca.ulaval.glo4003.domain.match.MatchAttribute;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalogFactory;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchIndex;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryResolver;
+import ca.ulaval.glo4003.domain.persistence.FileAccessor;
 import ca.ulaval.glo4003.domain.repository.MatchRepository;
 import ca.ulaval.glo4003.infrastructure.persistence.JSONMatchMarshaller;
 

@@ -7,8 +7,8 @@ import javax.inject.Singleton;
 
 import org.springframework.stereotype.Repository;
 
-import ca.ulaval.domain.persistence.FileAccessor;
-import ca.ulaval.domain.persistence.UserMarshaller;
+import ca.ulaval.glo4003.domain.persistence.FileAccessor;
+import ca.ulaval.glo4003.domain.persistence.UserMarshaller;
 import ca.ulaval.glo4003.domain.repository.UserRepository;
 import ca.ulaval.glo4003.domain.user.User;
 import ca.ulaval.glo4003.infrastructure.persistence.JSONUserMarshaller;

@@ -10,13 +10,14 @@ public class Section {
     private String name;
     private float price;
     private AdmissionType admissionType;
-    private MatchInformations matchInformations;
+    private MatchInformation matchInformation;
 
-    public Section(String sectionName, List<Ticket> tickets, MatchInformations matchInformations, float price, AdmissionType admissionType) {
+    public Section(String sectionName, List<Ticket> tickets, MatchInformation matchInformation, float price,
+                   AdmissionType admissionType) {
         this.tickets = tickets;
         this.name = sectionName;
         this.price = price;
-        this.matchInformations = matchInformations;
+        this.matchInformation = matchInformation;
         this.admissionType = admissionType;
     }
 
@@ -38,23 +39,23 @@ public class Section {
     }
 
     public String getSport() {
-        return matchInformations.getSport();
+        return matchInformation.getSport();
     }
 
     public String getDate() {
-        return matchInformations.getFormatedDate();
+        return matchInformation.getFormatedDate();
     }
 
     public String getHomeTeam() {
-        return matchInformations.getHomeTeam();
+        return matchInformation.getHomeTeam();
     }
 
     public String getVisitorTeam() {
-        return matchInformations.getVisitorTeam();
+        return matchInformation.getVisitorTeam();
     }
 
     public Sex getSex() {
-        return matchInformations.getSex();
+        return matchInformation.getSex();
     }
 
     public float getPrice() {
@@ -62,7 +63,7 @@ public class Section {
     }
 
     public String getVenue() {
-        return matchInformations.getVenue();
+        return matchInformation.getVenue();
     }
 
     public AdmissionType getAdmissionType() {

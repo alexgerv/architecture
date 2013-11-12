@@ -3,11 +3,11 @@ package ca.ulaval.glo4003.infrastructure.matchCatalog;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import ca.ulaval.domain.persistence.FileAccessor;
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchIndex;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryResolver;
+import ca.ulaval.glo4003.domain.persistence.FileAccessor;
 import ca.ulaval.glo4003.domain.repository.MatchRepository;
 import ca.ulaval.glo4003.infrastructure.persistence.JSONMatchMarshaller;
 

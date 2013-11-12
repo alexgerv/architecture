@@ -14,13 +14,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4003.domain.match.AdmissionType;
-import ca.ulaval.glo4003.domain.match.InvalidQuantityException;
-import ca.ulaval.glo4003.domain.match.MatchInformations;
-import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
-import ca.ulaval.glo4003.domain.match.Section;
-import ca.ulaval.glo4003.domain.match.Ticket;
-
 public class SectionTest {
 
     private static final String A_SECTION_NAME = "A";
@@ -40,7 +33,7 @@ public class SectionTest {
     private List<Ticket> tickets = new ArrayList<Ticket>();
 
     @Mock
-    private MatchInformations matchInformations;
+    private MatchInformation matchInformation;
     @Mock
     private Ticket anAvailableTicket;
     @Mock
@@ -52,7 +45,7 @@ public class SectionTest {
         tickets.add(anAvailableTicket);
         tickets.add(anUnavailableTicket);
 
-        aSection = new Section(A_SECTION_NAME, tickets, matchInformations, SECTION_PRICE, AN_ADMISSION_TYPE);
+        aSection = new Section(A_SECTION_NAME, tickets, matchInformation, SECTION_PRICE, AN_ADMISSION_TYPE);
     }
 
     @Test
@@ -102,37 +95,37 @@ public class SectionTest {
     @Test
     public void canGetDate() {
         aSection.getDate();
-        verify(matchInformations).getFormatedDate();
+        verify(matchInformation).getFormatedDate();
     }
 
     @Test
     public void canGetHomeTeam() {
         aSection.getHomeTeam();
-        verify(matchInformations).getHomeTeam();
+        verify(matchInformation).getHomeTeam();
     }
 
     @Test
     public void canGetSex() {
         aSection.getSex();
-        verify(matchInformations).getSex();
+        verify(matchInformation).getSex();
     }
 
     @Test
     public void canGetSport() {
         aSection.getSport();
-        verify(matchInformations).getSport();
+        verify(matchInformation).getSport();
     }
 
     @Test
     public void canGetVenue() {
         aSection.getVenue();
-        verify(matchInformations).getVenue();
+        verify(matchInformation).getVenue();
     }
 
     @Test
     public void canGetVisitorTeam() {
         aSection.getVisitorTeam();
-        verify(matchInformations).getVisitorTeam();
+        verify(matchInformation).getVisitorTeam();
     }
 
     @Test

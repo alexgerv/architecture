@@ -1,4 +1,4 @@
-package ca.ulaval.domain.persistence;
+package ca.ulaval.glo4003.domain.persistence;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -48,12 +48,12 @@ public class FilterTest {
     public void whenAddingAnIndexableFilterAskIndexableForTheFilterValueForHisCategory() {
         aFilterOfCategory1.add(anIndexable);
 
-        verify(anIndexable).getFilterValueOfCategory(FilterCategories.CATEGORY1);
+        verify(anIndexable).getAttributeValue(FilterCategories.CATEGORY1);
     }
 
     @Test
     public void whenAddingAnIndexableItIdentifierIsSavedForTheRightFilterValue() {
-        doReturn(A_FILTER_VALUE).when(anIndexable).getFilterValueOfCategory(FilterCategories.CATEGORY1);
+        doReturn(A_FILTER_VALUE).when(anIndexable).getAttributeValue(FilterCategories.CATEGORY1);
         doReturn(AN_IDENTIFIER).when(anIndexable).getIdentifier();
         aFilterOfCategory1.add(anIndexable);
 
@@ -64,11 +64,11 @@ public class FilterTest {
 
     @Test
     public void whenAddingTwoFilterValuesForASingleFilterTheTwoFiltersAreKept() {
-        doReturn(A_FILTER_VALUE).when(anIndexable).getFilterValueOfCategory(FilterCategories.CATEGORY1);
+        doReturn(A_FILTER_VALUE).when(anIndexable).getAttributeValue(FilterCategories.CATEGORY1);
         doReturn(AN_IDENTIFIER).when(anIndexable).getIdentifier();
         aFilterOfCategory1.add(anIndexable);
 
-        doReturn(A_FILTER_VALUE).when(anotherIndexable).getFilterValueOfCategory(FilterCategories.CATEGORY1);
+        doReturn(A_FILTER_VALUE).when(anotherIndexable).getAttributeValue(FilterCategories.CATEGORY1);
         doReturn(ANOTHER_IDENTIFIER).when(anotherIndexable).getIdentifier();
         aFilterOfCategory1.add(anotherIndexable);
 

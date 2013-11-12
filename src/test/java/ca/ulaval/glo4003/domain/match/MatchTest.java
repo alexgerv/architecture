@@ -104,27 +104,27 @@ public class MatchTest {
 
     @Test
     public void canGetASportFilterValue() {
-        assertEquals(A_SPORT, aMatch.getFilterValueOfCategory(MatchAttribute.SPORT));
+        assertEquals(A_SPORT, aMatch.getAttributeValue(MatchAttribute.SPORT));
     }
 
     @Test
     public void canGetAVenueFilterValue() {
-        assertEquals(A_VENUE, aMatch.getFilterValueOfCategory(MatchAttribute.VENUE));
+        assertEquals(A_VENUE, aMatch.getAttributeValue(MatchAttribute.VENUE));
     }
 
     @Test
     public void canGetADateFilterValue() {
-        assertEquals(A_FORMATED_DATE, aMatch.getFilterValueOfCategory(MatchAttribute.DATE));
+        assertEquals(A_FORMATED_DATE, aMatch.getAttributeValue(MatchAttribute.DATE));
     }
 
     @Test
     public void canGetAHomeTeamFilterValue() {
-        assertEquals(A_HOME_TEAM, aMatch.getFilterValueOfCategory(MatchAttribute.HOME_TEAM));
+        assertEquals(A_HOME_TEAM, aMatch.getAttributeValue(MatchAttribute.HOME_TEAM));
     }
 
     @Test
     public void canGetAVisitorTeamFilterValue() {
-        assertEquals(A_VISITOR_TEAM, aMatch.getFilterValueOfCategory(MatchAttribute.VISITOR_TEAM));
+        assertEquals(A_VISITOR_TEAM, aMatch.getAttributeValue(MatchAttribute.VISITOR_TEAM));
     }
 
     @Test

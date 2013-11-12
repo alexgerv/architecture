@@ -7,12 +7,12 @@ import ca.ulaval.glo4003.domain.index.Indexable;
 
 public class Match implements Indexable<MatchAttribute> {
 
-    private MatchInformations matchInformations;
+    private MatchInformation matchInformation;
     private List<Section> sections;
 
     public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex,
                  List<Section> sections) {
-        matchInformations = new MatchInformations(sport, venue, date, homeTeam, visitorTeam, sex);
+        matchInformation = new MatchInformation(sport, venue, date, homeTeam, visitorTeam, sex);
         this.sections = sections;
     }
 
@@ -29,27 +29,27 @@ public class Match implements Indexable<MatchAttribute> {
     }
 
     public String getSport() {
-        return matchInformations.getSport();
+        return matchInformation.getSport();
     }
 
     public String getVenue() {
-        return matchInformations.getVenue();
+        return matchInformation.getVenue();
     }
 
     public String getHomeTeam() {
-        return matchInformations.getHomeTeam();
+        return matchInformation.getHomeTeam();
     }
 
     public String getVisitorTeam() {
-        return matchInformations.getVisitorTeam();
+        return matchInformation.getVisitorTeam();
     }
 
     public Sex getSex() {
-        return matchInformations.getSex();
+        return matchInformation.getSex();
     }
 
     public String getDate() {
-        return matchInformations.getFormatedDate();
+        return matchInformation.getFormatedDate();
     }
 
     public List<Section> getTicketsBySection() {
@@ -57,25 +57,26 @@ public class Match implements Indexable<MatchAttribute> {
     }
 
     @Override
-    public String getFilterValueOfCategory(MatchAttribute category) {
+    public String getAttributeValue(MatchAttribute category) {
         switch (category) {
         case SPORT:
-            return matchInformations.getSport();
+            return matchInformation.getSport();
         case VENUE:
-            return matchInformations.getVenue();
+            return matchInformation.getVenue();
         case DATE:
-            return matchInformations.getFormatedDate();
+            return matchInformation.getFormatedDate();
         case HOME_TEAM:
-            return matchInformations.getHomeTeam();
+            return matchInformation.getHomeTeam();
         case VISITOR_TEAM:
-            return matchInformations.getVisitorTeam();
+            return matchInformation.getVisitorTeam();
         }
-        throw new MatchAttributeException("FilterCategory does not conrrespond to an argument in match");
+
+        throw new MatchAttributeException("MatchAttribute does not conrrespond to a valid attribute in match");
     }
 
     @Override
     public String getIdentifier() {
-        return matchInformations.getVenue() + "/" + matchInformations.getFormatedDate();
+        return matchInformation.getVenue() + "/" + matchInformation.getFormatedDate();
     }
 
     public Section getSectionByName(String sectionName) {
