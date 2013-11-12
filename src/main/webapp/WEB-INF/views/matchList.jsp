@@ -15,8 +15,8 @@
 				<hr>
 				<div id="searchMessage" class="alert alert-info" hidden="hidden">
 					Your search produced no results.</div>
-				<table class="table table-condensed table-bordered table-striped"
-					id="matchList">
+				<table id="dataTable"
+					class="table table-bordered table-condensed table-striped">
 					<thead>
 						<tr>
 							<th></th>
@@ -32,9 +32,11 @@
 					<tbody>
 						<c:forEach var="match" items="${matches}">
 							<tr>
-								<td style="text-align: center;"><a
-									href="match/${match.venue}" class="btn btn-default btn-xs"><i
-										class="icon icon-search"></i></a></td>
+								<td style="text-align: center;">
+								    <a href="match/${match.venue}" class="btn btn-default btn-xs">
+								        <i class="icon icon-search"></i>
+								    </a>
+								</td>
 								<td>${match.venue}</td>
 								<td>${match.date}</td>
 								<td>${match.sport}</td>
