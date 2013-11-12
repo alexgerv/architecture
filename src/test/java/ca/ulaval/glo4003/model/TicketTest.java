@@ -12,7 +12,7 @@ public class TicketTest {
 
     private static final int anID = 1;
 
-    private static final MatchInformations doge = new MatchInformations("A_SPORT", "A_VENUE", new Date(), "HOME_TEAM", "VISITOR_TEAM", Sex.MIXED);
+    private static final MatchInformation doge = new MatchInformation("A_SPORT", "A_VENUE", new Date(), "HOME_TEAM", "VISITOR_TEAM", Sex.MIXED);
 
     Ticket aTicket;
 

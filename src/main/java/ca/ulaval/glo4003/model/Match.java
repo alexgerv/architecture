@@ -7,12 +7,12 @@ import ca.ulaval.glo4003.index.Indexable;
 
 public class Match implements Indexable<MatchAttribute> {
 
-    private MatchInformations matchInformations;
+    private MatchInformation matchInformations;
     private List<Section> sections;
 
     public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex,
                  List<Section> sections) {
-        matchInformations = new MatchInformations(sport, venue, date, homeTeam, visitorTeam, sex);
+        matchInformations = new MatchInformation(sport, venue, date, homeTeam, visitorTeam, sex);
         this.sections = sections;
     }
 

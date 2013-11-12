@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
-public class MatchInformations {
+public class MatchInformation {
 
     private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd HH'h'mm";
     
@@ -15,7 +15,7 @@ public class MatchInformations {
     private String visitorTeam;
     private Sex sex;
 
-    public MatchInformations(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex) {
+    public MatchInformation(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex) {
         this.sport = sport;
         this.venue = venue;
         this.date = date;

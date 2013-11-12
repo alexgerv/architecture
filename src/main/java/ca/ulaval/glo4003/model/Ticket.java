@@ -5,9 +5,9 @@ public class Ticket {
     private int id;
     private boolean available;
 
-    private MatchInformations matchInformations;
+    private MatchInformation matchInformations;
 
-    public Ticket(int id, boolean available, MatchInformations matchInformations) {
+    public Ticket(int id, boolean available, MatchInformation matchInformations) {
         this.id = id;
         this.available = available;
         this.matchInformations = matchInformations;
