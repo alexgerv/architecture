@@ -14,8 +14,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
-
 public class MatchTest {
 
     private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd HH'h'mm";
@@ -100,27 +98,27 @@ public class MatchTest {
 
     @Test
     public void canGetASportFilterValue() {
-        assertEquals(A_SPORT, aMatch.getFilterValueOfCategory(MatchFilterCategories.SPORT));
+        assertEquals(A_SPORT, aMatch.getFilterValueOfCategory(MatchAttribute.SPORT));
     }
 
     @Test
     public void canGetAVenueFilterValue() {
-        assertEquals(A_VENUE, aMatch.getFilterValueOfCategory(MatchFilterCategories.VENUE));
+        assertEquals(A_VENUE, aMatch.getFilterValueOfCategory(MatchAttribute.VENUE));
     }
 
     @Test
     public void canGetADateFilterValue() {
-        assertEquals(A_FORMATED_DATE, aMatch.getFilterValueOfCategory(MatchFilterCategories.DATE));
+        assertEquals(A_FORMATED_DATE, aMatch.getFilterValueOfCategory(MatchAttribute.DATE));
     }
 
     @Test
     public void canGetAHomeTeamFilterValue() {
-        assertEquals(A_HOME_TEAM, aMatch.getFilterValueOfCategory(MatchFilterCategories.HOME_TEAM));
+        assertEquals(A_HOME_TEAM, aMatch.getFilterValueOfCategory(MatchAttribute.HOME_TEAM));
     }
 
     @Test
     public void canGetAVisitorTeamFilterValue() {
-        assertEquals(A_VISITOR_TEAM, aMatch.getFilterValueOfCategory(MatchFilterCategories.VISITOR_TEAM));
+        assertEquals(A_VISITOR_TEAM, aMatch.getFilterValueOfCategory(MatchAttribute.VISITOR_TEAM));
     }
 
     @Test

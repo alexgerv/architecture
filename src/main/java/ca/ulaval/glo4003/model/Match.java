@@ -5,9 +5,8 @@ import java.util.List;
 
 import ca.ulaval.glo4003.index.FilterCategoryException;
 import ca.ulaval.glo4003.index.Indexable;
-import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 
-public class Match implements Indexable<MatchFilterCategories> {
+public class Match implements Indexable<MatchAttribute> {
 
     private MatchInformations matchInformations;
     private List<Section> sections;
@@ -59,7 +58,7 @@ public class Match implements Indexable<MatchFilterCategories> {
     }
 
     @Override
-    public String getFilterValueOfCategory(MatchFilterCategories category) {
+    public String getFilterValueOfCategory(MatchAttribute category) {
         switch (category) {
         case SPORT:
             return matchInformations.getSport();

@@ -5,13 +5,14 @@ import java.util.Map;
 
 import ca.ulaval.glo4003.index.Index;
 import ca.ulaval.glo4003.model.Match;
+import ca.ulaval.glo4003.model.MatchAttribute;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
 public abstract class MatchCatalog {
 
     private MatchQueryResolver queryResolver;
 
-    private Index<MatchFilterCategories> index;
+    private Index<MatchAttribute> index;
 
     private MatchRepository matchRepository;
 
