@@ -60,6 +60,12 @@ public class TestFixture {
     private static final String CLASS_NAME_FOR_TICKET_BY_SECTION = "ticketsBySection";
 
     private static final String SELECTOR_FOR_MATCH_A_PARTICULAR_VENUE = "input[name='Stade Telus']";
+    
+    public static final String XPATH_FOR_SECTION = "//table[@id='matchDetails']/tbody/tr/td/a/strong";
+    public static final String GENERIC_SELECTOR_FOR_SUBMIT = "input[type='submit']";
+    public static final String XPATH_FOR_CREDIT_CARD_CHOICE = "//input[@name='credit_type']";
+    public static final String XPATH_FOR_CREDIT_CARD_NUMBER = "//input[@name='creditCard_number']";
+    public static final String A_VALID_CREDIT_CARD_NUMBER = "1234123412341234";
 
     public WebDriver driver;
     public WebDriverWait driverWait;
@@ -224,5 +230,16 @@ public class TestFixture {
     public void unFilterSearchForAParticularVenue() {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(SELECTOR_FOR_MATCH_A_PARTICULAR_VENUE)))
                   .click();
+    }
+    
+    public void chooseASectionInMatchDetails() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_SECTION))).click();
+    }
+    
+    public void buyATicket() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(GENERIC_SELECTOR_FOR_SUBMIT))).click();
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_CREDIT_CARD_CHOICE))).click();
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_CREDIT_CARD_NUMBER))).sendKeys(A_VALID_CREDIT_CARD_NUMBER);
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(GENERIC_SELECTOR_FOR_SUBMIT))).click();
     }
 }
