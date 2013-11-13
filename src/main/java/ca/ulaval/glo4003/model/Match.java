@@ -91,4 +91,15 @@ public class Match implements Indexable<MatchAttribute> {
         Section section = getSectionByName(sectionName);
         section.buyTickets(quantity);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s's %s, %s VS %s at %s on %s",
+                             matchInformations.getSex(),
+                             matchInformations.getSport(),
+                             matchInformations.getHomeTeam(),
+                             matchInformations.getVisitorTeam(),
+                             matchInformations.getVenue(),
+                             matchInformations.getFormatedDate());
+    }
 }
