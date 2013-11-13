@@ -6,9 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 import ca.ulaval.glo4003.matchCatalog.MatchQuery;
 import ca.ulaval.glo4003.matchCatalog.MatchQueryFactory;
+import ca.ulaval.glo4003.model.MatchAttribute;
 
 public class JSONMatchQueryFactory implements MatchQueryFactory {
 
@@ -27,7 +27,7 @@ public class JSONMatchQueryFactory implements MatchQueryFactory {
                 for (int i = 0; i < categoryValues.length(); i++) {
                     JSONObject filter = categoryValues.getJSONObject(i);
 
-                    MatchFilterCategories cat = MatchFilterCategories.valueOf(filterCategory);
+                    MatchAttribute cat = MatchAttribute.valueOf(filterCategory);
                     String filterValue = (String) filter.get("name");
                     query.addFilterValue(cat, filterValue);
                 }

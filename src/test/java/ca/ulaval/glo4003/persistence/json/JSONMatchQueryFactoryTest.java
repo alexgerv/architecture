@@ -7,19 +7,19 @@ import org.junit.Test;
 import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.index.Query;
-import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 import ca.ulaval.glo4003.matchCatalog.MatchQueryFactory;
+import ca.ulaval.glo4003.model.MatchAttribute;
 import ca.ulaval.glo4003.persistence.json.JSONMatchQueryFactory;
 
 public class JSONMatchQueryFactoryTest {
 
     private static final String A_VALID_JSON_STRING = "{\"SPORT\":[{\"name\":\"basketball\",\"value\":\"on\"}]}";
-    private static final MatchFilterCategories EXPECTED_FILTER_CATEGORY = MatchFilterCategories.SPORT;
+    private static final MatchAttribute EXPECTED_FILTER_CATEGORY = MatchAttribute.SPORT;
     private static final String EXPECTED_FILTER_VALUE = "basketball";
     private static final String A_VALID_JSON_STRING_WITH_MORE_THAN_ONE_FILTER =
                                                                                 "{\"SPORT\":[{\"name\":\"basketball\",\"value\":\"on\"}],"
                                                                                         + "\"VENUE\":[{\"name\":\"tenis\",\"value\":\"on\"}]}";
-    private static final MatchFilterCategories NEXT_EXPECTED_FILTER_CATEGORY = MatchFilterCategories.VENUE;
+    private static final MatchAttribute NEXT_EXPECTED_FILTER_CATEGORY = MatchAttribute.VENUE;
     private static final String NEXT_EXPECTED_FILTER_VALUE = "tenis";
 
     private MatchQueryFactory matchQueryFactory;
@@ -32,7 +32,7 @@ public class JSONMatchQueryFactoryTest {
 
     @Test
     public void whenGivenAJSONStringTheFactoryCanAddAFilterToTheQuery() throws Exception {
-        Query<MatchFilterCategories> query = matchQueryFactory.create(A_VALID_JSON_STRING);
+        Query<MatchAttribute> query = matchQueryFactory.create(A_VALID_JSON_STRING);
 
         String filterValue = query.getFilterValuesForCategory(EXPECTED_FILTER_CATEGORY).get(0);
         assertEquals(EXPECTED_FILTER_VALUE, filterValue);
@@ -40,7 +40,7 @@ public class JSONMatchQueryFactoryTest {
 
     @Test
     public void whenGivenAJSONStringAllTheFilterAreAddedToTheQuery() {
-        Query<MatchFilterCategories> query = matchQueryFactory.create(A_VALID_JSON_STRING_WITH_MORE_THAN_ONE_FILTER);
+        Query<MatchAttribute> query = matchQueryFactory.create(A_VALID_JSON_STRING_WITH_MORE_THAN_ONE_FILTER);
 
         String filterValue = query.getFilterValuesForCategory(EXPECTED_FILTER_CATEGORY).get(0);
         assertEquals(EXPECTED_FILTER_VALUE, filterValue);

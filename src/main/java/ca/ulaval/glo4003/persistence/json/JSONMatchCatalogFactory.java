@@ -6,9 +6,9 @@ import java.util.List;
 import ca.ulaval.glo4003.index.Filter;
 import ca.ulaval.glo4003.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.matchCatalog.MatchCatalogFactory;
-import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 import ca.ulaval.glo4003.matchCatalog.MatchIndex;
 import ca.ulaval.glo4003.matchCatalog.MatchQueryResolver;
+import ca.ulaval.glo4003.model.MatchAttribute;
 import ca.ulaval.glo4003.persistence.FileAccessor;
 import ca.ulaval.glo4003.repository.MatchRepository;
 
@@ -21,9 +21,9 @@ public class JSONMatchCatalogFactory implements MatchCatalogFactory {
     }
 
     public MatchCatalog createMatchCatalog() {
-        List<Filter<MatchFilterCategories>> filterListByCategories = new ArrayList<Filter<MatchFilterCategories>>();
-        for (MatchFilterCategories category : MatchFilterCategories.values()) {
-            filterListByCategories.add(new Filter<MatchFilterCategories>(category));
+        List<Filter<MatchAttribute>> filterListByCategories = new ArrayList<Filter<MatchAttribute>>();
+        for (MatchAttribute category : MatchAttribute.values()) {
+            filterListByCategories.add(new Filter<MatchAttribute>(category));
         }
         MatchIndex index = new MatchIndex(filterListByCategories);
         MatchQueryResolver queryResolver = new MatchQueryResolver(index);

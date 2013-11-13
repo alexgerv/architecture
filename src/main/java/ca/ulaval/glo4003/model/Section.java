@@ -10,9 +10,9 @@ public class Section {
     private String name;
     private float price;
     private AdmissionType admissionType;
-    private MatchInformations matchInformations;
+    private MatchInformation matchInformations;
 
-    public Section(String sectionName, List<Ticket> tickets, MatchInformations matchInformations, float price, AdmissionType admissionType) {
+    public Section(String sectionName, List<Ticket> tickets, MatchInformation matchInformations, float price, AdmissionType admissionType) {
         this.tickets = tickets;
         this.name = sectionName;
         this.price = price;

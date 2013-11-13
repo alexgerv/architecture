@@ -3,18 +3,16 @@ package ca.ulaval.glo4003.model;
 import java.util.Date;
 import java.util.List;
 
-import ca.ulaval.glo4003.index.FilterCategoryException;
 import ca.ulaval.glo4003.index.Indexable;
-import ca.ulaval.glo4003.matchCatalog.MatchFilterCategories;
 
-public class Match implements Indexable<MatchFilterCategories> {
+public class Match implements Indexable<MatchAttribute> {
 
-    private MatchInformations matchInformations;
+    private MatchInformation matchInformations;
     private List<Section> sections;
 
     public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex,
                  List<Section> sections) {
-        matchInformations = new MatchInformations(sport, venue, date, homeTeam, visitorTeam, sex);
+        matchInformations = new MatchInformation(sport, venue, date, homeTeam, visitorTeam, sex);
         this.sections = sections;
     }
 
@@ -59,7 +57,7 @@ public class Match implements Indexable<MatchFilterCategories> {
     }
 
     @Override
-    public String getFilterValueOfCategory(MatchFilterCategories category) {
+    public String getAttributeValue(MatchAttribute category) {
         switch (category) {
         case SPORT:
             return matchInformations.getSport();
@@ -72,7 +70,7 @@ public class Match implements Indexable<MatchFilterCategories> {
         case VISITOR_TEAM:
             return matchInformations.getVisitorTeam();
         }
-        throw new FilterCategoryException("FilterCategory does not conrrespond to an argument in match");
+        throw new MatchAttributeException("MatchAttribute does not conrrespond to a valid attribute in match");
     }
 
     @Override

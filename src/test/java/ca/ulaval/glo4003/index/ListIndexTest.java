@@ -9,10 +9,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.index.Filter;
-import ca.ulaval.glo4003.index.FilterCategoryException;
 import ca.ulaval.glo4003.index.Index;
 import ca.ulaval.glo4003.index.IndexWithList;
 import ca.ulaval.glo4003.index.Indexable;
+import ca.ulaval.glo4003.model.MatchAttributeException;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -66,7 +66,7 @@ public class ListIndexTest {
         verify(filterOfCategory1).getIdentifiersFor(A_FILTER_FOR_CATEGORY1);
     }
     
-    @Test(expected = FilterCategoryException.class)
+    @Test(expected = MatchAttributeException.class)
     public void whenAskingIdentifiersForAFilterAnExceptionIsThrownIfTheCategoryDoesNotExist(){
         anIndex.getIdentifiersFor(FilterCategories.CATEGORY1, A_FILTER_FOR_CATEGORY1);
     }

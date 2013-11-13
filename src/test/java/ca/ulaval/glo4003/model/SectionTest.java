@@ -33,7 +33,7 @@ public class SectionTest {
     private List<Ticket> tickets = new ArrayList<Ticket>();
 
     @Mock
-    private MatchInformations matchInformations;
+    private MatchInformation matchInformations;
     @Mock
     private Ticket anAvailableTicket;
     @Mock

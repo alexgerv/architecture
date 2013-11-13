@@ -19,7 +19,7 @@ public class MatchInformationsTest {
     private static final String VISITOR_TEAM = "VISITOR_TEAM";
     private static final Sex A_SEX = Sex.MEN;
 
-    private MatchInformations matchInformations = new MatchInformations(A_SPORT, A_VENUE, A_DATE, HOME_TEAM, VISITOR_TEAM, A_SEX);
+    private MatchInformation matchInformations = new MatchInformation(A_SPORT, A_VENUE, A_DATE, HOME_TEAM, VISITOR_TEAM, A_SEX);
 
     @Test
     public void canGetHomeTeam() {
