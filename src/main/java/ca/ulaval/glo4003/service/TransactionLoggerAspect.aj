@@ -3,7 +3,7 @@ package ca.ulaval.glo4003.service;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import ca.ulaval.glo4003.model.Match;
+import ca.ulaval.glo4003.domain.match.Match;
 
 public aspect TransactionLoggerAspect {
 
