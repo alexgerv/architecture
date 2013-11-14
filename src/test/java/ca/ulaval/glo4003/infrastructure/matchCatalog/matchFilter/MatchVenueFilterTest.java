@@ -14,8 +14,6 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.matchCatalog.matchFilter.MatchVenueFilter;
-import ca.ulaval.glo4003.domain.matchCatalog.matchFilter.MatchVenueFilter;
-
 
 public class MatchVenueFilterTest {
 
@@ -36,9 +34,9 @@ public class MatchVenueFilterTest {
         MockitoAnnotations.initMocks(this);
         matchVenueFilter = new MatchVenueFilter();
     }
-    
+
     @Test
-    public void whenNoMatchesOfAVenueHaveBeenAddedToTheFilterThereIsNoIdentifiersForThisValue(){
+    public void whenNoMatchesOfAVenueHaveBeenAddedToTheFilterThereIsNoIdentifiersForThisValue() {
         List<String> correspondingIdentifiers = matchVenueFilter.getIdentifiersFor(A_VENUE);
         assertTrue(correspondingIdentifiers.size() == 0);
     }

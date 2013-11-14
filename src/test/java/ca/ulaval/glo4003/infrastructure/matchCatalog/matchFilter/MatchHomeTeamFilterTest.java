@@ -14,8 +14,6 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.matchCatalog.matchFilter.MatchHomeTeamFilter;
-import ca.ulaval.glo4003.domain.matchCatalog.matchFilter.MatchHomeTeamFilter;
-
 
 public class MatchHomeTeamFilterTest {
 
@@ -36,9 +34,9 @@ public class MatchHomeTeamFilterTest {
         MockitoAnnotations.initMocks(this);
         matchHomeTeamFilter = new MatchHomeTeamFilter();
     }
-    
+
     @Test
-    public void whenNoMatchesOfAHomeTeamHaveBeenAddedToTheFilterThereIsNoIdentifiersForThisValue(){
+    public void whenNoMatchesOfAHomeTeamHaveBeenAddedToTheFilterThereIsNoIdentifiersForThisValue() {
         List<String> correspondingIdentifiers = matchHomeTeamFilter.getIdentifiersFor(A_HOME_TEAM);
         assertTrue(correspondingIdentifiers.size() == 0);
     }
