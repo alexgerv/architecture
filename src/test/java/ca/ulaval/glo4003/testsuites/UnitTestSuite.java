@@ -20,18 +20,20 @@ import ca.ulaval.glo4003.infrastructure.repository.JSONUserRepositoryTest;
 import ca.ulaval.glo4003.service.AuthenticationServiceTest;
 import ca.ulaval.glo4003.web.HomeControllerTest;
 import ca.ulaval.glo4003.web.LoginLogoutControllerTest;
+import ca.ulaval.glo4003.web.MatchListControllerTest;
 import ca.ulaval.glo4003.web.SearchBarControllerTest;
 import ca.ulaval.glo4003.web.SignupControllerTest;
 import ca.ulaval.glo4003.web.TicketPurchaseControllerTest;
 import ca.ulaval.glo4003.web.converters.MatchViewConverterTest;
 import ca.ulaval.glo4003.web.viewmodels.MatchViewModelTest;
+import ca.ulaval.glo4003.web.viewmodels.UserViewModelTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ MatchViewConverterTest.class, UserTest.class, FilterTest.class, ListIndexTest.class,
                QueryResolverTest.class, QueryTest.class, MatchTest.class, UserTest.class, JSONMatchCatalogTest.class,
                JSONMatchQueryFactoryTest.class, JSONMatchRepositoryTest.class, JSONUserRepositoryTest.class,
-               AuthenticationServiceTest.class, HomeControllerTest.class, LoginLogoutControllerTest.class,
-               SearchBarControllerTest.class, SignupControllerTest.class, MatchViewModelTest.class, SectionTest.class,
+               AuthenticationServiceTest.class, HomeControllerTest.class, LoginLogoutControllerTest.class, MatchListControllerTest.class,
+               SearchBarControllerTest.class, SignupControllerTest.class, MatchViewModelTest.class, UserViewModelTest.class, SectionTest.class,
                TicketTest.class, MatchInformationsTest.class, TicketPurchaseControllerTest.class })
 public class UnitTestSuite {
 
