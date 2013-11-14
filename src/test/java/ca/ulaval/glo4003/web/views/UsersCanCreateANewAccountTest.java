@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import ca.ulaval.glo4003.testFixture.TestFixture;
 
-public class UsersCanCreateANewAccount {
+public class UsersCanCreateANewAccountTest {
 
     private TestFixture fixture;
 
