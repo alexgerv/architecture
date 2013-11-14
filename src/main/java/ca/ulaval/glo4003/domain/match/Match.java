@@ -57,24 +57,6 @@ public class Match implements Indexable<MatchAttribute> {
     }
 
     @Override
-    public String getAttributeValue(MatchAttribute category) {
-        switch (category) {
-        case SPORT:
-            return matchInformation.getSport();
-        case VENUE:
-            return matchInformation.getVenue();
-        case DATE:
-            return matchInformation.getFormatedDate();
-        case HOME_TEAM:
-            return matchInformation.getHomeTeam();
-        case VISITOR_TEAM:
-            return matchInformation.getVisitorTeam();
-        }
-
-        throw new MatchAttributeException("MatchAttribute does not conrrespond to a valid attribute in match");
-    }
-
-    @Override
     public String getIdentifier() {
         return matchInformation.getVenue() + "/" + matchInformation.getFormatedDate();
     }
