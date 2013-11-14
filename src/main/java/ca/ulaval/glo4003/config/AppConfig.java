@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +15,7 @@ import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchCatalogFactory;
 @Configuration
 public class AppConfig {
     
-    @Autowired
+    @Inject
     MatchRepository matchRepository;
 
     @Bean

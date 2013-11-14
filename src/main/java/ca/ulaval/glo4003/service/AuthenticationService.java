@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,7 +25,7 @@ public class AuthenticationService implements UserDetailsService {
 
     private static final Integer ADMIN_ACCESS = 1;
     
-    @Autowired
+    @Inject
     UserRepository userRepository;
 
     public AuthenticationService() {

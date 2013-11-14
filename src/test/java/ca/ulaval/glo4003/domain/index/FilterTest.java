@@ -16,6 +16,19 @@ import ca.ulaval.glo4003.domain.index.Filter;
 import ca.ulaval.glo4003.domain.index.Indexable;
 
 public class FilterTest {
+    
+    private class ConcreteFilter extends Filter<FilterCategories>{
+
+        public ConcreteFilter(FilterCategories category) {
+            super(category);
+        }
+
+        @Override
+        protected String getAttributeValue(Indexable<FilterCategories> anIndexable) {
+            return null;
+        }
+        
+    }
 
     private enum FilterCategories {
         CATEGORY1, CATEGORY2, CATEGORY3
@@ -36,48 +49,12 @@ public class FilterTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        aFilterOfCategory1 = new Filter<FilterCategories>(FilterCategories.CATEGORY1);
+        aFilterOfCategory1 = new ConcreteFilter(FilterCategories.CATEGORY1);
     }
 
     @Test
     public void canSayIfFilterIsInASpecifiedCategory() {
         assertTrue(aFilterOfCategory1.isOfCategory(FilterCategories.CATEGORY1));
-    }
-
-    @Test
-    public void whenAddingAnIndexableFilterAskIndexableForTheFilterValueForHisCategory() {
-        aFilterOfCategory1.add(anIndexable);
-
-        verify(anIndexable).getAttributeValue(FilterCategories.CATEGORY1);
-    }
-
-    @Test
-    public void whenAddingAnIndexableItIdentifierIsSavedForTheRightFilterValue() {
-        doReturn(A_FILTER_VALUE).when(anIndexable).getAttributeValue(FilterCategories.CATEGORY1);
-        doReturn(AN_IDENTIFIER).when(anIndexable).getIdentifier();
-        aFilterOfCategory1.add(anIndexable);
-
-        List<String> correspondingIdentifiers = aFilterOfCategory1.getIdentifiersFor(A_FILTER_VALUE);
-
-        assertTrue(correspondingIdentifiers.contains(AN_IDENTIFIER));
-    }
-
-    @Test
-    public void whenAddingTwoFilterValuesForASingleFilterTheTwoFiltersAreKept() {
-        doReturn(A_FILTER_VALUE).when(anIndexable).getAttributeValue(FilterCategories.CATEGORY1);
-        doReturn(AN_IDENTIFIER).when(anIndexable).getIdentifier();
-        aFilterOfCategory1.add(anIndexable);
-
-        doReturn(A_FILTER_VALUE).when(anotherIndexable).getAttributeValue(FilterCategories.CATEGORY1);
-        doReturn(ANOTHER_IDENTIFIER).when(anotherIndexable).getIdentifier();
-        aFilterOfCategory1.add(anotherIndexable);
-
-        List<String> correspondingIdentifiers = aFilterOfCategory1.getIdentifiersFor(A_FILTER_VALUE);
-
-        boolean theTwoIdentifiersAreInTheFilter =
-                                                  correspondingIdentifiers.contains(AN_IDENTIFIER)
-                                                          && correspondingIdentifiers.contains(ANOTHER_IDENTIFIER);
-        assertTrue(theTwoIdentifiersAreInTheFilter);
     }
 
     @Test
