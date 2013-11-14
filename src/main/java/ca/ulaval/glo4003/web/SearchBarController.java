@@ -27,7 +27,9 @@ public class SearchBarController {
     
     private MatchViewConverter matchConverter = new MatchViewConverter();
 
-    public SearchBarController(){}
+    public SearchBarController(){
+        
+    }
     
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public @ResponseBody

@@ -1,6 +1,8 @@
 package ca.ulaval.glo4003.web;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -12,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 
 import ca.ulaval.glo4003.domain.match.Match;
+import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
 import ca.ulaval.glo4003.domain.match.Section;
 import ca.ulaval.glo4003.domain.repository.MatchRepository;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
@@ -62,5 +65,16 @@ public class TicketPurchaseControllerTest {
     public void whenReviewingAPurchaseTheSectionInformationsArePassedToTheView(){
         controller.reviewSelectedTicketsForSection(A_VENUE, A_DATE, A_SECTION_NAME, A_NUMBER_OF_TICKET_TO_BUY, model);
         verify(model, times(1)).addAttribute(SECTION_IDENTIFIER, sectionViewModel);
+    }
+    
+    @Test
+    public void whenPurchasingTicketsThatAreAvailableWeAreRedirectedToTheHomeView() {  
+        assertEquals("home", controller.purchaseSelectedTicketsForSection(A_VENUE, A_DATE, A_SECTION_NAME, A_NUMBER_OF_TICKET_TO_BUY, model));
+    }
+    
+    @Test
+    public void whenPurchasingTicketsThatAreNotAvailableWeAreRedirectedToTheSectionDetailsView() {
+        doThrow(NoAvailableTicketsException.class).when(matchRepository).getMatchByIdentifier(MATCH_IDENTIFIER);
+        assertEquals("sectionDetails", controller.purchaseSelectedTicketsForSection(A_VENUE, A_DATE, A_SECTION_NAME, A_NUMBER_OF_TICKET_TO_BUY, model));
     }
 }

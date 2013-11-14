@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Filter<E extends Enum<E>> {
+import ca.ulaval.glo4003.domain.match.Match;
+
+public abstract class Filter<E extends Enum<E>> {
     
     private E category;
     private Map<String, List<String>> identifiers = new HashMap<String, List<String>>();
@@ -13,9 +15,11 @@ public class Filter<E extends Enum<E>> {
     public Filter(E category) {
         this.category = category;
     }
+    
+    protected abstract String getAttributeValue(Indexable<E> anIndexable);
 
     public void add(Indexable<E> anIndexable) {
-        String filterValue = anIndexable.getAttributeValue(category);
+        String filterValue = getAttributeValue(anIndexable);
         String identifier = anIndexable.getIdentifier();
         addInMap(filterValue, identifier);
     }
