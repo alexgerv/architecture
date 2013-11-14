@@ -288,6 +288,7 @@
 							<skip>{maven.test.skip}</skip>
 							<excludes>
 								<exclude>**/views/**</exclude>
+								<exclude>**/*IntegrationTest.java</exclude>
 							</excludes>
 						</configuration>
 					</execution>
