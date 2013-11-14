@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.service;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.doReturn;
 
 import java.util.Collection;
 
@@ -17,16 +18,22 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import ca.ulaval.glo4003.domain.repository.RepositoryException;
 import ca.ulaval.glo4003.domain.repository.UserRepository;
+import ca.ulaval.glo4003.domain.user.User;
 
 public class AuthenticationServiceTest {
 
     private static final String A_NON_EXISTING_USERNAME = "A_NON_EXISTING_USERNAME";
-    private static final Integer USER = 0;
+    private static final String AN_EXISTING_USERNAME = "AN_EXISTING_USERNAME";
+    private static final String A_USERNAME = "A_USERNAME";
+    private static final String A_PASSWORD = "A_PASSWORD";
+    private static final Integer USER_ACCESS = 0;
 
     private static final Integer ADMIN = 1;
 
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private User user;
 
     @InjectMocks
     private AuthenticationService authenticationService;
@@ -44,8 +51,18 @@ public class AuthenticationServiceTest {
     }
 
     @Test
+    public void whenUserIsFoundASpringUserIsReturned() {
+        doReturn(user).when(userRepository).getUser(AN_EXISTING_USERNAME);
+        doReturn(A_USERNAME).when(user).getUsername();
+        doReturn(A_PASSWORD).when(user).getPassword();
+        doReturn(USER_ACCESS).when(user).getAccess();
+        
+        assertTrue(authenticationService.loadUserByUsername(AN_EXISTING_USERNAME) instanceof org.springframework.security.core.userdetails.UserDetails);
+    }
+    
+    @Test
     public void userDoesNotHaveAdminRoleAuthorities() {
-        Collection<GrantedAuthority> grantedAuthorities = authenticationService.getAuthorities(USER);
+        Collection<GrantedAuthority> grantedAuthorities = authenticationService.getAuthorities(USER_ACCESS);
         boolean userHasAdminRoleAuthorities = grantedAuthorities.contains(new SimpleGrantedAuthority("ADMIN_ROLE"));
         assertFalse(userHasAdminRoleAuthorities);
     }

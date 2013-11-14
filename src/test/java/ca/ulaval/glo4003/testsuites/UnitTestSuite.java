@@ -13,6 +13,7 @@ import ca.ulaval.glo4003.domain.match.MatchTest;
 import ca.ulaval.glo4003.domain.match.SectionTest;
 import ca.ulaval.glo4003.domain.match.TicketTest;
 import ca.ulaval.glo4003.domain.user.UserTest;
+import ca.ulaval.glo4003.domaine.persistence.FileAccessorTest;
 import ca.ulaval.glo4003.infrastructure.index.JSONMatchQueryFactoryTest;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchCatalogTest;
 import ca.ulaval.glo4003.infrastructure.repository.JSONMatchRepositoryTest;
@@ -31,7 +32,7 @@ import ca.ulaval.glo4003.web.viewmodels.UserViewModelTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ MatchViewConverterTest.class, UserTest.class, FilterTest.class, ListIndexTest.class,
-               QueryResolverTest.class, QueryTest.class, MatchTest.class, UserTest.class, JSONMatchCatalogTest.class,
+               QueryResolverTest.class, QueryTest.class, MatchTest.class, UserTest.class, FileAccessorTest.class, JSONMatchCatalogTest.class,
                JSONMatchQueryFactoryTest.class, JSONMatchRepositoryTest.class, JSONUserRepositoryTest.class,
                AuthenticationServiceTest.class, HomeControllerTest.class, LoginLogoutControllerTest.class,
                MatchListControllerTest.class, SearchBarControllerTest.class, SignupControllerTest.class,
