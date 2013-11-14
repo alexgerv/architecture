@@ -19,6 +19,7 @@ import ca.ulaval.glo4003.domain.user.User;
 public class LoginLogoutControllerTest {
 
     private static final boolean ERROR = true;
+    private static final boolean NO_ERROR = false;
 
     @Mock
     private ModelMap model;
@@ -50,7 +51,12 @@ public class LoginLogoutControllerTest {
     }
 
     @Test
-    public void canGetLogin() {
+    public void canGetLoginWhenThereIsAnError() {
         assertEquals("login", controller.getLoginPage(ERROR, model));
+    }
+    
+    @Test 
+    public void canGetLoginWhenThereIsNoError() {
+        assertEquals("login", controller.getLoginPage(NO_ERROR, model));
     }
 }
