@@ -23,6 +23,8 @@ public class TransactionLoggerIntegrationTest {
         fixture = new TestFixture();
         fixture.init();
         fixture.goOnHomePage();
+        fixture.goOnLoginPage();
+        fixture.logInWithRightCredentials();
     }
 
     @After
