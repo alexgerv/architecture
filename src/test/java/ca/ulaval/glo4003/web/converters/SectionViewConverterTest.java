@@ -40,6 +40,7 @@ public class SectionViewConverterTest {
     @Test
     public void whenConvertingAMapOfMatchToAMachViewModelCollectionTheConverterReturnsACollectionOfMatchViewModel() {
         List<Section> entries = new ArrayList<Section>();
+        entries.add(aSection);
         assertTrue(aSectionViewConverter.convert(entries) instanceof List<?>);
     }
 

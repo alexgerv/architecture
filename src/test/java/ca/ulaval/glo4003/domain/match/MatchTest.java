@@ -120,6 +120,19 @@ public class MatchTest {
         verify(sectionA).buyTickets(A_VALID_TICKET_QUANTITY);
     }
 
+    @Test
+    public void toStringGeneratesAStringInTheRightFormat() {
+        String matchString = aMatch.toString();
+        String expectedString = String.format("%s's %s, %s VS %s at %s on %s",
+                                              A_SEX,
+                                              A_SPORT,
+                                              A_HOME_TEAM,
+                                              A_VISITOR_TEAM,
+                                              A_VENUE,
+                                              A_FORMATED_DATE);
+        assertEquals(matchString, expectedString);
+    }
+
     private void initializeSectionList() {
         sections.add(sectionA);
         sections.add(sectionB);

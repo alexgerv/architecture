@@ -6,15 +6,10 @@ public class User {
     private String password;
     private Integer access;
 
-
     public User(String username, String password, Integer access) {
         this.username = username;
         this.password = password;
         this.access = access;
-    }
-
-    public User() {
-
     }
 
     public boolean hasUsername(String username) {
@@ -28,7 +23,7 @@ public class User {
     public String getPassword() {
         return password;
     }
-    
+
     public Integer getAccess() {
         return access;
     }
