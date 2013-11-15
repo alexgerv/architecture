@@ -46,7 +46,11 @@ public class TransactionLoggerIntegrationTest {
     }
 
     private int getLogSize() throws IOException {
-        LineNumberReader lnr = new LineNumberReader(new FileReader(new File(TRANSACTIONS_LOG)));
+        File logfile = new File(TRANSACTIONS_LOG);
+        if(!logfile.exists()) {
+            return 0;
+        }
+        LineNumberReader lnr = new LineNumberReader(new FileReader(logfile));
         lnr.skip(Long.MAX_VALUE);
         int number = lnr.getLineNumber();
         lnr.close();
