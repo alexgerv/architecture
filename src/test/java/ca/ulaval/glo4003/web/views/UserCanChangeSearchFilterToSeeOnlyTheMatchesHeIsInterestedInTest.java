@@ -11,7 +11,7 @@ import org.openqa.selenium.WebElement;
 
 import ca.ulaval.glo4003.testFixture.TestFixture;
 
-public class UserCanChangeSearchFilterToSeeOnlyTheMatchesHeIsInterestedIn {
+public class UserCanChangeSearchFilterToSeeOnlyTheMatchesHeIsInterestedInTest {
 
     private TestFixture fixture;
 
@@ -23,7 +23,7 @@ public class UserCanChangeSearchFilterToSeeOnlyTheMatchesHeIsInterestedIn {
     }
 
     @Test
-    public void whenChoosingASportOnlyTheMatchesForThisSportAreDisplayed() {
+    public void whenViewingASectionUserCanSeeThePrice() {
         fixture.goOnMatchListPage();
         fixture.SearchForAParticularSport();
         fixture.assertAllShownMatchesAreOfTheSelectedSport();

@@ -14,12 +14,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4003.domain.match.Match;
-import ca.ulaval.glo4003.domain.match.MatchAttribute;
-import ca.ulaval.glo4003.domain.match.Section;
-import ca.ulaval.glo4003.domain.match.SectionNotFoundException;
-import ca.ulaval.glo4003.domain.match.Sex;
-
 public class MatchTest {
 
     private static final String DATE_FORMAT_TEMPLATE = "yyyy-MM-dd HH'h'mm";

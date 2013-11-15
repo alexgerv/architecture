@@ -1,5 +1,10 @@
 package ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter;
 
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import java.util.List;
 
 import org.junit.Before;
@@ -7,14 +12,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doReturn;
-
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import ca.ulaval.glo4003.domain.match.Match;
-import ca.ulaval.glo4003.domain.match.MatchAttribute;
-import ca.ulaval.glo4003.domain.matchCatalog.matchFilter.MatchFilter;
 import ca.ulaval.glo4003.domain.matchCatalog.matchFilter.MatchSportFilter;
 
 public class MatchSportFilterTest {
@@ -36,9 +34,9 @@ public class MatchSportFilterTest {
         MockitoAnnotations.initMocks(this);
         matchSportFilter = new MatchSportFilter();
     }
-    
+
     @Test
-    public void whenNoMatchesOfASportHaveBeenAddedToTheFilterThereIsNoIdentifiersForThisValue(){
+    public void whenNoMatchesOfASportHaveBeenAddedToTheFilterThereIsNoIdentifiersForThisValue() {
         List<String> correspondingIdentifiers = matchSportFilter.getIdentifiersFor(A_SPORT);
         assertTrue(correspondingIdentifiers.size() == 0);
     }

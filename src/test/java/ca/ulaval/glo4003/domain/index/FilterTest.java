@@ -2,22 +2,15 @@ package ca.ulaval.glo4003.domain.index;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.verify;
-
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4003.domain.index.Filter;
-import ca.ulaval.glo4003.domain.index.Indexable;
-
 public class FilterTest {
-    
-    private class ConcreteFilter extends Filter<FilterCategories>{
+
+    private class ConcreteFilter extends Filter<FilterCategories> {
 
         public ConcreteFilter(FilterCategories category) {
             super(category);
@@ -27,7 +20,7 @@ public class FilterTest {
         protected String getAttributeValue(Indexable<FilterCategories> anIndexable) {
             return null;
         }
-        
+
     }
 
     private enum FilterCategories {

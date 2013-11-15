@@ -14,8 +14,6 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.matchCatalog.matchFilter.MatchDateFilter;
-import ca.ulaval.glo4003.domain.matchCatalog.matchFilter.MatchSportFilter;
-
 
 public class MatchDateFilterTest {
 
@@ -36,9 +34,9 @@ public class MatchDateFilterTest {
         MockitoAnnotations.initMocks(this);
         matchDateFilter = new MatchDateFilter();
     }
-    
+
     @Test
-    public void whenNoMatchesOfACertainDateHaveBeenAddedToTheFilterThereIsNoIdentifiersForThisValue(){
+    public void whenNoMatchesOfACertainDateHaveBeenAddedToTheFilterThereIsNoIdentifiersForThisValue() {
         List<String> correspondingIdentifiers = matchDateFilter.getIdentifiersFor(A_DATE);
         assertTrue(correspondingIdentifiers.size() == 0);
     }
