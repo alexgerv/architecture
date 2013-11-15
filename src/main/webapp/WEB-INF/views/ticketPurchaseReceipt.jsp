@@ -20,6 +20,7 @@
 					${section.homeTeam}<br> <strong>Visitor Team :</strong>
 					${section.visitorTeam}<br>
 					<hr>
+					<strong>Section :</strong> ${section.name}<br>
 					<strong>Number of Tickets :</strong> ${quantity}<br> <strong>Individual
 						Price :</strong> ${section.price}<br> <strong>Admission :</strong>
 					${section.admissionType}<br>

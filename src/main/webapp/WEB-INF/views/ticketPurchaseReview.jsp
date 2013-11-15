@@ -25,6 +25,7 @@
 					<strong>Visitor Team :</strong>
 					${section.visitorTeam}<br>
 					<hr>
+					<strong>Section :</strong> ${section.name}<br>
 					<strong>Number of Tickets :</strong>
 					<span id="quantity">${quantity}</span><br>
 					<strong>Individual Price :</strong>
