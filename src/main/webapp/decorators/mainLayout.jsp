@@ -8,6 +8,7 @@
   <meta charset="utf-8">
   <title><decorator:title default="Tickets"/></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="<c:url value="/resources/favicon.ico"/>" />
   <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet"  type="text/css" />
   <link href="<c:url value="/resources/css/font-awesome.min.css" />" rel="stylesheet"  type="text/css" />
   <link href="<c:url value="/resources/css/bootstrap-dataTables.css" />" rel="stylesheet"  type="text/css" />
