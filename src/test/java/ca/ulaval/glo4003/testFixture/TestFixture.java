@@ -63,6 +63,7 @@ public class TestFixture {
 
     private static final String XPATH_FOR_SECTION = "//table[@id='matchDetails']/tbody/tr/td/a/strong";
     private static final String GENERIC_SELECTOR_FOR_SUBMIT = "button[type='submit']";
+
     private static final String XPATH_FOR_CREDIT_CARD_CHOICE = "//input[@name='credit_type']";
     private static final String XPATH_FOR_CREDIT_CARD_NUMBER = "//input[@name='creditCard_number']";
     private static final String A_VALID_CREDIT_CARD_NUMBER = "1234123412341234";
@@ -134,6 +135,18 @@ public class TestFixture {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(SELECTOR_FOR_A_PARTICULAR_SPORT)))
                   .click();
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_MATCH_LIST_LINK))).click();
+    }
+
+    public int navigateToMatchDetailsAndReturnTheNumberOfTicketsJustBefore() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(MATCH_LIST_HOME_LINK_TEXT))).click();
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(SELECTOR_FOR_A_PARTICULAR_SPORT)))
+                  .click();
+
+        int totalTickets = getTotalNumberOfTicketsForAParticularMatch();
+
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_MATCH_LIST_LINK))).click();
+
+        return totalTickets;
     }
 
     public void logOut() {
@@ -248,7 +261,6 @@ public class TestFixture {
     }
 
     public void buyATicket() {
-        driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(GENERIC_SELECTOR_FOR_SUBMIT))).click();
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_CREDIT_CARD_CHOICE))).click();
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_CREDIT_CARD_NUMBER)))
                   .sendKeys(A_VALID_CREDIT_CARD_NUMBER);
@@ -291,6 +303,12 @@ public class TestFixture {
         String ticketQuantity = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.id(ID_QUANTITY_STRING)))
                                           .getText();
         assertTrue(ticketQuantity.equals(aTicketQuantity));
+    }
+
+    public void assertNumberOfAvailableTicketsDecreaseByTheNumberOfBoughtTickets(int initialNumberOfTickets,
+                                                                                 int finalNumberOfTickets,
+                                                                                 String aNumberOfTickets) {
+        assertEquals(String.valueOf(initialNumberOfTickets - finalNumberOfTickets), aNumberOfTickets);
     }
 
 }

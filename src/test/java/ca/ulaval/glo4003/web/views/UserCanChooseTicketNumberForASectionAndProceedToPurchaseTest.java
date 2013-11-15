@@ -18,8 +18,6 @@ public class UserCanChooseTicketNumberForASectionAndProceedToPurchaseTest {
         fixture.goOnHomePage();
         fixture.goOnLoginPage();
         fixture.logInWithRightCredentials();
-        fixture.navigateToMatchDetails();
-        fixture.chooseASectionInMatchDetails();
     }
 
     @After
@@ -29,13 +27,35 @@ public class UserCanChooseTicketNumberForASectionAndProceedToPurchaseTest {
 
     @Test
     public void fromSectionDetailsUserCanProceedToThePurchaseScreen() {
+        fixture.navigateToMatchDetails();
+        fixture.chooseASectionInMatchDetails();
         fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
         fixture.assertOnPurchasePage();
     }
 
     @Test
     public void whenEnteringATicketQuantityTheRightQuantityIsDisplayedOnThePurchaseScreen() {
+        fixture.navigateToMatchDetails();
+        fixture.chooseASectionInMatchDetails();
         fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
         fixture.assertBuyingTheRightTicketQuantity(A_TICKET_QUANTITY);
+    }
+
+    @Test
+    public void whenBuyingATicketQuantityFromAMatchTheNumberOfAvailableTicketsOfThatMatchIsDecreased() {
+
+        int initialNumberOfTickets = fixture.navigateToMatchDetailsAndReturnTheNumberOfTicketsJustBefore();
+
+        fixture.chooseASectionInMatchDetails();
+        fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
+        fixture.buyATicket();
+        fixture.goOnHomePage();
+
+        int finalNumberOfTickets = fixture.navigateToMatchDetailsAndReturnTheNumberOfTicketsJustBefore();
+
+        fixture.chooseASectionInMatchDetails();
+        fixture.assertNumberOfAvailableTicketsDecreaseByTheNumberOfBoughtTickets(initialNumberOfTickets,
+                                                                                 finalNumberOfTickets,
+                                                                                 A_TICKET_QUANTITY);
     }
 }

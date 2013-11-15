@@ -45,8 +45,6 @@ public class JSONMatchRepositoryTest {
     private JSONMatchMarshaller matchConverter;
     @Mock
     private Match aMatch;
-    @Mock
-    private Match anotherMatch;
 
     @Before
     public void setup() {

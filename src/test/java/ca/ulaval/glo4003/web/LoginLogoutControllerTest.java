@@ -13,9 +13,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.ModelMap;
 
-import ca.ulaval.glo4003.domain.repository.UserRepository;
-import ca.ulaval.glo4003.domain.user.User;
-
 public class LoginLogoutControllerTest {
 
     private static final boolean ERROR = true;
@@ -29,12 +26,6 @@ public class LoginLogoutControllerTest {
 
     @Mock
     private HttpSession session;
-
-    @Mock
-    private User user;
-
-    @Mock
-    private UserRepository repository;
 
     @InjectMocks
     private LoginLogoutController controller;
@@ -54,8 +45,8 @@ public class LoginLogoutControllerTest {
     public void canGetLoginWhenThereIsAnError() {
         assertEquals("login", controller.getLoginPage(ERROR, model));
     }
-    
-    @Test 
+
+    @Test
     public void canGetLoginWhenThereIsNoError() {
         assertEquals("login", controller.getLoginPage(NO_ERROR, model));
     }
