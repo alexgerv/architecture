@@ -30,8 +30,8 @@
 				</div>
 			</div>
 			<div class="text-right">
-			<form action="/" method="post">
-					<input class="btn btn-default" type="button" type="submit" value="Back to home page">
+			    <form action="/" method="get">
+					<input class="btn btn-default" type="submit" value="Back to home page">
 				</form>
 			</div>
 		</div>

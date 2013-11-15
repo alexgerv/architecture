@@ -26,7 +26,7 @@
 					${section.visitorTeam}<br>
 					<hr>
 					<strong>Number of Tickets :</strong>
-					${quantity}<br>
+					<span id="quantity">${quantity}</span><br>
 					<strong>Individual Price :</strong>
 					${section.price}<br>
 					<strong>Admission :</strong>

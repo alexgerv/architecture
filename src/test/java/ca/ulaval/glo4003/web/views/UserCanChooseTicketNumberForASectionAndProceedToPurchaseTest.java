@@ -8,7 +8,7 @@ import ca.ulaval.glo4003.testFixture.TestFixture;
 
 public class UserCanChooseTicketNumberForASectionAndProceedToPurchaseTest {
 
-    private static final String A_NUMBER_OF_TICKETS = "5";
+    private static final String A_TICKET_QUANTITY = "5";
     private TestFixture fixture;
 
     @Before
@@ -16,6 +16,8 @@ public class UserCanChooseTicketNumberForASectionAndProceedToPurchaseTest {
         fixture = new TestFixture();
         fixture.init();
         fixture.goOnHomePage();
+        fixture.goOnLoginPage();
+        fixture.logInWithRightCredentials();
         fixture.navigateToMatchDetails();
         fixture.chooseASectionInMatchDetails();
     }
@@ -27,13 +29,13 @@ public class UserCanChooseTicketNumberForASectionAndProceedToPurchaseTest {
 
     @Test
     public void fromSectionDetailsUserCanProceedToThePurchaseScreen() {
-        fixture.selectANumberOfTicketsForCurrentSection(A_NUMBER_OF_TICKETS);
+        fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
         fixture.assertOnPurchasePage();
     }
 
     @Test
-    public void whenEnteringANumberOfTicketsTheRightNumberIsDisplayedOnThePurchaseScreen() {
-        fixture.selectANumberOfTicketsForCurrentSection(A_NUMBER_OF_TICKETS);
-        fixture.assertBuyingTheRightNumberOfTickets(A_NUMBER_OF_TICKETS);
+    public void whenEnteringATicketQuantityTheRightQuantityIsDisplayedOnThePurchaseScreen() {
+        fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
+        fixture.assertBuyingTheRightTicketQuantity(A_TICKET_QUANTITY);
     }
 }

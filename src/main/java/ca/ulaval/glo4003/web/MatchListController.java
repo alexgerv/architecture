@@ -23,10 +23,10 @@ public class MatchListController {
 
     @Inject
     MatchCatalog matchCatalog;
-    
+
     @Inject
     MatchViewConverter matchConverter;
-    
+
     @Inject
     SectionViewConverter sectionConverter;
 
@@ -49,17 +49,19 @@ public class MatchListController {
     }
 
     @RequestMapping(value = "/match/{venue}/{date}/{sectionName}", method = RequestMethod.GET)
-    public String getSection(@PathVariable String venue, @PathVariable String date, Model model, @PathVariable String sectionName) {
-        SectionViewModel viewModel =
-                                     sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
+    public String getSection(@PathVariable String venue, @PathVariable String date, Model model,
+                             @PathVariable String sectionName) {
+        SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
                                                                              .getSectionByName(sectionName));
         model.addAttribute("section", viewModel);
 
         return "sectionDetails";
     }
 
-    protected MatchListController(MatchRepository matchRepository, MatchViewConverter matchViewConverter) {
+    protected MatchListController(MatchRepository matchRepository, MatchViewConverter matchViewConverter,
+                                  SectionViewConverter sectionConverter) {
         this.matchConverter = matchViewConverter;
         this.matchRepository = matchRepository;
+        this.sectionConverter = sectionConverter;
     }
 }

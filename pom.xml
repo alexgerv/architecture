@@ -302,6 +302,7 @@
 							<skip>{maven.test.skip}</skip>
 							<includes>
 								<include>**/views/**</include>
+								<include>**/*IntegrationTest.java</include>
 							</includes>
 						</configuration>
 					</execution>

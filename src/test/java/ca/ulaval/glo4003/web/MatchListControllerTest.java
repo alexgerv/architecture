@@ -50,7 +50,7 @@ public class MatchListControllerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = new MatchListController(matchRepository, matchConverter);
+        controller = new MatchListController(matchRepository, matchConverter, sectionConverter);
         doReturn(match).when(matchRepository).getMatchByIdentifier(MATCH_IDENTIFIER);
         doReturn(section).when(match).getSectionByName(A_SECTION_NAME);
     }
@@ -66,7 +66,7 @@ public class MatchListControllerTest {
     public void canGetMatchList() {
         assertEquals("matchList", controller.matchList(model));
     }
-    
+
     @Test
     public void canGetSectionDetails() {
         doReturn(sectionViewModel).when(sectionConverter).convert(section);

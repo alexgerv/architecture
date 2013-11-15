@@ -71,7 +71,7 @@
 							value="1" min="1" max="${section.availableTickets}" />
 					</div>
 					<div class="col-xs-4">
-						<input type="submit" class="btn btn-default" value="Buy" />
+						<button type="submit" class="btn btn-default">Buy</button>
 					</div>
 				</div>
 			</form>

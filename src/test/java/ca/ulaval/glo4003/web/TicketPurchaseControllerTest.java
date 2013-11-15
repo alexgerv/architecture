@@ -29,6 +29,7 @@ public class TicketPurchaseControllerTest {
     private static final int A_NUMBER_OF_TICKET_TO_BUY = 10;
     private static final String QUANTITY_IDENTIFIER = "quantity";
     private static final String SECTION_IDENTIFIER = "section";
+    private static final String RETURNED_PAGE_NAME = "ticketPurchaseReceipt";
 
     @Mock
     private MatchRepository matchRepository;
@@ -60,21 +61,29 @@ public class TicketPurchaseControllerTest {
         controller.reviewSelectedTicketsForSection(A_VENUE, A_DATE, A_SECTION_NAME, A_NUMBER_OF_TICKET_TO_BUY, model);
         verify(model, times(1)).addAttribute(QUANTITY_IDENTIFIER, A_NUMBER_OF_TICKET_TO_BUY);
     }
-    
+
     @Test
-    public void whenReviewingAPurchaseTheSectionInformationsArePassedToTheView(){
+    public void whenReviewingAPurchaseTheSectionInformationsArePassedToTheView() {
         controller.reviewSelectedTicketsForSection(A_VENUE, A_DATE, A_SECTION_NAME, A_NUMBER_OF_TICKET_TO_BUY, model);
         verify(model, times(1)).addAttribute(SECTION_IDENTIFIER, sectionViewModel);
     }
-    
+
     @Test
-    public void whenPurchasingTicketsThatAreAvailableWeAreRedirectedToTheHomeView() {  
-        assertEquals("home", controller.purchaseSelectedTicketsForSection(A_VENUE, A_DATE, A_SECTION_NAME, A_NUMBER_OF_TICKET_TO_BUY, model));
+    public void whenPurchasingTicketsThatAreAvailableWeAreRedirectedToTheHomeView() {
+        assertEquals(RETURNED_PAGE_NAME, controller.purchaseSelectedTicketsForSection(A_VENUE,
+                                                                                      A_DATE,
+                                                                                      A_SECTION_NAME,
+                                                                                      A_NUMBER_OF_TICKET_TO_BUY,
+                                                                                      model));
     }
-    
+
     @Test
     public void whenPurchasingTicketsThatAreNotAvailableWeAreRedirectedToTheSectionDetailsView() {
         doThrow(NoAvailableTicketsException.class).when(matchRepository).getMatchByIdentifier(MATCH_IDENTIFIER);
-        assertEquals("sectionDetails", controller.purchaseSelectedTicketsForSection(A_VENUE, A_DATE, A_SECTION_NAME, A_NUMBER_OF_TICKET_TO_BUY, model));
+        assertEquals("sectionDetails", controller.purchaseSelectedTicketsForSection(A_VENUE,
+                                                                                    A_DATE,
+                                                                                    A_SECTION_NAME,
+                                                                                    A_NUMBER_OF_TICKET_TO_BUY,
+                                                                                    model));
     }
 }
