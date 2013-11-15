@@ -16,6 +16,7 @@ import ca.ulaval.glo4003.testFixture.TestFixture;
 public class TransactionLoggerIntegrationTest {
 
     private static final String TRANSACTIONS_LOG = "transactions.log";
+    private static final String A_TICKET_QUANTITY = "1";
     private TestFixture fixture;
 
     @Before
@@ -37,6 +38,7 @@ public class TransactionLoggerIntegrationTest {
         int initialSize = getLogSize();
         fixture.navigateToMatchDetails();
         fixture.chooseASectionInMatchDetails();
+        fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
         fixture.buyATicket();
         int finalSize = getLogSize();
 
