@@ -3,9 +3,17 @@ package ca.ulaval.glo4003.web.converters;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.inject.Singleton;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import ca.ulaval.glo4003.domain.match.Section;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 
+@Repository
+@Singleton
 public class SectionViewConverter {
 
     public List<SectionViewModel> convert(List<Section> entries) {

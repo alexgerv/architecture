@@ -33,6 +33,8 @@ public class TicketPurchaseController {
                                                   Model model) {
         SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
                                                                              .getSectionByName(sectionName));
+        float purchaseTotal = quantity*viewModel.getPrice();
+        model.addAttribute("purchaseTotal", purchaseTotal);
         model.addAttribute("section", viewModel);
         model.addAttribute("quantity", quantity);
 
@@ -51,7 +53,13 @@ public class TicketPurchaseController {
             model.addAttribute("message", message);
             return "sectionDetails";
         }
-        return "home";
+        SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
+                                                                             .getSectionByName(sectionName));
+        float purchaseTotal = quantity*viewModel.getPrice();
+        model.addAttribute("purchaseTotal", purchaseTotal);
+        model.addAttribute("section", viewModel);
+        model.addAttribute("quantity", quantity);
+        return "ticketPurchaseReceipt";
     }
 
     protected TicketPurchaseController(MatchRepository matchRepository, SectionViewConverter sectionConverter) {

@@ -5,9 +5,18 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.annotation.Resource;
+import javax.inject.Singleton;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 
+
+@Repository
+@Singleton
 public class MatchViewConverter {
 
     private SectionViewConverter sectionConverter = new SectionViewConverter();
