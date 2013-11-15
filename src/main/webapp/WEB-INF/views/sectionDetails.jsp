@@ -8,7 +8,7 @@
 	<h1>
 		Section Details: <small>${section.homeTeam} VS
 			${section.visitorTeam}</small>
-	<hr>
+		<hr>
 	</h1>
 	<c:if test="${not empty message}">
 		<div class="alert alert-info">${message}</div>
@@ -55,20 +55,27 @@
 			</table>
 		</div>
 	</div>
-	
+
 	<c:choose>
 		<c:when test="${section.availableTickets < 1}">
 			<div class="alert alert-warning">No more tickets available!</div>
 		</c:when>
 		<c:otherwise>
-			<form action="/purchaseReview/${section.venue}/${section.date}/${section.name}" method="get">
-				<h4>
-					Price: ${section.price}$ x 
-					<input type="number" name="quantity" value="1" min="1" max="${section.availableTickets}" />
-					<input  type="submit" value="Buy"/>
-				</h4>
+			<form
+				action="/purchaseReview/${section.venue}/${section.date}/${section.name}"
+				method="get">
+				<strong> Price: ${section.price}$ x </strong>
+				<div class="row">
+					<div class="col-xs-4">
+						<input type="number" name="quantity" class="form-control"
+							value="1" min="1" max="${section.availableTickets}" />
+					</div>
+					<div class="col-xs-4">
+						<input type="submit" class="btn btn-default" value="Buy" />
+					</div>
+				</div>
 			</form>
 		</c:otherwise>
-	</c:choose>	
+	</c:choose>
 </body>
 </html>

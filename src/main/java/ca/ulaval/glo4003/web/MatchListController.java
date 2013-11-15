@@ -23,9 +23,12 @@ public class MatchListController {
 
     @Inject
     MatchCatalog matchCatalog;
-
-    private MatchViewConverter matchConverter = new MatchViewConverter();
-    private SectionViewConverter sectionConverter = new SectionViewConverter();
+    
+    @Inject
+    MatchViewConverter matchConverter;
+    
+    @Inject
+    SectionViewConverter sectionConverter;
 
     public MatchListController() {
 
