@@ -16,12 +16,16 @@ import ca.ulaval.glo4003.testFixture.TestFixture;
 public class TransactionLoggerIntegrationTest {
     
     private static final String TRANSACTIONS_LOG = "transactions.log";
+    private static final String A_NUMBER_OF_TICKETS = "5";
     private TestFixture fixture;
 
     @Before
     public void setUp() {
         fixture = new TestFixture();
         fixture.init();
+        fixture.goOnHomePage();
+        fixture.goOnLoginPage();
+        fixture.logInWithRightCredentials();
         fixture.goOnHomePage();
     }
     
@@ -35,6 +39,7 @@ public class TransactionLoggerIntegrationTest {
         int initialSize = getLogSize();
         fixture.navigateToMatchDetails();
         fixture.chooseASectionInMatchDetails();
+        fixture.selectANumberOfTicketsForCurrentSection(A_NUMBER_OF_TICKETS);
         fixture.buyATicket();
         int finalSize = getLogSize();
         

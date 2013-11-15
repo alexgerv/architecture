@@ -62,12 +62,12 @@ public class TestFixture {
     private static final String SELECTOR_FOR_MATCH_A_PARTICULAR_VENUE = "input[name='Stade Telus']";
 
     private static final String XPATH_FOR_SECTION = "//table[@id='matchDetails']/tbody/tr/td/a/strong";
-    private static final String GENERIC_SELECTOR_FOR_SUBMIT = "input[type='submit']";
-    private static final String XPATH_FOR_CREDIT_CARD_CHOICE = "//input[@name='credit_type']";
+    private static final String GENERIC_SELECTOR_FOR_SUBMIT = "button[type='submit']";
+    private static final String XPATH_FOR_CREDIT_CARD_CHOICE = "//input[@name='credit_type' and @value='Mistercard']";
     private static final String XPATH_FOR_CREDIT_CARD_NUMBER = "//input[@name='creditCard_number']";
     private static final String A_VALID_CREDIT_CARD_NUMBER = "1234123412341234";
 
-    private static final String SPORT_TAG_NAME_IN_SECTION = "H4";
+    private static final String XPATH_NAME_SECTION = "//*[@class='row']//div//tr[2]//td[1]";
     private static final String XPATH_HOMETEAM_SECTION = "//*[@class='row']//div//tr[2]//td[2]";
     private static final String XPATH_VISITORTEAM_SECTION = "//*[@class='row']//div//tr[3]//td[2]";
     private static final String XPATH_DATE_SECTION = "//*[@class='row']//div[2]//tr//td[2]";
@@ -77,7 +77,6 @@ public class TestFixture {
     private static final String SELECTOR_FOR_BUY_BUTTON = "input[value='Buy']";
     private static final String PURCHASE_PAGE_TITLE = "Ticket Purchase";
     private static final String SELECTOR_TICKET_QUANTITY = "input[name='quantity']";
-    private static final String XPATH_QUANTITY_OF_TIKETS_SECTION = "//*[@class='container']//h1//strong";
 
     public WebDriver driver;
     public WebDriverWait driverWait;
@@ -136,6 +135,18 @@ public class TestFixture {
                   .click();
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_MATCH_LIST_LINK))).click();
     }
+    
+    public int navigateToMatchDetailsAndReturnTheNumberOfTicketsJustBefore() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(MATCH_LIST_HOME_LINK_TEXT))).click();
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(SELECTOR_FOR_A_PARTICULAR_SPORT)))
+                  .click();
+        
+        int totalTickets = getTotalNumberOfTicketsForAParticularMatch();
+        
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_MATCH_LIST_LINK))).click();
+        
+        return totalTickets;
+    }
 
     public void logOut() {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(LOGOUT_LINK_TEXT))).click();
@@ -176,7 +187,8 @@ public class TestFixture {
     }
 
     public void assertAllShownMatchesAreOfTheSelectedSport() {
-        List<WebElement> sports = driverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(XPATH_FOR_MATCH_SPORT)));
+        List<WebElement> sports =
+                                  driverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(XPATH_FOR_MATCH_SPORT)));
         for (WebElement sport : sports) {
             assertEquals(A_PARTICULAR_SPORT, sport.getText());
         }
@@ -210,7 +222,8 @@ public class TestFixture {
     }
 
     public int getTotalNumberOfTicketsForAParticularMatch() {
-        String totalNumberOfTicketsText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_FOR_MATCH_LIST_TICKETS_NUMBER)))
+        String totalNumberOfTicketsText =
+                                          driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_FOR_MATCH_LIST_TICKETS_NUMBER)))
                                                     .getText();
 
         return Integer.parseInt(totalNumberOfTicketsText);
@@ -249,7 +262,6 @@ public class TestFixture {
     }
 
     public void buyATicket() {
-        driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(GENERIC_SELECTOR_FOR_SUBMIT))).click();
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_CREDIT_CARD_CHOICE))).click();
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_CREDIT_CARD_NUMBER)))
                   .sendKeys(A_VALID_CREDIT_CARD_NUMBER);
@@ -257,17 +269,23 @@ public class TestFixture {
     }
 
     public void assertPriceOpposingTeamsDateAdmissionTypeAndSectionAreDisplayed() {
-        String priceText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.tagName(SPORT_TAG_NAME_IN_SECTION)))
+        String priceText =
+                           driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_NAME_SECTION)))
                                      .getText();
-        String homeTeamText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_HOMETEAM_SECTION)))
+        String homeTeamText =
+                              driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_HOMETEAM_SECTION)))
                                         .getText();
-        String visitorTeamText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_VISITORTEAM_SECTION)))
+        String visitorTeamText =
+                                 driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_VISITORTEAM_SECTION)))
                                            .getText();
-        String dateText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_DATE_SECTION)))
+        String dateText =
+                          driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_DATE_SECTION)))
                                     .getText();
-        String admissionText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_ADMISSIONTYPE_SECTION)))
+        String admissionText =
+                               driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_ADMISSIONTYPE_SECTION)))
                                          .getText();
-        String sectionText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_SECTIONNAME_SECTION)))
+        String sectionText =
+                             driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_SECTIONNAME_SECTION)))
                                        .getText();
 
         assertTrue(priceText.length() != 0);
@@ -289,9 +307,12 @@ public class TestFixture {
     }
 
     public void assertBuyingTheRightNumberOfTickets(String aNumberOfTickets) {
-        String numberOfTickets = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_QUANTITY_OF_TIKETS_SECTION)))
-                                           .getText();
-        assertTrue(numberOfTickets.equals(aNumberOfTickets));
+        String url = driver.getCurrentUrl().split("quantity=")[1];
+        assertTrue(url.equals(aNumberOfTickets));
+    }
+
+    public void assertNumberOfAvailableTicketsDecreaseByTheNumberOfBoughtTickets(int initialNumberOfTickets, int finalNumberOfTickets, String aNumberOfTickets) {
+        assertEquals(String.valueOf(initialNumberOfTickets - finalNumberOfTickets), aNumberOfTickets);
     }
 
 }
