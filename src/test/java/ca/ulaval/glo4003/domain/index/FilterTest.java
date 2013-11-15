@@ -27,11 +27,6 @@ public class FilterTest {
         CATEGORY1, CATEGORY2, CATEGORY3
     }
 
-    private static final String A_FILTER_VALUE = "filter";
-
-    private static final String AN_IDENTIFIER = "/an/unique/key/for/indexable";
-    private static final String ANOTHER_IDENTIFIER = "/another/unique/key/for/indexable";
-
     private Filter<FilterCategories> aFilterOfCategory1;
 
     @Mock

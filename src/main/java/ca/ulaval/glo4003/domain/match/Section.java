@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.domain.match;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Section {
@@ -80,7 +79,6 @@ public class Section {
     }
 
     private void buyTicket() {
-        Iterator<Ticket> iterator = tickets.iterator();
 
         for (Ticket ticket : tickets) {
             if (ticket.isAvailable()) {
