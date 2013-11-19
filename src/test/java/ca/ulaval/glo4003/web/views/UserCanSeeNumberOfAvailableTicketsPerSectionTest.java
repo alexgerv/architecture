@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import ca.ulaval.glo4003.testFixture.TestFixture;
 
-public class UsersCanSeeNumberOfAvailableTicketsPerSectionTest {
+public class UserCanSeeNumberOfAvailableTicketsPerSectionTest {
 
     private TestFixture fixture;
 
