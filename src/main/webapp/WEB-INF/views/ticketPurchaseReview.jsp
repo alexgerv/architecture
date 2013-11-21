@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
 <html>
 <head>
@@ -46,21 +47,19 @@
 					<h3 class="panel-title">Please enter your payment information</h3>
 				</div>
 				<div class="panel-body">
-					<form role="form"
-						action="/purchaseConfirm/${section.venue}/${section.date}/${section.name}"
-						method="post">
+					<form:form commandName="creditCardForm">
 						<br>
 						<div class="ckeckbox">
-							<label> <input type="radio" name="credit_type"
-								value="Mistercard"> Mistercard
+							<label> <form:radiobutton path="type"
+								value="MISTERCARD" /> Mistercard
 							</label>
 							<div class="ckeckbox">
-								<label><input type="radio" name="credit_type"
-									value="Vasi"> Vasi </label>
+								<label><form:radiobutton path="type"
+									value="VASI" /> Vasi </label>
 							</div>
 							<div class="ckeckbox">
-								<label><input type="radio" name="credit_type"
-									value="AmericanExpresso"> AmericanExpresso </label>
+								<label><form:radiobutton path="type"
+									value="AMERICANEXPRESSO" /> AmericanExpresso </label>
 							</div>
 						</div>
 						<br>
@@ -68,16 +67,16 @@
 							<label for="creditCard_number">Card Number</label>
 							<div class="row">
 								<div class="col-xs-4">
-								<input type=hidden name="quantity" value=${quantity}>
-									<input type="text" class="form-control"
-										name="creditCard_number" placeholder="credit card number">
+								<input type=hidden name="quantity" value=${quantity} />
+								<form:input type="text" class="form-control"
+										path="number" placeholder="credit card number" />
 								</div>
 
 							</div>
 						</div>
 						<button type="submit" class="btn btn-default">Confirm
 							payment</button>
-					</form>
+					</form:form>
 				</div>
 			</div>
 		</div>
