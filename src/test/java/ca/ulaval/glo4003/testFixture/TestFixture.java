@@ -64,8 +64,8 @@ public class TestFixture {
     private static final String XPATH_FOR_SECTION = "//table[@id='matchDetails']/tbody/tr/td/a/strong";
     private static final String GENERIC_SELECTOR_FOR_SUBMIT = "button[type='submit']";
 
-    private static final String XPATH_FOR_CREDIT_CARD_CHOICE = "//input[@name='credit_type']";
-    private static final String XPATH_FOR_CREDIT_CARD_NUMBER = "//input[@name='creditCard_number']";
+    private static final String XPATH_FOR_CREDIT_CARD_CHOICE = "//input[@name='type']";
+    private static final String XPATH_FOR_CREDIT_CARD_NUMBER = "//input[@name='number']";
     private static final String A_VALID_CREDIT_CARD_NUMBER = "1234123412341234";
 
     private static final String XPATH_PRICE_SECTION = "//*[@action='/purchaseReview/Montreal/2013-09-11 09h30/A']//strong";

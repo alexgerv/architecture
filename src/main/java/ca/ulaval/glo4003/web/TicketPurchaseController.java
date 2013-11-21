@@ -4,14 +4,21 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
+import ca.ulaval.glo4003.domain.payment.InvalidCreditCardException;
+import ca.ulaval.glo4003.domain.payment.TransactionManager;
+import ca.ulaval.glo4003.domain.payment.VasiCreditCard;
 import ca.ulaval.glo4003.domain.repository.MatchRepository;
+import ca.ulaval.glo4003.service.TransactionService;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
+import ca.ulaval.glo4003.web.viewmodels.CreditCardViewModel;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 
 @Controller
@@ -19,6 +26,10 @@ public class TicketPurchaseController {
 
     @Inject
     MatchRepository matchRepository;
+    @Inject
+    TransactionService transactionService;
+    @Inject
+    TransactionManager transactionManager;
 
     private SectionViewConverter sectionConverter = new SectionViewConverter();
 
@@ -30,7 +41,7 @@ public class TicketPurchaseController {
     public String reviewSelectedTicketsForSection(@PathVariable String venue, @PathVariable String date,
                                                   @PathVariable String sectionName,
                                                   @RequestParam(value = "quantity", required = true) int quantity,
-                                                  Model model) {
+                                                  Model model, @ModelAttribute(value="creditCardForm") CreditCardViewModel creditCard) {
         SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
                                                                              .getSectionByName(sectionName));
         float purchaseTotal = quantity*viewModel.getPrice();
@@ -41,24 +52,34 @@ public class TicketPurchaseController {
         return "ticketPurchaseReview";
     }
 
-    @RequestMapping(value = "/purchaseConfirm/{venue}/{date}/{sectionName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/purchaseReview/{venue}/{date}/{sectionName}", method = RequestMethod.POST)
     public String purchaseSelectedTicketsForSection(@PathVariable String venue, @PathVariable String date,
                                                     @PathVariable String sectionName,
                                                     @RequestParam(value = "quantity", required = true) int quantity,
-                                                    Model model) {
-        try {
-            matchRepository.getMatchByIdentifier(venue + "/" + date).buyTickets(sectionName, quantity);
-        } catch (NoAvailableTicketsException e) {
-            String message = "There are not enough available tickets";
-            model.addAttribute("message", message);
-            return "sectionDetails";
-        }
+                                                    Model model, @ModelAttribute(value="creditCardForm") CreditCardViewModel creditCard) {
+        
         SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
-                                                                             .getSectionByName(sectionName));
+                                                              .getSectionByName(sectionName));
+       
         float purchaseTotal = quantity*viewModel.getPrice();
         model.addAttribute("purchaseTotal", purchaseTotal);
         model.addAttribute("section", viewModel);
         model.addAttribute("quantity", quantity);
+        
+        try {
+            new TransactionManager();
+            Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
+            long transactionID = transactionManager.processTransaction(creditCard.getNumber(), creditCard.getType(), match, quantity, sectionName, transactionService);
+        } catch (NoAvailableTicketsException e) {
+            String message = "There are not enough available tickets";
+            model.addAttribute("message", message);
+            return "sectionDetails";
+        } catch (InvalidCreditCardException e) {
+            String message = e.getMessage();
+            model.addAttribute("message", message);
+            return "sectionDetails";
+        }
+        
         return "ticketPurchaseReceipt";
     }
 

@@ -8,9 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalogFactory;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryFactory;
+import ca.ulaval.glo4003.domain.payment.TransactionManager;
 import ca.ulaval.glo4003.domain.repository.MatchRepository;
 import ca.ulaval.glo4003.infrastructure.index.JSONMatchQueryFactory;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchCatalogFactory;
+import ca.ulaval.glo4003.service.TransactionService;
+import ca.ulaval.glo4003.service.TransactionServiceStub;
 
 @Configuration
 public class AppConfig {
@@ -31,6 +34,16 @@ public class AppConfig {
     @Bean
     public MatchQueryFactory matchQueryFactory() throws Exception {
         return new JSONMatchQueryFactory();
+    }
+    
+    @Bean
+    public TransactionService transactionService() throws Exception {
+        return new TransactionServiceStub();
+    }
+    
+    @Bean
+    public TransactionManager transactionManager() throws Exception {
+        return new TransactionManager();
     }
 
 }
