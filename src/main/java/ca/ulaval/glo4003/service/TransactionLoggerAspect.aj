@@ -1,11 +1,19 @@
 package ca.ulaval.glo4003.service;
 
+import javax.inject.Inject;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import ca.ulaval.glo4003.domain.match.Match;
 
 public aspect TransactionLoggerAspect {
+    
+    @Inject
+    JavaMailSenderImpl mailSender;
 
     protected pointcut ticketPurchase() :
         execution(* *..Match.buy*(..));
@@ -18,5 +26,5 @@ public aspect TransactionLoggerAspect {
         Logger logger = LogManager.getLogger("transactionLogger");
         logger.info("Sold " + quantity + " tickets in section " + section + " for match: " + match.toString());
     }
-	
+    
 }

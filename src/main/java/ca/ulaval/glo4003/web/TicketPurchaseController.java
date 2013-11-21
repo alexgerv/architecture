@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.web;
 
 import javax.inject.Inject;
 
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,9 @@ public class TicketPurchaseController {
     @Inject
     MatchRepository matchRepository;
 
+    @Inject
+    JavaMailSenderImpl mailSender;
+
     private SectionViewConverter sectionConverter = new SectionViewConverter();
 
     public TicketPurchaseController() {
@@ -33,7 +37,7 @@ public class TicketPurchaseController {
                                                   Model model) {
         SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
                                                                              .getSectionByName(sectionName));
-        float purchaseTotal = quantity*viewModel.getPrice();
+        float purchaseTotal = quantity * viewModel.getPrice();
         model.addAttribute("purchaseTotal", purchaseTotal);
         model.addAttribute("section", viewModel);
         model.addAttribute("quantity", quantity);
@@ -55,10 +59,11 @@ public class TicketPurchaseController {
         }
         SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
                                                                              .getSectionByName(sectionName));
-        float purchaseTotal = quantity*viewModel.getPrice();
+        float purchaseTotal = quantity * viewModel.getPrice();
         model.addAttribute("purchaseTotal", purchaseTotal);
         model.addAttribute("section", viewModel);
         model.addAttribute("quantity", quantity);
+
         return "ticketPurchaseReceipt";
     }
 
@@ -66,4 +71,5 @@ public class TicketPurchaseController {
         this.matchRepository = matchRepository;
         this.sectionConverter = sectionConverter;
     }
+
 }
