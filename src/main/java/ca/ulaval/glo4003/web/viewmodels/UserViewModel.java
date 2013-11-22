@@ -2,15 +2,15 @@ package ca.ulaval.glo4003.web.viewmodels;
 
 public class UserViewModel {
 
-    private String username;
+    private String email;
     private String password;
 
-    public String getUsername() {
-        return username;
+    public String getEmailAddress() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmailAddress(String emailAddress) {
+        this.email = emailAddress;
     }
 
     public String getPassword() {

@@ -38,7 +38,7 @@ public class SignupController {
     public String submitForm(@ModelAttribute UserViewModel user, Model m) {
         String message = "Successfully created user";
         try {
-            userRepository.addNewUser(user.getUsername(), hashPassword(user.getPassword()), 0);
+            userRepository.addNewUser(user.getEmailAddress(), hashPassword(user.getPassword()), 0);
         } catch (ExistingUsernameException e) {
             message = e.getMessage();
         }

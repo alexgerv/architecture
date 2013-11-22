@@ -39,7 +39,7 @@ public class JSONUserRepository extends UserRepository {
 
     protected void saveUser(User user) {
         try {
-            userMarshaller.save(user, ROOT_REPOSITORY + "/" + user.getUsername() + ".json");
+            userMarshaller.save(user, ROOT_REPOSITORY + "/" + user.getEmailAddress() + ".json");
         } catch (IOException e) {
             e.printStackTrace();
         }

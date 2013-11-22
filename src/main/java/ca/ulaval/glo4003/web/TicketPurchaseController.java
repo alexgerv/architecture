@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
 import ca.ulaval.glo4003.domain.repository.MatchRepository;
+import ca.ulaval.glo4003.domain.repository.UserRepository;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 
@@ -20,6 +21,9 @@ public class TicketPurchaseController {
 
     @Inject
     MatchRepository matchRepository;
+
+    @Inject
+    UserRepository userRepository;
 
     @Inject
     JavaMailSenderImpl mailSender;

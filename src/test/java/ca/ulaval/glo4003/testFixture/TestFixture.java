@@ -20,7 +20,7 @@ public class TestFixture {
     public static final String LOG_IN_LINK_NAME = "Log In";
     public static final String A_PASSWORD = "12345";
     public static final String PASSWORD_INPUT_FIELD_ID = "password";
-    public static final String A_USER_NAME = "user_test";
+    public static final String A_USER_NAME = "userglo4003@gmail.com";
     public static final String SUBMIT_BUTTON_ID = "submit";
     public static final String SELECTOR_HELLO_MESSAGE = "div[class=\"navbar-form navbar-right\"]";
     public static final String EXPECTED_LOGGED_IN_MESSAGE = "Hello " + A_USER_NAME + " Logout";

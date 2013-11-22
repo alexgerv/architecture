@@ -53,7 +53,7 @@ public class AuthenticationServiceTest {
     @Test
     public void whenUserIsFoundASpringUserIsReturned() {
         doReturn(user).when(userRepository).getUser(AN_EXISTING_USERNAME);
-        doReturn(A_USERNAME).when(user).getUsername();
+        doReturn(A_USERNAME).when(user).getEmailAddress();
         doReturn(A_PASSWORD).when(user).getPassword();
         doReturn(USER_ACCESS).when(user).getAccess();
         

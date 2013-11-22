@@ -7,8 +7,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.ulaval.glo4003.domain.user.User;
-
 public class UserTest {
 
     private static final String PASSWORD = "PASSWORD";
@@ -24,17 +22,17 @@ public class UserTest {
 
     @Test
     public void hasUsernameReturnsTrueWhenUsernamesAreSame() {
-        assertTrue(aUser.hasUsername(USERNAME));
+        assertTrue(aUser.hasEmailAddress(USERNAME));
     }
 
     @Test
     public void hasUsernameReturnsFalseWhenUsernamesAreSame() {
-        assertFalse(aUser.hasUsername(DIFFERENT_USERNAME));
+        assertFalse(aUser.hasEmailAddress(DIFFERENT_USERNAME));
     }
 
     @Test
     public void canGetUsername() {
-        assertEquals(aUser.getUsername(), USERNAME);
+        assertEquals(aUser.getEmailAddress(), USERNAME);
     }
 
     @Test

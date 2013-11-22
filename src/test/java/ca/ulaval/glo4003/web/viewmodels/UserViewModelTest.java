@@ -5,24 +5,22 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.ulaval.glo4003.web.viewmodels.UserViewModel;
-
 public class UserViewModelTest {
 
     private static final String A_PASSWORD = "A_PASSWORD";
-    private static final String A_USERNAME = "A_USER";
+    private static final String A_USERNAME = "A@USER.com";
     private UserViewModel user;
 
     @Before
     public void setUp() {
         user = new UserViewModel();
-        user.setUsername(A_USERNAME);
+        user.setEmailAddress(A_USERNAME);
         user.setPassword(A_PASSWORD);
     }
 
     @Test
     public void canGetUsername() {
-        assertEquals(user.getUsername(), A_USERNAME);
+        assertEquals(user.getEmailAddress(), A_USERNAME);
     }
 
     @Test

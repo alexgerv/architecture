@@ -41,7 +41,7 @@ public class AuthenticationService implements UserDetailsService {
 
             User user = userRepository.getUser(username);
 
-            springUser = new org.springframework.security.core.userdetails.User(user.getUsername(),
+            springUser = new org.springframework.security.core.userdetails.User(user.getEmailAddress(),
                                                                                 user.getPassword().toLowerCase(),
                                                                                 true,
                                                                                 true,

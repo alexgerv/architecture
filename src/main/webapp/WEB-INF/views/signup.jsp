@@ -20,7 +20,7 @@
       <label class="control-label" for="login">Username:</label>
       <div class="control-group">
 	      <div class="controls">
-	      	<form:input path="username" size="50" id="usernameInput" class="form-control" placeholder="Enter desired username"/>
+	      	<form:input path="emailAddress" size="50" id="usernameInput" class="form-control" placeholder="Enter desired email address"/>
 	      </div>
 	  </div>
 	  <div class="control-group">

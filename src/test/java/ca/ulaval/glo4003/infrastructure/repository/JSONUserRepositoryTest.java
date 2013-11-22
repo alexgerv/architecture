@@ -69,7 +69,7 @@ public class JSONUserRepositoryTest {
     public void canRetrieveUserByItsUsername() throws FileNotFoundException {
         doReturn(VALID_FILES_NAME_IN_A_DIRECTORY).when(fileAccessor).getFilesNameInDirectory(anyString());
         doReturn(user).when(JSONUserConverter).load(anyString());
-        doReturn(true).when(user).hasUsername(A_USERNAME);
+        doReturn(true).when(user).hasEmailAddress(A_USERNAME);
         userRepository.loadAll();
 
         User retrievedUser = userRepository.getUser(A_USERNAME);
@@ -84,11 +84,11 @@ public class JSONUserRepositoryTest {
     // FIXME This is not a Unit test
     @Test
     public void canAddNewUser() {
-        doReturn(true).when(user).hasUsername(A_USERNAME);
+        doReturn(true).when(user).hasEmailAddress(A_USERNAME);
         userRepository.addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
 
         User retrievedUser = userRepository.getUser(A_USERNAME);
-        assertTrue(retrievedUser.hasUsername(A_USERNAME));
+        assertTrue(retrievedUser.hasEmailAddress(A_USERNAME));
     }
 
     @Test

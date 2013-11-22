@@ -15,28 +15,28 @@ public abstract class UserRepository {
 
     public abstract void loadAll();
 
-    public User getUser(String username) {
+    public User getUser(String emailAddress) {
         for (User user : users) {
-            if (user.hasUsername(username)) {
+            if (user.hasEmailAddress(emailAddress)) {
                 return user;
             }
         }
-        throw new RepositoryException("User \"" + username + "\" is not found");
+        throw new RepositoryException("User \"" + emailAddress + "\" is not found");
     }
 
-    public void addNewUser(String username, String password, Integer access) throws ExistingUsernameException {
-        username = username.toLowerCase();
-        if (!usernameIsAvailable(username)) {
-            throw new ExistingUsernameException("Username \"" + username + "\" is already taken");
+    public void addNewUser(String emailAddress, String password, Integer access) throws ExistingUsernameException {
+        emailAddress = emailAddress.toLowerCase();
+        if (!emailAddressIsAvailable(emailAddress)) {
+            throw new ExistingUsernameException("Username \"" + emailAddress + "\" is already taken");
         }
-        User user = new User(username, password, access);
+        User user = new User(emailAddress, password, access);
         users.add(user);
         saveUser(user);
     }
 
-    private boolean usernameIsAvailable(String username) {
+    private boolean emailAddressIsAvailable(String emailAddress) {
         for (User user : users) {
-            if (user.hasUsername(username)) {
+            if (user.hasEmailAddress(emailAddress)) {
                 return false;
             }
         }
