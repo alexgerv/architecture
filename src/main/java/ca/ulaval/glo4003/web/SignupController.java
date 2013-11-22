@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ca.ulaval.glo4003.domain.repository.ExistingUsernameException;
 import ca.ulaval.glo4003.domain.repository.UserRepository;
+import ca.ulaval.glo4003.domain.user.InvalidEmailAddressException;
 import ca.ulaval.glo4003.web.viewmodels.UserViewModel;
 
 @Controller
@@ -39,7 +40,7 @@ public class SignupController {
         String message = "Successfully created user";
         try {
             userRepository.addNewUser(user.getEmailAddress(), hashPassword(user.getPassword()), 0);
-        } catch (ExistingUsernameException e) {
+        } catch (ExistingUsernameException | InvalidEmailAddressException e) {
             message = e.getMessage();
         }
         m.addAttribute("message", message);

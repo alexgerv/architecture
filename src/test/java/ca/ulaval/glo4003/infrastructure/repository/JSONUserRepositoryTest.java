@@ -21,17 +21,18 @@ import org.mockito.MockitoAnnotations;
 import ca.ulaval.glo4003.domain.persistence.FileAccessor;
 import ca.ulaval.glo4003.domain.repository.ExistingUsernameException;
 import ca.ulaval.glo4003.domain.repository.RepositoryException;
+import ca.ulaval.glo4003.domain.user.InvalidEmailAddressException;
 import ca.ulaval.glo4003.domain.user.User;
 import ca.ulaval.glo4003.infrastructure.persistence.JSONUserMarshaller;
-import ca.ulaval.glo4003.infrastructure.repository.JSONUserRepository;
 
 public class JSONUserRepositoryTest {
 
-    private static final String A_USERNAME = "a_username";
+    private static final String A_USERNAME = "auser@name.com";
+    private static final String INVALID_USERNAME = "a_username";
     private static final String A_PASSWORD = "a_password";
     private static final Integer AN_ACCESS_LEVEL = 0;
     private static final List<String> VALID_FILES_NAME_IN_A_DIRECTORY = new ArrayList<String>();
-    private static final String ANOTHER_USERNAME = "another_username";
+    private static final String ANOTHER_USERNAME = "another@username.com";
 
     private JSONUserRepository userRepository;
 
@@ -101,6 +102,11 @@ public class JSONUserRepositoryTest {
     public void cannotAddTheSameUsernameTwice() {
         userRepository.addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
         userRepository.addNewUser(A_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
+    }
+
+    @Test(expected = InvalidEmailAddressException.class)
+    public void usernameCannotBeInvalidEMailAddress() {
+        userRepository.addNewUser(INVALID_USERNAME, A_PASSWORD, AN_ACCESS_LEVEL);
     }
 
     @Test
