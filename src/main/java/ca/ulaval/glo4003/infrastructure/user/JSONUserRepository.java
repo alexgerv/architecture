@@ -7,7 +7,6 @@ import javax.inject.Singleton;
 
 import org.springframework.stereotype.Repository;
 
-import ca.ulaval.glo4003.domain.persistence.UserMarshaller;
 import ca.ulaval.glo4003.domain.user.User;
 import ca.ulaval.glo4003.domain.user.UserRepository;
 import ca.ulaval.glo4003.infrastructure.persistence.FileAccessor;
@@ -18,7 +17,7 @@ public class JSONUserRepository extends UserRepository {
 
     private static final String ROOT_REPOSITORY = "./users/";
     private FileAccessor fileAccessor = new FileAccessor();
-    private UserMarshaller userMarshaller = new JSONUserMarshaller();
+    private JSONUserMarshaller userMarshaller = new JSONUserMarshaller();
 
     public JSONUserRepository() {
         this.loadAll();

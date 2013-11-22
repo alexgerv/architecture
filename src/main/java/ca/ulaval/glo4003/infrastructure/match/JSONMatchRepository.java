@@ -9,14 +9,13 @@ import org.springframework.stereotype.Repository;
 
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchRepository;
-import ca.ulaval.glo4003.domain.persistence.MatchMarshaller;
 
 @Repository
 @Singleton
 public class JSONMatchRepository extends MatchRepository {
 
     private static final String ROOT_REPOSITORY = "./matches/";
-    private MatchMarshaller matchMarshaller = new JSONMatchMarshaller();
+    private JSONMatchMarshaller matchMarshaller = new JSONMatchMarshaller();
 
     public JSONMatchRepository() {
 
