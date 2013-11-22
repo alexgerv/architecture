@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ca.ulaval.glo4003.domain.persistence.NotADirectoryException;
-
 public class FileAccessor {
 
     public List<String> getFilesNameInDirectory(String directory) {

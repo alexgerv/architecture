@@ -7,7 +7,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.ulaval.glo4003.domain.persistence.NotADirectoryException;
 import ca.ulaval.glo4003.infrastructure.persistence.FileAccessor;
 
 public class FileAccessorTest {
