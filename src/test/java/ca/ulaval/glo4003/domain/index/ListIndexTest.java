@@ -11,8 +11,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import ca.ulaval.glo4003.domain.match.MatchAttributeException;
-
 public class ListIndexTest {
 
     private enum FilterCategories {
@@ -65,7 +63,7 @@ public class ListIndexTest {
         verify(filterOfCategory1).getIdentifiersFor(A_FILTER_FOR_CATEGORY1);
     }
 
-    @Test(expected = MatchAttributeException.class)
+    @Test(expected = FilterCategoryException.class)
     public void whenAskingIdentifiersForAFilterAnExceptionIsThrownIfTheCategoryDoesNotExist() {
         anIndex.getIdentifiersFor(FilterCategories.CATEGORY1, A_FILTER_FOR_CATEGORY1);
     }

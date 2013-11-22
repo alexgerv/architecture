@@ -2,8 +2,6 @@ package ca.ulaval.glo4003.domain.index;
 
 import java.util.List;
 
-import ca.ulaval.glo4003.domain.match.MatchAttributeException;
-
 public class IndexWithList<E extends Enum<E>> implements Index<E> {
 
     private List<Filter<E>> filterListByCategories;
@@ -26,7 +24,7 @@ public class IndexWithList<E extends Enum<E>> implements Index<E> {
                 return filter.getIdentifiersFor(filterOfCategory);
             }
         }
-        throw new MatchAttributeException("The specified filter category does not exist in current index.");
+        throw new FilterCategoryException("The specified filter category does not exist in current index.");
     }
 
 }
