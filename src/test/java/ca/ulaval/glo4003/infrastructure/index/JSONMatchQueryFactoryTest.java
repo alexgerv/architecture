@@ -9,7 +9,7 @@ import org.mockito.MockitoAnnotations;
 import ca.ulaval.glo4003.domain.index.Query;
 import ca.ulaval.glo4003.domain.match.MatchAttribute;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryFactory;
-import ca.ulaval.glo4003.infrastructure.index.JSONMatchQueryFactory;
+import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchQueryFactory;
 
 public class JSONMatchQueryFactoryTest {
 

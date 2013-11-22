@@ -15,16 +15,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ca.ulaval.glo4003.domain.repository.RepositoryException;
-import ca.ulaval.glo4003.domain.repository.UserRepository;
 import ca.ulaval.glo4003.domain.user.User;
+import ca.ulaval.glo4003.domain.user.UserNotFoundException;
+import ca.ulaval.glo4003.domain.user.UserRepository;
 
 @Service("UserDetailsService")
 @Transactional(readOnly = true)
 public class AuthenticationService implements UserDetailsService {
 
     private static final Integer ADMIN_ACCESS = 1;
-    
+
     @Inject
     UserRepository userRepository;
 
@@ -49,7 +49,7 @@ public class AuthenticationService implements UserDetailsService {
                                                                                 true,
                                                                                 getAuthorities(user.getAccess()));
 
-        } catch (RepositoryException e) {
+        } catch (UserNotFoundException e) {
             throw new UsernameNotFoundException("Error in retrieving user");
         }
 

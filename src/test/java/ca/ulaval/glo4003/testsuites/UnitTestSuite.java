@@ -13,17 +13,18 @@ import ca.ulaval.glo4003.domain.match.MatchTest;
 import ca.ulaval.glo4003.domain.match.SectionTest;
 import ca.ulaval.glo4003.domain.match.TicketTest;
 import ca.ulaval.glo4003.domain.user.UserTest;
-import ca.ulaval.glo4003.domaine.persistence.FileAccessorTest;
 import ca.ulaval.glo4003.infrastructure.index.JSONMatchQueryFactoryTest;
+import ca.ulaval.glo4003.infrastructure.match.JSONMatchRepositoryTest;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchCatalogTest;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter.MatchDateFilterTest;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter.MatchHomeTeamFilterTest;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter.MatchSportFilterTest;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter.MatchVenueFilterTest;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter.MatchVisitorTeamFilterTest;
-import ca.ulaval.glo4003.infrastructure.repository.JSONMatchRepositoryTest;
-import ca.ulaval.glo4003.infrastructure.repository.JSONUserRepositoryTest;
+import ca.ulaval.glo4003.infrastructure.persistence.FileAccessorTest;
+import ca.ulaval.glo4003.infrastructure.user.JSONUserRepositoryTest;
 import ca.ulaval.glo4003.service.AuthenticationServiceTest;
+import ca.ulaval.glo4003.service.TransactionServiceStubTest;
 import ca.ulaval.glo4003.web.HomeControllerTest;
 import ca.ulaval.glo4003.web.LoginLogoutControllerTest;
 import ca.ulaval.glo4003.web.MatchListControllerTest;
@@ -46,7 +47,7 @@ import ca.ulaval.glo4003.web.viewmodels.UserViewModelTest;
                UserViewModelTest.class, SectionViewModelTest.class, SectionTest.class, TicketTest.class,
                MatchInformationsTest.class, TicketPurchaseControllerTest.class, MatchDateFilterTest.class,
                MatchVenueFilterTest.class, MatchSportFilterTest.class, MatchHomeTeamFilterTest.class,
-               MatchVisitorTeamFilterTest.class })
+               MatchVisitorTeamFilterTest.class, TransactionServiceStubTest.class })
 public class UnitTestSuite {
 
 }

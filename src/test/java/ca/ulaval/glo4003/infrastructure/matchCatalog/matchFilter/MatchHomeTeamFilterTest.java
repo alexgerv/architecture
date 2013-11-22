@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.domain.match.Match;
-import ca.ulaval.glo4003.domain.matchCatalog.matchFilter.MatchHomeTeamFilter;
+import ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter.MatchHomeTeamFilter;
 
 public class MatchHomeTeamFilterTest {
 
