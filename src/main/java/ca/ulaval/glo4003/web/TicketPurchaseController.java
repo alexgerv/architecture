@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ca.ulaval.glo4003.domain.match.Match;
+import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
 import ca.ulaval.glo4003.domain.payment.InvalidCreditCardException;
 import ca.ulaval.glo4003.domain.payment.TransactionManager;
+import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.domain.payment.VasiCreditCard;
-import ca.ulaval.glo4003.domain.repository.MatchRepository;
-import ca.ulaval.glo4003.service.TransactionService;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.CreditCardViewModel;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;

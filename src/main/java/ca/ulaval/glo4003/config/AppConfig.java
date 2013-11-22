@@ -5,14 +5,14 @@ import javax.inject.Inject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalogFactory;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryFactory;
 import ca.ulaval.glo4003.domain.payment.TransactionManager;
-import ca.ulaval.glo4003.domain.repository.MatchRepository;
-import ca.ulaval.glo4003.infrastructure.index.JSONMatchQueryFactory;
+import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchCatalogFactory;
-import ca.ulaval.glo4003.service.TransactionService;
+import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchQueryFactory;
 import ca.ulaval.glo4003.service.TransactionServiceStub;
 
 @Configuration

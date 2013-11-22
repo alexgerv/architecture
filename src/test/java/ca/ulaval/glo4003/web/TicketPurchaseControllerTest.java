@@ -15,12 +15,12 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 
 import ca.ulaval.glo4003.domain.match.Match;
+import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
 import ca.ulaval.glo4003.domain.match.Section;
 import ca.ulaval.glo4003.domain.payment.CreditCard;
 import ca.ulaval.glo4003.domain.payment.TransactionManager;
-import ca.ulaval.glo4003.domain.repository.MatchRepository;
-import ca.ulaval.glo4003.service.TransactionService;
+import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.CreditCardViewModel;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;

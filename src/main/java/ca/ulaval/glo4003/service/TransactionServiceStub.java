@@ -3,6 +3,8 @@ package ca.ulaval.glo4003.service;
 import java.util.Random;
 
 import ca.ulaval.glo4003.domain.payment.CreditCard;
+import ca.ulaval.glo4003.domain.payment.TransactionProcessingError;
+import ca.ulaval.glo4003.domain.payment.TransactionService;
 
 
 public class TransactionServiceStub implements TransactionService {

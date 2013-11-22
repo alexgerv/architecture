@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ca.ulaval.glo4003.domain.repository.ExistingUsernameException;
-import ca.ulaval.glo4003.domain.repository.UserRepository;
+import ca.ulaval.glo4003.domain.user.ExistingUsernameException;
+import ca.ulaval.glo4003.domain.user.UserRepository;
 import ca.ulaval.glo4003.web.viewmodels.UserViewModel;
 
 @Controller

@@ -2,8 +2,8 @@ package ca.ulaval.glo4003.service;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 
 import java.util.Collection;
 
@@ -16,9 +16,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import ca.ulaval.glo4003.domain.repository.RepositoryException;
-import ca.ulaval.glo4003.domain.repository.UserRepository;
 import ca.ulaval.glo4003.domain.user.User;
+import ca.ulaval.glo4003.domain.user.UserNotFoundException;
+import ca.ulaval.glo4003.domain.user.UserRepository;
 
 public class AuthenticationServiceTest {
 
@@ -46,7 +46,7 @@ public class AuthenticationServiceTest {
 
     @Test(expected = UsernameNotFoundException.class)
     public void whenUserIsNotFoundAUsernameNotFoundExceptionIsThrown() {
-        doThrow(new RepositoryException("")).when(userRepository).getUser(A_NON_EXISTING_USERNAME);
+        doThrow(new UserNotFoundException("")).when(userRepository).getUser(A_NON_EXISTING_USERNAME);
         authenticationService.loadUserByUsername(A_NON_EXISTING_USERNAME);
     }
 
@@ -56,10 +56,10 @@ public class AuthenticationServiceTest {
         doReturn(A_USERNAME).when(user).getUsername();
         doReturn(A_PASSWORD).when(user).getPassword();
         doReturn(USER_ACCESS).when(user).getAccess();
-        
+
         assertTrue(authenticationService.loadUserByUsername(AN_EXISTING_USERNAME) instanceof org.springframework.security.core.userdetails.UserDetails);
     }
-    
+
     @Test
     public void userDoesNotHaveAdminRoleAuthorities() {
         Collection<GrantedAuthority> grantedAuthorities = authenticationService.getAuthorities(USER_ACCESS);

@@ -13,14 +13,12 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.domain.match.Match;
+import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchIndex;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQuery;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryResolver;
-import ca.ulaval.glo4003.domain.persistence.FileAccessor;
-import ca.ulaval.glo4003.domain.repository.MatchRepository;
-import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchCatalog;
-import ca.ulaval.glo4003.infrastructure.persistence.JSONMatchMarshaller;
+import ca.ulaval.glo4003.infrastructure.match.JSONMatchMarshaller;
 
 public class JSONMatchCatalogTest {
 
@@ -44,13 +42,11 @@ public class JSONMatchCatalogTest {
     private Match aMatch;
     @Mock
     private JSONMatchMarshaller converter;
-    @Mock
-    private FileAccessor fileAccessor;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        aMatchCatalog = new JSONMatchCatalog(queryResolver, anIndex, aMatchRepository, converter, fileAccessor);
+        aMatchCatalog = new JSONMatchCatalog(queryResolver, anIndex, aMatchRepository, converter);
     }
 
     @Test

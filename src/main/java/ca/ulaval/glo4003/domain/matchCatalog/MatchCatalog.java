@@ -6,7 +6,7 @@ import java.util.Map;
 import ca.ulaval.glo4003.domain.index.Index;
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchAttribute;
-import ca.ulaval.glo4003.domain.repository.MatchRepository;
+import ca.ulaval.glo4003.domain.match.MatchRepository;
 
 public abstract class MatchCatalog {
 
