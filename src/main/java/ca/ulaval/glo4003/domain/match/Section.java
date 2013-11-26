@@ -88,4 +88,25 @@ public class Section {
         }
         throw new NoAvailableTicketsException("There are no tickets available.");
     }
+
+    public List<Ticket> getTickets(int quantity) {
+        List<Ticket> tickets = new ArrayList<Ticket>();
+        if (quantity <= 0) {
+            throw new InvalidQuantityException("The ticket quantity must be >= 0,");
+        }
+
+        for (int i = 0; i < quantity; i++) {
+            tickets.add(getTicket());
+        }
+        return tickets;
+    }
+
+    private Ticket getTicket() {
+        for (Ticket ticket : tickets) {
+            if (ticket.isAvailable()) {
+                return ticket;
+            }
+        }
+        throw new NoAvailableTicketsException("There are no tickets available.");
+    }
 }

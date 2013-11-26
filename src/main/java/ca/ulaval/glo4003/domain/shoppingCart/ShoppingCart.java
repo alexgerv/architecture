@@ -15,6 +15,11 @@ public class ShoppingCart {
 
     private List<Ticket> tickets = new ArrayList<Ticket>();
 
-    public void addTickets(Match match, int quantity, String sectionName) {}
+    public void addTickets(Match match, int quantity, String sectionName) {
+        tickets.addAll((match.getTickets(quantity, sectionName)));
+    }
 
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
 }

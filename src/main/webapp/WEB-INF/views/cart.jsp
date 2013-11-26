@@ -1,44 +1,50 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
 <html>
 <head>
 <title>Shopping Cart</title>
 </head>
 <body>
-	<h2>
-		Shopping Cart
-	</h2><br>
 	<div class="row">
-		<div class="col-md-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Your purchase details</h3>
-				</div>
-				<div class="panel-body">
-					<h4>${section.sport} - ${section.sex}</h4>
-					<strong>Venue :</strong>
-					${section.venue}<br>
-					<strong>Date :</strong>
-					${section.date}<br>
-					<strong>Home Team :</strong>
-					${section.homeTeam}<br>
-					<strong>Visitor Team :</strong>
-					${section.visitorTeam}<br>
-					<hr>
-					<strong>Section :</strong> ${section.name}<br>
-					<strong>Number of Tickets :</strong>
-					<span id="quantity">${quantity}</span><br>
-					<strong>Individual Price :</strong>
-					${section.price}<br>
-					<strong>Admission :</strong>
-					${section.admissionType}<br>
-					<hr>
-					<div class="text-right">
-					<strong>TOTAL :</strong>
-					${purchaseTotal} $<br>
-					</div>
-				</div>
+		<div class="col-sm-9">
+			<div style="display: inline-block; float: clear">
+				<h1>Shopping Cart</h1>
+				<hr>
+				<div id="searchMessage" class="alert alert-info" hidden="hidden">
+					Your search produced no results.</div>
+				<table id="dataTable"
+					class="table table-bordered table-condensed table-striped">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Venue</th>
+							<th>Date</th>
+							<th>Sport</th>
+							<th>Host</th>
+							<th>Visitor</th>
+							<th>Sex</th>
+							<th>ID</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="ticket" items="${tickets}">
+							<tr>
+								<td style="text-align: center;">
+								    <a href="match/${match.venue}" class="btn btn-default btn-xs">
+								        <i class="icon icon-search"></i>
+								    </a>
+								</td>
+								<td>${ticket.venue}</td>
+								<td>${ticket.date}</td>
+								<td>${ticket.sport}</td>
+								<td>${ticket.homeTeam}</td>
+								<td>${ticket.visitorTeam}</td>
+								<td>${ticket.sex}</td>
+								<td><strong>${ticket.ID}</strong></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
