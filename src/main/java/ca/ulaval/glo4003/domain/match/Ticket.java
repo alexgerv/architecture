@@ -3,29 +3,30 @@ package ca.ulaval.glo4003.domain.match;
 public class Ticket {
 
     private int ID;
-    private boolean available;
+    private TicketAvailability availability;
     private float price;
     private AdmissionType admissionType;
 
     private MatchInformation matchInformation;
 
-    public Ticket(int ID, boolean available, MatchInformation matchInformation, float price, AdmissionType admissionType) {
+    public Ticket(int ID, TicketAvailability availability, MatchInformation matchInformation, float price,
+                  AdmissionType admissionType) {
         this.ID = ID;
-        this.available = available;
+        this.availability = availability;
         this.matchInformation = matchInformation;
         this.price = price;
         this.admissionType = admissionType;
     }
 
     public boolean isAvailable() {
-        return available;
+        return availability == TicketAvailability.AVAILABLE;
     }
 
     public void buy() {
         if (!isAvailable()) {
             throw new UnavailableTicketException("The ticket is unavailable.");
         }
-        available = false;
+        availability = TicketAvailability.SOLD;
     }
 
     public int getID() {
@@ -64,4 +65,16 @@ public class Ticket {
         return admissionType;
     }
 
+    public boolean hasID(int ticketID) {
+        return ID == ticketID;
+    }
+
+    public void reserve() {
+        availability = TicketAvailability.RESERVE;
+    }
+
+    public void free() {
+        availability = TicketAvailability.AVAILABLE;
+
+    }
 }

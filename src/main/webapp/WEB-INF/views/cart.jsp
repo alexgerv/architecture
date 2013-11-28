@@ -41,6 +41,14 @@
 								<td>${ticket.visitorTeam}</td>
 								<td>${ticket.sex}</td>
 								<td><strong>${ticket.ID}</strong></td>
+                                <td>
+                                    <form
+                                        action="/cart/${section.venue}/remove/${ticket.ID}"
+                                        method="post">
+                                        <button type="submit" class="btn btn-default"> Remove from cart</button>
+
+                                    </form>
+                                </td>
 							</tr>
 						</c:forEach>
 					</tbody>

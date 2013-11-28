@@ -48,7 +48,7 @@ def createSections(matchInformation):
         sections += '{"tickets":['
         ticketNumber = randint(20, 100)
         while ticketNumber > 0:
-            sections += createTicket(ticketID, True, admission, price, matchInformation)
+            sections += createTicket(ticketID, "AVAILABLE", admission, price, matchInformation)
             sections += ','
             ticketID += 1
             ticketNumber -= 1
@@ -61,7 +61,7 @@ def createSections(matchInformation):
     return sections
 
 def createTicket(index, availability, admission, price, matchInformation):
-    return '{{"ID":{},"admissionType":"{}", "price":{}, "available":{},{}}}'.format(index, admission, price, availability, matchInformation)
+    return '{{"ID":{},"admissionType":"{}", "price":{}, "availability":{},{}}}'.format(index, admission, price, availability, matchInformation)
 
 if __name__ == "__main__":
 

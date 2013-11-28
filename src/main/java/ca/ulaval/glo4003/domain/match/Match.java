@@ -86,8 +86,8 @@ public class Match implements Indexable<MatchAttribute> {
                              matchInformation.getFormatedDate());
     }
 
-    public List<Ticket> getTickets(int quantity, String sectionName) {
+    public List<Ticket> reserveTickets(int quantity, String sectionName) {
         Section section = getSectionByName(sectionName);
-        return section.getTickets(quantity);
+        return section.reserveTickets(quantity);
     }
 }

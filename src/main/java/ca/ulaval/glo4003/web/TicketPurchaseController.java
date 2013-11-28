@@ -67,7 +67,7 @@ public class TicketPurchaseController {
         SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
                                                                              .getSectionByName(sectionName));
 
-        if (false) {
+        if (true) {
             Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
             shoppingCart.addTickets(match, quantity, sectionName);
 

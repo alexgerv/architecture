@@ -16,10 +16,23 @@ public class ShoppingCart {
     private List<Ticket> tickets = new ArrayList<Ticket>();
 
     public void addTickets(Match match, int quantity, String sectionName) {
-        tickets.addAll((match.getTickets(quantity, sectionName)));
+        tickets.addAll((match.reserveTickets(quantity, sectionName)));
     }
 
     public List<Ticket> getTickets() {
+        for (Ticket ticket : tickets) {
+            System.out.println(ticket.getID());
+        }
         return tickets;
+    }
+
+    public void remove(int ticketID) {
+        for (Ticket ticket : tickets) {
+            if (ticket.hasID(ticketID)) {
+                ticket.free();
+                tickets.remove(ticket);
+                break;
+            }
+        }
     }
 }
