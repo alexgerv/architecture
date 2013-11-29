@@ -20,9 +20,6 @@ public class ShoppingCart {
     }
 
     public List<Ticket> getTickets() {
-        for (Ticket ticket : tickets) {
-            System.out.println(ticket.getID());
-        }
         return tickets;
     }
 

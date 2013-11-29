@@ -15,6 +15,7 @@ public class TicketTest {
     private static final AdmissionType AN_ADMISSION_TYPE = AdmissionType.GENERAL;
     private static final float SECTION_PRICE = 10.5f;
     private static final int anID = 1;
+    private static final int ANOTHER_ID = 0;
 
     @Mock
     private MatchInformation matchInformation;
@@ -24,7 +25,7 @@ public class TicketTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        aTicket = new Ticket(anID, true, matchInformation, SECTION_PRICE, AN_ADMISSION_TYPE);
+        aTicket = new Ticket(anID, TicketAvailability.AVAILABLE, matchInformation, SECTION_PRICE, AN_ADMISSION_TYPE);
     }
 
     @Test
@@ -102,4 +103,17 @@ public class TicketTest {
         int id = aTicket.getID();
         assertEquals(id, anID);
     }
+
+    @Test
+    public void hasIDReturnsTrueWhenIDIsTheSame() {
+        boolean hasSameID = aTicket.hasID(anID);
+        assertTrue(hasSameID);
+    }
+
+    @Test
+    public void hasIDReturnsFakseWhenIDIsDifferent() {
+        boolean hasSameID = aTicket.hasID(ANOTHER_ID);
+        assertFalse(hasSameID);
+    }
+
 }

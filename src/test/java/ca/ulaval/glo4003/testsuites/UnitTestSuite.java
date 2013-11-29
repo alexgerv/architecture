@@ -26,6 +26,7 @@ import ca.ulaval.glo4003.infrastructure.persistence.FileAccessorTest;
 import ca.ulaval.glo4003.infrastructure.user.JSONUserRepositoryTest;
 import ca.ulaval.glo4003.service.AuthenticationServiceTest;
 import ca.ulaval.glo4003.service.TransactionServiceStubTest;
+import ca.ulaval.glo4003.web.CartControllerTest;
 import ca.ulaval.glo4003.web.HomeControllerTest;
 import ca.ulaval.glo4003.web.LoginLogoutControllerTest;
 import ca.ulaval.glo4003.web.MatchListControllerTest;
@@ -51,7 +52,7 @@ import ca.ulaval.glo4003.web.viewmodels.UserViewModelTest;
                MatchInformationsTest.class, TicketPurchaseControllerTest.class, MatchDateFilterTest.class,
                MatchVenueFilterTest.class, MatchSportFilterTest.class, MatchHomeTeamFilterTest.class,
                MatchVisitorTeamFilterTest.class, TransactionServiceStubTest.class, TicketViewModelTest.class,
-               TicketViewConverterTest.class, ShoppingCartTest.class })
+               TicketViewConverterTest.class, ShoppingCartTest.class, CartControllerTest.class })
 public class UnitTestSuite {
 
 }

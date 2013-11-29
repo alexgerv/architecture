@@ -1,6 +1,9 @@
 package ca.ulaval.glo4003.domain.payment;
 
+import java.util.List;
+
 import ca.ulaval.glo4003.domain.match.Match;
+import ca.ulaval.glo4003.domain.match.Ticket;
 
 public class TransactionManager {
 
@@ -9,6 +12,18 @@ public class TransactionManager {
         CreditCard creditCard = createCreditCard(creditCardNumber, creditCardType);
         match.buyTickets(sectionName, quantity);
         float purchaseTotal = quantity * match.getSectionByName(sectionName).getPrice();
+        long transactionID = transactionService.processPayment(creditCard, purchaseTotal);
+        return transactionID;
+    }
+
+    public long processTransaction(long creditCardNumber, String creditCardType, List<Ticket> ticketsToBuy,
+                                   TransactionService transactionService) throws InvalidCreditCardException {
+        CreditCard creditCard = createCreditCard(creditCardNumber, creditCardType);
+        float purchaseTotal = 0;
+        for (Ticket ticket : ticketsToBuy) {
+            purchaseTotal += ticket.getPrice();
+            ticket.buy();
+        }
         long transactionID = transactionService.processPayment(creditCard, purchaseTotal);
         return transactionID;
     }
