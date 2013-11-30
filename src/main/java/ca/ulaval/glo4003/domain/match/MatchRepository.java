@@ -9,11 +9,13 @@ public abstract class MatchRepository {
     protected Map<String, Match> loadedEntries = new HashMap<String, Match>();
 
     public Match getMatchByIdentifier(String matchIdentifier) {
-        if (loadedEntries.containsKey(matchIdentifier)) {
-            return loadedEntries.get(matchIdentifier);
-        } else {
+        loadMatchIfItIsNotLoaded(matchIdentifier);
+        return loadedEntries.get(matchIdentifier);
+    }
+
+    private void loadMatchIfItIsNotLoaded(String matchIdentifier) {
+        if (!loadedEntries.containsKey(matchIdentifier)) {
             loadMatch(matchIdentifier);
-            return loadedEntries.get(matchIdentifier);
         }
     }
 

@@ -23,10 +23,14 @@ public class Ticket {
     }
 
     public void buy() {
+        assertTicketIsAvailable();
+        availability = TicketAvailability.SOLD;
+    }
+
+    private void assertTicketIsAvailable() {
         if (!isAvailable()) {
             throw new UnavailableTicketException("The ticket is unavailable.");
         }
-        availability = TicketAvailability.SOLD;
     }
 
     public int getID() {

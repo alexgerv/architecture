@@ -26,10 +26,14 @@ public class ShoppingCart {
     public void remove(int ticketID) {
         for (Ticket ticket : tickets) {
             if (ticket.hasID(ticketID)) {
-                ticket.free();
-                tickets.remove(ticket);
+                removeTicketFromCart(ticket);
                 break;
             }
         }
+    }
+
+    private void removeTicketFromCart(Ticket ticket) {
+        ticket.free();
+        tickets.remove(ticket);
     }
 }
