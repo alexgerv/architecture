@@ -72,6 +72,7 @@
 					</div>
 					<div class="col-xs-4">
 						<button type="submit" class="btn btn-default">Buy</button>
+                        <button type="submit" class="btn btn-default"> Add to cart</button>
 					</div>
 				</div>
 			</form>

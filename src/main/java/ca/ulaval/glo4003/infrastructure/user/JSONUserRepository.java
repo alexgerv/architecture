@@ -25,13 +25,16 @@ public class JSONUserRepository extends UserRepository {
 
     public void loadAll() {
         for (String pathToUser : fileAccessor.getFilesNameInDirectory(ROOT_REPOSITORY)) {
-            User newUser;
-            try {
-                newUser = userMarshaller.load(ROOT_REPOSITORY + pathToUser);
-                users.add(newUser);
-            } catch (FileNotFoundException e) {
-                System.err.println(e.getMessage());
-            }
+            loadUser(pathToUser);
+        }
+    }
+
+    private void loadUser(String pathtoUser) {
+        try {
+            User newUser = userMarshaller.load(ROOT_REPOSITORY + pathtoUser);
+            users.add(newUser);
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
         }
     }
 
