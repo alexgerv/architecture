@@ -15,6 +15,7 @@ import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchCatalogFactory;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchQueryFactory;
 import ca.ulaval.glo4003.service.TransactionServiceStub;
+import ca.ulaval.glo4003.service.mailsender.MailSender;
 
 @Configuration
 public class AppConfig {
@@ -36,27 +37,32 @@ public class AppConfig {
     public MatchQueryFactory matchQueryFactory() throws Exception {
         return new JSONMatchQueryFactory();
     }
-    
+
     @Bean
     public TransactionService transactionService() throws Exception {
         return new TransactionServiceStub();
     }
-    
+
     @Bean
     public TransactionManager transactionManager() throws Exception {
         return new TransactionManager();
     }
 
     @Bean
-    public JavaMailSenderImpl mailSender() {
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(465);
-        mailSender.setUsername("userglo4003@gmail.com");
-        mailSender.setPassword("user4003");
-        mailSender.setProtocol("smtps");
+    public JavaMailSenderImpl mailServer() {
+        JavaMailSenderImpl mailServer = new JavaMailSenderImpl();
+        mailServer.setHost("smtp.gmail.com");
+        mailServer.setPort(465);
+        mailServer.setUsername("userglo4003@gmail.com");
+        mailServer.setPassword("user4003");
+        mailServer.setProtocol("smtps");
 
-        return mailSender;
+        return mailServer;
+    }
+
+    @Bean
+    public MailSender mailSender() {
+        return new MailSender();
     }
 
 }
