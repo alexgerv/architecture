@@ -75,7 +75,7 @@ public class TestFixture {
     private static final String XPATH_FOR_CREDIT_CARD_NUMBER = "//input[@name='number']";
     private static final String A_VALID_CREDIT_CARD_NUMBER = "1234123412341234";
 
-    private static final String XPATH_PRICE_SECTION = "//*[@action='/purchaseReview/Montreal/2013-09-11 09h30/A']//strong";
+    private static final String ID_PRICE_SECTION = "price";
     private static final String XPATH_HOMETEAM_SECTION = "//*[@class='row']//div//tr[2]//td[2]";
     private static final String XPATH_VISITORTEAM_SECTION = "//*[@class='row']//div//tr[3]//td[2]";
     private static final String XPATH_DATE_SECTION = "//*[@class='row']//div[2]//tr//td[2]";
@@ -296,7 +296,7 @@ public class TestFixture {
     }
 
     public void assertPriceOpposingTeamsDateAdmissionTypeAndSectionAreDisplayed() {
-        String priceText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_PRICE_SECTION)))
+        String priceText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.id(ID_PRICE_SECTION)))
                                      .getText();
         String homeTeamText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_HOMETEAM_SECTION)))
                                         .getText();
