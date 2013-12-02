@@ -21,6 +21,7 @@ import ca.ulaval.glo4003.domain.match.Section;
 import ca.ulaval.glo4003.domain.payment.CreditCard;
 import ca.ulaval.glo4003.domain.payment.TransactionManager;
 import ca.ulaval.glo4003.domain.payment.TransactionService;
+import ca.ulaval.glo4003.service.mailsender.MailSender;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.CreditCardViewModel;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
@@ -58,14 +59,16 @@ public class TicketPurchaseControllerTest {
     private CreditCardViewModel creditCardViewModel;
     @Mock
     private CreditCard creditCard;
-    
+    @Mock
+    private MailSender mailSender;
+
     @InjectMocks
     private TicketPurchaseController controller;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = new TicketPurchaseController(matchRepository, sectionConverter);
+        controller = new TicketPurchaseController(matchRepository, sectionConverter, transactionManager, mailSender);
         doReturn(match).when(matchRepository).getMatchByIdentifier(MATCH_IDENTIFIER);
         doReturn(section).when(match).getSectionByName(A_SECTION_NAME);
         doReturn(sectionViewModel).when(sectionConverter).convert(section);
@@ -73,13 +76,23 @@ public class TicketPurchaseControllerTest {
 
     @Test
     public void whenReviewingAPurchaseTheQuantityIsPassedToTheView() {
-        controller.reviewSelectedTicketsForSection(A_VENUE, A_DATE, A_SECTION_NAME, A_NUMBER_OF_TICKET_TO_BUY, model, creditCardViewModel);
+        controller.reviewSelectedTicketsForSection(A_VENUE,
+                                                   A_DATE,
+                                                   A_SECTION_NAME,
+                                                   A_NUMBER_OF_TICKET_TO_BUY,
+                                                   model,
+                                                   creditCardViewModel);
         verify(model, times(1)).addAttribute(QUANTITY_IDENTIFIER, A_NUMBER_OF_TICKET_TO_BUY);
     }
 
     @Test
     public void whenReviewingAPurchaseTheSectionInformationsArePassedToTheView() {
-        controller.reviewSelectedTicketsForSection(A_VENUE, A_DATE, A_SECTION_NAME, A_NUMBER_OF_TICKET_TO_BUY, model, creditCardViewModel);
+        controller.reviewSelectedTicketsForSection(A_VENUE,
+                                                   A_DATE,
+                                                   A_SECTION_NAME,
+                                                   A_NUMBER_OF_TICKET_TO_BUY,
+                                                   model,
+                                                   creditCardViewModel);
         verify(model, times(1)).addAttribute(SECTION_IDENTIFIER, sectionViewModel);
     }
 
@@ -90,7 +103,8 @@ public class TicketPurchaseControllerTest {
                                                                                       A_DATE,
                                                                                       A_SECTION_NAME,
                                                                                       A_NUMBER_OF_TICKET_TO_BUY,
-                                                                                      model, creditCardViewModel));
+                                                                                      model,
+                                                                                      creditCardViewModel));
     }
 
     @Ignore
@@ -101,6 +115,18 @@ public class TicketPurchaseControllerTest {
                                                                                     A_DATE,
                                                                                     A_SECTION_NAME,
                                                                                     A_NUMBER_OF_TICKET_TO_BUY,
-                                                                                    model, creditCardViewModel));
+                                                                                    model,
+                                                                                    creditCardViewModel));
+    }
+
+    @Test
+    public void whenPurchasingTicketsAConfirmationIsSentByMail() {
+        controller.purchaseSelectedTicketsForSection(A_VENUE,
+                                                     A_DATE,
+                                                     A_SECTION_NAME,
+                                                     A_NUMBER_OF_TICKET_TO_BUY,
+                                                     model,
+                                                     creditCardViewModel);
+        verify(mailSender).sendPurchaseConfirmation();
     }
 }

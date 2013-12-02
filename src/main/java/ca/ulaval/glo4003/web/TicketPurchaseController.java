@@ -6,7 +6,6 @@ import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,6 +22,7 @@ import ca.ulaval.glo4003.domain.payment.TransactionManager;
 import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
 import ca.ulaval.glo4003.domain.user.UserRepository;
+import ca.ulaval.glo4003.service.mailsender.MailSender;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
 import ca.ulaval.glo4003.web.converters.TicketViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.CreditCardViewModel;
@@ -39,12 +39,10 @@ public class TicketPurchaseController {
     TransactionService transactionService;
     @Inject
     TransactionManager transactionManager;
-
+    @Inject
+    MailSender mailSender;
     @Inject
     UserRepository userRepository;
-
-    @Inject
-    JavaMailSenderImpl mailSender;
 
     @Autowired
     ShoppingCart shoppingCart;
@@ -113,6 +111,8 @@ public class TicketPurchaseController {
                                                                        quantity,
                                                                        sectionName,
                                                                        transactionService);
+            mailSender.sendPurchaseConfirmation();
+
         } catch (NoAvailableTicketsException e) {
             String message = "There are not enough available tickets";
             model.addAttribute("message", message);
@@ -126,9 +126,13 @@ public class TicketPurchaseController {
         return "ticketPurchaseReceipt";
     }
 
-    protected TicketPurchaseController(MatchRepository matchRepository, SectionViewConverter sectionConverter) {
+    // For tests purpose only
+    protected TicketPurchaseController(MatchRepository matchRepository, SectionViewConverter sectionConverter,
+                                       TransactionManager transactionManager, MailSender mailSender) {
         this.matchRepository = matchRepository;
         this.sectionConverter = sectionConverter;
+        this.transactionManager = transactionManager;
+        this.mailSender = mailSender;
     }
 
 }
