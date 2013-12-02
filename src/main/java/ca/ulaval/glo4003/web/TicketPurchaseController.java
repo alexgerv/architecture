@@ -40,8 +40,6 @@ public class TicketPurchaseController {
     @Inject
     TransactionManager transactionManager;
     @Inject
-    MailSender mailSender;
-    @Inject
     UserRepository userRepository;
 
     @Autowired
@@ -111,7 +109,6 @@ public class TicketPurchaseController {
                                                                        quantity,
                                                                        sectionName,
                                                                        transactionService);
-            mailSender.sendPurchaseConfirmation();
 
         } catch (NoAvailableTicketsException e) {
             String message = "There are not enough available tickets";
@@ -132,7 +129,6 @@ public class TicketPurchaseController {
         this.matchRepository = matchRepository;
         this.sectionConverter = sectionConverter;
         this.transactionManager = transactionManager;
-        this.mailSender = mailSender;
     }
 
 }

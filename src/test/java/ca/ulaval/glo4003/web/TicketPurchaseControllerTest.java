@@ -7,7 +7,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -96,7 +95,6 @@ public class TicketPurchaseControllerTest {
         verify(model, times(1)).addAttribute(SECTION_IDENTIFIER, sectionViewModel);
     }
 
-    @Ignore
     @Test
     public void whenPurchasingTicketsThatAreAvailableWeAreRedirectedToTheHomeView() {
         assertEquals(RETURNED_PAGE_NAME, controller.purchaseSelectedTicketsForSection(A_VENUE,
@@ -107,8 +105,7 @@ public class TicketPurchaseControllerTest {
                                                                                       creditCardViewModel));
     }
 
-    @Ignore
-    @Test
+    @Test(expected = NoAvailableTicketsException.class)
     public void whenPurchasingTicketsThatAreNotAvailableWeAreRedirectedToTheSectionDetailsView() {
         doThrow(NoAvailableTicketsException.class).when(matchRepository).getMatchByIdentifier(MATCH_IDENTIFIER);
         assertEquals("sectionDetails", controller.purchaseSelectedTicketsForSection(A_VENUE,
@@ -119,14 +116,4 @@ public class TicketPurchaseControllerTest {
                                                                                     creditCardViewModel));
     }
 
-    @Test
-    public void whenPurchasingTicketsAConfirmationIsSentByMail() {
-        controller.purchaseSelectedTicketsForSection(A_VENUE,
-                                                     A_DATE,
-                                                     A_SECTION_NAME,
-                                                     A_NUMBER_OF_TICKET_TO_BUY,
-                                                     model,
-                                                     creditCardViewModel);
-        verify(mailSender).sendPurchaseConfirmation();
-    }
 }
