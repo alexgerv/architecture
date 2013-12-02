@@ -1,16 +1,11 @@
 package ca.ulaval.glo4003.service;
 
-import javax.inject.Inject;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.aspectj.lang.ProceedingJoinPoint;
+
 import ca.ulaval.glo4003.domain.match.Match;
 
 public aspect TransactionLoggerAspect {
-    
-    @Inject
-    JavaMailSenderImpl mailSender;
 
     protected pointcut ticketPurchase() :
         execution(* *..TransactionManager.processTransaction*(..));

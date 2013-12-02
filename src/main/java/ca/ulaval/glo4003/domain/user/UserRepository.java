@@ -26,21 +26,32 @@ public abstract class UserRepository {
 
     public void addNewUser(String emailAddress, String password, Integer access) throws ExistingUsernameException {
         emailAddress = emailAddress.toLowerCase();
-        if (!validateEmailAddress(emailAddress)) {
-            throw new InvalidEmailAddressException("Username \"" + emailAddress + "\" is not a valid email address");
-        }
-        if (!emailAddressIsAvailable(emailAddress)) {
-            throw new ExistingUsernameException("Username \"" + emailAddress + "\" is already taken");
-        }
+        assertEmailAddressIsValid(emailAddress);
+        assertEmailAddresIsAvailable(emailAddress);
+        addAndSaveNewUser(emailAddress, password, access);
+    }
+
+    private void addAndSaveNewUser(String emailAddress, String password, Integer access) {
         User user = new User(emailAddress, password, access);
         users.add(user);
         saveUser(user);
     }
 
+    private void assertEmailAddresIsAvailable(String emailAddress) {
+        if (!emailAddressIsAvailable(emailAddress)) {
+            throw new ExistingUsernameException("Username \"" + emailAddress + "\" is already taken");
+        }
+    }
+
+    private void assertEmailAddressIsValid(String emailAddress) {
+        if (!validateEmailAddress(emailAddress)) {
+            throw new InvalidEmailAddressException("Username \"" + emailAddress + "\" is not a valid email address");
+        }
+    }
+
     private boolean validateEmailAddress(String emailAddress) {
         Pattern p = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(emailAddress);
-
         return m.find();
     }
 

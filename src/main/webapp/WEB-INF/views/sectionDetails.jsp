@@ -64,7 +64,7 @@
 			<form
 				action="/purchaseReview/${section.venue}/${section.date}/${section.name}"
 				method="get">
-				<strong> Price: ${section.price}$ x </strong>
+				<span id="price"><strong> Price: ${section.price}$ x </strong></span>
 				<div class="row">
 					<div class="col-xs-4">
 						<input type="number" name="quantity" class="form-control"
@@ -72,6 +72,7 @@
 					</div>
 					<div class="col-xs-4">
 						<button type="submit" class="btn btn-default">Buy</button>
+                        <button type="submit" class="btn btn-default"> Add to cart</button>
 					</div>
 				</div>
 			</form>

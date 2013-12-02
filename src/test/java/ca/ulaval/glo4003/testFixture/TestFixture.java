@@ -22,6 +22,9 @@ public class TestFixture {
     public static final String PASSWORD_INPUT_FIELD_ID = "password";
     public static final String A_USER_NAME = "userglo4003@gmail.com";
 
+    public static final String AN_OTHER_USER_NAME = "otheruserglo4003@gmail.com";
+    public static final String OTHER_USER_PASSWORD = "54321";
+
     public static final String SUBMIT_BUTTON_ID = "submit";
     public static final String SELECTOR_HELLO_MESSAGE = "div[class=\"navbar-form navbar-right\"]";
     public static final String EXPECTED_LOGGED_IN_MESSAGE = "Hello " + A_USER_NAME + " Logout";
@@ -72,7 +75,7 @@ public class TestFixture {
     private static final String XPATH_FOR_CREDIT_CARD_NUMBER = "//input[@name='number']";
     private static final String A_VALID_CREDIT_CARD_NUMBER = "1234123412341234";
 
-    private static final String XPATH_PRICE_SECTION = "//*[@action='/purchaseReview/Montreal/2013-09-11 09h30/A']//strong";
+    private static final String ID_PRICE_SECTION = "price";
     private static final String XPATH_HOMETEAM_SECTION = "//*[@class='row']//div//tr[2]//td[2]";
     private static final String XPATH_VISITORTEAM_SECTION = "//*[@class='row']//div//tr[3]//td[2]";
     private static final String XPATH_DATE_SECTION = "//*[@class='row']//div[2]//tr//td[2]";
@@ -113,6 +116,14 @@ public class TestFixture {
                   .sendKeys(A_USER_NAME);
         driverWait.until(ExpectedConditions.presenceOfElementLocated(By.id(PASSWORD_INPUT_FIELD_ID)))
                   .sendKeys(A_PASSWORD);
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.id(SUBMIT_BUTTON_ID))).click();
+    }
+
+    public void logInWithAnOtherRightCredentials() {
+        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.id(USER_NAME_INPUT_FIELD_ID)))
+                  .sendKeys(AN_OTHER_USER_NAME);
+        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.id(PASSWORD_INPUT_FIELD_ID)))
+                  .sendKeys(OTHER_USER_PASSWORD);
         driverWait.until(ExpectedConditions.elementToBeClickable(By.id(SUBMIT_BUTTON_ID))).click();
     }
 
@@ -285,7 +296,7 @@ public class TestFixture {
     }
 
     public void assertPriceOpposingTeamsDateAdmissionTypeAndSectionAreDisplayed() {
-        String priceText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_PRICE_SECTION)))
+        String priceText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.id(ID_PRICE_SECTION)))
                                      .getText();
         String homeTeamText = driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_HOMETEAM_SECTION)))
                                         .getText();

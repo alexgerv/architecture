@@ -70,20 +70,43 @@ public class Section {
     }
 
     public void buyTickets(int quantity) {
-        if (quantity <= 0) {
-            throw new InvalidQuantityException("The ticket quantity must be >= 0,");
-        }
+        assertTicketQuantityIsPositive(quantity);
         for (int i = 0; i < quantity; i++) {
             buyTicket();
         }
     }
 
-    private void buyTicket() {
+    private void assertTicketQuantityIsPositive(int quantity) {
+        if (quantity <= 0) {
+            throw new InvalidQuantityException("The ticket quantity must be >= 0,");
+        }
+    }
 
+    private void buyTicket() {
         for (Ticket ticket : tickets) {
             if (ticket.isAvailable()) {
                 ticket.buy();
                 return;
+            }
+        }
+        throw new NoAvailableTicketsException("There are no tickets available.");
+    }
+
+    public List<Ticket> reserveTickets(int quantity) {
+        List<Ticket> tickets = new ArrayList<Ticket>();
+        assertTicketQuantityIsPositive(quantity);
+
+        for (int i = 0; i < quantity; i++) {
+            tickets.add(reserveTicket());
+        }
+        return tickets;
+    }
+
+    private Ticket reserveTicket() {
+        for (Ticket ticket : tickets) {
+            if (ticket.isAvailable()) {
+                ticket.reserve();
+                return ticket;
             }
         }
         throw new NoAvailableTicketsException("There are no tickets available.");

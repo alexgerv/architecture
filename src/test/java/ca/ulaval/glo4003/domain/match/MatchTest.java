@@ -133,6 +133,13 @@ public class MatchTest {
         assertEquals(matchString, expectedString);
     }
 
+    @Test
+    public void reserveTicketsReserveticketsFromSection() {
+        doReturn(true).when(sectionA).hasSameName(A_VALID_SECTION_NAME);
+        aMatch.reserveTickets(A_VALID_TICKET_QUANTITY, A_VALID_SECTION_NAME);
+        verify(sectionA).reserveTickets(A_VALID_TICKET_QUANTITY);
+    }
+
     private void initializeSectionList() {
         sections.add(sectionA);
         sections.add(sectionB);
