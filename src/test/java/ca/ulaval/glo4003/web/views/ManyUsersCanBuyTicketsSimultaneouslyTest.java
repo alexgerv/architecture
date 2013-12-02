@@ -24,13 +24,10 @@ public class ManyUsersCanBuyTicketsSimultaneouslyTest {
         anOtherUserFixture.goOnHomePage();
 
         aUserFixture.goOnLoginPage();
-
-        anOtherUserFixture.goOnSignUpPage();
-        anOtherUserFixture.signUp();
         anOtherUserFixture.goOnLoginPage();
 
         aUserFixture.logInWithRightCredentials();
-        anOtherUserFixture.logInWithNewUserName();
+        anOtherUserFixture.logInWithAnOtherRightCredentials();
 
         aUserFixture.navigateToMatchDetails();
         anOtherUserFixture.navigateToMatchDetails();
