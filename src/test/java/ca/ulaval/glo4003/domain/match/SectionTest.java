@@ -128,23 +128,6 @@ public class SectionTest {
         verify(matchInformation).getVisitorTeam();
     }
 
-    @Test
-    public void whenBuyingANumberOfTicketsAndTheyAreAvailableTheTicketsAreBought() {
-        doReturn(true).when(anAvailableTicket).isAvailable();
-        aSection.buyTickets(A_QUANTITY_OF_AVAILABLE_TICKETS);
-        verify(anAvailableTicket).buy();
-    }
-
-    @Test(expected = NoAvailableTicketsException.class)
-    public void whenBuyingMoreThanAvailableTicketsANoAvailableTicketsException() {
-        aSection.buyTickets(MORE_THAN_AVAILABLE_TICKETS);
-    }
-
-    @Test(expected = InvalidQuantityException.class)
-    public void whenBuyingANegativeQuantityOfTicketsAnInvalidQuantityExceptionIsThrown() {
-        aSection.buyTickets(A_NEGATIVE_NUMBER);
-    }
-
     @Test(expected = InvalidQuantityException.class)
     public void anInvalidQuantityExceptionIsThrownIfGettingANegativeNumberOfTickets() {
         aSection.reserveTickets(A_NEGATIVE_NUMBER);
