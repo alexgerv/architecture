@@ -10,7 +10,7 @@ public class MatchVisitorTeamFilter extends MatchFilter {
     }
 
     @Override
-    public String getMatchAttributeValue(Match aMatch) {
+    public String getAttributeValue(Match aMatch) {
         return aMatch.getVisitorTeam();
     }
 

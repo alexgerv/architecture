@@ -12,7 +12,7 @@ public abstract class MatchCatalog {
 
     private MatchQueryResolver queryResolver;
 
-    private Index<MatchAttribute> index;
+    private Index<MatchAttribute, Match> index;
 
     private MatchRepository matchRepository;
 

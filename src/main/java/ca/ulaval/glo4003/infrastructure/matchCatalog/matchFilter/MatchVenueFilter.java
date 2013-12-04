@@ -3,7 +3,6 @@ package ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter;
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchAttribute;
 
-
 public class MatchVenueFilter extends MatchFilter {
 
     public MatchVenueFilter() {
@@ -11,7 +10,7 @@ public class MatchVenueFilter extends MatchFilter {
     }
 
     @Override
-    protected String getMatchAttributeValue(Match aMatch) {
+    protected String getAttributeValue(Match aMatch) {
         return aMatch.getVenue();
     }
 

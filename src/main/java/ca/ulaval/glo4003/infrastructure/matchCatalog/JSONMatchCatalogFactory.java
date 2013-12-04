@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.ulaval.glo4003.domain.index.Filter;
+import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchAttribute;
 import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
@@ -34,7 +35,7 @@ public class JSONMatchCatalogFactory implements MatchCatalogFactory {
     }
 
     private MatchIndex createMatchIndex() {
-        List<Filter<MatchAttribute>> filterListByCategories = new ArrayList<Filter<MatchAttribute>>();
+        List<Filter<MatchAttribute, Match>> filterListByCategories = new ArrayList<Filter<MatchAttribute, Match>>();
         filterListByCategories.add(new MatchDateFilter());
         filterListByCategories.add(new MatchSportFilter());
         filterListByCategories.add(new MatchVenueFilter());

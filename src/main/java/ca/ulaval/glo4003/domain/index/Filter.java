@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Filter<E extends Enum<E>> {
+public abstract class Filter<E extends Enum<E>, O extends Indexable<E>> {
 
     private E category;
     private Map<String, List<String>> identifiers = new HashMap<String, List<String>>();
@@ -14,9 +14,9 @@ public abstract class Filter<E extends Enum<E>> {
         this.category = category;
     }
 
-    protected abstract String getAttributeValue(Indexable<E> anIndexable);
+    protected abstract String getAttributeValue(O aConcreteIndexable);
 
-    public void add(Indexable<E> anIndexable) {
+    public void add(O anIndexable) {
         String filterValue = getAttributeValue(anIndexable);
         String identifier = anIndexable.getIdentifier();
         addInMap(filterValue, identifier);
