@@ -14,7 +14,7 @@ public abstract class MatchCatalog {
 
     private Index<MatchAttribute, Match> index;
 
-    private MatchRepository matchRepository;
+    protected MatchRepository matchRepository;
 
     public MatchCatalog(MatchQueryResolver queryResolver, MatchIndex index, MatchRepository matchRepository) {
         this.queryResolver = queryResolver;
@@ -30,7 +30,6 @@ public abstract class MatchCatalog {
 
     public void add(Match match) {
         index.add(match);
-        matchRepository.add(match);
     }
 
 }

@@ -18,7 +18,6 @@ import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchIndex;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQuery;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryResolver;
-import ca.ulaval.glo4003.infrastructure.match.JSONMatchMarshaller;
 
 public class JSONMatchCatalogTest {
 
@@ -40,13 +39,11 @@ public class JSONMatchCatalogTest {
     private MatchQuery aQuery;
     @Mock
     private Match aMatch;
-    @Mock
-    private JSONMatchMarshaller converter;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        aMatchCatalog = new JSONMatchCatalog(queryResolver, anIndex, aMatchRepository, converter);
+        aMatchCatalog = new JSONMatchCatalog(queryResolver, anIndex, aMatchRepository);
     }
 
     @Test
@@ -63,13 +60,6 @@ public class JSONMatchCatalogTest {
         aMatchCatalog.add(aMatch);
 
         verify(anIndex, times(1)).add(aMatch);
-    }
-
-    @Test
-    public void whenAMatchIsAddedItIsAddedToTheRepository() {
-        aMatchCatalog.add(aMatch);
-
-        verify(aMatchRepository, times(1)).add(aMatch);
     }
 
 }

@@ -1,7 +1,8 @@
 '''
 Created on 2013-09-26
-
-@author: Philippe Bouillon
+#######################################################
+# @author: Philippe Bouillon # <!-- The VERY best --> #
+#######################################################
 '''
 
 from random import choice, randint
@@ -38,7 +39,7 @@ def createSections(matchInformation):
     sectionList = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     admissionType = ['GENERAL', 'SEATED']
     numberOfSection = randint(1, 7)
-    ticketID = 1
+    
     
     for section in range(numberOfSection):
         name = sectionList[section]
@@ -64,7 +65,7 @@ def createTicket(index, availability, admission, price, matchInformation):
     return '{{"ID":{},"admissionType":"{}", "price":{}, "availability":{},{}}}'.format(index, admission, price, availability, matchInformation)
 
 if __name__ == "__main__":
-
+	ticketID = 1
     for count in range(NUMBER_OF_MATCHES):
         matchInformation = createMatchInformations() 
         sections = createSections(matchInformation)

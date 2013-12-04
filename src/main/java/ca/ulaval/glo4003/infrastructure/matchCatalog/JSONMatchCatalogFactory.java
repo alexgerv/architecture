@@ -11,7 +11,6 @@ import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalogFactory;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchIndex;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryResolver;
-import ca.ulaval.glo4003.infrastructure.match.JSONMatchMarshaller;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter.MatchDateFilter;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter.MatchHomeTeamFilter;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter.MatchSportFilter;
@@ -29,9 +28,8 @@ public class JSONMatchCatalogFactory implements MatchCatalogFactory {
     public MatchCatalog createMatchCatalog() {
         MatchIndex index = createMatchIndex();
         MatchQueryResolver queryResolver = new MatchQueryResolver(index);
-        JSONMatchMarshaller converter = new JSONMatchMarshaller();
 
-        return new JSONMatchCatalog(queryResolver, index, matchRepository, converter);
+        return new JSONMatchCatalog(queryResolver, index, matchRepository);
     }
 
     private MatchIndex createMatchIndex() {
