@@ -24,10 +24,8 @@ import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
 import ca.ulaval.glo4003.domain.user.UserRepository;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
-import ca.ulaval.glo4003.web.converters.TicketViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.CreditCardViewModel;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
-import ca.ulaval.glo4003.web.viewmodels.TicketViewModel;
 
 @Controller
 @Scope("session")
@@ -47,8 +45,6 @@ public class TicketPurchaseController {
 
     private SectionViewConverter sectionConverter = new SectionViewConverter();
 
-    private TicketViewConverter ticketConverter = new TicketViewConverter();
-
     public TicketPurchaseController() {
 
     }
@@ -62,23 +58,12 @@ public class TicketPurchaseController {
                                                   @ModelAttribute(value = "creditCardForm") CreditCardViewModel creditCard) {
         SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
                                                                              .getSectionByName(sectionName));
+        float purchaseTotal = quantity * viewModel.getPrice();
+        model.addAttribute("purchaseTotal", purchaseTotal);
+        model.addAttribute("section", viewModel);
+        model.addAttribute("quantity", quantity);
 
-        if (true) {
-            Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
-            shoppingCart.addTickets(match, quantity, sectionName);
-
-            List<TicketViewModel> tickets = ticketConverter.convert(shoppingCart.getTickets());
-            model.addAttribute("tickets", tickets);
-
-            return "cart";
-        } else {
-            float purchaseTotal = quantity * viewModel.getPrice();
-            model.addAttribute("purchaseTotal", purchaseTotal);
-            model.addAttribute("section", viewModel);
-            model.addAttribute("quantity", quantity);
-
-            return "ticketPurchaseReview";
-        }
+        return "ticketPurchaseReview";
     }
 
     @RequestMapping(value = "/purchaseReview/{venue}/{date}/{sectionName}", method = RequestMethod.POST)
@@ -96,9 +81,6 @@ public class TicketPurchaseController {
         model.addAttribute("purchaseTotal", purchaseTotal);
         model.addAttribute("section", viewModel);
         model.addAttribute("quantity", quantity);
-
-        // shoppingCart.str =
-        // SecurityContextHolder.getContext().getAuthentication().getName();
 
         try {
             Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);

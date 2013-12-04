@@ -61,8 +61,7 @@
 			<div class="alert alert-warning">No more tickets available!</div>
 		</c:when>
 		<c:otherwise>
-			<form
-				action="/purchaseReview/${section.venue}/${section.date}/${section.name}"
+			<form id = "ticketsForm"
 				method="get">
 				<span id="price"><strong> Price: ${section.price}$ x </strong></span>
 				<div class="row">
@@ -71,12 +70,13 @@
 							value="1" min="1" max="${section.availableTickets}" />
 					</div>
 					<div class="col-xs-4">
-						<button type="submit" class="btn btn-default">Buy</button>
-                        <button type="submit" class="btn btn-default"> Add to cart</button>
+						<button type="submit" class="btn btn-default" formaction="/purchaseReview/${section.venue}/${section.date}/${section.name}">Buy</button>
+                        <button type="submit" class="btn btn-default" formaction="/cart/add/${section.venue}/${section.date}/${section.name}" formmethod="post"> Add to cart</button>
 					</div>
 				</div>
 			</form>
 		</c:otherwise>
 	</c:choose>
 </body>
+
 </html>
