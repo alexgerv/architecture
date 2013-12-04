@@ -11,7 +11,7 @@ import os
 
 NUMBER_OF_MATCHES = 1000
 
-def createMatchInformations():
+def createMatchInformations(folder, fileName):
     sportList = ['Football', 'Soccer', 'Badminton', 'Rugby', 'Volleyball', 'Basketball', 'Diving', 'Swimming', 'Golf']
     venueList = ['Stade Telus', 'Montreal', 'Sherbrooke']
     teamList = ['ULaval', 'UQAM', 'USherbrooke']
@@ -32,10 +32,14 @@ def createMatchInformations():
     stringDate = date.strftime('%b %d, %Y %I:%M:%S %p')
     
     matchInformation = '"matchInformation":{{"sport":"{}","venue":"{}","date":"{}","homeTeam":"{}","visitorTeam":"{}","sex":"{}"}}'.format(sport, venue, stringDate, homeTeam, visitorTeam, sex)
+
+    folder[0] = venue
+    fileName[0] = date.strftime('%Y-%m-%d %Hh%M')
+
     return matchInformation
 
-def createSections(matchInformation):
-    sections = '"sections":['
+def createSections(matchInformation, ticketID):
+    sections = os.linesep + '"sections":['
     sectionList = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
     admissionType = ['GENERAL', 'SEATED']
     numberOfSection = randint(1, 7)
@@ -46,7 +50,7 @@ def createSections(matchInformation):
         price = randint(10, 100)
         admission = choice(admissionType)
     
-        sections += '{"tickets":['
+        sections += os.linesep + '{"tickets":['
         ticketNumber = randint(20, 100)
         while ticketNumber > 0:
             sections += createTicket(ticketID, "AVAILABLE", admission, price, matchInformation)
@@ -62,22 +66,28 @@ def createSections(matchInformation):
     return sections
 
 def createTicket(index, availability, admission, price, matchInformation):
-    return '{{"ID":{},"admissionType":"{}", "price":{}, "availability":{},{}}}'.format(index, admission, price, availability, matchInformation)
-
+    return os.linesep + '{{"ID":{},"admissionType":"{}", "price":{}, "availability":"{}",{}}}'.format(index, admission, price, availability, matchInformation)
+    
+    
 if __name__ == "__main__":
-	ticketID = 1
+    ticketID = 1
+    path = ""
     for count in range(NUMBER_OF_MATCHES):
-        matchInformation = createMatchInformations() 
-        sections = createSections(matchInformation)
+        folder = ['']
+        fileName = ['']
+        matchInformation = createMatchInformations(folder, fileName) 
+        sections = createSections(matchInformation, ticketID)
         match = '{{{},{}}}'.format(matchInformation, sections)
 
         number = str((count+1)).zfill(4)
-        path = '%s.json' % (number)
+        path = fileName[0]
+        path = os.path.join(folder[0], path)
         path = os.path.join('matches', path);
         
         directory = os.path.dirname(path)
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-        f = open(path,'w+')
+        f = open(path,'w')
         f.write(match)
+        f.close()
