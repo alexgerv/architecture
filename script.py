@@ -53,9 +53,9 @@ def createSections(matchInformation, ticketID):
         sections += os.linesep + '{"tickets":['
         ticketNumber = randint(20, 100)
         while ticketNumber > 0:
-            sections += createTicket(ticketID, "AVAILABLE", admission, price, matchInformation)
+            sections += createTicket(ticketID[0], "AVAILABLE", admission, price, matchInformation)
             sections += ','
-            ticketID += 1
+            ticketID[0] = ticketID[0] + 1
             ticketNumber -= 1
         sections = sections.rstrip(',')
         
@@ -70,7 +70,7 @@ def createTicket(index, availability, admission, price, matchInformation):
     
     
 if __name__ == "__main__":
-    ticketID = 1
+    ticketID = [1]
     path = ""
     for count in range(NUMBER_OF_MATCHES):
         folder = ['']
@@ -78,8 +78,6 @@ if __name__ == "__main__":
         matchInformation = createMatchInformations(folder, fileName) 
         sections = createSections(matchInformation, ticketID)
         match = '{{{},{}}}'.format(matchInformation, sections)
-
-        number = str((count+1)).zfill(4)
         path = fileName[0]
         path = os.path.join(folder[0], path)
         path = os.path.join('matches', path);
