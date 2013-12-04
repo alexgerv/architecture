@@ -2,42 +2,51 @@ package ca.ulaval.glo4003.domain.payment;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import ca.ulaval.glo4003.domain.match.Match;
+import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.Ticket;
+import ca.ulaval.glo4003.service.mailsender.MailSender;
 
 public class TransactionManager {
 
-    public long processTransaction(long creditCardNumber, String creditCardType, Match match, int quantity,
-                                   String sectionName, TransactionService transactionService) throws InvalidCreditCardException {
-        CreditCard creditCard = createCreditCard(creditCardNumber, creditCardType);
-        match.buyTickets(sectionName, quantity);
-        float purchaseTotal = quantity * match.getSectionByName(sectionName).getPrice();
-        long transactionID = transactionService.processPayment(creditCard, purchaseTotal);
-        return transactionID;
+    @Inject
+    MailSender mailSender;
+    @Inject
+    MatchRepository matchRepository;
+
+    CreditCardFactory cerditCardFactory;
+
+    public TransactionManager(CreditCardFactory cerditCardFactory) {
+        this.cerditCardFactory = cerditCardFactory;
     }
 
     public long processTransaction(long creditCardNumber, String creditCardType, List<Ticket> ticketsToBuy,
                                    TransactionService transactionService) throws InvalidCreditCardException {
-        CreditCard creditCard = createCreditCard(creditCardNumber, creditCardType);
         float purchaseTotal = 0;
         for (Ticket ticket : ticketsToBuy) {
             purchaseTotal += ticket.getPrice();
-            ticket.buy();
+            processTicket(ticket);
         }
+
+        CreditCard creditCard = cerditCardFactory.create(creditCardType, creditCardNumber);
         long transactionID = transactionService.processPayment(creditCard, purchaseTotal);
         return transactionID;
     }
 
-    private CreditCard createCreditCard(long creditCardNumber, String creditCardType) throws InvalidCreditCardException {
-        switch (creditCardType) {
-        case "VASI":
-            return new VasiCreditCard(creditCardNumber);
-        case "MISTERCARD":
-            return new MistercardCreditCard(creditCardNumber);
-        case "AMERICANEXPRESSO":
-            return new AmericanExpressoCreditCard(creditCardNumber);
-        }
-
-        throw new InvalidCreditCardException("The provided credit card type is invalid (Invalid provider)");
+    private void processTicket(Ticket ticket) {
+        ticket.buy();
+        Match match = matchRepository.getMatchByIdentifier(ticket.getMatchIdentifier());
+        matchRepository.save(match);
+        mailSender.sendPurchaseConfirmation();
     }
+
+    // For test purpose only
+    protected TransactionManager(MailSender mailSender, MatchRepository matchRepository) {
+        this.mailSender = mailSender;
+        this.matchRepository = matchRepository;
+    }
+
+    public TransactionManager() {}
 }

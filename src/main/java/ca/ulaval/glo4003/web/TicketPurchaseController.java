@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
+import ca.ulaval.glo4003.domain.match.Ticket;
 import ca.ulaval.glo4003.domain.payment.InvalidCreditCardException;
 import ca.ulaval.glo4003.domain.payment.TransactionManager;
 import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
 import ca.ulaval.glo4003.domain.user.UserRepository;
-import ca.ulaval.glo4003.service.mailsender.MailSender;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
 import ca.ulaval.glo4003.web.converters.TicketViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.CreditCardViewModel;
@@ -63,7 +63,7 @@ public class TicketPurchaseController {
         SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
                                                                              .getSectionByName(sectionName));
 
-        if (false) {
+        if (true) {
             Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
             shoppingCart.addTickets(match, quantity, sectionName);
 
@@ -101,13 +101,11 @@ public class TicketPurchaseController {
         // SecurityContextHolder.getContext().getAuthentication().getName();
 
         try {
-            new TransactionManager();
             Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
+            List<Ticket> ticketsToBuy = match.reserveTickets(quantity, sectionName);
             long transactionID = transactionManager.processTransaction(creditCard.getNumber(),
                                                                        creditCard.getType(),
-                                                                       match,
-                                                                       quantity,
-                                                                       sectionName,
+                                                                       ticketsToBuy,
                                                                        transactionService);
 
         } catch (NoAvailableTicketsException e) {
@@ -125,7 +123,7 @@ public class TicketPurchaseController {
 
     // For tests purpose only
     protected TicketPurchaseController(MatchRepository matchRepository, SectionViewConverter sectionConverter,
-                                       TransactionManager transactionManager, MailSender mailSender) {
+                                       TransactionManager transactionManager) {
         this.matchRepository = matchRepository;
         this.sectionConverter = sectionConverter;
         this.transactionManager = transactionManager;

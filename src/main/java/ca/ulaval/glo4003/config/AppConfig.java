@@ -10,6 +10,7 @@ import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalogFactory;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryFactory;
+import ca.ulaval.glo4003.domain.payment.CreditCardFactory;
 import ca.ulaval.glo4003.domain.payment.TransactionManager;
 import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchCatalogFactory;
@@ -45,7 +46,8 @@ public class AppConfig {
 
     @Bean
     public TransactionManager transactionManager() throws Exception {
-        return new TransactionManager();
+        CreditCardFactory creditCardFactory = new CreditCardFactory();
+        return new TransactionManager(creditCardFactory);
     }
 
     @Bean

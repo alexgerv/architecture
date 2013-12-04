@@ -30,7 +30,7 @@ public abstract class MatchCatalog {
 
     public void add(Match match) {
         index.add(match);
-        matchRepository.add(match);
+        matchRepository.save(match);
     }
 
 }

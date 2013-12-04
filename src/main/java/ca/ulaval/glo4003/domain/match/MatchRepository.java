@@ -31,7 +31,7 @@ public abstract class MatchRepository {
         return loadedEntries;
     }
 
-    public abstract void add(Match match);
+    public abstract void save(Match match);
 
     protected abstract void loadMatch(String identifier);
 

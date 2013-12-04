@@ -88,7 +88,7 @@ public class JSONMatchRepositoryTest {
     public void whenAddingNewMatchItIsSaved() throws IOException {
         doReturn(VALID_MATCH_IDENTIFIER_TO_ADD).when(aMatch).getIdentifier();
 
-        aMatchRepository.add(aMatch);
+        aMatchRepository.save(aMatch);
 
         verify(matchConverter).save(any(Match.class), contains(VALID_MATCH_IDENTIFIER_TO_ADD));
     }
@@ -100,7 +100,7 @@ public class JSONMatchRepositoryTest {
                                                             .save(any(Match.class),
                                                                   contains(INVALID_MATCH_IDENTIFIER_TO_ADD));
 
-        aMatchRepository.add(aMatch);
+        aMatchRepository.save(aMatch);
 
         assertEquals(AN_ERROR_MESSAGE, errContent.toString().trim());
     }

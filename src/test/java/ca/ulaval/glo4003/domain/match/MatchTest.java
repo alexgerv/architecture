@@ -114,13 +114,6 @@ public class MatchTest {
     }
 
     @Test
-    public void whenBuyingAnAvailableQUantityOfTicketsInASectionTheTicketsAreBought() {
-        doReturn(true).when(sectionA).hasSameName(A_VALID_SECTION_NAME);
-        aMatch.buyTickets(A_VALID_SECTION_NAME, A_VALID_TICKET_QUANTITY);
-        verify(sectionA).buyTickets(A_VALID_TICKET_QUANTITY);
-    }
-
-    @Test
     public void toStringGeneratesAStringInTheRightFormat() {
         String matchString = aMatch.toString();
         String expectedString = String.format("%s's %s, %s VS %s at %s on %s",

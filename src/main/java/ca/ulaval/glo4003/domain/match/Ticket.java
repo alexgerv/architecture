@@ -69,6 +69,10 @@ public class Ticket {
         return admissionType;
     }
 
+    public String getMatchIdentifier() {
+        return matchInformation.getVenue() + "/" + matchInformation.getFormatedDate();
+    }
+
     public boolean hasID(int ticketID) {
         return ID == ticketID;
     }

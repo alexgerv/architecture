@@ -70,11 +70,6 @@ public class Match implements Indexable<MatchAttribute> {
         throw new SectionNotFoundException("Section: " + sectionName + " was not found.");
     }
 
-    public void buyTickets(String sectionName, int quantity) {
-        Section section = getSectionByName(sectionName);
-        section.buyTickets(quantity);
-    }
-
     @Override
     public String toString() {
         return String.format("%s's %s, %s VS %s at %s on %s",
