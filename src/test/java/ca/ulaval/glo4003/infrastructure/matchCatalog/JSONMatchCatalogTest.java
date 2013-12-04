@@ -69,7 +69,7 @@ public class JSONMatchCatalogTest {
     public void whenAMatchIsAddedItIsAddedToTheRepository() {
         aMatchCatalog.add(aMatch);
 
-        verify(aMatchRepository, times(1)).save(aMatch);
+        verify(aMatchRepository, times(1)).add(aMatch);
     }
 
 }

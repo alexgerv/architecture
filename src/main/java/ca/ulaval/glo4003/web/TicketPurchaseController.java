@@ -24,6 +24,7 @@ import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
 import ca.ulaval.glo4003.domain.user.UserRepository;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
+import ca.ulaval.glo4003.web.converters.TicketViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.CreditCardViewModel;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 

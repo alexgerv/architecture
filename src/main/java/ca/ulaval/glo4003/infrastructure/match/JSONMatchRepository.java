@@ -31,7 +31,7 @@ public class JSONMatchRepository extends MatchRepository {
         }
     }
 
-    public void save(Match match) {
+    public void add(Match match) {
         String matchIdentifier = match.getIdentifier();
         try {
             matchMarshaller.save(match, ROOT_REPOSITORY + matchIdentifier);

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.Ticket;
 import ca.ulaval.glo4003.service.mailsender.MailSender;
@@ -32,14 +31,13 @@ public class TransactionManager {
 
         CreditCard creditCard = cerditCardFactory.create(creditCardType, creditCardNumber);
         long transactionID = transactionService.processPayment(creditCard, purchaseTotal);
+        mailSender.sendPurchaseConfirmation();
         return transactionID;
     }
 
     private void processTicket(Ticket ticket) {
         ticket.buy();
-        Match match = matchRepository.getMatchByIdentifier(ticket.getMatchIdentifier());
-        matchRepository.save(match);
-        mailSender.sendPurchaseConfirmation();
+        matchRepository.update(ticket.getMatchIdentifier());
     }
 
     // For test purpose only
