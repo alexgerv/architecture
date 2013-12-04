@@ -3,6 +3,7 @@ package ca.ulaval.glo4003.domain.shoppingCart;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import ca.ulaval.glo4003.domain.match.Ticket;
 
 @Component
 @Scope("session")
-public class ShoppingCart {
+public class ShoppingCart implements DisposableBean {
 
     private List<Ticket> tickets = new ArrayList<Ticket>();
 
@@ -36,4 +37,16 @@ public class ShoppingCart {
         ticket.free();
         tickets.remove(ticket);
     }
+
+    @Override
+    public void destroy() throws Exception {
+        empty();
+    }
+
+    public void empty() {
+        for (Ticket ticket : tickets) {
+            ticket.free();
+        }
+    }
+
 }

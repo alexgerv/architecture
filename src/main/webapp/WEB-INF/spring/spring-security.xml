@@ -14,7 +14,7 @@
   <security:intercept-url pattern="/signup" access="isAnonymous()"/>
   <security:intercept-url pattern="/purchaseReview/**" access="isAuthenticated()"/>
   <security:intercept-url pattern="/purchaseConfirm/**" access="isAuthenticated()"/>
-   
+  <security:intercept-url pattern="/cart/**" access="isAuthenticated()"/>
    
   <security:form-login
     login-page="/login"
