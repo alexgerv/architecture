@@ -1,52 +1,39 @@
 package ca.ulaval.glo4003.domain.shoppingCart;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import ca.ulaval.glo4003.domain.match.Match;
+import ca.ulaval.glo4003.domain.match.Section;
 import ca.ulaval.glo4003.domain.match.Ticket;
 
 @Component
 @Scope("session")
-public class ShoppingCart implements DisposableBean {
+public class ShoppingCart {
 
-    private List<Ticket> tickets = new ArrayList<Ticket>();
+    private Map<Section, Integer> cartContent = new HashMap<Section, Integer>();
 
     public void addTickets(Match match, int quantity, String sectionName) {
-        tickets.addAll((match.reserveTickets(quantity, sectionName)));
+        Section section = match.getSectionByName(sectionName);
+        if (cartContent.containsKey(section)) {
+            int newTicketQuantity = cartContent.get(section) + quantity;
+            cartContent.put(section, newTicketQuantity);
+        } else {
+            cartContent.put(section, quantity);
+        }
     }
 
-    public List<Ticket> getTickets() {
-        return tickets;
+    public Map<Section, Integer> getCartContent() {
+        return cartContent;
     }
 
     public void remove(int ticketID) {
-        for (Ticket ticket : tickets) {
-            if (ticket.hasID(ticketID)) {
-                removeTicketFromCart(ticket);
-                break;
-            }
-        }
     }
 
     private void removeTicketFromCart(Ticket ticket) {
-        ticket.free();
-        tickets.remove(ticket);
-    }
-
-    @Override
-    public void destroy() throws Exception {
-        empty();
-    }
-
-    public void empty() {
-        for (Ticket ticket : tickets) {
-            ticket.free();
-        }
     }
 
 }

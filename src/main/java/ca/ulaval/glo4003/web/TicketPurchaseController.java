@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.web;
 
 import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +38,7 @@ public class TicketPurchaseController {
     @Inject
     UserRepository userRepository;
 
-    @Autowired
+    @Inject
     ShoppingCart shoppingCart;
 
     private SectionViewConverter sectionConverter = new SectionViewConverter();
@@ -84,14 +83,13 @@ public class TicketPurchaseController {
         model.addAttribute("quantity", quantity);
 
         try {
-            new TransactionManager();
             Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
-            long transactionID = transactionManager.processTransaction(creditCard.getNumber(),
-                                                                       creditCard.getType(),
-                                                                       match,
-                                                                       quantity,
-                                                                       sectionName,
-                                                                       transactionService);
+            transactionManager.processTransaction(creditCard.getNumber(),
+                                                  creditCard.getType(),
+                                                  match,
+                                                  quantity,
+                                                  sectionName,
+                                                  transactionService);
 
         } catch (NoAvailableTicketsException e) {
             String message = "There are not enough available tickets";

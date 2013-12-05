@@ -70,9 +70,9 @@ public class Match implements Indexable<MatchAttribute> {
         throw new SectionNotFoundException("Section: " + sectionName + " was not found.");
     }
 
-    public void buyTickets(String sectionName, int quantity) {
+    public List<Ticket> getAvailableTickets(String sectionName, int quantity) {
         Section section = getSectionByName(sectionName);
-        section.buyTickets(quantity);
+        return section.getAvailableTickets(quantity);
     }
 
     @Override
@@ -84,10 +84,5 @@ public class Match implements Indexable<MatchAttribute> {
                              matchInformation.getVisitorTeam(),
                              matchInformation.getVenue(),
                              matchInformation.getFormatedDate());
-    }
-
-    public List<Ticket> reserveTickets(int quantity, String sectionName) {
-        Section section = getSectionByName(sectionName);
-        return section.reserveTickets(quantity);
     }
 }

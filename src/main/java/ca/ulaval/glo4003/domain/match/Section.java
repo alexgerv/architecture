@@ -69,11 +69,13 @@ public class Section {
         return admissionType;
     }
 
-    public void buyTickets(int quantity) {
+    public List<Ticket> getAvailableTickets(int quantity) {
         assertTicketQuantityIsPositive(quantity);
+        List<Ticket> availableTickets = new ArrayList<Ticket>();
         for (int i = 0; i < quantity; i++) {
-            buyTicket();
+            availableTickets.add(getAvailableTicket());
         }
+        return availableTickets;
     }
 
     private void assertTicketQuantityIsPositive(int quantity) {
@@ -82,33 +84,13 @@ public class Section {
         }
     }
 
-    private void buyTicket() {
+    private Ticket getAvailableTicket() {
         for (Ticket ticket : tickets) {
             if (ticket.isAvailable()) {
-                ticket.buy();
-                return;
-            }
-        }
-        throw new NoAvailableTicketsException("There are no tickets available.");
-    }
-
-    public List<Ticket> reserveTickets(int quantity) {
-        List<Ticket> tickets = new ArrayList<Ticket>();
-        assertTicketQuantityIsPositive(quantity);
-
-        for (int i = 0; i < quantity; i++) {
-            tickets.add(reserveTicket());
-        }
-        return tickets;
-    }
-
-    private Ticket reserveTicket() {
-        for (Ticket ticket : tickets) {
-            if (ticket.isAvailable()) {
-                ticket.reserve();
                 return ticket;
             }
         }
         throw new NoAvailableTicketsException("There are no tickets available.");
     }
+
 }

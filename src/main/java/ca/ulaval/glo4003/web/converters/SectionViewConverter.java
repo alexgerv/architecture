@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.web.converters;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Singleton;
 
@@ -18,6 +19,17 @@ public class SectionViewConverter {
         List<SectionViewModel> viewModels = new LinkedList<SectionViewModel>();
         for (Section entry : entries) {
             SectionViewModel viewModel = convert(entry);
+            viewModels.add(viewModel);
+        }
+        return viewModels;
+
+    }
+
+    public List<SectionViewModel> convert(Map<Section, Integer> entries) {
+        List<SectionViewModel> viewModels = new LinkedList<SectionViewModel>();
+        for (Section entry : entries.keySet()) {
+            SectionViewModel viewModel = convert(entry);
+            viewModel.setAvailableTickets(entries.get(entry));
             viewModels.add(viewModel);
         }
         return viewModels;
@@ -41,4 +53,5 @@ public class SectionViewConverter {
 
         return viewModel;
     }
+
 }

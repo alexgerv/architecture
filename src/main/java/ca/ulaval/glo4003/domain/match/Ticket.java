@@ -73,12 +73,4 @@ public class Ticket {
         return ID == ticketID;
     }
 
-    public void reserve() {
-        availability = TicketAvailability.RESERVE;
-    }
-
-    public void free() {
-        availability = TicketAvailability.AVAILABLE;
-
-    }
 }

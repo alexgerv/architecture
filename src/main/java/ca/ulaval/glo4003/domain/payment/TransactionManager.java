@@ -10,7 +10,7 @@ public class TransactionManager {
     public long processTransaction(long creditCardNumber, String creditCardType, Match match, int quantity,
                                    String sectionName, TransactionService transactionService) throws InvalidCreditCardException {
         CreditCard creditCard = createCreditCard(creditCardNumber, creditCardType);
-        match.buyTickets(sectionName, quantity);
+        match.getAvailableTickets(sectionName, quantity);
         float purchaseTotal = quantity * match.getSectionByName(sectionName).getPrice();
         long transactionID = transactionService.processPayment(creditCard, purchaseTotal);
         return transactionID;
