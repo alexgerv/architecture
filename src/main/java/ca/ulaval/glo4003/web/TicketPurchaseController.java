@@ -90,9 +90,6 @@ public class TicketPurchaseController {
         try {
             Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
             List<Ticket> ticketsToBuy = match.getAvailableTickets(sectionName, quantity);
-            for (Ticket ticket : ticketsToBuy) {
-                System.out.println(ticket.isAvailable());
-            }
             transactionManager.processTransaction(creditCard.getNumber(),
                                                   creditCard.getType(),
                                                   ticketsToBuy,

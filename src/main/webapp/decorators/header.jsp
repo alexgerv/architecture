@@ -1,4 +1,16 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<style>
+.navbar-nav>li>a {
+	padding-bottom: 30px;
+	padding-top: 30px;
+}
+
+.navbar-form {
+	margin-top: 20px;
+}
+</style>
+
 <div class="navbar navbar-default navbar-static-top">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -6,7 +18,7 @@
 			<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 				class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="/">Tickets</a>
+		<a class="navbar-brand" href="/"><img src="<c:url value="/resources/logo.png" />"></img></a>
 	</div>
 	<div class="navbar-collapse collapse">
 		<ul class="nav navbar-nav">
@@ -22,10 +34,8 @@
 				<a id="signUp" class="btn btn-default" href="/signup">Sign Up</a>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="/cart">Shopping Cart</a></li>
-                </ul>
 				<label>Hello <sec:authentication property="principal.username"/></label>
+				<a class="btn btn-primary" href="/cart">View Shopping Cart</a></a>
 				<a id="logout" class="btn btn-danger" href="/logout">Logout</a>
 			</sec:authorize>
 		</div>

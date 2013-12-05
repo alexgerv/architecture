@@ -48,8 +48,10 @@
 					<form:form commandName="creditCardForm">
 						<br>
 						<div class="ckeckbox">
-							<label> <form:radiobutton path="type" value="MISTERCARD" />
-								Mistercard
+
+							<label> <form:radiobutton path="type"
+								value="MISTERCARD" checked="checked" /> Mistercard
+
 							</label>
 							<div class="ckeckbox">
 								<label><form:radiobutton path="type" value="VASI" />

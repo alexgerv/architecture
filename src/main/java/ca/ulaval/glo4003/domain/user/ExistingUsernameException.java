@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.domain.user;
 
-@SuppressWarnings("serial")
-// The serial is not used
+@SuppressWarnings("serial") //will never be used for serialisation
 public class ExistingUsernameException extends RuntimeException {
 
     public ExistingUsernameException(String message) {
