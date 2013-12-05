@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.domain.match;
 
-@SuppressWarnings("serial")
-// Will never be used
+@SuppressWarnings("serial") //will never be used for serialisation
 public class UnavailableTicketException extends RuntimeException {
 
     public UnavailableTicketException(String message) {

@@ -51,7 +51,7 @@
 						<br>
 						<div class="ckeckbox">
 							<label> <form:radiobutton path="type"
-								value="MISTERCARD" /> Mistercard
+								value="MISTERCARD" checked="checked" /> Mistercard
 							</label>
 							<div class="ckeckbox">
 								<label><form:radiobutton path="type"
