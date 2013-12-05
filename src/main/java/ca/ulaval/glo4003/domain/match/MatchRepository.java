@@ -35,4 +35,9 @@ public abstract class MatchRepository {
 
     protected abstract void loadMatch(String identifier);
 
+    public void update(String identifier) {
+        Match matchToUpdate = getMatchByIdentifier(identifier);
+        add(matchToUpdate);
+    }
+
 }

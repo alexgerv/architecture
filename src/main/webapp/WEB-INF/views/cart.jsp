@@ -16,34 +16,38 @@
 					class="table table-bordered table-condensed table-striped">
 					<thead>
 						<tr>
-							<th></th>
+							<th/>
 							<th>Venue</th>
 							<th>Date</th>
 							<th>Sport</th>
 							<th>Host</th>
 							<th>Visitor</th>
 							<th>Sex</th>
-							<th>ID</th>
+							<th>Section</th>
+							<th>Admission Type</th>
+							<th>Quantity</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="ticket" items="${tickets}">
+						<c:forEach var="section" items="${cartContent}">
 							<tr>
 								<td style="text-align: center;">
-								    <a href="match/${match.venue}" class="btn btn-default btn-xs">
+								    <a href="/match/${section.venue}/${section.date}/${section.name}" class="btn btn-default btn-xs">
 								        <i class="icon icon-search"></i>
 								    </a>
 								</td>
-								<td>${ticket.venue}</td>
-								<td>${ticket.date}</td>
-								<td>${ticket.sport}</td>
-								<td>${ticket.homeTeam}</td>
-								<td>${ticket.visitorTeam}</td>
-								<td>${ticket.sex}</td>
-								<td><strong>${ticket.ID}</strong></td>
+								<td>${section.venue}</td>
+								<td>${section.date}</td>
+								<td>${section.sport}</td>
+								<td>${section.homeTeam}</td>
+								<td>${section.visitorTeam}</td>
+								<td>${section.sex}</td>
+								<td>${section.name}</td>
+								<td>${section.admissionType}</td>
+								<td><strong>${section.availableTickets}</strong></td>
                                 <td>
                                     <form
-                                        action="/cart/${section.venue}/remove/${ticket.ID}"
+                                        action="/cart/${section.venue}/remove/"
                                         method="post">
                                         <button type="submit" class="btn btn-default"> Remove from cart</button>
 

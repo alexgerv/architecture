@@ -1,8 +1,9 @@
 package ca.ulaval.glo4003.web;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
+import ca.ulaval.glo4003.domain.match.Ticket;
 import ca.ulaval.glo4003.domain.payment.InvalidCreditCardException;
 import ca.ulaval.glo4003.domain.payment.TransactionManager;
 import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
 import ca.ulaval.glo4003.domain.user.UserRepository;
-import ca.ulaval.glo4003.service.mailsender.MailSender;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
-import ca.ulaval.glo4003.web.converters.TicketViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.CreditCardViewModel;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 
@@ -39,12 +39,10 @@ public class TicketPurchaseController {
     @Inject
     UserRepository userRepository;
 
-    @Autowired
+    @Inject
     ShoppingCart shoppingCart;
 
     private SectionViewConverter sectionConverter = new SectionViewConverter();
-
-    private TicketViewConverter ticketConverter = new TicketViewConverter();
 
     public TicketPurchaseController() {
 
@@ -84,14 +82,15 @@ public class TicketPurchaseController {
         model.addAttribute("quantity", quantity);
 
         try {
-            new TransactionManager();
             Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
-            long transactionID = transactionManager.processTransaction(creditCard.getNumber(),
-                                                                       creditCard.getType(),
-                                                                       match,
-                                                                       quantity,
-                                                                       sectionName,
-                                                                       transactionService);
+            List<Ticket> ticketsToBuy = match.getAvailableTickets(sectionName, quantity);
+            for (Ticket ticket : ticketsToBuy) {
+                System.out.println(ticket.isAvailable());
+            }
+            transactionManager.processTransaction(creditCard.getNumber(),
+                                                  creditCard.getType(),
+                                                  ticketsToBuy,
+                                                  transactionService);
 
         } catch (NoAvailableTicketsException e) {
             String message = "There are not enough available tickets";
@@ -108,7 +107,7 @@ public class TicketPurchaseController {
 
     // For tests purpose only
     protected TicketPurchaseController(MatchRepository matchRepository, SectionViewConverter sectionConverter,
-                                       TransactionManager transactionManager, MailSender mailSender) {
+                                       TransactionManager transactionManager) {
         this.matchRepository = matchRepository;
         this.sectionConverter = sectionConverter;
         this.transactionManager = transactionManager;
