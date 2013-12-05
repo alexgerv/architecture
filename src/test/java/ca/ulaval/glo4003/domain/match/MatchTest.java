@@ -114,6 +114,13 @@ public class MatchTest {
     }
 
     @Test
+    public void whenBuyingAnAvailableQUantityOfTicketsInASectionTheTicketsAreBought() {
+        doReturn(true).when(sectionA).hasSameName(A_VALID_SECTION_NAME);
+        aMatch.getAvailableTickets(A_VALID_SECTION_NAME, A_VALID_TICKET_QUANTITY);
+        verify(sectionA).getAvailableTickets(A_VALID_TICKET_QUANTITY);
+    }
+
+    @Test
     public void toStringGeneratesAStringInTheRightFormat() {
         String matchString = aMatch.toString();
         String expectedString = String.format("%s's %s, %s VS %s at %s on %s",
@@ -124,13 +131,6 @@ public class MatchTest {
                                               A_VENUE,
                                               A_FORMATED_DATE);
         assertEquals(matchString, expectedString);
-    }
-
-    @Test
-    public void reserveTicketsReserveticketsFromSection() {
-        doReturn(true).when(sectionA).hasSameName(A_VALID_SECTION_NAME);
-        aMatch.reserveTickets(A_VALID_TICKET_QUANTITY, A_VALID_SECTION_NAME);
-        verify(sectionA).reserveTickets(A_VALID_TICKET_QUANTITY);
     }
 
     private void initializeSectionList() {

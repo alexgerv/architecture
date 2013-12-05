@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.ulaval.glo4003.domain.index.Filter;
+import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchAttribute;
 import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalogFactory;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchIndex;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryResolver;
-import ca.ulaval.glo4003.infrastructure.match.JSONMatchMarshaller;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter.MatchDateFilter;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter.MatchHomeTeamFilter;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.matchFilter.MatchSportFilter;
@@ -28,13 +28,12 @@ public class JSONMatchCatalogFactory implements MatchCatalogFactory {
     public MatchCatalog createMatchCatalog() {
         MatchIndex index = createMatchIndex();
         MatchQueryResolver queryResolver = new MatchQueryResolver(index);
-        JSONMatchMarshaller converter = new JSONMatchMarshaller();
 
-        return new JSONMatchCatalog(queryResolver, index, matchRepository, converter);
+        return new JSONMatchCatalog(queryResolver, index, matchRepository);
     }
 
     private MatchIndex createMatchIndex() {
-        List<Filter<MatchAttribute>> filterListByCategories = new ArrayList<Filter<MatchAttribute>>();
+        List<Filter<MatchAttribute, Match>> filterListByCategories = new ArrayList<Filter<MatchAttribute, Match>>();
         filterListByCategories.add(new MatchDateFilter());
         filterListByCategories.add(new MatchSportFilter());
         filterListByCategories.add(new MatchVenueFilter());

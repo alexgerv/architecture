@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +23,6 @@ import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
 import ca.ulaval.glo4003.domain.user.UserRepository;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
-import ca.ulaval.glo4003.web.converters.TicketViewConverter;
 import ca.ulaval.glo4003.web.viewmodels.CreditCardViewModel;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 
@@ -41,7 +39,7 @@ public class TicketPurchaseController {
     @Inject
     UserRepository userRepository;
 
-    @Autowired
+    @Inject
     ShoppingCart shoppingCart;
 
     private SectionViewConverter sectionConverter = new SectionViewConverter();
@@ -85,11 +83,14 @@ public class TicketPurchaseController {
 
         try {
             Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
-            List<Ticket> ticketsToBuy = match.reserveTickets(quantity, sectionName);
-            long transactionID = transactionManager.processTransaction(creditCard.getNumber(),
-                                                                       creditCard.getType(),
-                                                                       ticketsToBuy,
-                                                                       transactionService);
+            List<Ticket> ticketsToBuy = match.getAvailableTickets(sectionName, quantity);
+            for (Ticket ticket : ticketsToBuy) {
+                System.out.println(ticket.isAvailable());
+            }
+            transactionManager.processTransaction(creditCard.getNumber(),
+                                                  creditCard.getType(),
+                                                  ticketsToBuy,
+                                                  transactionService);
 
         } catch (NoAvailableTicketsException e) {
             String message = "There are not enough available tickets";

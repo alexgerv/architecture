@@ -46,5 +46,4 @@ public class TransactionManager {
         this.matchRepository = matchRepository;
     }
 
-    public TransactionManager() {}
 }

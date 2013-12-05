@@ -17,19 +17,28 @@ public class ListIndexTest {
         CATEGORY1, CATEGORY2, CATEGORY3
     }
 
+    private class ConcreteIndexable implements Indexable<FilterCategories> {
+
+        @Override
+        public String getIdentifier() {
+            return null;
+        }
+
+    }
+
     private static final String A_FILTER_FOR_CATEGORY1 = "filter";
 
-    Index<FilterCategories> anIndex;
-    private List<Filter<FilterCategories>> filterListByCategories = new ArrayList<Filter<FilterCategories>>();
+    Index<FilterCategories, ConcreteIndexable> anIndex;
+    private List<Filter<FilterCategories, ConcreteIndexable>> filterListByCategories = new ArrayList<Filter<FilterCategories, ConcreteIndexable>>();
 
     @Mock
-    Filter<FilterCategories> filterOfCategory1;
+    Filter<FilterCategories, ConcreteIndexable> filterOfCategory1;
     @Mock
-    Filter<FilterCategories> filterOfCategory2;
+    Filter<FilterCategories, ConcreteIndexable> filterOfCategory2;
     @Mock
-    Filter<FilterCategories> filterOfCategory3;
+    Filter<FilterCategories, ConcreteIndexable> filterOfCategory3;
     @Mock
-    Indexable<FilterCategories> anIndexable;
+    ConcreteIndexable anIndexable;
 
     @Before
     public void setup() {
@@ -38,7 +47,7 @@ public class ListIndexTest {
         filterListByCategories.add(filterOfCategory2);
         filterListByCategories.add(filterOfCategory3);
 
-        anIndex = new IndexWithList<FilterCategories>(filterListByCategories);
+        anIndex = new IndexWithList<FilterCategories, ConcreteIndexable>(filterListByCategories);
     }
 
     @Test
@@ -49,7 +58,7 @@ public class ListIndexTest {
     }
 
     private void verifyFiltersHaveAddedTheIndexable() {
-        for (Filter<FilterCategories> filter : filterListByCategories) {
+        for (Filter<FilterCategories, ConcreteIndexable> filter : filterListByCategories) {
             verify(filter).add(anIndexable);
         }
     }

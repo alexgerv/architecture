@@ -11,12 +11,12 @@ public aspect TransactionLoggerAspect {
         execution(* *..TransactionManager.processTransaction*(..));
     
     after() returning(long transactionID) : ticketPurchase() {
-        Match match = (Match)thisJoinPoint.getArgs()[2];
-        String section = (String)thisJoinPoint.getArgs()[4];
-        int quantity = (int)thisJoinPoint.getArgs()[3];
-        
-        Logger logger = LogManager.getLogger("transactionLogger");
-        logger.info("Transaction: " + transactionID + " - Sold " + quantity + " tickets in section " + section + " for match: " + match.toString());
+//        Match match = (Match)thisJoinPoint.getArgs()[2];
+//        String section = (String)thisJoinPoint.getArgs()[4];
+//        int quantity = (int)thisJoinPoint.getArgs()[3];
+//        
+//        Logger logger = LogManager.getLogger("transactionLogger");
+//        logger.info("Transaction: " + transactionID + " - Sold " + quantity + " tickets in section " + section + " for match: " + match.toString());
     }
     
 }

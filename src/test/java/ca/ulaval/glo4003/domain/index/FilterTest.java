@@ -10,14 +10,23 @@ import org.mockito.MockitoAnnotations;
 
 public class FilterTest {
 
-    private class ConcreteFilter extends Filter<FilterCategories> {
+    private class ConcreteFilter extends Filter<FilterCategories, ConcreteIndexable> {
 
         public ConcreteFilter(FilterCategories category) {
             super(category);
         }
 
         @Override
-        protected String getAttributeValue(Indexable<FilterCategories> anIndexable) {
+        protected String getAttributeValue(ConcreteIndexable anIndexable) {
+            return null;
+        }
+
+    }
+
+    private class ConcreteIndexable implements Indexable<FilterCategories> {
+
+        @Override
+        public String getIdentifier() {
             return null;
         }
 
@@ -27,7 +36,7 @@ public class FilterTest {
         CATEGORY1, CATEGORY2, CATEGORY3
     }
 
-    private Filter<FilterCategories> aFilterOfCategory1;
+    private Filter<FilterCategories, ConcreteIndexable> aFilterOfCategory1;
 
     @Mock
     Indexable<FilterCategories> anIndexable;
