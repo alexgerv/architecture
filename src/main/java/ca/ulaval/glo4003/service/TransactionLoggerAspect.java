@@ -17,6 +17,7 @@ public class TransactionLoggerAspect {
     @Pointcut("execution(* *..TransactionManager.processTransaction*(..))")
     private void ticketPurchase() {}
 
+    @SuppressWarnings("unchecked")
     @AfterReturning(pointcut = "execution(* *..TransactionManager.processTransaction*(..))",
                     returning = "transactionID")
     public void logTransaction(JoinPoint joinpoint, long transactionID) {
