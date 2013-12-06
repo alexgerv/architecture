@@ -60,4 +60,9 @@ public class ShoppingCart {
         return cartContent;
     }
 
+    public void removeTicketsFromCart(Match match, String sectionName) {
+        changeTicketsQuantity(match, sectionName, 0);
+        cartContent.remove(match.getSectionByName(sectionName));
+    }
+
 }

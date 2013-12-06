@@ -1,8 +1,10 @@
 package ca.ulaval.glo4003.web;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchRepository;
+import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
 import ca.ulaval.glo4003.domain.payment.TransactionManager;
 import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
@@ -61,14 +64,33 @@ public class CartController {
         return "cart";
     }
 
-    @RequestMapping(value = "/cart/changeQuantity/{venue}/{date}/{setionName}", method = RequestMethod.POST)
-    public String removeATicketFromCart(@PathVariable String venue, @PathVariable String date,
+    @RequestMapping(value = "/cart/changeQuantity/{venue}/{date}/{sectionName}", method = RequestMethod.POST)
+    public String changeQuantity(@PathVariable String venue, @PathVariable String date, 
+                                        @PathVariable String sectionName, 
                                         @RequestParam(value = "quantity", required = true) int quantity,
-                                        @PathVariable String sectionName, Model model) {
+                                        Model model, HttpServletResponse response) throws IOException {
         Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
-        shoppingCart.changeTicketsQuantity(match, sectionName, quantity);
+        try {
+            shoppingCart.changeTicketsQuantity(match, sectionName, quantity);
+        } catch (NoAvailableTicketsException e) {
+           response.sendError(500);
+        }
         return cart(model);
     }
+    
+    @RequestMapping(value = "/cart/remove/{venue}/{date}/{sectionName}", method = RequestMethod.POST)
+    public String removeATicketFromCart(@PathVariable String venue, @PathVariable String date, 
+                                        @PathVariable String sectionName, 
+                                        Model model, HttpServletResponse response) throws IOException {
+        Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
+        
+        shoppingCart.removeTicketsFromCart(match, sectionName);
+       
+        List<SectionViewModel> cartContent = sectionViewConverter.convert(shoppingCart.getCartContent());
+        model.addAttribute("cartContent", cartContent);
+        return cart(model);
+    }
+
 
     protected CartController(TransactionService transactionService, TransactionManager transactionManager,
                              ShoppingCart shoppingCart, SectionViewConverter sectionConverter) {
