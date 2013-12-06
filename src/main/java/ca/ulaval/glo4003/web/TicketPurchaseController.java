@@ -66,10 +66,11 @@ public class TicketPurchaseController {
         model.addAttribute("sections", sections);
         model.addAttribute("quantity", quantity);
 
+        model.addAttribute("purchaseURL", String.format("/purchaseReceipt/%s/%s/%s", venue, date, sectionName));
         return "ticketPurchaseReview";
     }
 
-    @RequestMapping(value = "/purchaseReview/{venue}/{date}/{sectionName}", method = RequestMethod.POST)
+    @RequestMapping(value = "/purchaseReceipt/{venue}/{date}/{sectionName}", method = RequestMethod.POST)
     public String purchaseSelectedTicketsForSection(@PathVariable String venue,
                                                     @PathVariable String date,
                                                     @PathVariable String sectionName,

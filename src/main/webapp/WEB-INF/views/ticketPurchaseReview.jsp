@@ -45,7 +45,7 @@
 					<h3 class="panel-title">Please enter your payment information</h3>
 				</div>
 				<div class="panel-body">
-					<form:form commandName="creditCardForm">
+					<form:form action="${purchaseURL}" commandName="creditCardForm">
 						<br>
 						<div class="ckeckbox">
 

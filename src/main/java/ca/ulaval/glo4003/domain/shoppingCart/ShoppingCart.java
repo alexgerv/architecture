@@ -21,11 +21,11 @@ public class ShoppingCart {
     public void addTicketsQuantity(Match match, String sectionName, int quantity) {
         Section section = match.getSectionByName(sectionName);
         if (cartContent.containsKey(section)) {
-            addTickets(match, sectionName, cartContent.get(section), quantity);
+            addTickets(section, quantity);
         } else {
             List<Ticket> newTicketList = new ArrayList<Ticket>();
             cartContent.put(section, newTicketList);
-            addTickets(match, sectionName, newTicketList, quantity);
+            addTickets(section, quantity);
         }
     }
 
@@ -35,24 +35,27 @@ public class ShoppingCart {
         int currentQuantity = sectionTickets.size();
         if (currentQuantity < newQuantity) {
             int quantityToAdd = newQuantity - currentQuantity;
-            addTickets(match, sectionName, sectionTickets, quantityToAdd);
+            addTickets(section, quantityToAdd);
         } else {
             int quantityToRemove = currentQuantity - newQuantity;
-            removeTickets(sectionTickets, quantityToRemove);
+            removeTickets(section, quantityToRemove);
         }
     }
 
-    private void addTickets(Match match, String sectionName, List<Ticket> sectionTickets, int quantityToAdd) {
-        List<Ticket> tickets = match.reserveTickets(quantityToAdd, sectionName);
-        sectionTickets.addAll(tickets);
+    private void addTickets(Section section, int quantityToAdd) {
+        List<Ticket> tickets = section.reserveTickets(quantityToAdd);
+        cartContent.get(section).addAll(tickets);
     }
 
-    private void removeTickets(List<Ticket> sectionTickets, int quantityToRemove) {
+    private void removeTickets(Section section, int quantityToRemove) {
         int indexToRemove = 0;
-        while (quantityToRemove != 0) {
+        List<Ticket> sectionTickets = cartContent.get(section);
+        if (sectionTickets.size() == quantityToRemove) {
+            cartContent.remove(section);
+        }
+        for (int i = quantityToRemove; i > 0; i--) {
             Ticket removedTicket = sectionTickets.remove(indexToRemove);
             removedTicket.free();
-            --quantityToRemove;
         }
     }
 
@@ -60,7 +63,7 @@ public class ShoppingCart {
         return cartContent;
     }
 
-    public void removeTicketsFromCart(Match match, String sectionName) {
+    public void removeSectionFromCart(Match match, String sectionName) {
         changeTicketsQuantity(match, sectionName, 0);
         cartContent.remove(match.getSectionByName(sectionName));
     }
