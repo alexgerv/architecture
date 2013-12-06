@@ -67,7 +67,7 @@
 									<td>
 										<form class="form-inline">
 											<div class="form-group">
-												<input class="form-control numberOfTickets" type="number" value="${ticket.availableTickets}">
+												<input class="form-control numberOfTickets" type="number" value="${ticket.purchaseQuantity}">
 											</div>
 											<a class="btn btn-success disabled updateCart" data-url="/cart/changeQuantity/${ticket.venue}/${ticket.date}/${ticket.name}"><i class="icon-ok-sign"></i></a>	
 										</form>
