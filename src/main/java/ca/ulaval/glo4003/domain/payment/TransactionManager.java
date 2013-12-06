@@ -15,10 +15,10 @@ public class TransactionManager {
     @Inject
     MatchRepository matchRepository;
 
-    CreditCardFactory cerditCardFactory;
+    CreditCardFactory creditCardFactory;
 
     public TransactionManager(CreditCardFactory cerditCardFactory) {
-        this.cerditCardFactory = cerditCardFactory;
+        this.creditCardFactory = cerditCardFactory;
     }
 
     public long processTransaction(long creditCardNumber, String creditCardType, List<Ticket> ticketsToBuy,
@@ -29,7 +29,7 @@ public class TransactionManager {
             processTicket(ticket);
         }
 
-        CreditCard creditCard = cerditCardFactory.create(creditCardType, creditCardNumber);
+        CreditCard creditCard = creditCardFactory.create(creditCardType, creditCardNumber);
         long transactionID = transactionService.processPayment(creditCard, purchaseTotal);
         mailSender.sendPurchaseConfirmation();
         return transactionID;
@@ -41,9 +41,11 @@ public class TransactionManager {
     }
 
     // For test purpose only
-    protected TransactionManager(MailSender mailSender, MatchRepository matchRepository) {
+    protected TransactionManager(MailSender mailSender, MatchRepository matchRepository,
+                                 CreditCardFactory creditCardFactory) {
         this.mailSender = mailSender;
         this.matchRepository = matchRepository;
+        this.creditCardFactory = creditCardFactory;
     }
 
 }

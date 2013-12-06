@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -29,15 +30,19 @@ public class TransactionManagerTest {
     private Ticket ticket2;
     @Mock
     private TransactionService transactionService;
+    @Mock
+    private CreditCardFactory creditCardFactory;
 
     @InjectMocks
     private TransactionManager transactionManager;
 
-    private List<Ticket> ticketsToBuy = Arrays.asList(ticket1, ticket2);
+    private List<Ticket> ticketsToBuy;
 
+    @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        transactionManager = new TransactionManager(mailSender, matchRepository);
+        ticketsToBuy = Arrays.asList(ticket1, ticket2);
+        transactionManager = new TransactionManager(mailSender, matchRepository, creditCardFactory);
     }
 
     @Test
