@@ -6,9 +6,8 @@
 <title>Ticket Purchase</title>
 </head>
 <body>
-	<h2>
-		Review Purchase
-	</h2><br>
+	<h2>Review Purchase</h2>
+	<br>
 	<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-default">
@@ -16,27 +15,26 @@
 					<h3 class="panel-title">Your purchase details</h3>
 				</div>
 				<div class="panel-body">
-					<h4>${section.sport} - ${section.sex}</h4>
-					<strong>Venue :</strong>
-					${section.venue}<br>
-					<strong>Date :</strong>
-					${section.date}<br>
-					<strong>Home Team :</strong>
-					${section.homeTeam}<br>
-					<strong>Visitor Team :</strong>
-					${section.visitorTeam}<br>
-					<hr>
-					<strong>Section :</strong> ${section.name}<br>
-					<strong>Number of Tickets :</strong>
-					<span id="quantity">${quantity}</span><br>
-					<strong>Individual Price :</strong>
-					${section.price}<br>
-					<strong>Admission :</strong>
-					${section.admissionType}<br>
-					<hr>
+					<c:forEach var="section" items="${sections}">
+						<h4>${section.sport}-${section.sex}</h4>
+						<div class="row">
+							<div class="col-md-6">
+								<strong>Venue :</strong> ${section.venue}<br> <strong>Date
+									:</strong> ${section.date}<br> <strong>Home Team :</strong>
+								${section.homeTeam}<br> <strong>Visitor Team :</strong>
+								${section.visitorTeam}<br>
+							</div>
+							<div class="col-md-6">
+								<strong>Section :</strong> ${section.name}<br> <strong>Number
+									of Tickets :</strong> <span id="quantity">${quantity}</span><br> <strong>Individual
+									Price :</strong> ${section.price}<br> <strong>Admission :</strong>
+								${section.admissionType}<br>
+							</div>
+						</div>
+						<hr>
+					</c:forEach>
 					<div class="text-right">
-					<strong>TOTAL :</strong>
-					${purchaseTotal} $<br>
+						<strong>TOTAL :</strong> ${purchaseTotal} $<br>
 					</div>
 				</div>
 			</div>
@@ -50,16 +48,18 @@
 					<form:form commandName="creditCardForm">
 						<br>
 						<div class="ckeckbox">
+
 							<label> <form:radiobutton path="type"
-								value="MISTERCARD" /> Mistercard
+								value="MISTERCARD" checked="checked" /> Mistercard
+
 							</label>
 							<div class="ckeckbox">
-								<label><form:radiobutton path="type"
-									value="VASI" /> Vasi </label>
+								<label><form:radiobutton path="type" value="VASI" />
+									Vasi </label>
 							</div>
 							<div class="ckeckbox">
 								<label><form:radiobutton path="type"
-									value="AMERICANEXPRESSO" /> AmericanExpresso </label>
+										value="AMERICANEXPRESSO" /> AmericanExpresso </label>
 							</div>
 						</div>
 						<br>
@@ -67,9 +67,9 @@
 							<label for="creditCard_number">Card Number</label>
 							<div class="row">
 								<div class="col-xs-4">
-								<input type=hidden name="quantity" value=${quantity} />
-								<form:input type="text" class="form-control"
-										path="number" placeholder="credit card number" />
+									<input type=hidden name="quantity" value=${quantity } />
+									<form:input type="text" class="form-control" path="number"
+										placeholder="credit card number" />
 								</div>
 
 							</div>

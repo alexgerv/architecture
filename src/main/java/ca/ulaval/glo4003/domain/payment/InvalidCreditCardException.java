@@ -1,7 +1,7 @@
 package ca.ulaval.glo4003.domain.payment;
 
 
-@SuppressWarnings("serial") // Serial will never be used
+@SuppressWarnings("serial") //will never be used for serialisation
 public class InvalidCreditCardException extends Exception {
     public InvalidCreditCardException(String message) {
         super(message);

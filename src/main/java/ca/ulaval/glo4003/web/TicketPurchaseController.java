@@ -1,5 +1,6 @@
 package ca.ulaval.glo4003.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -57,9 +58,12 @@ public class TicketPurchaseController {
                                                   @ModelAttribute(value = "creditCardForm") CreditCardViewModel creditCard) {
         SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
                                                                              .getSectionByName(sectionName));
+        ArrayList<SectionViewModel> sections = new ArrayList<SectionViewModel>();
+        sections.add(viewModel);
+
         float purchaseTotal = quantity * viewModel.getPrice();
         model.addAttribute("purchaseTotal", purchaseTotal);
-        model.addAttribute("section", viewModel);
+        model.addAttribute("sections", sections);
         model.addAttribute("quantity", quantity);
 
         return "ticketPurchaseReview";
@@ -75,18 +79,17 @@ public class TicketPurchaseController {
 
         SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
                                                                              .getSectionByName(sectionName));
+        ArrayList<SectionViewModel> sections = new ArrayList<SectionViewModel>();
+        sections.add(viewModel);
 
         float purchaseTotal = quantity * viewModel.getPrice();
         model.addAttribute("purchaseTotal", purchaseTotal);
-        model.addAttribute("section", viewModel);
+        model.addAttribute("sections", sections);
         model.addAttribute("quantity", quantity);
 
         try {
             Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
             List<Ticket> ticketsToBuy = match.reserveTickets(quantity, sectionName);
-            for (Ticket ticket : ticketsToBuy) {
-                System.out.println(ticket.isAvailable());
-            }
             transactionManager.processTransaction(creditCard.getNumber(),
                                                   creditCard.getType(),
                                                   ticketsToBuy,
