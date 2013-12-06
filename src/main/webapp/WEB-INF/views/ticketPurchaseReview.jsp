@@ -26,7 +26,7 @@
 							</div>
 							<div class="col-md-6">
 								<strong>Section :</strong> ${section.name}<br> <strong>Number
-									of Tickets :</strong> <span id="quantity">${quantity}</span><br> <strong>Individual
+									of Tickets :</strong> <span id="quantity">${section.purchaseQuantity}</span><br> <strong>Individual
 									Price :</strong> ${section.price}<br> <strong>Admission :</strong>
 								${section.admissionType}<br>
 							</div>
@@ -45,7 +45,7 @@
 					<h3 class="panel-title">Please enter your payment information</h3>
 				</div>
 				<div class="panel-body">
-					<form:form commandName="creditCardForm">
+					<form:form action="${purchaseURL}" commandName="creditCardForm">
 						<br>
 						<div class="ckeckbox">
 
@@ -67,7 +67,7 @@
 							<label for="creditCard_number">Card Number</label>
 							<div class="row">
 								<div class="col-xs-4">
-									<input type=hidden name="quantity" value=${quantity } />
+									<input type=hidden name="quantity" value=${quantity} />
 									<form:input type="text" class="form-control" path="number"
 										placeholder="credit card number" />
 								</div>

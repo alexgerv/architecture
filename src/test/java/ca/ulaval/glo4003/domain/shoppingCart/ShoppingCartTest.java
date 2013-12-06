@@ -1,6 +1,7 @@
 package ca.ulaval.glo4003.domain.shoppingCart;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -22,6 +23,7 @@ import ca.ulaval.glo4003.domain.match.Ticket;
 
 public class ShoppingCartTest {
 
+    private static final int NO_TICKETS = 0;
     private static final int A_TICKET_QUANTITY = 5;
     private static final int A_GREATER_TICKET_QUANTITY = A_TICKET_QUANTITY * 2;
     private static final int A_LOWER_TICKET_QUANTITY = 2;
@@ -48,7 +50,7 @@ public class ShoppingCartTest {
         }
         shoppingCart = new ShoppingCart();
 
-        Mockito.when(aMatch.reserveTickets(A_TICKET_QUANTITY, A_SECTION_NAME)).thenReturn(tickets);
+        Mockito.when(aSection.reserveTickets(A_TICKET_QUANTITY)).thenReturn(tickets);
         Mockito.when(aMatch.getSectionByName(A_SECTION_NAME)).thenReturn(aSection);
         shoppingCart.addTicketsQuantity(aMatch, A_SECTION_NAME, A_TICKET_QUANTITY);
     }
@@ -59,7 +61,7 @@ public class ShoppingCartTest {
 
         Map<Section, List<Ticket>> expectedCartContent = new HashMap<Section, List<Ticket>>();
         expectedCartContent.put(aSection, tickets);
-        assertEquals(cartContent, expectedCartContent);
+        assertEquals(expectedCartContent, cartContent);
     }
 
     @Test
@@ -77,7 +79,7 @@ public class ShoppingCartTest {
     public void whenAddingTicketsQuantityTheExpectedNumberIsReserved() {
         shoppingCart.addTicketsQuantity(aMatch, A_SECTION_NAME, A_TICKET_QUANTITY);
 
-        verify(aMatch, atLeast(1)).reserveTickets(A_GREATER_TICKET_QUANTITY - A_TICKET_QUANTITY, A_SECTION_NAME);
+        verify(aSection, atLeast(1)).reserveTickets(A_GREATER_TICKET_QUANTITY - A_TICKET_QUANTITY);
     }
 
     @Test
@@ -95,7 +97,7 @@ public class ShoppingCartTest {
     public void whenChangingTicketsQuantityByAddingTicketsTheExpectedNumberIsReserved() {
         shoppingCart.changeTicketsQuantity(aMatch, A_SECTION_NAME, A_GREATER_TICKET_QUANTITY);
 
-        verify(aMatch, atLeast(1)).reserveTickets(A_GREATER_TICKET_QUANTITY - A_TICKET_QUANTITY, A_SECTION_NAME);
+        verify(aSection, atLeast(1)).reserveTickets(A_GREATER_TICKET_QUANTITY - A_TICKET_QUANTITY);
     }
 
     @Test
@@ -103,5 +105,19 @@ public class ShoppingCartTest {
         shoppingCart.changeTicketsQuantity(aMatch, A_SECTION_NAME, A_LOWER_TICKET_QUANTITY);
 
         verify(aTicket, times(A_TICKET_QUANTITY - A_LOWER_TICKET_QUANTITY)).free();
+    }
+
+    @Test
+    public void whenRemovingAllTicketsFromSectionTheSectionIsRemovedFromTheCart() {
+        shoppingCart.changeTicketsQuantity(aMatch, A_SECTION_NAME, NO_TICKETS);
+
+        assertFalse(shoppingCart.getCartContent().containsKey(aSection));
+    }
+
+    @Test
+    public void whenRemovingASectionItIsRemovedFromTheCart() {
+        shoppingCart.removeSectionFromCart(aMatch, A_SECTION_NAME);
+
+        assertFalse(shoppingCart.getCartContent().containsKey(aSection));
     }
 }

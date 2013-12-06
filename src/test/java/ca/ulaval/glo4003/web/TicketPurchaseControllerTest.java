@@ -76,17 +76,6 @@ public class TicketPurchaseControllerTest {
     }
 
     @Test
-    public void whenReviewingAPurchaseTheQuantityIsPassedToTheView() {
-        controller.reviewSelectedTicketsForSection(A_VENUE,
-                                                   A_DATE,
-                                                   A_SECTION_NAME,
-                                                   A_NUMBER_OF_TICKET_TO_BUY,
-                                                   model,
-                                                   creditCardViewModel);
-        verify(model, times(1)).addAttribute(QUANTITY_IDENTIFIER, A_NUMBER_OF_TICKET_TO_BUY);
-    }
-
-    @Test
     public void whenReviewingAPurchaseTheSectionInformationsArePassedToTheView() {
         controller.reviewSelectedTicketsForSection(A_VENUE,
                                                    A_DATE,
