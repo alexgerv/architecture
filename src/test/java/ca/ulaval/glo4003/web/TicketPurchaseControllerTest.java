@@ -6,6 +6,8 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -33,7 +35,7 @@ public class TicketPurchaseControllerTest {
     private static final String A_SECTION_NAME = "A";
     private static final int A_NUMBER_OF_TICKET_TO_BUY = 10;
     private static final String QUANTITY_IDENTIFIER = "quantity";
-    private static final String SECTION_IDENTIFIER = "section";
+    private static final String SECTION_IDENTIFIER = "sections";
     private static final String RETURNED_PAGE_NAME = "ticketPurchaseReceipt";
     private static final String A_CREDIT_CARD_TYPE = "VASI";
 
@@ -58,12 +60,15 @@ public class TicketPurchaseControllerTest {
     @Mock
     private CreditCard creditCard;
 
+    ArrayList<SectionViewModel> expectedSectionViewModel = new ArrayList<SectionViewModel>();
+
     @InjectMocks
     private TicketPurchaseController controller;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        expectedSectionViewModel.add(sectionViewModel);
         controller = new TicketPurchaseController(matchRepository, sectionConverter, transactionManager);
         doReturn(match).when(matchRepository).getMatchByIdentifier(MATCH_IDENTIFIER);
         doReturn(section).when(match).getSectionByName(A_SECTION_NAME);
@@ -89,7 +94,7 @@ public class TicketPurchaseControllerTest {
                                                    A_NUMBER_OF_TICKET_TO_BUY,
                                                    model,
                                                    creditCardViewModel);
-        verify(model, times(1)).addAttribute(SECTION_IDENTIFIER, sectionViewModel);
+        verify(model, times(1)).addAttribute(SECTION_IDENTIFIER, expectedSectionViewModel);
     }
 
     @Test

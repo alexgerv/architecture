@@ -26,8 +26,8 @@ public class TestFixture {
     public static final String OTHER_USER_PASSWORD = "54321";
 
     public static final String SUBMIT_BUTTON_ID = "submit";
-    public static final String SELECTOR_HELLO_MESSAGE = "div[class=\"navbar-form navbar-right\"]";
-    public static final String EXPECTED_LOGGED_IN_MESSAGE = "Hello " + A_USER_NAME + " Logout";
+    public static final String SELECTOR_HELLO_MESSAGE = "div[class=\"navbar-form navbar-right\"] label";
+    public static final String EXPECTED_LOGGED_IN_MESSAGE = "Hello " + A_USER_NAME;
     public static final String BASE_URL = "http://localhost:8080/";
 
     public static final String AN_INVALID_PASSWORD = "abcde";

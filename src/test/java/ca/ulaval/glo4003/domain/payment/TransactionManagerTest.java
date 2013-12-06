@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -42,7 +41,6 @@ public class TransactionManagerTest {
     }
 
     @Test
-    @Ignore
     public void whenProcessingATransactionTheTransactionIDIsReturned() throws InvalidCreditCardException {
         long transactionID = transactionManager.processTransaction(A_CREDIT_CARD_NUMBER,
                                                                    A_CREDIT_CARD_TYPE,
