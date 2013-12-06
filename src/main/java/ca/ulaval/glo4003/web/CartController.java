@@ -1,7 +1,6 @@
 package ca.ulaval.glo4003.web;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -98,57 +97,21 @@ public class CartController {
 
     @RequestMapping(value = "/cart/checkout", method = RequestMethod.GET)
     public String checkout(Model model, @ModelAttribute(value = "creditCardForm") CreditCardViewModel creditCard) {
-        List<Ticket> ticketsToBuy = new ArrayList<Ticket>();
         Map<Section, List<Ticket>> cartContents = shoppingCart.getCartContent();
-        for (List<Ticket> sectionTickets : cartContents.values()) {
-            ticketsToBuy.addAll(sectionTickets);
-        }
+        List<SectionViewModel> sectionsInCart = sectionViewConverter.convert(cartContents);
 
-        SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
-                                                                             .getSectionByName(sectionName));
-        ArrayList<SectionViewModel> sections = new ArrayList<SectionViewModel>();
-        sections.add(viewModel);
+        model.addAttribute("purchaseTotal", shoppingCart.getCartValue());
+        model.addAttribute("sections", sectionsInCart);
+        model.addAttribute("purchaseURL", "/purchase/cart");
 
-        Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
-
-        shoppingCart.removeSectionFromCart(match, sectionName);
-
-        List<SectionViewModel> cartContent = sectionViewConverter.convert(shoppingCart.getCartContent());
-        model.addAttribute("cartContent", cartContent);
-        return cart(model);
+        return "ticketPurchaseReview";
     }
 
     @RequestMapping(value = "/cart/empty", method = RequestMethod.GET)
-    public String checkout(@PathVariable String venue, @PathVariable String date, @PathVariable String sectionName,
-                           Model model, HttpServletResponse response) throws IOException {
-        Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
+    public String emptyCart(Model model) throws IOException {
+        shoppingCart.emptyCart();
 
-        shoppingCart.removeSectionFromCart(match, sectionName);
-
-        List<SectionViewModel> cartContent = sectionViewConverter.convert(shoppingCart.getCartContent());
-        model.addAttribute("cartContent", cartContent);
-        return cart(model);
-    }
-
-    @RequestMapping(value = "/purchaseReview/{venue}/{date}/{sectionName}", method = RequestMethod.GET)
-    public String reviewSelectedTicketsForSection(@PathVariable String venue,
-                                                  @PathVariable String date,
-                                                  @PathVariable String sectionName,
-                                                  @RequestParam(value = "quantity", required = true) int quantity,
-                                                  Model model,
-                                                  @ModelAttribute(value = "creditCardForm") CreditCardViewModel creditCard) {
-        SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
-                                                                             .getSectionByName(sectionName));
-        ArrayList<SectionViewModel> sections = new ArrayList<SectionViewModel>();
-        sections.add(viewModel);
-
-        float purchaseTotal = quantity * viewModel.getPrice();
-        model.addAttribute("purchaseTotal", purchaseTotal);
-        model.addAttribute("sections", sections);
-        model.addAttribute("quantity", quantity);
-
-        model.addAttribute("purchaseURL", String.format("/purchaseReceipt/%s/%s/%s", venue, date, sectionName));
-        return "ticketPurchaseReview";
+        return "cart";
     }
 
     protected CartController(TransactionService transactionService, TransactionManager transactionManager,

@@ -17,19 +17,29 @@ public class SectionViewModel {
     private float price;
     private AdmissionType admissionType;
 
+    private int purchaseQuantity;
+
     public String getSport() {
         return sport;
     }
-    
+
+    public int getPurchaseQuantity() {
+        return purchaseQuantity;
+    }
+
+    public void setPurchaseQuantity(int purchaseQuantity) {
+        this.purchaseQuantity = purchaseQuantity;
+    }
+
     public void setSport(String sport) {
         this.sport = sport;
     }
-    
-    public String getVenue(){
+
+    public String getVenue() {
         return venue;
     }
-    
-    public void setVenue(String venue){
+
+    public void setVenue(String venue) {
         this.venue = venue;
     }
 

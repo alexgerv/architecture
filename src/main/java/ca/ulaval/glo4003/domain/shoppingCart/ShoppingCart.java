@@ -68,4 +68,21 @@ public class ShoppingCart {
         cartContent.remove(match.getSectionByName(sectionName));
     }
 
+    public void emptyCart() {
+        for (Section section : cartContent.keySet()) {
+            removeTickets(section, cartContent.get(section).size());
+            cartContent.remove(section);
+        }
+    }
+
+    public float getCartValue() {
+        float cartValue = 0;
+        for (Section section : cartContent.keySet()) {
+            float priceOfATicket = section.getPrice();
+            int numberOfTickets = cartContent.get(section).size();
+            cartValue += priceOfATicket * numberOfTickets;
+        }
+        return cartValue;
+    }
+
 }

@@ -11,7 +11,7 @@
 
 				<h1>
 					Shopping Cart 
-					<span class="btn-group pull-right">
+					<span id="cartControls" class="btn-group pull-right">
 						<a class="btn btn-lg btn-default" href="/cart/checkout"><i class="icon-shopping-cart"></i> Checkout</a> <a class="btn btn-lg btn-default" href="/cart/empty"><i class="icon-remove"></i> Empty cart</a>
 					</span>
 				</h1>
@@ -69,7 +69,7 @@
 											<div class="form-group">
 												<input class="form-control numberOfTickets" type="number" value="${ticket.availableTickets}">
 											</div>
-											<a class="btn btn-primary updateCart" data-url="/cart/changeQuantity/${ticket.venue}/${ticket.date}/${ticket.name}"><i class="icon-refresh"></i></a>	
+											<a class="btn btn-success disabled updateCart" data-url="/cart/changeQuantity/${ticket.venue}/${ticket.date}/${ticket.name}"><i class="icon-ok-sign"></i></a>	
 										</form>
 									</td>
 	                                <td>
@@ -91,6 +91,7 @@
 			if($("#cartContent tr").length <= 1) {
 				$("#emptyMessage").removeClass("hidden");
 				$("#cartContent").addClass("hidden");
+				$("#cartControls").addClass("hidden");
 			}
 		}
 		hideCartIfEmpty();
