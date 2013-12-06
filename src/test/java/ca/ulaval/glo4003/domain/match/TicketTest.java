@@ -36,12 +36,22 @@ public class TicketTest {
     }
 
     @Test
-    public void whenBuyAnAvailableTicketTheTicketIsNotAvailable() {
+    public void whenBuyAReservedTicketTheTicketIsNotAvailable() {
+        aTicket.reserve();
         aTicket.buy();
 
         boolean ticketIsAvailable = aTicket.isAvailable();
 
         assertFalse(ticketIsAvailable);
+    }
+
+    @Test
+    public void freeingAReservedTicketTheTicketIsAvailable() {
+        aTicket.reserve();
+        aTicket.free();
+
+        boolean ticketIsAvailable = aTicket.isAvailable();
+        assertTrue(ticketIsAvailable);
     }
 
     @Test(expected = UnavailableTicketException.class)

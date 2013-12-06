@@ -57,7 +57,7 @@ public class CartController {
                                                   Model model,
                                                   @ModelAttribute(value = "creditCardForm") CreditCardViewModel creditCard) {
         Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
-        shoppingCart.addTickets(match, quantity, sectionName);
+        shoppingCart.changeTicketsQuantity(match, sectionName, quantity);
 
         List<SectionViewModel> cartContent = sectionViewConverter.convert(shoppingCart.getCartContent());
         model.addAttribute("cartContent", cartContent);
@@ -67,7 +67,7 @@ public class CartController {
 
     @RequestMapping(value = "/cart/remove/{ticketID}", method = RequestMethod.POST)
     public String removeATicketFromCart(Model model, @PathVariable String ticketID) {
-        shoppingCart.remove(Integer.parseInt(ticketID));
+        // shoppingCart.changeTicketsQuantity(Integer.parseInt(ticketID));
         return cart(model);
     }
 

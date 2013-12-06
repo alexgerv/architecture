@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 
 import ca.ulaval.glo4003.domain.match.Section;
+import ca.ulaval.glo4003.domain.match.Ticket;
 import ca.ulaval.glo4003.domain.payment.TransactionManager;
 import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
@@ -50,19 +51,12 @@ public class CartControllerTest {
 
     @Test
     public void test() {
-        HashMap<Section, Integer> cartContent = new HashMap<Section, Integer>();
+        HashMap<Section, List<Ticket>> cartContent = new HashMap<Section, List<Ticket>>();
         List<SectionViewModel> sectionViewModel = new ArrayList<SectionViewModel>();
         doReturn(cartContent).when(shoppingCart).getCartContent();
         doReturn(sectionViewModel).when(sectionConverter).convert(cartContent);
         cartController.cart(model);
         verify(model).addAttribute("cartContent", sectionViewModel);
-    }
-
-    @Test
-    public void removeTicketFromCartRemovesATicketFromTheShoppingCart() {
-        cartController.removeATicketFromCart(model, A_TICKET_ID_STR);
-        verify(shoppingCart).remove(Integer.parseInt(A_TICKET_ID_STR));
-
     }
 
 }

@@ -114,10 +114,10 @@ public class MatchTest {
     }
 
     @Test
-    public void whenBuyingAnAvailableQUantityOfTicketsInASectionTheTicketsAreBought() {
+    public void reserveTicketsReserveticketsFromSection() {
         doReturn(true).when(sectionA).hasSameName(A_VALID_SECTION_NAME);
-        aMatch.getAvailableTickets(A_VALID_SECTION_NAME, A_VALID_TICKET_QUANTITY);
-        verify(sectionA).getAvailableTickets(A_VALID_TICKET_QUANTITY);
+        aMatch.reserveTickets(A_VALID_TICKET_QUANTITY, A_VALID_SECTION_NAME);
+        verify(sectionA).reserveTickets(A_VALID_TICKET_QUANTITY);
     }
 
     @Test

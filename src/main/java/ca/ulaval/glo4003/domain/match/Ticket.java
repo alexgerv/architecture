@@ -6,7 +6,6 @@ public class Ticket {
     private TicketAvailability availability;
     private float price;
     private AdmissionType admissionType;
-
     private MatchInformation matchInformation;
 
     public Ticket(int ID, TicketAvailability availability, MatchInformation matchInformation, float price,
@@ -18,19 +17,31 @@ public class Ticket {
         this.admissionType = admissionType;
     }
 
+    public void buy() {
+        assertTicketIsReserved();
+        availability = TicketAvailability.SOLD;
+    }
+
+    private void assertTicketIsReserved() {
+        if (!isReserved()) {
+            throw new UnavailableTicketException("The ticket is not reserved.");
+        }
+    }
+
+    public boolean isReserved() {
+        return availability == TicketAvailability.RESERVE;
+    }
+
     public boolean isAvailable() {
         return availability == TicketAvailability.AVAILABLE;
     }
 
-    public void buy() {
-        assertTicketIsAvailable();
-        availability = TicketAvailability.SOLD;
+    public void reserve() {
+        availability = TicketAvailability.RESERVE;
     }
 
-    private void assertTicketIsAvailable() {
-        if (!isAvailable()) {
-            throw new UnavailableTicketException("The ticket is unavailable.");
-        }
+    public void free() {
+        availability = TicketAvailability.AVAILABLE;
     }
 
     public int getID() {

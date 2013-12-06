@@ -28,6 +28,20 @@ public class Match implements Indexable<MatchAttribute> {
         return numberOfAvailableTickets;
     }
 
+    public Section getSectionByName(String sectionName) {
+        for (Section section : sections) {
+            if (section.hasSameName(sectionName)) {
+                return section;
+            }
+        }
+        throw new SectionNotFoundException("Section: " + sectionName + " was not found.");
+    }
+
+    public List<Ticket> reserveTickets(int quantity, String sectionName) {
+        Section section = getSectionByName(sectionName);
+        return section.reserveTickets(quantity);
+    }
+
     public String getSport() {
         return matchInformation.getSport();
     }
@@ -59,20 +73,6 @@ public class Match implements Indexable<MatchAttribute> {
     @Override
     public String getIdentifier() {
         return matchInformation.getVenue() + "/" + matchInformation.getFormatedDate();
-    }
-
-    public Section getSectionByName(String sectionName) {
-        for (Section section : sections) {
-            if (section.hasSameName(sectionName)) {
-                return section;
-            }
-        }
-        throw new SectionNotFoundException("Section: " + sectionName + " was not found.");
-    }
-
-    public List<Ticket> getAvailableTickets(String sectionName, int quantity) {
-        Section section = getSectionByName(sectionName);
-        return section.getAvailableTickets(quantity);
     }
 
     @Override

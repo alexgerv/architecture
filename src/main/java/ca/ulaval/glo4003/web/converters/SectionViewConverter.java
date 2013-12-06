@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 import org.springframework.stereotype.Repository;
 
 import ca.ulaval.glo4003.domain.match.Section;
+import ca.ulaval.glo4003.domain.match.Ticket;
 import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 
 @Repository
@@ -25,11 +26,11 @@ public class SectionViewConverter {
 
     }
 
-    public List<SectionViewModel> convert(Map<Section, Integer> entries) {
+    public List<SectionViewModel> convert(Map<Section, List<Ticket>> entries) {
         List<SectionViewModel> viewModels = new LinkedList<SectionViewModel>();
         for (Section entry : entries.keySet()) {
             SectionViewModel viewModel = convert(entry);
-            viewModel.setAvailableTickets(entries.get(entry));
+            viewModel.setAvailableTickets(entries.get(entry).size());
             viewModels.add(viewModel);
         }
         return viewModels;

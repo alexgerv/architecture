@@ -29,6 +29,32 @@ public class Section {
         return numberOfAvailableTickets;
     }
 
+    public List<Ticket> reserveTickets(int quantity) {
+        List<Ticket> tickets = new ArrayList<Ticket>();
+        assertTicketQuantityIsPositive(quantity);
+
+        for (int i = 0; i < quantity; i++) {
+            tickets.add(reserveTicket());
+        }
+        return tickets;
+    }
+
+    private void assertTicketQuantityIsPositive(int quantity) {
+        if (quantity <= 0) {
+            throw new InvalidQuantityException("The ticket quantity must be >= 0,");
+        }
+    }
+
+    private Ticket reserveTicket() {
+        for (Ticket ticket : tickets) {
+            if (ticket.isAvailable()) {
+                ticket.reserve();
+                return ticket;
+            }
+        }
+        throw new NoAvailableTicketsException("There are no tickets available.");
+    }
+
     public String getName() {
         return name;
     }
@@ -67,30 +93,6 @@ public class Section {
 
     public AdmissionType getAdmissionType() {
         return admissionType;
-    }
-
-    public List<Ticket> getAvailableTickets(int quantity) {
-        assertTicketQuantityIsPositive(quantity);
-        List<Ticket> availableTickets = new ArrayList<Ticket>();
-        for (Ticket ticket : tickets) {
-            if (availableTickets.size() < quantity) {
-                if (ticket.isAvailable()) {
-                    availableTickets.add(ticket);
-                }
-            } else {
-                return availableTickets;
-            }
-        }
-        if (availableTickets.size() == quantity) {
-            return availableTickets;
-        }
-        throw new NoAvailableTicketsException("There are not enough available tickets.");
-    }
-
-    private void assertTicketQuantityIsPositive(int quantity) {
-        if (quantity <= 0) {
-            throw new InvalidQuantityException("The ticket quantity must be >= 0,");
-        }
     }
 
 }

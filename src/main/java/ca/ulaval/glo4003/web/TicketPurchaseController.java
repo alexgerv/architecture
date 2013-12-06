@@ -83,7 +83,7 @@ public class TicketPurchaseController {
 
         try {
             Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
-            List<Ticket> ticketsToBuy = match.getAvailableTickets(sectionName, quantity);
+            List<Ticket> ticketsToBuy = match.reserveTickets(quantity, sectionName);
             for (Ticket ticket : ticketsToBuy) {
                 System.out.println(ticket.isAvailable());
             }
