@@ -50,7 +50,7 @@ public class ShoppingCartTest {
 
         Mockito.when(aMatch.reserveTickets(A_TICKET_QUANTITY, A_SECTION_NAME)).thenReturn(tickets);
         Mockito.when(aMatch.getSectionByName(A_SECTION_NAME)).thenReturn(aSection);
-        shoppingCart.changeTicketsQuantity(aMatch, A_SECTION_NAME, A_TICKET_QUANTITY);
+        shoppingCart.addTicketsQuantity(aMatch, A_SECTION_NAME, A_TICKET_QUANTITY);
     }
 
     @Test
@@ -60,6 +60,24 @@ public class ShoppingCartTest {
         Map<Section, List<Ticket>> expectedCartContent = new HashMap<Section, List<Ticket>>();
         expectedCartContent.put(aSection, tickets);
         assertEquals(cartContent, expectedCartContent);
+    }
+
+    @Test
+    public void whenAddingTicketsQuantityTheExpectedNumberIsAdded() {
+        shoppingCart.addTicketsQuantity(aMatch, A_SECTION_NAME, A_TICKET_QUANTITY);
+        Map<Section, List<Ticket>> cartContent = shoppingCart.getCartContent();
+
+        Map<Section, List<Ticket>> expectedCartContent = new HashMap<Section, List<Ticket>>();
+        tickets.addAll(tickets);
+        expectedCartContent.put(aSection, tickets);
+        assertEquals(cartContent, expectedCartContent);
+    }
+
+    @Test
+    public void whenAddingTicketsQuantityTheExpectedNumberIsReserved() {
+        shoppingCart.addTicketsQuantity(aMatch, A_SECTION_NAME, A_TICKET_QUANTITY);
+
+        verify(aMatch, atLeast(1)).reserveTickets(A_GREATER_TICKET_QUANTITY - A_TICKET_QUANTITY, A_SECTION_NAME);
     }
 
     @Test

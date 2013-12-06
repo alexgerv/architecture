@@ -18,10 +18,10 @@ public class ShoppingCart {
 
     private Map<Section, List<Ticket>> cartContent = new HashMap<Section, List<Ticket>>();
 
-    public void changeTicketsQuantity(Match match, String sectionName, int quantity) {
+    public void addTicketsQuantity(Match match, String sectionName, int quantity) {
         Section section = match.getSectionByName(sectionName);
         if (cartContent.containsKey(section)) {
-            updateSectionTicketsQuantity(match, section, sectionName, quantity);
+            addTickets(match, sectionName, cartContent.get(section), quantity);
         } else {
             List<Ticket> newTicketList = new ArrayList<Ticket>();
             cartContent.put(section, newTicketList);
@@ -29,7 +29,8 @@ public class ShoppingCart {
         }
     }
 
-    private void updateSectionTicketsQuantity(Match match, Section section, String sectionName, int newQuantity) {
+    public void changeTicketsQuantity(Match match, String sectionName, int newQuantity) {
+        Section section = match.getSectionByName(sectionName);
         List<Ticket> sectionTickets = cartContent.get(section);
         int currentQuantity = sectionTickets.size();
         if (currentQuantity < newQuantity) {
