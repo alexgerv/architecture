@@ -372,8 +372,8 @@ public class TestFixture {
     }
 
     public void assertTwoTypesOfTicketsInCart() {
-        List<WebElement> sports = driverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(XPATH_FOR_CART_TICKETS)));
-        assertEquals(2, sports.size());
+        List<WebElement> tickets = driverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(XPATH_FOR_CART_TICKETS)));
+        assertEquals(2, tickets.size());
     }
 
     public void goOnCartPage() {
@@ -395,14 +395,7 @@ public class TestFixture {
     }
 
     public void assertNotEnoughTicketsAvalaibleErrorMessageIsDisplayed() {
-        assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.id("warningMessage")/*
-                                                                                                        * By
-                                                                                                        * .
-                                                                                                        * cssSelector
-                                                                                                        * (
-                                                                                                        * SELECTOR_NOT_ENOUGH_TICKETS
-                                                                                                        * )
-                                                                                                        */,
+        assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.id("warningMessage"),
                                                                                 EXPECTED_FAIL_MESSAGE_NOT_ENOUGH_TICKETS)));
     }
 
@@ -414,4 +407,5 @@ public class TestFixture {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_REMOVE_TICKETS_FIRST_TYPE)))
                   .click();
     }
+
 }

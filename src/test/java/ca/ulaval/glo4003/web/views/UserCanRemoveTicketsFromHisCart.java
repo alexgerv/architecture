@@ -1,10 +1,7 @@
 package ca.ulaval.glo4003.web.views;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ca.ulaval.glo4003.testFixture.TestFixture;
@@ -29,7 +26,7 @@ public class UserCanRemoveTicketsFromHisCart {
     }
 
     @Test
-    public void userCanAddEmptyHisCart() {
+    public void userCanEmptyHisCart() {
 
         fixture.goOnHomePage();
         fixture.goOnLoginPage();
@@ -48,7 +45,6 @@ public class UserCanRemoveTicketsFromHisCart {
         fixture.assertTheCartIsEmpty();
     }
 
-    @Ignore
     @Test
     public void userCanRemoveTicketsFromHisCart() {
 
@@ -59,14 +55,9 @@ public class UserCanRemoveTicketsFromHisCart {
         fixture.chooseASectionInMatchDetails();
         fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
         fixture.addSelectedTicketsToCart();
-        fixture.navigateToMatchDetails();
-        fixture.chooseAnotherSectionInMatchDetails();
-        fixture.selectATicketQuantityForCurrentSection(ANOTHER_TICKET_QUANTITY);
-        fixture.addSelectedTicketsToCart();
 
         fixture.removeFirstTicketTypeFromCart();
 
-        int ticketQuantity = fixture.getFirstTicketTypeQuantityInCart();
-        assertEquals(Integer.parseInt(ANOTHER_TICKET_QUANTITY), ticketQuantity);
+        fixture.assertTheCartIsEmpty();
     }
 }
