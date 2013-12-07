@@ -2,7 +2,6 @@ package ca.ulaval.glo4003.web;
 
 import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,7 @@ import ca.ulaval.glo4003.web.viewmodels.UserViewModel;
 @Controller
 public class SignupController {
 
-    @Autowired
+    @Inject
     Md5PasswordEncoder passwordEncoder;
 
     @Inject

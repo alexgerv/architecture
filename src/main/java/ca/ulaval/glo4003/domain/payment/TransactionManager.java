@@ -12,10 +12,10 @@ public class TransactionManager {
     @Inject
     MatchRepository matchRepository;
 
-    CreditCardFactory cerditCardFactory;
+    CreditCardFactory creditCardFactory;
 
     public TransactionManager(CreditCardFactory cerditCardFactory) {
-        this.cerditCardFactory = cerditCardFactory;
+        this.creditCardFactory = cerditCardFactory;
     }
 
     public long processTransaction(long creditCardNumber, String creditCardType, List<Ticket> ticketsToBuy, TransactionService transactionService) throws InvalidCreditCardException {
@@ -25,7 +25,7 @@ public class TransactionManager {
             processTicket(ticket);
         }
 
-        CreditCard creditCard = cerditCardFactory.create(creditCardType, creditCardNumber);
+        CreditCard creditCard = creditCardFactory.create(creditCardType, creditCardNumber);
         long transactionID = transactionService.processPayment(creditCard, purchaseTotal);
         return transactionID;
     }
@@ -36,8 +36,10 @@ public class TransactionManager {
     }
 
     // For test purpose only
-    protected TransactionManager(MatchRepository matchRepository) {
+    protected TransactionManager(MatchRepository matchRepository,
+                                 CreditCardFactory creditCardFactory) {
         this.matchRepository = matchRepository;
+        this.creditCardFactory = creditCardFactory;
     }
 
 }
