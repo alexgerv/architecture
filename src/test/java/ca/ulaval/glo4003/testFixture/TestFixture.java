@@ -100,6 +100,8 @@ public class TestFixture {
     private static final String XPATH_FOR_REMOVE_TICKETS_FIRST_TYPE = "//table/tbody/tr/td[11]/button";
     private static final String XPATH_FOR_UPDATE_TICKET_QUANTITY_FIRST_TYPE = "//table/tbody/tr/td[10]/form/a";
     private static final String XPATH_FOR_CART_TICKETS = "//*[@id='cartContent']//tr//td[4]";
+    private static final String CHECKOUT_CART_BUTTON = "Checkout";
+    private static final String XPATH_FOR_RECEIPT = "/html/body/div[2]/div/div/div/div[2]";
 
     public WebDriver driver;
     public WebDriverWait driverWait;
@@ -406,6 +408,15 @@ public class TestFixture {
     public void removeFirstTicketTypeFromCart() {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_REMOVE_TICKETS_FIRST_TYPE)))
                   .click();
+    }
+
+    public void checkoutCart() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(CHECKOUT_CART_BUTTON))).click();
+    }
+
+    public void assertUserBoughtAllHisTickets() {
+        List<WebElement> tickets = driverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("quantity")));
+        assertEquals(2, tickets.size());
     }
 
 }
