@@ -12,15 +12,12 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.Ticket;
-import ca.ulaval.glo4003.service.mailsender.MailSender;
 
 public class TransactionManagerTest {
 
     private static final long A_CREDIT_CARD_NUMBER = 999999999;
     private static final String A_CREDIT_CARD_TYPE = "VASI";
 
-    @Mock
-    private MailSender mailSender;
     @Mock
     private MatchRepository matchRepository;
     @Mock
@@ -37,15 +34,14 @@ public class TransactionManagerTest {
 
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        transactionManager = new TransactionManager(mailSender, matchRepository);
+        transactionManager = new TransactionManager(matchRepository);
     }
 
     @Test
     public void whenProcessingATransactionTheTransactionIDIsReturned() throws InvalidCreditCardException {
-        long transactionID = transactionManager.processTransaction(A_CREDIT_CARD_NUMBER,
-                                                                   A_CREDIT_CARD_TYPE,
-                                                                   ticketsToBuy,
-                                                                   transactionService);
+        long transactionID =
+                             transactionManager.processTransaction(A_CREDIT_CARD_NUMBER, A_CREDIT_CARD_TYPE,
+                                                                   ticketsToBuy, transactionService);
         assertNotNull(transactionID);
     }
 }

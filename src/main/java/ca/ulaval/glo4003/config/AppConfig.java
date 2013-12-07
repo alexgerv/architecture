@@ -16,7 +16,7 @@ import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchCatalogFactory;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchQueryFactory;
 import ca.ulaval.glo4003.service.TransactionServiceStub;
-import ca.ulaval.glo4003.service.mailsender.MailSender;
+import ca.ulaval.glo4003.service.mailsender.MailSenderAspect;
 
 @Configuration
 public class AppConfig {
@@ -63,8 +63,8 @@ public class AppConfig {
     }
 
     @Bean
-    public MailSender mailSender() {
-        return new MailSender();
+    public MailSenderAspect mailSender() {
+        return new MailSenderAspect();
     }
 
 }
