@@ -23,6 +23,7 @@ public class UserCanLogInTest {
         fixture.assertUserIsAnonymous();
         fixture.logInWithRightCredentials();
         fixture.assertUserIsLoggedIn();
+        fixture.logOut();
     }
 
     @Test
@@ -36,6 +37,7 @@ public class UserCanLogInTest {
         fixture.logInWithRightCredentials();
         fixture.navigateToMatchDetails();
         fixture.assertUserIsLoggedIn();
+        fixture.logOut();
     }
 
     @Test

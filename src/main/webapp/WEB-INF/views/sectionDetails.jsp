@@ -70,8 +70,8 @@
 							value="1" min="1" max="${section.availableTickets}" />
 					</div>
 					<div class="col-xs-4">
-						<button type="submit" class="btn btn-default" formaction="/purchaseReview/${section.venue}/${section.date}/${section.name}">Buy</button>
-                        <button type="submit" class="btn btn-default" formaction="/cart/add/${section.venue}/${section.date}/${section.name}" formmethod="post"> Add to cart</button>
+						<button id="buy" type="submit" class="btn btn-default" formaction="/purchaseReview/${section.venue}/${section.date}/${section.name}">Buy</button>
+                        <button id="cart" type="submit" class="btn btn-default" formaction="/cart/add/${section.venue}/${section.date}/${section.name}" formmethod="post"> Add to cart</button>
 					</div>
 				</div>
 			</form>

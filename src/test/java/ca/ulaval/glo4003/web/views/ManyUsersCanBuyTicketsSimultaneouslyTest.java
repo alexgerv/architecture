@@ -38,11 +38,17 @@ public class ManyUsersCanBuyTicketsSimultaneouslyTest {
         aUserFixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
         anOtherUserFixture.selectATicketQuantityForCurrentSection(ANOTHER_TICKET_QUANTITY);
 
-        aUserFixture.buyATicket();
-        anOtherUserFixture.buyATicket();
+        aUserFixture.buySelectedTickets();
+        anOtherUserFixture.buySelectedTickets();
+
+        aUserFixture.payForTickets();
+        anOtherUserFixture.payForTickets();
 
         aUserFixture.assertBuyWasSuccessful();
         anOtherUserFixture.assertBuyWasSuccessful();
+
+        aUserFixture.logOut();
+        anOtherUserFixture.logOut();
 
         aUserFixture.close();
         anOtherUserFixture.close();

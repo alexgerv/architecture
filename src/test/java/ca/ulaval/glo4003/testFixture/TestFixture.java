@@ -32,9 +32,10 @@ public class TestFixture {
 
     public static final String AN_INVALID_PASSWORD = "abcde";
     public static final String SELECTOR_INVALID_PASSWORD_MESSAGE = "div[class=\"alert alert-info\"]";
-    public static final String EXPECTED_FAIL_MESSAGE = "You have entered an invalid username or password!";
+    public static final String EXPECTED_FAIL_MESSAGE_WRONG_MESSAGE = "You have entered an invalid username or password!";
 
     public static final String MATCH_LIST_HOME_LINK_TEXT = "View the match list";
+    public static final String MATCH_LIST_BUTTON = "Matches";
     public static final String SELECTOR_FOR_A_PARTICULAR_SPORT = "input[name='Football']";
     public static final String XPATH_FOR_MATCH_LIST_LINK = "//*[@id='dataTable']//tr//td[8]//a";
     public static final String MATCH_LIST_MENU_LINK_TEXT = "Matches";
@@ -71,6 +72,9 @@ public class TestFixture {
     private static final String XPATH_FOR_SECTION = "//table[@id='matchDetails']/tbody/tr/td/a/strong";
     private static final String GENERIC_SELECTOR_FOR_SUBMIT = "button[type='submit']";
 
+    private static final String BUY_SELECTOR_FOR_SUBMIT = "button[id='buy']";
+    private static final String CART_SELECTOR_FOR_SUBMIT = "button[id='cart']";
+
     private static final String XPATH_FOR_CREDIT_CARD_CHOICE = "//input[@name='type']";
     private static final String XPATH_FOR_CREDIT_CARD_NUMBER = "//input[@name='number']";
     private static final String A_VALID_CREDIT_CARD_NUMBER = "1234123412341234";
@@ -85,6 +89,17 @@ public class TestFixture {
     private static final String PURCHASE_PAGE_TITLE = "Ticket Purchase";
     private static final String SELECTOR_TICKET_QUANTITY = "input[name='quantity']";
     private static final String ID_QUANTITY_STRING = "quantity";
+    private static final String XPATH_FOR_TICKET_QUANTITY_FIRST_TYPE = "//table/tbody/tr/td[10]/form/div/input";
+    private static final String XPATH_FOR_ANOTHER_SECTION = "//table[@id='matchDetails']/tbody/tr[2]/td/a/strong";
+    private static final String CART_LINK_NAME = "View Shopping Cart";
+    private static final String SELECTOR_NOT_ENOUGH_TICKETS = "div[class=\"alert alert-info\"]";
+    private static final String EXPECTED_FAIL_MESSAGE_NOT_ENOUGH_TICKETS = "There are not enough tickets to purchase ";
+    private static final String EMPTY_CART_BUTTON = "Empty cart";
+    private static final String SELECTOR_CART_EMPTY = "div[class=\"alert alert-info\"]";
+    private static final String EXPECTED_MESSAGE_CART_IS_EMPTY = "Your cart is currently empty";
+    private static final String XPATH_FOR_REMOVE_TICKETS_FIRST_TYPE = "//table/tbody/tr/td[11]/button";
+    private static final String XPATH_FOR_UPDATE_TICKET_QUANTITY_FIRST_TYPE = "//table/tbody/tr/td[10]/form/a";
+    private static final String XPATH_FOR_CART_TICKETS = "//*[@id='cartContent']//tr//td[4]";
 
     public WebDriver driver;
     public WebDriverWait driverWait;
@@ -150,11 +165,11 @@ public class TestFixture {
 
     public void assertAnInvalidPasswordMessageIsShown() {
         assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.cssSelector(SELECTOR_INVALID_PASSWORD_MESSAGE),
-                                                                                EXPECTED_FAIL_MESSAGE)));
+                                                                                EXPECTED_FAIL_MESSAGE_WRONG_MESSAGE)));
     }
 
     public void navigateToMatchDetails() {
-        driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(MATCH_LIST_HOME_LINK_TEXT))).click();
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(MATCH_LIST_BUTTON))).click();
         driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(SELECTOR_FOR_A_PARTICULAR_SPORT)))
                   .click();
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_MATCH_LIST_LINK))).click();
@@ -182,7 +197,7 @@ public class TestFixture {
     }
 
     public void clickOnMatchListButton() {
-        driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(MATCH_LIST_HOME_LINK_TEXT))).click();
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(MATCH_LIST_BUTTON))).click();
     }
 
     public void goOnMatchListPage() {
@@ -288,7 +303,11 @@ public class TestFixture {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_SECTION))).click();
     }
 
-    public void buyATicket() {
+    public void chooseAnotherSectionInMatchDetails() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_ANOTHER_SECTION))).click();
+    }
+
+    public void payForTickets() {
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_CREDIT_CARD_CHOICE))).click();
         driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_CREDIT_CARD_NUMBER)))
                   .sendKeys(A_VALID_CREDIT_CARD_NUMBER);
@@ -320,7 +339,10 @@ public class TestFixture {
     public void selectATicketQuantityForCurrentSection(String aTicketQuantity) {
         driverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(SELECTOR_TICKET_QUANTITY)))
                   .sendKeys("\b" + aTicketQuantity);
-        driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(GENERIC_SELECTOR_FOR_SUBMIT))).click();
+    }
+
+    public void buySelectedTickets() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(BUY_SELECTOR_FOR_SUBMIT))).click();
     }
 
     public void assertOnPurchasePage() {
@@ -339,4 +361,57 @@ public class TestFixture {
         assertEquals(String.valueOf(initialNumberOfTickets - finalNumberOfTickets), aNumberOfTickets);
     }
 
+    public void addSelectedTicketsToCart() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(CART_SELECTOR_FOR_SUBMIT))).click();
+    }
+
+    public int getFirstTicketTypeQuantityInCart() {
+        return Integer.parseInt(driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_FOR_TICKET_QUANTITY_FIRST_TYPE)))
+                                          .getAttribute("value"));
+
+    }
+
+    public void assertTwoTypesOfTicketsInCart() {
+        List<WebElement> sports = driverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(XPATH_FOR_CART_TICKETS)));
+        assertEquals(2, sports.size());
+    }
+
+    public void goOnCartPage() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(CART_LINK_NAME))).click();
+    }
+
+    public void assertTheCartIsEmpty() {
+        assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.cssSelector(SELECTOR_CART_EMPTY),
+                                                                                EXPECTED_MESSAGE_CART_IS_EMPTY)));
+    }
+
+    public void setNewTicketQuantityFromFirstTicketTypeFromCart(String newQuantity) {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_TICKET_QUANTITY_FIRST_TYPE)))
+                  .clear();
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_TICKET_QUANTITY_FIRST_TYPE)))
+                  .sendKeys(newQuantity);
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_UPDATE_TICKET_QUANTITY_FIRST_TYPE)))
+                  .click();
+    }
+
+    public void assertNotEnoughTicketsAvalaibleErrorMessageIsDisplayed() {
+        assertTrue(driverWait.until(ExpectedConditions.textToBePresentInElement(By.id("warningMessage")/*
+                                                                                                        * By
+                                                                                                        * .
+                                                                                                        * cssSelector
+                                                                                                        * (
+                                                                                                        * SELECTOR_NOT_ENOUGH_TICKETS
+                                                                                                        * )
+                                                                                                        */,
+                                                                                EXPECTED_FAIL_MESSAGE_NOT_ENOUGH_TICKETS)));
+    }
+
+    public void emptyCart() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.linkText(EMPTY_CART_BUTTON))).click();
+    }
+
+    public void removeFirstTicketTypeFromCart() {
+        driverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_FOR_REMOVE_TICKETS_FIRST_TYPE)))
+                  .click();
+    }
 }

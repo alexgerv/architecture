@@ -39,7 +39,8 @@ public class TransactionLoggerIntegrationTest {
         fixture.navigateToMatchDetails();
         fixture.chooseASectionInMatchDetails();
         fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
-        fixture.buyATicket();
+        fixture.buySelectedTickets();
+        fixture.payForTickets();
         int finalSize = getLogSize();
 
         assertTrue(finalSize > initialSize);
@@ -47,7 +48,7 @@ public class TransactionLoggerIntegrationTest {
 
     private int getLogSize() throws IOException {
         File logfile = new File(TRANSACTIONS_LOG);
-        if(!logfile.exists()) {
+        if (!logfile.exists()) {
             return 0;
         }
         LineNumberReader lnr = new LineNumberReader(new FileReader(logfile));
