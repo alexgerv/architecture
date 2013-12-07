@@ -30,7 +30,7 @@ public class SectionViewConverter {
         List<SectionViewModel> viewModels = new LinkedList<SectionViewModel>();
         for (Section entry : entries.keySet()) {
             SectionViewModel viewModel = convert(entry);
-            viewModel.setAvailableTickets(entries.get(entry).size());
+            viewModel.setPurchaseQuantity(entries.get(entry).size());
             viewModels.add(viewModel);
         }
         return viewModels;

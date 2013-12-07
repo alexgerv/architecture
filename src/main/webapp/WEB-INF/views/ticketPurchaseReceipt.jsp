@@ -25,7 +25,7 @@
 							</div>
 							<div class="col-md-6">
 								<strong>Section :</strong> ${section.name}<br> <strong>Number
-									of Tickets :</strong> <span id="quantity">${quantity}</span><br> <strong>Individual
+									of Tickets :</strong> <span id="quantity">${section.purchaseQuantity}</span><br> <strong>Individual
 									Price :</strong> ${section.price}<br> <strong>Admission :</strong>
 								${section.admissionType}<br>
 							</div>
