@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.service;
+package ca.ulaval.glo4003.service.authentication;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -10,10 +10,6 @@ import ca.ulaval.glo4003.domain.match.Sex;
 
 public class TicketViewModelTest {
 
-    private static final int[] avalaibleTicketsInFirstSection = { 1, 2, 3, 4 };
-    private static final int[] avalaibleTicketsInSecondSection = { 5, 6, 7 };
-    private static final int INITIAL_NUMBER_OF_AVALAIBLE_TICKETS = avalaibleTicketsInFirstSection.length
-                                                                   + avalaibleTicketsInSecondSection.length;
     private Sex A_SEX = Sex.MEN;
     private int AN_ID = 0;
     private String A_SPORT = "aSport";

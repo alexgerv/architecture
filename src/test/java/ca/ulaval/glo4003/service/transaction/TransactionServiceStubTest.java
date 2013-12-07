@@ -1,10 +1,11 @@
-package ca.ulaval.glo4003.service;
+package ca.ulaval.glo4003.service.transaction;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import org.junit.Test;
 
 import ca.ulaval.glo4003.domain.payment.CreditCard;
+import ca.ulaval.glo4003.service.transaction.TransactionServiceStub;
 
 
 

@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.inject.Singleton;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import ca.ulaval.glo4003.domain.user.User;
@@ -18,6 +20,7 @@ public class JSONUserRepository extends UserRepository {
     private static final String ROOT_REPOSITORY = "./users/";
     private FileAccessor fileAccessor = new FileAccessor();
     private JSONUserMarshaller userMarshaller = new JSONUserMarshaller();
+    private Logger logger = LogManager.getRootLogger();
 
     public JSONUserRepository() {
         this.loadAll();
@@ -34,7 +37,8 @@ public class JSONUserRepository extends UserRepository {
             User newUser = userMarshaller.load(ROOT_REPOSITORY + pathtoUser);
             users.add(newUser);
         } catch (FileNotFoundException e) {
-            System.err.println(e.getMessage());
+            Logger logger = LogManager.getLogger("Exception");
+            logger.info(e.getMessage());
         }
     }
 
@@ -42,7 +46,7 @@ public class JSONUserRepository extends UserRepository {
         try {
             userMarshaller.save(user, ROOT_REPOSITORY + "/" + user.getEmailAddress() + ".json");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
     }
 

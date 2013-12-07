@@ -81,7 +81,6 @@ public class JSONUserRepositoryTest {
         userRepository.getUser(A_USERNAME);
     }
 
-    // FIXME This is not a Unit test
     @Test
     public void canAddNewUser() {
         doReturn(true).when(user).hasEmailAddress(A_USERNAME);

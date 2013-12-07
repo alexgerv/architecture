@@ -1,28 +1,26 @@
 package ca.ulaval.glo4003.infrastructure.match;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.After;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.domain.match.Match;
-import ca.ulaval.glo4003.infrastructure.match.JSONMatchRepository;
 
 public class JSONMatchRepositoryTest {
 
@@ -36,25 +34,19 @@ public class JSONMatchRepositoryTest {
     private static final String VALID_MATCH_IDENTIFIER_TO_ADD = "terrain/2010-08-30 12:30:00";
     private static final String INVALID_MATCH_IDENTIFIER_TO_ADD = "terrain2/2010-10-30 12:30:00";
 
-    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-
     private JSONMatchRepository aMatchRepository;
 
     @Mock
     private JSONMatchMarshaller matchConverter;
+    @Mock
+    private Logger logger;
     @Mock
     private Match aMatch;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        System.setErr(new PrintStream(errContent));
-        aMatchRepository = new JSONMatchRepository(matchConverter);
-    }
-
-    @After
-    public void cleanup() {
-        System.setOut(null);
+        aMatchRepository = new JSONMatchRepository(matchConverter, logger);
     }
 
     @Test
@@ -80,8 +72,7 @@ public class JSONMatchRepositoryTest {
         doThrow(new FileNotFoundException(AN_ERROR_MESSAGE)).when(matchConverter).load(anyString());
 
         aMatchRepository.getMatchesByIdentifier(INVALID_MATCH_INDENTIFIER);
-
-        assertEquals(AN_ERROR_MESSAGE, errContent.toString().trim());
+        verify(logger).info(any(String.class));
     }
 
     @Test
@@ -101,7 +92,6 @@ public class JSONMatchRepositoryTest {
                                                                   contains(INVALID_MATCH_IDENTIFIER_TO_ADD));
 
         aMatchRepository.add(aMatch);
-
-        assertEquals(AN_ERROR_MESSAGE, errContent.toString().trim());
+        verify(logger).info(any(String.class));
     }
 }

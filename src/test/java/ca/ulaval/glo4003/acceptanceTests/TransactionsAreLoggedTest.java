@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.service;
+package ca.ulaval.glo4003.acceptanceTests;
 
 import static org.junit.Assert.assertTrue;
 
@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import ca.ulaval.glo4003.testFixture.TestFixture;
 
-public class TransactionLoggerIntegrationTest {
+public class TransactionsAreLoggedTest {
 
     private static final String TRANSACTIONS_LOG = "transactions.log";
     private static final String A_TICKET_QUANTITY = "1";

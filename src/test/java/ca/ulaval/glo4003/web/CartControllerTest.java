@@ -24,7 +24,6 @@ import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 
 public class CartControllerTest {
 
-    private static final String A_TICKET_ID_STR = "0";
     @Mock
     Model model;
     @Mock

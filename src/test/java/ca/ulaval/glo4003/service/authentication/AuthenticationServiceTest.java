@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.service;
+package ca.ulaval.glo4003.service.authentication;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import ca.ulaval.glo4003.domain.user.User;
 import ca.ulaval.glo4003.domain.user.UserNotFoundException;
 import ca.ulaval.glo4003.domain.user.UserRepository;
+import ca.ulaval.glo4003.service.authentication.AuthenticationService;
 
 public class AuthenticationServiceTest {
 

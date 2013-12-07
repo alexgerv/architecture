@@ -92,7 +92,6 @@ public class TestFixture {
     private static final String XPATH_FOR_TICKET_QUANTITY_FIRST_TYPE = "//table/tbody/tr/td[10]/form/div/input";
     private static final String XPATH_FOR_ANOTHER_SECTION = "//table[@id='matchDetails']/tbody/tr[2]/td/a/strong";
     private static final String CART_LINK_NAME = "View Shopping Cart";
-    private static final String SELECTOR_NOT_ENOUGH_TICKETS = "div[class=\"alert alert-info\"]";
     private static final String EXPECTED_FAIL_MESSAGE_NOT_ENOUGH_TICKETS = "There are not enough tickets to purchase ";
     private static final String EMPTY_CART_BUTTON = "Empty cart";
     private static final String SELECTOR_CART_EMPTY = "div[class=\"alert alert-info\"]";
@@ -101,7 +100,7 @@ public class TestFixture {
     private static final String XPATH_FOR_UPDATE_TICKET_QUANTITY_FIRST_TYPE = "//table/tbody/tr/td[10]/form/a";
     private static final String XPATH_FOR_CART_TICKETS = "//*[@id='cartContent']//tr//td[4]";
     private static final String CHECKOUT_CART_BUTTON = "Checkout";
-    private static final String XPATH_FOR_RECEIPT = "/html/body/div[2]/div/div/div/div[2]";
+    private static final String TICKET_PURCHASED_QUANTITY = "quantity";
 
     public WebDriver driver;
     public WebDriverWait driverWait;
@@ -415,7 +414,7 @@ public class TestFixture {
     }
 
     public void assertUserBoughtAllHisTickets() {
-        List<WebElement> tickets = driverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("quantity")));
+        List<WebElement> tickets = driverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id(TICKET_PURCHASED_QUANTITY)));
         assertEquals(2, tickets.size());
     }
 

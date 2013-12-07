@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.web.views;
+package ca.ulaval.glo4003.acceptanceTests;
 
 import org.junit.After;
 import org.junit.Before;
@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import ca.ulaval.glo4003.testFixture.TestFixture;
 
-public class UserCanRemoveTicketsFromHisCart {
+public class UserCanBuyEveryTicketsInHisCart {
 
     private static final String A_TICKET_QUANTITY = "2";
     private static final String ANOTHER_TICKET_QUANTITY = "1";
@@ -26,7 +26,7 @@ public class UserCanRemoveTicketsFromHisCart {
     }
 
     @Test
-    public void userCanEmptyHisCart() {
+    public void userCanBuyEveryTicketsInHisCart() {
 
         fixture.goOnHomePage();
         fixture.goOnLoginPage();
@@ -40,24 +40,10 @@ public class UserCanRemoveTicketsFromHisCart {
         fixture.selectATicketQuantityForCurrentSection(ANOTHER_TICKET_QUANTITY);
         fixture.addSelectedTicketsToCart();
 
-        fixture.emptyCart();
+        fixture.checkoutCart();
 
-        fixture.assertTheCartIsEmpty();
-    }
+        fixture.payForTickets();
 
-    @Test
-    public void userCanRemoveTicketsFromHisCart() {
-
-        fixture.goOnHomePage();
-        fixture.goOnLoginPage();
-        fixture.logInWithRightCredentials();
-        fixture.navigateToMatchDetails();
-        fixture.chooseASectionInMatchDetails();
-        fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
-        fixture.addSelectedTicketsToCart();
-
-        fixture.removeFirstTicketTypeFromCart();
-
-        fixture.assertTheCartIsEmpty();
+        fixture.assertUserBoughtAllHisTickets();
     }
 }

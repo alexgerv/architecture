@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.web.views;
+package ca.ulaval.glo4003.acceptanceTests;
 
 import static org.junit.Assert.assertTrue;
 

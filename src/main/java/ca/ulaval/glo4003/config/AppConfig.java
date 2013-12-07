@@ -15,8 +15,8 @@ import ca.ulaval.glo4003.domain.payment.TransactionManager;
 import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchCatalogFactory;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchQueryFactory;
-import ca.ulaval.glo4003.service.TransactionServiceStub;
 import ca.ulaval.glo4003.service.mailsender.MailSender;
+import ca.ulaval.glo4003.service.transaction.TransactionServiceStub;
 
 @Configuration
 public class AppConfig {

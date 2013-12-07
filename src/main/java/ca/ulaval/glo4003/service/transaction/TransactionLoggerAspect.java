@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.service;
+package ca.ulaval.glo4003.service.transaction;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ca.ulaval.glo4003.web.views;
+package ca.ulaval.glo4003.acceptanceTests;
 
 import org.junit.After;
 import org.junit.Before;

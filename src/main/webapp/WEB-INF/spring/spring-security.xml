@@ -39,6 +39,6 @@
  <bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
  
  <!-- A custom service where Spring will retrieve users and their corresponding access levels  -->
- <bean id="authenticationService" class="ca.ulaval.glo4003.service.AuthenticationService"/>
+ <bean id="authenticationService" class="ca.ulaval.glo4003.service.authentication.AuthenticationService"/>
   
 </beans>
