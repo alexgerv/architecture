@@ -27,6 +27,7 @@ public class UserCanCreateANewAccountTest {
         fixture.goOnSignUpPage();
         fixture.signUp();
         fixture.assertSignUpWasSuccessful();
+        fixture.logOut();
     }
 
     public void anErrorMessageIsShownWhenTryingToCreateAnAccountWithAnExistingUser() {

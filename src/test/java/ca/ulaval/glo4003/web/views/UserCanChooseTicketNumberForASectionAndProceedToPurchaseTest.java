@@ -22,6 +22,7 @@ public class UserCanChooseTicketNumberForASectionAndProceedToPurchaseTest {
 
     @After
     public void tearDown() {
+        fixture.logOut();
         fixture.close();
     }
 
@@ -30,6 +31,7 @@ public class UserCanChooseTicketNumberForASectionAndProceedToPurchaseTest {
         fixture.navigateToMatchDetails();
         fixture.chooseASectionInMatchDetails();
         fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
+        fixture.buySelectedTickets();
         fixture.assertOnPurchasePage();
     }
 
@@ -38,6 +40,7 @@ public class UserCanChooseTicketNumberForASectionAndProceedToPurchaseTest {
         fixture.navigateToMatchDetails();
         fixture.chooseASectionInMatchDetails();
         fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
+        fixture.buySelectedTickets();
         fixture.assertBuyingTheRightTicketQuantity(A_TICKET_QUANTITY);
     }
 
@@ -48,7 +51,8 @@ public class UserCanChooseTicketNumberForASectionAndProceedToPurchaseTest {
 
         fixture.chooseASectionInMatchDetails();
         fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
-        fixture.buyATicket();
+        fixture.buySelectedTickets();
+        fixture.payForTickets();
         fixture.goOnHomePage();
 
         int finalNumberOfTickets = fixture.navigateToMatchDetailsAndReturnTheNumberOfTicketsJustBefore();

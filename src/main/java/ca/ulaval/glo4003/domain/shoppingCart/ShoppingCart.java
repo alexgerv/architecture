@@ -69,7 +69,10 @@ public class ShoppingCart {
     }
 
     public void emptyCart() {
-        cartContent.clear();
+        for (Section section : cartContent.keySet()) {
+            removeTickets(section, cartContent.get(section).size());
+            cartContent.remove(section);
+        }
     }
 
     public float getCartValue() {

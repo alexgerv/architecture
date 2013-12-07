@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import ca.ulaval.glo4003.testFixture.TestFixture;
 
-public class UserCanHaveAShoppingCartTest {
+public class UserCanRemoveTicketsFromHisCart {
 
     private static final String A_TICKET_QUANTITY = "2";
     private static final String ANOTHER_TICKET_QUANTITY = "1";
@@ -28,26 +28,7 @@ public class UserCanHaveAShoppingCartTest {
     }
 
     @Test
-    public void userCanAddTicketsToItsCart() {
-
-        fixture.goOnHomePage();
-        fixture.goOnLoginPage();
-        fixture.logInWithRightCredentials();
-
-        fixture.navigateToMatchDetails();
-
-        fixture.chooseASectionInMatchDetails();
-
-        fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
-
-        fixture.addSelectedTicketsToCart();
-
-        int ticketQuantity = fixture.getFirstTicketTypeQuantityInCart();
-        assertEquals(Integer.parseInt(A_TICKET_QUANTITY), ticketQuantity);
-    }
-
-    @Test
-    public void usersCartIsEmptiedWhenHeLogsOut() {
+    public void userCanAddEmptyHisCart() {
 
         fixture.goOnHomePage();
         fixture.goOnLoginPage();
@@ -56,32 +37,34 @@ public class UserCanHaveAShoppingCartTest {
         fixture.chooseASectionInMatchDetails();
         fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
         fixture.addSelectedTicketsToCart();
-
-        fixture.logOut();
-        fixture.logInWithRightCredentials();
-
-        fixture.goOnCartPage();
-
-        fixture.assertTheCartIsEmpty();
-    }
-
-    @Test
-    public void userCanAddMultipleTypesOfTicketsToItsCart() {
-
-        fixture.goOnHomePage();
-        fixture.goOnLoginPage();
-        fixture.logInWithRightCredentials();
-
-        fixture.navigateToMatchDetails();
-        fixture.chooseASectionInMatchDetails();
-        fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
-        fixture.addSelectedTicketsToCart();
-
         fixture.navigateToMatchDetails();
         fixture.chooseAnotherSectionInMatchDetails();
         fixture.selectATicketQuantityForCurrentSection(ANOTHER_TICKET_QUANTITY);
         fixture.addSelectedTicketsToCart();
 
-        fixture.assertTwoTypesOfTicketsInCart();
+        fixture.emptyCart();
+
+        fixture.assertTheCartIsEmpty();
+    }
+
+    @Test
+    public void userCanRemoveTicketsFromHisCart() {
+
+        fixture.goOnHomePage();
+        fixture.goOnLoginPage();
+        fixture.logInWithRightCredentials();
+        fixture.navigateToMatchDetails();
+        fixture.chooseASectionInMatchDetails();
+        fixture.selectATicketQuantityForCurrentSection(A_TICKET_QUANTITY);
+        fixture.addSelectedTicketsToCart();
+        fixture.navigateToMatchDetails();
+        fixture.chooseAnotherSectionInMatchDetails();
+        fixture.selectATicketQuantityForCurrentSection(ANOTHER_TICKET_QUANTITY);
+        fixture.addSelectedTicketsToCart();
+
+        fixture.removeFirstTicketTypeFromCart();
+
+        int ticketQuantity = fixture.getFirstTicketTypeQuantityInCart();
+        assertEquals(Integer.parseInt(ANOTHER_TICKET_QUANTITY), ticketQuantity);
     }
 }

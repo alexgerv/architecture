@@ -47,6 +47,9 @@ public class ManyUsersCanBuyTicketsSimultaneouslyTest {
         aUserFixture.assertBuyWasSuccessful();
         anOtherUserFixture.assertBuyWasSuccessful();
 
+        aUserFixture.logOut();
+        anOtherUserFixture.logOut();
+
         aUserFixture.close();
         anOtherUserFixture.close();
     }
