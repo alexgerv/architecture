@@ -293,8 +293,7 @@
 						<configuration>
 							<skip>{maven.test.skip}</skip>
 							<excludes>
-								<exclude>**/views/**</exclude>
-								<exclude>**/*IntegrationTest.java</exclude>
+								<exclude>**/acceptanceTests/**</exclude>
 							</excludes>
 						</configuration>
 					</execution>
@@ -307,8 +306,7 @@
 						<configuration>
 							<skip>{maven.test.skip}</skip>
 							<includes>
-								<include>**/views/**</include>
-								<include>**/*IntegrationTest.java</include>
+								<include>**/acceptanceTests/**</include>
 							</includes>
 						</configuration>
 					</execution>
