@@ -1,9 +1,9 @@
 package ca.ulaval.glo4003.domain.shoppingCart;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import ca.ulaval.glo4003.domain.match.Ticket;
 @Scope("session")
 public class ShoppingCart {
 
-    private Map<Section, List<Ticket>> cartContent = new HashMap<Section, List<Ticket>>();
+    private Map<Section, List<Ticket>> cartContent = new ConcurrentHashMap<Section, List<Ticket>>();
 
     public void addTicketsQuantity(Match match, String sectionName, int quantity) {
         Section section = match.getSectionByName(sectionName);
