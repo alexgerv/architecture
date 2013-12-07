@@ -6,12 +6,9 @@ import javax.inject.Inject;
 
 import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.Ticket;
-import ca.ulaval.glo4003.service.mailsender.MailSender;
 
 public class TransactionManager {
 
-    @Inject
-    MailSender mailSender;
     @Inject
     MatchRepository matchRepository;
 
@@ -21,8 +18,7 @@ public class TransactionManager {
         this.creditCardFactory = cerditCardFactory;
     }
 
-    public long processTransaction(long creditCardNumber, String creditCardType, List<Ticket> ticketsToBuy,
-                                   TransactionService transactionService) throws InvalidCreditCardException {
+    public long processTransaction(long creditCardNumber, String creditCardType, List<Ticket> ticketsToBuy, TransactionService transactionService) throws InvalidCreditCardException {
         float purchaseTotal = 0;
         for (Ticket ticket : ticketsToBuy) {
             purchaseTotal += ticket.getPrice();
@@ -31,7 +27,6 @@ public class TransactionManager {
 
         CreditCard creditCard = creditCardFactory.create(creditCardType, creditCardNumber);
         long transactionID = transactionService.processPayment(creditCard, purchaseTotal);
-        mailSender.sendPurchaseConfirmation();
         return transactionID;
     }
 
@@ -41,9 +36,8 @@ public class TransactionManager {
     }
 
     // For test purpose only
-    protected TransactionManager(MailSender mailSender, MatchRepository matchRepository,
+    protected TransactionManager(MatchRepository matchRepository,
                                  CreditCardFactory creditCardFactory) {
-        this.mailSender = mailSender;
         this.matchRepository = matchRepository;
         this.creditCardFactory = creditCardFactory;
     }
