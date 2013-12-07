@@ -7,6 +7,8 @@ import static org.mockito.Mockito.verify;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -51,7 +53,7 @@ public class TransactionManagerTest {
     }
 
     @Test
-    public void whenProcessingATransactionTheTransactionIDIsReturned() throws InvalidCreditCardException {
+    public void whenProcessingATransactionTheTransactionIDIsReturned() throws InvalidCreditCardException, MessagingException {
         long transactionID =
                              transactionManager.processTransaction(A_CREDIT_CARD_NUMBER, A_CREDIT_CARD_TYPE,
                                                                    ticketsToBuy, transactionService);
@@ -91,13 +93,15 @@ public class TransactionManagerTest {
         verify(matchRepository, times(ticketsToBuy.size())).update(MATCH_IDENTIFIER);
     }
 
-    @Test
-    public void whenProcessingATransactionAConfirmationEmailIsSend() throws InvalidCreditCardException {
-        transactionManager.processTransaction(A_CREDIT_CARD_NUMBER, A_CREDIT_CARD_TYPE, ticketsToBuy,
-                                              transactionService);
-
-        //TODO
-//        verify(mailSender).sendPurchaseConfirmation();
-    }
+     @Test
+     public void whenProcessingATransactionAConfirmationEmailIsSend() throws
+     InvalidCreditCardException {
+     transactionManager.processTransaction(A_CREDIT_CARD_NUMBER,
+     A_CREDIT_CARD_TYPE, ticketsToBuy,
+     transactionService);
+    
+     //TODO
+//     verify(mailSender).sendPurchaseConfirmation();
+     }
 
 }

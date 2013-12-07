@@ -83,8 +83,6 @@ public class MailSenderAspect {
         body += BODY_SIGNATURE;
         body += BODY_END;
 
-        System.out.println(body);
-
         return body;
     }
 }
