@@ -2,14 +2,18 @@ package ca.ulaval.glo4003.domain.shoppingCart;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +32,7 @@ public class ShoppingCartTest {
     private static final int A_GREATER_TICKET_QUANTITY = A_TICKET_QUANTITY * 2;
     private static final int A_LOWER_TICKET_QUANTITY = 2;
     private static final String A_SECTION_NAME = "A_SECTION_NAME";
+    private static final float A_TICKET_PRICE = 10f;
 
     @Mock
     Match aMatch;
@@ -119,5 +124,26 @@ public class ShoppingCartTest {
         shoppingCart.removeSectionFromCart(aMatch, A_SECTION_NAME);
 
         assertFalse(shoppingCart.getCartContent().containsKey(aSection));
+    }
+
+    @Test
+    public void thereAreNoTicketsInTheCartWhenItIsEmptied() {
+        shoppingCart.addTicketsQuantity(aMatch, A_SECTION_NAME, A_TICKET_QUANTITY);
+        shoppingCart.empty();
+
+        Map<Section, List<Ticket>> cartContent = shoppingCart.getCartContent();
+
+        assertTrue(cartContent.isEmpty());
+    }
+
+    @Test
+    public void test() {
+        Set<Section> sections = new HashSet<Section>();
+        sections.add(aSection);
+        doReturn(A_TICKET_PRICE).when(aSection).getPrice();
+
+        float cartValue = shoppingCart.getCartValue();
+
+        assertEquals(A_TICKET_PRICE * A_TICKET_QUANTITY, cartValue, 0.001);
     }
 }

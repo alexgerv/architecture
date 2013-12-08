@@ -56,4 +56,5 @@ public class SignupControllerTest {
     public void whenSigningOnLoginPageIsReturned() {
         assertEquals("login", controller.submitForm(user, model));
     }
+
 }

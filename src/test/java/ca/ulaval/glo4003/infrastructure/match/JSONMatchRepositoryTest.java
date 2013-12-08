@@ -94,4 +94,5 @@ public class JSONMatchRepositoryTest {
         aMatchRepository.add(aMatch);
         verify(logger).info(any(String.class));
     }
+
 }
