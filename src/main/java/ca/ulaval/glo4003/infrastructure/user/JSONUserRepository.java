@@ -20,7 +20,7 @@ public class JSONUserRepository extends UserRepository {
     private static final String ROOT_REPOSITORY = "./users/";
     private FileAccessor fileAccessor = new FileAccessor();
     private JSONUserMarshaller userMarshaller = new JSONUserMarshaller();
-    private Logger logger = LogManager.getRootLogger();
+    private Logger logger = LogManager.getLogger("errorLogger");
 
     public JSONUserRepository() {
         this.loadAll();
@@ -37,7 +37,6 @@ public class JSONUserRepository extends UserRepository {
             User newUser = userMarshaller.load(ROOT_REPOSITORY + pathtoUser);
             users.add(newUser);
         } catch (FileNotFoundException e) {
-            Logger logger = LogManager.getLogger("Exception");
             logger.info(e.getMessage());
         }
     }
@@ -50,9 +49,10 @@ public class JSONUserRepository extends UserRepository {
         }
     }
 
-    protected JSONUserRepository(FileAccessor fileAccessor, JSONUserMarshaller userConverter) {
+    protected JSONUserRepository(FileAccessor fileAccessor, JSONUserMarshaller userMarshaller, Logger logger) {
         this.fileAccessor = fileAccessor;
-        this.userMarshaller = userConverter;
+        this.userMarshaller = userMarshaller;
+        this.logger = logger;
     }
 
 }

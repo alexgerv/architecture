@@ -93,12 +93,7 @@ public class TicketPurchaseController {
         model.addAttribute("sections", sections);
 
         try {
-            Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
-            List<Ticket> ticketsToBuy = match.reserveTickets(quantity, sectionName);
-            transactionManager.processTransaction(creditCard.getNumber(),
-                                                  creditCard.getType(),
-                                                  ticketsToBuy,
-                                                  transactionService);
+            buyTickets(venue, date, sectionName, quantity, creditCard);
 
         } catch (NoAvailableTicketsException e) {
             String message = "There are not enough available tickets";
@@ -111,6 +106,20 @@ public class TicketPurchaseController {
         }
 
         return "ticketPurchaseReceipt";
+    }
+
+    private void buyTickets(String venue, String date, String sectionName, int quantity, CreditCardViewModel creditCard) throws InvalidCreditCardException {
+        List<Ticket> ticketsToBuy = reserveTickets(venue, date, sectionName, quantity);
+        transactionManager.processTransaction(creditCard.getNumber(),
+                                              creditCard.getType(),
+                                              ticketsToBuy,
+                                              transactionService);
+    }
+
+    private List<Ticket> reserveTickets(String venue, String date, String sectionName, int quantity) {
+        Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
+        List<Ticket> ticketsToBuy = match.reserveTickets(quantity, sectionName);
+        return ticketsToBuy;
     }
 
     @RequestMapping(value = "/purchase/cart", method = RequestMethod.POST)
@@ -124,37 +133,39 @@ public class TicketPurchaseController {
         model.addAttribute("sections", sectionsInCart);
 
         try {
-            List<Ticket> ticketsToBuy = new ArrayList<Ticket>();
-            for (List<Ticket> ticketsInSection : cartContents.values()) {
-                ticketsToBuy.addAll(ticketsInSection);
-            }
+            buyTicketsFromCart(creditCard, cartContents);
 
-            transactionManager.processTransaction(creditCard.getNumber(),
-                                                  creditCard.getType(),
-                                                  ticketsToBuy,
-                                                  transactionService);
-
-        } catch (NoAvailableTicketsException e) {
-            String message = "There are not enough available tickets";
-            model.addAttribute("message", message);
-            return "sectionDetails";
         } catch (InvalidCreditCardException e) {
             String message = e.getMessage();
             model.addAttribute("message", message);
             return "sectionDetails";
         }
 
-        shoppingCart.emptyCart();
+        shoppingCart.empty();
 
         return "ticketPurchaseReceipt";
     }
 
+    private void buyTicketsFromCart(CreditCardViewModel creditCard, Map<Section, List<Ticket>> cartContents) throws InvalidCreditCardException {
+        List<Ticket> ticketsToBuy = new ArrayList<Ticket>();
+        for (List<Ticket> ticketsInSection : cartContents.values()) {
+            ticketsToBuy.addAll(ticketsInSection);
+        }
+
+        transactionManager.processTransaction(creditCard.getNumber(),
+                                              creditCard.getType(),
+                                              ticketsToBuy,
+                                              transactionService);
+    }
+
     // For tests purpose only
     protected TicketPurchaseController(MatchRepository matchRepository, SectionViewConverter sectionConverter,
-                                       TransactionManager transactionManager) {
+                                       TransactionManager transactionManager, TransactionService transactionService,
+                                       ShoppingCart shoppingCart) {
         this.matchRepository = matchRepository;
         this.sectionConverter = sectionConverter;
         this.transactionManager = transactionManager;
+        this.transactionService = transactionService;
+        this.shoppingCart = shoppingCart;
     }
-
 }

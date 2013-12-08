@@ -50,21 +50,19 @@ public class CartController {
 
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
     public String cart(Model model) {
-        List<SectionViewModel> cartContent = sectionViewConverter.convert(shoppingCart.getCartContent());
-        model.addAttribute("cartContent", cartContent);
+        addCartContentToModel(model);
         return "cart";
     }
 
     @RequestMapping(value = "/cart/add/{venue}/{date}/{sectionName}", method = RequestMethod.POST)
-    public String reviewSelectedTicketsForSection(@PathVariable String venue, @PathVariable String date,
+    public String addTicketsToCart(@PathVariable String venue, @PathVariable String date,
                                                   @PathVariable String sectionName,
                                                   @RequestParam(value = "quantity", required = true) int quantity,
                                                   Model model) {
         Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
         shoppingCart.addTicketsQuantity(match, sectionName, quantity);
 
-        List<SectionViewModel> cartContent = sectionViewConverter.convert(shoppingCart.getCartContent());
-        model.addAttribute("cartContent", cartContent);
+        addCartContentToModel(model);
 
         return "cart";
     }
@@ -75,12 +73,16 @@ public class CartController {
                                  @RequestParam(value = "quantity", required = true) int quantity, Model model,
                                  HttpServletResponse response) throws IOException {
         Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
+        tryToChangeTicketQuantity(match, sectionName, quantity, response);
+        return cart(model);
+    }
+
+    private void tryToChangeTicketQuantity(Match match, String sectionName, int quantity, HttpServletResponse response) throws IOException {
         try {
             shoppingCart.changeTicketsQuantity(match, sectionName, quantity);
         } catch (NoAvailableTicketsException e) {
             response.sendError(500);
         }
-        return cart(model);
     }
 
     @RequestMapping(value = "/cart/remove/{venue}/{date}/{sectionName}", method = RequestMethod.POST)
@@ -90,9 +92,13 @@ public class CartController {
 
         shoppingCart.removeSectionFromCart(match, sectionName);
 
+        addCartContentToModel(model);
+        return cart(model);
+    }
+
+    private void addCartContentToModel(Model model) {
         List<SectionViewModel> cartContent = sectionViewConverter.convert(shoppingCart.getCartContent());
         model.addAttribute("cartContent", cartContent);
-        return cart(model);
     }
 
     @RequestMapping(value = "/cart/checkout", method = RequestMethod.GET)
@@ -109,16 +115,18 @@ public class CartController {
 
     @RequestMapping(value = "/cart/empty", method = RequestMethod.GET)
     public String emptyCart(Model model) throws IOException {
-        shoppingCart.emptyCart();
+        shoppingCart.empty();
 
         return "cart";
     }
 
     protected CartController(TransactionService transactionService, TransactionManager transactionManager,
-                             ShoppingCart shoppingCart, SectionViewConverter sectionConverter) {
+                             ShoppingCart shoppingCart, SectionViewConverter sectionConverter,
+                             MatchRepository matchRepository) {
         this.transactionService = transactionService;
         this.transactionManager = transactionManager;
         this.shoppingCart = shoppingCart;
         this.sectionViewConverter = sectionConverter;
+        this.matchRepository = matchRepository;
     }
 }

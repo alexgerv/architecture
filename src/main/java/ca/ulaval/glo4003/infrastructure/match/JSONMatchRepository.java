@@ -18,7 +18,7 @@ public class JSONMatchRepository extends MatchRepository {
 
     private static final String ROOT_REPOSITORY = "./matches/";
     private JSONMatchMarshaller matchMarshaller = new JSONMatchMarshaller();
-    private Logger logger = LogManager.getRootLogger();
+    private Logger logger = LogManager.getLogger("errorLogger");
 
     public JSONMatchRepository() {
 

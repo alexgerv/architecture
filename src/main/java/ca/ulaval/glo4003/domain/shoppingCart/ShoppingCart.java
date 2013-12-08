@@ -68,7 +68,7 @@ public class ShoppingCart {
         cartContent.remove(match.getSectionByName(sectionName));
     }
 
-    public void emptyCart() {
+    public void empty() {
         for (Section section : cartContent.keySet()) {
             removeTickets(section, cartContent.get(section).size());
             cartContent.remove(section);

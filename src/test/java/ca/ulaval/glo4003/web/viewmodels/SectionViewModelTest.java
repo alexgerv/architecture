@@ -1,6 +1,6 @@
 package ca.ulaval.glo4003.web.viewmodels;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class SectionViewModelTest {
     private String A_NAME = "aName";
     private int AVAILABLE_TICKETS = 100;
     private float A_PRICE = 100;
-
+    private int A_PURCHASE_QUANTITY = 10;
     private SectionViewModel aSectionViewModel;
 
     @Before
@@ -38,6 +38,7 @@ public class SectionViewModelTest {
         aSectionViewModel.setAvailableTickets(AVAILABLE_TICKETS);
         aSectionViewModel.setPrice(A_PRICE);
         aSectionViewModel.setAdmissionType(AN_ADMISSION_TYPE);
+        aSectionViewModel.setPurchaseQuantity(A_PURCHASE_QUANTITY);
     }
 
     @Test
@@ -87,12 +88,17 @@ public class SectionViewModelTest {
 
     @Test
     public void canGetThePriceOfASectionViewModel() {
-        assertTrue(aSectionViewModel.getPrice() == A_PRICE);
+        assertEquals(aSectionViewModel.getPrice(), A_PRICE, 0.001f);
     }
 
     @Test
     public void canGetAnAdmissionTypeOfASectionViewModel() {
         assertEquals(aSectionViewModel.getAdmissionType(), AN_ADMISSION_TYPE);
+    }
+
+    @Test
+    public void canGetPurchaseQuantityOfASectionViewModel() {
+        assertEquals(aSectionViewModel.getPurchaseQuantity(), A_PURCHASE_QUANTITY);
     }
 
 }
