@@ -96,12 +96,17 @@
 		}
 		hideCartIfEmpty();
 		
-		
-		$(".numberOfTickets").on('keyup', function() {
-			console.log("TEST");
-			var updateCartButton = $(this).parent().parent().find('.updateCart');
+		function displayUpdateButtonWhenTicketNumberChanges(inputField){
+			var updateCartButton = $(inputField).parent().parent().find('.updateCart');
 			updateCartButton.addClass("btn-primary").removeClass("btn-success disabled btn-danger");
 			updateCartButton.html('<i class="icon-refresh"></i>');
+		}
+
+		$(".numberOfTickets").on('keyup', function(){
+			displayUpdateButtonWhenTicketNumberChanges(this);
+		});
+		$(".numberOfTickets").click(function(){
+			displayUpdateButtonWhenTicketNumberChanges(this);
 		});
 
 		$(".updateCart").click(function() {
