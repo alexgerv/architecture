@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ca.ulaval.glo4003.testFixture.TestFixture;
@@ -96,7 +95,6 @@ public class UserCanEditTheTicketQuantityInHisCart {
         fixture.assertTheCartIsEmpty();
     }
 
-    @Ignore
     @Test
     public void anErrorIsShownIfTheUserTriesToAddMoreTicketsThanThereAreAvalaible() {
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
+import ca.ulaval.glo4003.domain.match.NotEnoughAvailableTicketsException;
 import ca.ulaval.glo4003.domain.match.Section;
 import ca.ulaval.glo4003.domain.match.Ticket;
 import ca.ulaval.glo4003.domain.payment.TransactionManager;
@@ -56,9 +57,8 @@ public class CartController {
 
     @RequestMapping(value = "/cart/add/{venue}/{date}/{sectionName}", method = RequestMethod.POST)
     public String addTicketsToCart(@PathVariable String venue, @PathVariable String date,
-                                                  @PathVariable String sectionName,
-                                                  @RequestParam(value = "quantity", required = true) int quantity,
-                                                  Model model) {
+                                   @PathVariable String sectionName,
+                                   @RequestParam(value = "quantity", required = true) int quantity, Model model) {
         Match match = matchRepository.getMatchByIdentifier(venue + "/" + date);
         shoppingCart.addTicketsQuantity(match, sectionName, quantity);
 
@@ -80,7 +80,7 @@ public class CartController {
     private void tryToChangeTicketQuantity(Match match, String sectionName, int quantity, HttpServletResponse response) throws IOException {
         try {
             shoppingCart.changeTicketsQuantity(match, sectionName, quantity);
-        } catch (NoAvailableTicketsException e) {
+        } catch (NoAvailableTicketsException | NotEnoughAvailableTicketsException e) {
             response.sendError(500);
         }
     }
