@@ -7,8 +7,6 @@ import static org.mockito.Mockito.verify;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.mail.MessagingException;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -19,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 
 import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.Ticket;
+import ca.ulaval.glo4003.service.mailsender.MailSender;
 
 public class TransactionManagerTest {
 
@@ -28,6 +27,8 @@ public class TransactionManagerTest {
     private static final Float TICKET_2_PRICE = 60.00f;
     private static final String MATCH_IDENTIFIER = "Stade_Tellus/12-30-13";
 
+    @Mock
+    private MailSender mailSender;
     @Mock
     private MatchRepository matchRepository;
     @Mock
@@ -49,14 +50,13 @@ public class TransactionManagerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        transactionManager = new TransactionManager(matchRepository, creditCardFactory);
         ticketsToBuy = Arrays.asList(ticket1, ticket2);
+        transactionManager = new TransactionManager(mailSender, matchRepository, creditCardFactory);
     }
 
     @Ignore
     @Test
-    public void whenProcessingATransactionTheTransactionIDIsReturned() throws InvalidCreditCardException,
-                                                                      MessagingException {
+    public void whenProcessingATransactionTheTransactionIDIsReturned() throws InvalidCreditCardException {
         long transactionID = transactionManager.processTransaction(A_CREDIT_CARD_NUMBER,
                                                                    A_CREDIT_CARD_TYPE,
                                                                    ticketsToBuy,
