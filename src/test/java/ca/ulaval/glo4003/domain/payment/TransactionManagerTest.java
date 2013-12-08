@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -26,6 +25,7 @@ public class TransactionManagerTest {
     private static final Float TICKET_1_PRICE = 40.00f;
     private static final Float TICKET_2_PRICE = 60.00f;
     private static final String MATCH_IDENTIFIER = "Stade_Tellus/12-30-13";
+    private static final long A_TRANSACTION_ID = 8888888;
 
     @Mock
     private MailSender mailSender;
@@ -54,7 +54,6 @@ public class TransactionManagerTest {
         transactionManager = new TransactionManager(mailSender, matchRepository, creditCardFactory);
     }
 
-    @Ignore
     @Test
     public void whenProcessingATransactionTheTransactionIDIsReturned() throws InvalidCreditCardException {
         long transactionID = transactionManager.processTransaction(A_CREDIT_CARD_NUMBER,
@@ -64,7 +63,6 @@ public class TransactionManagerTest {
         assertNotNull(transactionID);
     }
 
-    @Ignore
     @Test
     public void whenProcessingATransactionTheTransactionServiceIsProcessWithTheRightPurchaseTotal() throws InvalidCreditCardException {
         Mockito.when(ticket1.getPrice()).thenReturn(TICKET_1_PRICE);
@@ -79,7 +77,6 @@ public class TransactionManagerTest {
         verify(transactionService).processPayment(creditCard, TICKET_1_PRICE + TICKET_2_PRICE);
     }
 
-    @Ignore
     @Test
     public void whenProcessingATransactionAllTicketsAreBought() throws InvalidCreditCardException {
         transactionManager.processTransaction(A_CREDIT_CARD_NUMBER,
@@ -92,7 +89,6 @@ public class TransactionManagerTest {
         }
     }
 
-    @Ignore
     @Test
     public void whenProcessingATrancationAllTicketAssociatedMatchAreUpdated() throws InvalidCreditCardException {
         Mockito.when(ticket1.getMatchIdentifier()).thenReturn(MATCH_IDENTIFIER);
@@ -106,16 +102,19 @@ public class TransactionManagerTest {
         verify(matchRepository, times(ticketsToBuy.size())).update(MATCH_IDENTIFIER);
     }
 
-    @Ignore
     @Test
     public void whenProcessingATransactionAConfirmationEmailIsSend() throws InvalidCreditCardException {
+        Mockito.when(ticket1.getPrice()).thenReturn(TICKET_1_PRICE);
+        Mockito.when(ticket2.getPrice()).thenReturn(TICKET_2_PRICE);
+        Mockito.when(creditCardFactory.create(A_CREDIT_CARD_TYPE, A_CREDIT_CARD_NUMBER)).thenReturn(creditCard);
+        Mockito.when(transactionService.processPayment(creditCard, TICKET_1_PRICE + TICKET_2_PRICE))
+               .thenReturn(A_TRANSACTION_ID);
+
         transactionManager.processTransaction(A_CREDIT_CARD_NUMBER,
                                               A_CREDIT_CARD_TYPE,
                                               ticketsToBuy,
                                               transactionService);
 
-        // TODO
-        // verify(mailSender).sendPurchaseConfirmation();
+        verify(mailSender).sendPurchaseConfirmation(A_TRANSACTION_ID);
     }
-
 }

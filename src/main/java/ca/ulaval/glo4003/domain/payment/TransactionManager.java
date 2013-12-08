@@ -31,7 +31,7 @@ public class TransactionManager {
 
         CreditCard creditCard = creditCardFactory.create(creditCardType, creditCardNumber);
         long transactionID = transactionService.processPayment(creditCard, purchaseTotal);
-        mailSender.sendPurchaseConfirmation();
+        mailSender.sendPurchaseConfirmation(transactionID);
         return transactionID;
     }
 
