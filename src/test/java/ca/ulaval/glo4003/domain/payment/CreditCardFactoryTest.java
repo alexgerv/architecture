@@ -44,6 +44,6 @@ public class CreditCardFactoryTest {
     @Test(expected = InvalidCreditCardException.class)
     public void whenAskingForACreditCardWithAnInvalidTypeAnExceptionIsThrown() throws InvalidCreditCardException {
         CreditCardFactory crediCardFactory = new CreditCardFactory();
-        CreditCard creditCard = crediCardFactory.create(INVALID_CARD_TYPE, A_CREDIT_CARD_NUMBER);
+        crediCardFactory.create(INVALID_CARD_TYPE, A_CREDIT_CARD_NUMBER);
     }
 }

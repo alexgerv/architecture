@@ -131,6 +131,7 @@ public class TicketPurchaseControllerTest {
         verify(model).addAttribute("message", NOT_ENOUGH_TICKETS_MESSAGE);
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void aMessageIsAddedToTheModelWhenTheCreditCardIsInvalid() throws InvalidCreditCardException {
         doReturn(match).when(matchRepository).getMatchByIdentifier(MATCH_IDENTIFIER);
@@ -159,6 +160,7 @@ public class TicketPurchaseControllerTest {
         assertEquals(RECEIPT_PAGE, controller.purchaseCartContent(model, creditCardViewModel));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void aMessageIsAddedToTheModelWhenTheCreditCardIsInvalidFromCart() throws InvalidCreditCardException {
         doReturn(match).when(matchRepository).getMatchByIdentifier(MATCH_IDENTIFIER);
