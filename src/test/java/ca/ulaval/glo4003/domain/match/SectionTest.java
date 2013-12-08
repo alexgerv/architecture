@@ -128,11 +128,6 @@ public class SectionTest {
         verify(matchInformation).getVisitorTeam();
     }
 
-    @Test(expected = NoAvailableTicketsException.class)
-    public void whenBuyingMoreThanAvailableTicketsANoAvailableTicketsException() {
-        aSection.reserveTickets(MORE_THAN_AVAILABLE_TICKETS);
-    }
-
     @Test(expected = InvalidQuantityException.class)
     public void whenBuyingANegativeQuantityOfTicketsAnInvalidQuantityExceptionIsThrown() {
         aSection.reserveTickets(A_NEGATIVE_NUMBER);
@@ -143,8 +138,8 @@ public class SectionTest {
         aSection.reserveTickets(A_NEGATIVE_NUMBER);
     }
 
-    @Test(expected = NoAvailableTicketsException.class)
-    public void whenGettingMoreThanAvailableTicketsANoAvailableTicketsException() {
+    @Test(expected = NotEnoughAvailableTicketsException.class)
+    public void whenReservingMoreThanAvailableTicketsANoAvailableTicketsException() {
         aSection.reserveTickets(MORE_THAN_AVAILABLE_TICKETS);
     }
 
@@ -161,6 +156,12 @@ public class SectionTest {
         doReturn(true).when(anAvailableTicket).isAvailable();
         aSection.reserveTickets(A_QUANTITY_OF_AVAILABLE_TICKETS);
         verify(anAvailableTicket).reserve();
+    }
+
+    @Test(expected = NoAvailableTicketsException.class)
+    public void whenReservingATicketIfNoneAvalaibleThenNoAvailableExceptionIsThrown() {
+        aSection.reserveTicket();
+        aSection.reserveTicket();
     }
 
 }

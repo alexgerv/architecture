@@ -35,7 +35,7 @@
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
 				<label>Hello <sec:authentication property="principal.username"/></label>
-				<a class="btn btn-primary" href="/cart">View Shopping Cart</a>
+				<a class="btn btn-primary" href="/cart">View Shopping Cart</a></a>
 				<a id="logout" class="btn btn-danger" href="/logout">Logout</a>
 			</sec:authorize>
 		</div>

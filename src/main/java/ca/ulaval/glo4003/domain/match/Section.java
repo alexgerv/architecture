@@ -32,6 +32,7 @@ public class Section {
     public List<Ticket> reserveTickets(int quantity) {
         List<Ticket> tickets = new ArrayList<Ticket>();
         assertTicketQuantityIsPositive(quantity);
+        assertEnoughTicketsAvailableFoAskedQuantity(quantity);
 
         for (int i = 0; i < quantity; i++) {
             tickets.add(reserveTicket());
@@ -45,7 +46,13 @@ public class Section {
         }
     }
 
-    private Ticket reserveTicket() {
+    private void assertEnoughTicketsAvailableFoAskedQuantity(int quantity) {
+        if (quantity > getNumberOfAvailableTickets()) {
+            throw new NotEnoughAvailableTicketsException("The asked quantity of tickets exceed the available tickets for this section.");
+        }
+    }
+
+    protected Ticket reserveTicket() {
         for (Ticket ticket : tickets) {
             if (ticket.isAvailable()) {
                 ticket.reserve();
