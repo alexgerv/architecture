@@ -2,6 +2,8 @@ package ca.ulaval.glo4003.service.mailsender;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -15,6 +17,8 @@ public class MailSender {
 
     @Inject
     JavaMailSenderImpl mailServer;
+
+    Logger logger = LogManager.getLogger("errorLogger");
 
     SimpleMailMessageBuilder simpleMailMessageBuilder;
 
@@ -38,13 +42,14 @@ public class MailSender {
         try {
             mailServer.send(message);
         } catch (MailException ex) {
-            System.err.println(ex.getMessage());
+            logger.info(ex.getMessage());
         }
     }
 
     // For test purpose only
-    protected MailSender(JavaMailSenderImpl mailServer, SimpleMailMessageBuilder simpleMailMessageBuilder) {
+    protected MailSender(JavaMailSenderImpl mailServer, SimpleMailMessageBuilder simpleMailMessageBuilder, Logger logger) {
         this.mailServer = mailServer;
         this.simpleMailMessageBuilder = simpleMailMessageBuilder;
+        this.logger = logger;
     }
 }

@@ -2,6 +2,7 @@ package ca.ulaval.glo4003.service.mailsender;
 
 import static org.mockito.Mockito.verify;
 
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -32,13 +33,15 @@ public class MailSenderTest {
     private SimpleMailMessage simpleMailMessage;
     @Mock
     private Authentication authentication;
+    @Mock
+    private Logger logger;
 
     private MailSender mailSender;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mailSender = new MailSender(mailServer, simpleMailMessageBuilder);
+        mailSender = new MailSender(mailServer, simpleMailMessageBuilder, logger);
         SecurityContextHolder.setContext(securityContext);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         Mockito.when(authentication.getName()).thenReturn(EMAIL_ADDRESS);
