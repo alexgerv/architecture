@@ -2,13 +2,14 @@ package ca.ulaval.glo4003.service.mailsender;
 
 import static org.mockito.Mockito.verify;
 
+import javax.mail.internet.MimeMessage;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -28,9 +29,9 @@ public class MailSenderTest {
     @Mock
     private JavaMailSenderImpl mailServer;
     @Mock
-    private SimpleMailMessageBuilder simpleMailMessageBuilder;
+    private MimeMessageBuilder mimeMessageBuilder;
     @Mock
-    private SimpleMailMessage simpleMailMessage;
+    private MimeMessage mimeMessage;
     @Mock
     private Authentication authentication;
     @Mock
@@ -41,24 +42,24 @@ public class MailSenderTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mailSender = new MailSender(mailServer, simpleMailMessageBuilder, logger);
+        mailSender = new MailSender(mailServer, mimeMessageBuilder, logger);
         SecurityContextHolder.setContext(securityContext);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         Mockito.when(authentication.getName()).thenReturn(EMAIL_ADDRESS);
     }
 
     @Test
-    public void whenSendingAnEmailTheMailServerIsAskedWithRightSimpleMessage() {
-        Mockito.when(simpleMailMessageBuilder.build()).thenReturn(simpleMailMessage);
+    public void whenSendingAnEmailTheMailServerIsAskedWithRightMimeMessage() {
+        Mockito.when(mimeMessageBuilder.build(mailServer)).thenReturn(mimeMessage);
         mailSender.sendPurchaseConfirmation(A_TRANSACTION_NUMBER);
 
-        verify(mailServer).send(simpleMailMessage);
+        verify(mailServer).send(mimeMessage);
     }
 
     @Test
     public void whenSendingAnEmailTheRightBodyIsAdded() {
         mailSender.sendPurchaseConfirmation(A_TRANSACTION_NUMBER);
 
-        verify(simpleMailMessageBuilder).createBody(MAIL_MESSAGE_WITH_TRANSACTION_NUMBER);
+        verify(mimeMessageBuilder).setBody(MAIL_MESSAGE_WITH_TRANSACTION_NUMBER);
     }
 }

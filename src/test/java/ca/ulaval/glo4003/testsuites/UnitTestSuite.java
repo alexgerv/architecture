@@ -29,7 +29,7 @@ import ca.ulaval.glo4003.infrastructure.persistence.FileAccessorTest;
 import ca.ulaval.glo4003.infrastructure.user.JSONUserRepositoryTest;
 import ca.ulaval.glo4003.service.authentication.AuthenticationServiceTest;
 import ca.ulaval.glo4003.service.mailsender.MailSenderTest;
-import ca.ulaval.glo4003.service.mailsender.SimpleMailMessageBuilderTest;
+import ca.ulaval.glo4003.service.mailsender.MimeMessageBuilderTest;
 import ca.ulaval.glo4003.service.transaction.TransactionServiceStubTest;
 import ca.ulaval.glo4003.web.CartControllerTest;
 import ca.ulaval.glo4003.web.HomeControllerTest;
@@ -60,7 +60,7 @@ import ca.ulaval.glo4003.web.viewmodels.UserViewModelTest;
                MatchVisitorTeamFilterTest.class, TransactionServiceStubTest.class, TicketViewModelTest.class,
                TicketViewConverterTest.class, ShoppingCartTest.class, CartControllerTest.class,
                TransactionManagerTest.class, CreditCardFactoryTest.class, CreditCardTest.class,
-               CreditCardViewModelTest.class, MailSenderTest.class, SimpleMailMessageBuilderTest.class })
+               CreditCardViewModelTest.class, MailSenderTest.class, MimeMessageBuilderTest.class })
 public class UnitTestSuite {
 
 }

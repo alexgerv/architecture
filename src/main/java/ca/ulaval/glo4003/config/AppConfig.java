@@ -1,5 +1,7 @@
 package ca.ulaval.glo4003.config;
 
+import java.util.Properties;
+
 import javax.inject.Inject;
 
 import org.springframework.context.annotation.Bean;
@@ -16,7 +18,7 @@ import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchCatalogFactory;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchQueryFactory;
 import ca.ulaval.glo4003.service.mailsender.MailSender;
-import ca.ulaval.glo4003.service.mailsender.SimpleMailMessageBuilder;
+import ca.ulaval.glo4003.service.mailsender.MimeMessageBuilder;
 import ca.ulaval.glo4003.service.transaction.TransactionServiceStub;
 
 @Configuration
@@ -55,17 +57,22 @@ public class AppConfig {
     public JavaMailSenderImpl mailServer() {
         JavaMailSenderImpl mailServer = new JavaMailSenderImpl();
         mailServer.setHost("smtp.gmail.com");
-        mailServer.setPort(465);
-        mailServer.setUsername("userglo4003@gmail.com");
+        mailServer.setPort(587);
+        mailServer.setUsername("userglo4003");
         mailServer.setPassword("user4003");
-        mailServer.setProtocol("smtps");
+        
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        
+        mailServer.setJavaMailProperties(properties);
 
         return mailServer;
     }
 
     @Bean
     public MailSender mailSender() {
-        SimpleMailMessageBuilder simpleMailMessageBuilder = new SimpleMailMessageBuilder();
-        return new MailSender(simpleMailMessageBuilder);
+        MimeMessageBuilder mimeMessageBuilder = new MimeMessageBuilder();
+        return new MailSender(mimeMessageBuilder);
     }
 }
