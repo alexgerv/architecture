@@ -5,6 +5,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
