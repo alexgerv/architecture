@@ -9,22 +9,28 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 public class MimeMessageBuilderTest {
 
-    private static final String A_SENDER = "userglo4003@gmail.com";
+    private static final String A_DEFAULT_SENDER = "userglo4003@gmail.com";
+    private static final String A_PERSONAL_SENDER = "userglo4003";
     private static final String A_DESTINATION = "dest@gmail.com";
     private static final String A_SUBJECT = "Testing";
     private static final String A_BODY = "Message body";
 
-    private static final String OTHER_SENDER = "new@gmail.com";
+    private static final String OTHER_DEFAULT_SENDER = "new@gmail.com";
+    private static final String OTHER_PERSONAL_SENDER = "new";
     private static final String OTHER_DESTINATION = "dest2@gmail.com";
     private static final String OTHER_SUBJECT = "Testing seccond message";
     private static final String OTHER_BODY = "Message body for other message";
     
     @Mock
     private JavaMailSenderImpl mailServer;
+    
+    @Mock
+    private MimeMessage message;
 
     private MimeMessageBuilder mimeMessageBuilder;
 
@@ -32,7 +38,8 @@ public class MimeMessageBuilderTest {
     public void setUp() {
         mimeMessageBuilder = new MimeMessageBuilder();
 
-        mimeMessageBuilder.setPersonalSender(A_SENDER);
+        mimeMessageBuilder.setDefaultSender(A_DEFAULT_SENDER);
+        mimeMessageBuilder.setPersonalSender(A_PERSONAL_SENDER);
         mimeMessageBuilder.setDestination(A_DESTINATION);
         mimeMessageBuilder.setSubject(A_SUBJECT);
         mimeMessageBuilder.setBody(A_BODY);
@@ -72,9 +79,12 @@ public class MimeMessageBuilderTest {
 
     @Test
     public void canBuildTwoDifferentSimpleMessage() {
+        Mockito.when(mimeMessageBuilder.build(mailServer)).thenReturn(message);
+        
         MimeMessage firstMessage = mimeMessageBuilder.build(mailServer);
 
-        mimeMessageBuilder.setPersonalSender(OTHER_SENDER);
+        mimeMessageBuilder.setDefaultSender(OTHER_DEFAULT_SENDER);
+        mimeMessageBuilder.setPersonalSender(OTHER_PERSONAL_SENDER);
         mimeMessageBuilder.setDestination(OTHER_DESTINATION);
         mimeMessageBuilder.setSubject(OTHER_SUBJECT);
         mimeMessageBuilder.setBody(OTHER_BODY);
