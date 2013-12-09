@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class MailSenderTest {
 
     private static final String EMAIL_ADDRESS = "userglo4003@gmail.com";
+    private static final String A_TEXT = "aText";
 
     private static final long A_TRANSACTION_NUMBER = 999999;
 
@@ -46,6 +47,14 @@ public class MailSenderTest {
         SecurityContextHolder.setContext(securityContext);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         Mockito.when(authentication.getName()).thenReturn(EMAIL_ADDRESS);
+        
+        Mockito.when(mimeMessageBuilder.setDefaultSender(EMAIL_ADDRESS)).thenReturn(mimeMessageBuilder);
+        Mockito.when(mimeMessageBuilder.setPersonalSender(EMAIL_ADDRESS)).thenReturn(mimeMessageBuilder);
+        Mockito.when(mimeMessageBuilder.setDestination(EMAIL_ADDRESS)).thenReturn(mimeMessageBuilder);
+        Mockito.when(mimeMessageBuilder.setSubject(A_TEXT)).thenReturn(mimeMessageBuilder);
+        Mockito.when(mimeMessageBuilder.setBody(A_TEXT)).thenReturn(mimeMessageBuilder);
+        Mockito.when(mimeMessageBuilder.setSignatureID(A_TEXT)).thenReturn(mimeMessageBuilder);
+        Mockito.when(mimeMessageBuilder.setSignatureLogo(A_TEXT)).thenReturn(mimeMessageBuilder);
     }
 
     @Test
