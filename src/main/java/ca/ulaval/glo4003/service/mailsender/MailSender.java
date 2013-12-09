@@ -39,6 +39,7 @@ public class MailSender {
     }
 
     private void sendEmail(SimpleMailMessage message) {
+        // Normalement un créerais un thread pour l'envoie du message
         try {
             mailServer.send(message);
         } catch (MailException ex) {
