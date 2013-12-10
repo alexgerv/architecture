@@ -59,7 +59,7 @@ public class MatchListController {
     }
 
     protected MatchListController(MatchRepository matchRepository, MatchViewConverter matchViewConverter,
-                                  SectionViewConverter sectionConverter) {
+            SectionViewConverter sectionConverter) {
         this.matchConverter = matchViewConverter;
         this.matchRepository = matchRepository;
         this.sectionConverter = sectionConverter;

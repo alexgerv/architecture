@@ -121,8 +121,7 @@ public class CartController {
     }
 
     protected CartController(TransactionService transactionService, TransactionManager transactionManager,
-                             ShoppingCart shoppingCart, SectionViewConverter sectionConverter,
-                             MatchRepository matchRepository) {
+            ShoppingCart shoppingCart, SectionViewConverter sectionConverter, MatchRepository matchRepository) {
         this.transactionService = transactionService;
         this.transactionManager = transactionManager;
         this.shoppingCart = shoppingCart;

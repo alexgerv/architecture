@@ -11,7 +11,7 @@ public class Match implements Indexable<MatchAttribute> {
     private List<Section> sections;
 
     public Match(String sport, String venue, Date date, String homeTeam, String visitorTeam, Sex sex,
-                 List<Section> sections) {
+            List<Section> sections) {
         matchInformation = new MatchInformation(sport, venue, date, homeTeam, visitorTeam, sex);
         this.sections = sections;
     }
@@ -77,12 +77,8 @@ public class Match implements Indexable<MatchAttribute> {
 
     @Override
     public String toString() {
-        return String.format("%s's %s, %s VS %s at %s on %s",
-                             matchInformation.getSex(),
-                             matchInformation.getSport(),
-                             matchInformation.getHomeTeam(),
-                             matchInformation.getVisitorTeam(),
-                             matchInformation.getVenue(),
-                             matchInformation.getFormatedDate());
+        return String.format("%s's %s, %s VS %s at %s on %s", matchInformation.getSex(), matchInformation.getSport(),
+                             matchInformation.getHomeTeam(), matchInformation.getVisitorTeam(),
+                             matchInformation.getVenue(), matchInformation.getFormatedDate());
     }
 }

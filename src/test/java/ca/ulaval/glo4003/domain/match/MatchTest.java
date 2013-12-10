@@ -123,13 +123,8 @@ public class MatchTest {
     @Test
     public void toStringGeneratesAStringInTheRightFormat() {
         String matchString = aMatch.toString();
-        String expectedString = String.format("%s's %s, %s VS %s at %s on %s",
-                                              A_SEX,
-                                              A_SPORT,
-                                              A_HOME_TEAM,
-                                              A_VISITOR_TEAM,
-                                              A_VENUE,
-                                              A_FORMATED_DATE);
+        String expectedString = String.format("%s's %s, %s VS %s at %s on %s", A_SEX, A_SPORT, A_HOME_TEAM,
+                                              A_VISITOR_TEAM, A_VENUE, A_FORMATED_DATE);
         assertEquals(matchString, expectedString);
     }
 

@@ -21,8 +21,7 @@ import ca.ulaval.glo4003.web.viewmodels.MatchViewModel;
 
 public class SearchBarControllerTest {
 
-    private final String SERIALIZED_QUERY =
-                                            "{\"SPORT\":[{\"name\":\"Football\",\"value\":\"on\"},{\"name\":\"Cross-country\",\"value\":\"on\"}],\"VENUE\":[{\"name\":\"Sherbrooke\",\"value\":\"on\"}]}";
+    private final String SERIALIZED_QUERY = "{\"SPORT\":[{\"name\":\"Football\",\"value\":\"on\"},{\"name\":\"Cross-country\",\"value\":\"on\"}],\"VENUE\":[{\"name\":\"Sherbrooke\",\"value\":\"on\"}]}";
 
     @Mock
     private MatchCatalog matchCatalog;

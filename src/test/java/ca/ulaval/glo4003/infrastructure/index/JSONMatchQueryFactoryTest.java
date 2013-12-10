@@ -16,9 +16,8 @@ public class JSONMatchQueryFactoryTest {
     private static final String A_VALID_JSON_STRING = "{\"SPORT\":[{\"name\":\"basketball\",\"value\":\"on\"}]}";
     private static final MatchAttribute EXPECTED_FILTER_CATEGORY = MatchAttribute.SPORT;
     private static final String EXPECTED_FILTER_VALUE = "basketball";
-    private static final String A_VALID_JSON_STRING_WITH_MORE_THAN_ONE_FILTER =
-                                                                                "{\"SPORT\":[{\"name\":\"basketball\",\"value\":\"on\"}],"
-                                                                                        + "\"VENUE\":[{\"name\":\"tenis\",\"value\":\"on\"}]}";
+    private static final String A_VALID_JSON_STRING_WITH_MORE_THAN_ONE_FILTER = "{\"SPORT\":[{\"name\":\"basketball\",\"value\":\"on\"}],"
+                                                                                + "\"VENUE\":[{\"name\":\"tenis\",\"value\":\"on\"}]}";
     private static final MatchAttribute NEXT_EXPECTED_FILTER_CATEGORY = MatchAttribute.VENUE;
     private static final String NEXT_EXPECTED_FILTER_VALUE = "tenis";
 

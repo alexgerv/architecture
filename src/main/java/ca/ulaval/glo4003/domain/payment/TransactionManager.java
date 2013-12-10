@@ -42,7 +42,7 @@ public class TransactionManager {
 
     // For test purpose only
     protected TransactionManager(MailSender mailSender, MatchRepository matchRepository,
-                                 CreditCardFactory creditCardFactory) {
+            CreditCardFactory creditCardFactory) {
         this.mailSender = mailSender;
         this.matchRepository = matchRepository;
         this.creditCardFactory = creditCardFactory;

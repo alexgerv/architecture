@@ -12,7 +12,7 @@ public class Section {
     private MatchInformation matchInformation;
 
     public Section(String sectionName, List<Ticket> tickets, MatchInformation matchInformation, float price,
-                   AdmissionType admissionType) {
+            AdmissionType admissionType) {
         this.tickets = tickets;
         this.name = sectionName;
         this.price = price;

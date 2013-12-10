@@ -103,8 +103,7 @@ public class CartControllerTest {
     @Test
     public void anErrorCodeIsReturnedWhenTryingToChangeQuantityWhenThereAreNotEnoughTicketsAvailable() throws IOException {
         doReturn(aMatch).when(matchRepository).getMatchByIdentifier(anyString());
-        doThrow(NoAvailableTicketsException.class).when(shoppingCart).changeTicketsQuantity(aMatch,
-                                                                                            A_SECTION_NAME,
+        doThrow(NoAvailableTicketsException.class).when(shoppingCart).changeTicketsQuantity(aMatch, A_SECTION_NAME,
                                                                                             A_QUANTITY);
 
         cartController.changeQuantity(A_VENUE, A_DATE, A_SECTION_NAME, A_QUANTITY, model, aResponse);

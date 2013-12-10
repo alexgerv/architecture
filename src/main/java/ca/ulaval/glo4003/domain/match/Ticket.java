@@ -9,7 +9,7 @@ public class Ticket {
     private MatchInformation matchInformation;
 
     public Ticket(int ID, TicketAvailability availability, MatchInformation matchInformation, float price,
-                  AdmissionType admissionType) {
+            AdmissionType admissionType) {
         this.ID = ID;
         this.availability = availability;
         this.matchInformation = matchInformation;

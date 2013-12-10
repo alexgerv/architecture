@@ -24,13 +24,13 @@ public class SearchBarController {
 
     @Inject
     MatchQueryFactory matchQueryFactory;
-    
+
     private MatchViewConverter matchConverter = new MatchViewConverter();
 
-    public SearchBarController(){
-        
+    public SearchBarController() {
+
     }
-    
+
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public @ResponseBody
     List<MatchViewModel> searchResults(@RequestBody String request) {
@@ -38,8 +38,9 @@ public class SearchBarController {
         List<MatchViewModel> matchList = (List<MatchViewModel>) matchConverter.convert(matchCatalog.getMatchesFromQuery(query));
         return matchList;
     }
-    
-    protected SearchBarController(MatchCatalog matchCatalog, MatchQueryFactory matchQueryFactory, MatchViewConverter matchViewConverter){
+
+    protected SearchBarController(MatchCatalog matchCatalog, MatchQueryFactory matchQueryFactory,
+            MatchViewConverter matchViewConverter) {
         this.matchCatalog = matchCatalog;
         this.matchQueryFactory = matchQueryFactory;
         this.matchConverter = matchViewConverter;
