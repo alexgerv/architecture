@@ -14,6 +14,7 @@ import ca.ulaval.glo4003.domain.match.SectionTest;
 import ca.ulaval.glo4003.domain.match.TicketTest;
 import ca.ulaval.glo4003.domain.payment.CreditCardFactoryTest;
 import ca.ulaval.glo4003.domain.payment.CreditCardTest;
+import ca.ulaval.glo4003.domain.payment.TicketPurchaseFacadeTest;
 import ca.ulaval.glo4003.domain.payment.TransactionManagerTest;
 import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCartTest;
 import ca.ulaval.glo4003.domain.user.UserTest;
@@ -60,7 +61,8 @@ import ca.ulaval.glo4003.web.viewmodels.UserViewModelTest;
                MatchVisitorTeamFilterTest.class, TransactionServiceStubTest.class, TicketViewModelTest.class,
                TicketViewConverterTest.class, ShoppingCartTest.class, CartControllerTest.class,
                TransactionManagerTest.class, CreditCardFactoryTest.class, CreditCardTest.class,
-               CreditCardViewModelTest.class, MailSenderTest.class, MimeMessageBuilderTest.class })
+               CreditCardViewModelTest.class, MailSenderTest.class, MimeMessageBuilderTest.class,
+               TicketPurchaseFacadeTest.class })
 public class UnitTestSuite {
 
 }
