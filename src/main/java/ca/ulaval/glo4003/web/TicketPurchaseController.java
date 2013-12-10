@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
 import ca.ulaval.glo4003.domain.match.Section;
 import ca.ulaval.glo4003.domain.match.Ticket;
+import ca.ulaval.glo4003.domain.payment.InvalidCreditCardException;
 import ca.ulaval.glo4003.domain.payment.TicketPurchaseFacade;
 import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
 import ca.ulaval.glo4003.web.converters.SectionViewConverter;
@@ -45,8 +47,8 @@ public class TicketPurchaseController {
                                                   @RequestParam(value = "quantity", required = true) int quantity,
                                                   Model model,
                                                   @ModelAttribute(value = "creditCardForm") CreditCardViewModel creditCard) {
-        SectionViewModel viewModel = ticketPurchaseFacade.retriveSectionInformations(venue, date, sectionName, quantity);
-        float purchaseTotal = ticketPurchaseFacade.computePurchaseTotal(viewModel, quantity);
+        SectionViewModel viewModel = retriveSectionInformation(venue, date, sectionName, quantity);
+        float purchaseTotal = ticketPurchaseFacade.computePurchaseTotal(viewModel.getPrice(), quantity);
 
         model.addAttribute("purchaseTotal", purchaseTotal);
         model.addAttribute("sections", Arrays.asList(viewModel));
@@ -64,15 +66,30 @@ public class TicketPurchaseController {
                                                     Model model,
                                                     @ModelAttribute(value = "creditCardForm") CreditCardViewModel creditCard) {
 
-        SectionViewModel viewModel = ticketPurchaseFacade.retriveSectionInformations(venue, date, sectionName, quantity);
-        float purchaseTotal = ticketPurchaseFacade.computePurchaseTotal(viewModel, quantity);
+        SectionViewModel viewModel = retriveSectionInformation(venue, date, sectionName, quantity);
+        float purchaseTotal = ticketPurchaseFacade.computePurchaseTotal(viewModel.getPrice(), quantity);
 
         model.addAttribute("purchaseTotal", purchaseTotal);
         model.addAttribute("sections", Arrays.asList(viewModel));
 
-        String purchaseState = ticketPurchaseFacade.processPurchase(model, venue, date, sectionName, quantity,
-                                                                    creditCard);
-        return purchaseState;
+        try {
+            ticketPurchaseFacade.processPurchase(venue,
+                                                 date,
+                                                 sectionName,
+                                                 quantity,
+                                                 creditCard.getNumber(),
+                                                 creditCard.getType());
+        } catch (NoAvailableTicketsException e) {
+            String message = "There are not enough available tickets";
+            model.addAttribute("message", message);
+            return "sectionDetails";
+        } catch (InvalidCreditCardException e) {
+            String message = e.getMessage();
+            model.addAttribute("message", message);
+            return "sectionDetails";
+        }
+
+        return "ticketPurchaseReceipt";
     }
 
     @RequestMapping(value = "/purchase/cart", method = RequestMethod.POST)
@@ -85,16 +102,32 @@ public class TicketPurchaseController {
         model.addAttribute("purchaseTotal", shoppingCart.getCartValue());
         model.addAttribute("sections", sectionsInCart);
 
-        String cartPurchaseState = ticketPurchaseFacade.processCartPurchase(model, shoppingCart, creditCard);
+        try {
+            ticketPurchaseFacade.processCartPurchase(shoppingCart, creditCard.getNumber(), creditCard.getType());
+        } catch (InvalidCreditCardException e) {
+            String message = e.getMessage();
+            model.addAttribute("message", message);
+            return "cart";
+        }
 
-        return cartPurchaseState;
+        return "ticketPurchaseReceipt";
+    }
+
+    public SectionViewModel retriveSectionInformation(String venue, String date, String sectionName, int quantity) {
+        SectionViewModel viewModel = sectionConverter.convert(ticketPurchaseFacade.retriveSection(venue,
+                                                                                                  date,
+                                                                                                  sectionName));
+        viewModel.setPurchaseQuantity(quantity);
+
+        return viewModel;
     }
 
     // For tests purpose only
     protected TicketPurchaseController(TicketPurchaseFacade ticketPurchaseFacade,
-            SectionViewConverter sectionConverter, ShoppingCart shoppingCart) {
+                                       SectionViewConverter sectionConverter, ShoppingCart shoppingCart) {
         this.ticketPurchaseFacade = ticketPurchaseFacade;
         this.sectionConverter = sectionConverter;
         this.shoppingCart = shoppingCart;
     }
+
 }

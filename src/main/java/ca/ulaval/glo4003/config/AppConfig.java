@@ -21,7 +21,6 @@ import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchQueryFactory;
 import ca.ulaval.glo4003.service.mailsender.MailSender;
 import ca.ulaval.glo4003.service.mailsender.MimeMessageBuilder;
 import ca.ulaval.glo4003.service.transaction.TransactionServiceStub;
-import ca.ulaval.glo4003.web.converters.SectionViewConverter;
 
 @Configuration
 public class AppConfig {
@@ -57,8 +56,7 @@ public class AppConfig {
 
     @Bean
     public TicketPurchaseFacade ticketPurchaseFacade() throws Exception {
-        SectionViewConverter sectionConverter = new SectionViewConverter();
-        return new TicketPurchaseFacade(sectionConverter);
+        return new TicketPurchaseFacade();
     }
 
     @Bean
@@ -68,11 +66,11 @@ public class AppConfig {
         mailServer.setPort(587);
         mailServer.setUsername("userglo4003");
         mailServer.setPassword("user4003");
-        
+
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
-        
+
         mailServer.setJavaMailProperties(properties);
 
         return mailServer;

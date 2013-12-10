@@ -6,17 +6,11 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.springframework.ui.Model;
-
 import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchRepository;
-import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
 import ca.ulaval.glo4003.domain.match.Section;
 import ca.ulaval.glo4003.domain.match.Ticket;
 import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
-import ca.ulaval.glo4003.web.converters.SectionViewConverter;
-import ca.ulaval.glo4003.web.viewmodels.CreditCardViewModel;
-import ca.ulaval.glo4003.web.viewmodels.SectionViewModel;
 
 public class TicketPurchaseFacade {
 
@@ -27,45 +21,22 @@ public class TicketPurchaseFacade {
     @Inject
     TransactionService transactionService;
 
-    private SectionViewConverter sectionConverter;
+    public TicketPurchaseFacade() {
 
-    public TicketPurchaseFacade(SectionViewConverter sectionConverter) {
-        this.sectionConverter = sectionConverter;
     }
 
-    public SectionViewModel retriveSectionInformations(String venue, String date, String sectionName, int quantity) {
-        SectionViewModel viewModel = sectionConverter.convert(matchRepository.getMatchByIdentifier(venue + "/" + date)
-                                                                             .getSectionByName(sectionName));
-        viewModel.setPurchaseQuantity(quantity);
-
-        return viewModel;
+    public Section retriveSection(String venue, String date, String sectionName) {
+        return matchRepository.getMatchByIdentifier(venue + "/" + date).getSectionByName(sectionName);
     }
 
-    public float computePurchaseTotal(SectionViewModel viewModel, int quantity) {
-        return quantity * viewModel.getPrice();
+    public float computePurchaseTotal(float price, int quantity) {
+        return quantity * price;
     }
 
-    public String processPurchase(Model model, String venue, String date, String sectionName, int quantity,
-                                  CreditCardViewModel creditCard) {
-        try {
-            buyTickets(venue, date, sectionName, quantity, creditCard);
-        } catch (NoAvailableTicketsException e) {
-            String message = "There are not enough available tickets";
-            model.addAttribute("message", message);
-            return "sectionDetails";
-        } catch (InvalidCreditCardException e) {
-            String message = e.getMessage();
-            model.addAttribute("message", message);
-            return "sectionDetails";
-        }
-
-        return "ticketPurchaseReceipt";
-    }
-
-    private void buyTickets(String venue, String date, String sectionName, int quantity, CreditCardViewModel creditCard) throws InvalidCreditCardException {
+    public void processPurchase(String venue, String date, String sectionName, int quantity, long creditCardNumber,
+                                String creditCardType) throws InvalidCreditCardException {
         List<Ticket> ticketsToBuy = reserveTickets(venue, date, sectionName, quantity);
-        transactionManager.processTransaction(creditCard.getNumber(), creditCard.getType(), ticketsToBuy,
-                                              transactionService);
+        transactionManager.processTransaction(creditCardNumber, creditCardType, ticketsToBuy, transactionService);
     }
 
     private List<Ticket> reserveTickets(String venue, String date, String sectionName, int quantity) {
@@ -74,35 +45,25 @@ public class TicketPurchaseFacade {
         return ticketsToBuy;
     }
 
-    public String processCartPurchase(Model model, ShoppingCart shoppingCart, CreditCardViewModel creditCard) {
+    public void processCartPurchase(ShoppingCart shoppingCart, long creditCardNumber, String creditCardType) throws InvalidCreditCardException {
         Map<Section, List<Ticket>> cartContents = shoppingCart.getCartContent();
-        try {
-            buyTicketsFromCart(creditCard, cartContents);
-
-        } catch (InvalidCreditCardException e) {
-            String message = e.getMessage();
-            model.addAttribute("message", message);
-            return "sectionDetails";
-        }
-
+        buyTicketsFromCart(creditCardNumber, creditCardType, cartContents);
         shoppingCart.empty();
-        return "ticketPurchaseReceipt";
     }
 
-    private void buyTicketsFromCart(CreditCardViewModel creditCard, Map<Section, List<Ticket>> cartContents) throws InvalidCreditCardException {
+    private void buyTicketsFromCart(long creditCardNumber, String creditCardType,
+                                    Map<Section, List<Ticket>> cartContents) throws InvalidCreditCardException {
         List<Ticket> ticketsToBuy = new ArrayList<Ticket>();
         for (List<Ticket> ticketsInSection : cartContents.values()) {
             ticketsToBuy.addAll(ticketsInSection);
         }
 
-        transactionManager.processTransaction(creditCard.getNumber(), creditCard.getType(), ticketsToBuy,
-                                              transactionService);
+        transactionManager.processTransaction(creditCardNumber, creditCardType, ticketsToBuy, transactionService);
     }
 
     // For test purpose only
-    protected TicketPurchaseFacade(SectionViewConverter sectionConverter, MatchRepository matchRepository,
-            TransactionManager transactionManager, TransactionService transactionService) {
-        this.sectionConverter = sectionConverter;
+    protected TicketPurchaseFacade(MatchRepository matchRepository, TransactionManager transactionManager,
+                                   TransactionService transactionService) {
         this.matchRepository = matchRepository;
         this.transactionManager = transactionManager;
         this.transactionService = transactionService;
