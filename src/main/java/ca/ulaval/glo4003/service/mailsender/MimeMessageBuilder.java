@@ -49,32 +49,37 @@ public class MimeMessageBuilder {
         this.signatureLogo = signatureLogo;
         return this;
     }
-    
+
     public MimeMessageBuilder setSignatureID(String signatureID) {
         this.signatureID = signatureID;
         return this;
     }
 
     public MimeMessage build(JavaMailSenderImpl mailServer) {
-        MimeMessage message = mailServer.createMimeMessage();
 
+        MimeMessage message = mailServer.createMimeMessage();
+        
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            helper.setFrom(defaultSender, personalSender);
-            helper.setTo(destination);
-            helper.setSubject(subject);
-            helper.setText(body, true);
-
-            FileSystemResource file = new FileSystemResource(signatureLogo);
-            helper.addInline(signatureID, file);
+            setHelper(helper);
 
         } catch (MessagingException e) {
-            throw new MailParseException(e);
+            throw new MessageBuilderException("Could not create an email.");
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            throw new MessageBuilderException("Could not create an email");
         }
 
         return message;
+    }
+
+    private void setHelper(MimeMessageHelper helper) throws MessagingException, UnsupportedEncodingException {
+        helper.setFrom(defaultSender, personalSender);
+        helper.setTo(destination);
+        helper.setSubject(subject);
+        helper.setText(body, true);
+
+        FileSystemResource file = new FileSystemResource(signatureLogo);
+        helper.addInline(signatureID, file);
     }
 }
