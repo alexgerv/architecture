@@ -32,7 +32,7 @@ public class MatchViewConverterTest {
 
     @Mock
     HashMap<String, Match> entries;
-    
+
     MatchViewConverter aMatchViewConverter;
 
     @Before

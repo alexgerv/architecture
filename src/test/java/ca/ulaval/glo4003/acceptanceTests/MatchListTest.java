@@ -25,8 +25,7 @@ public class MatchListTest {
         fixture.SearchForAParticularSport();
         int totalNumberOfTicketsForAParticularMatch = fixture.getTotalNumberOfTicketsForAParticularMatch();
         fixture.clickOnAParticularMatch();
-        int totalNumberOfTicketsForAParticularMatchFromDetailedPage =
-                                                                      fixture.getTotalNumberOfTicketsFromSubSectionsForAParticularMatch();
+        int totalNumberOfTicketsForAParticularMatchFromDetailedPage = fixture.getTotalNumberOfTicketsFromSubSectionsForAParticularMatch();
 
         assertEquals(totalNumberOfTicketsForAParticularMatchFromDetailedPage, totalNumberOfTicketsForAParticularMatch);
     }

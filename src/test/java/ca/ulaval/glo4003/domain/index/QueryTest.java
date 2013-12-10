@@ -54,8 +54,8 @@ public class QueryTest {
         List<FilterCategories> categories = aQuery.getValidFilterCategories();
         List<String> filterValues = aQuery.getFilterValuesForCategory(categories.get(0));
 
-        boolean filterContainsTheTwoValues = filterValues.contains(A_FILTER_VALUE) && 
-                                             filterValues.contains(ANOTHER_FILTER_VALUE);
+        boolean filterContainsTheTwoValues = filterValues.contains(A_FILTER_VALUE)
+                                             && filterValues.contains(ANOTHER_FILTER_VALUE);
         assertTrue(filterContainsTheTwoValues);
     }
 
@@ -63,11 +63,11 @@ public class QueryTest {
     public void queryCanHaveMoreThanOneFilter() {
         aQuery.addFilterValue(A_FILTER_CATEGORY, A_FILTER_VALUE);
         aQuery.addFilterValue(ANOTHER_FILTER_CATEGORY, ANOTHER_FILTER_VALUE);
-        
+
         List<FilterCategories> categories = aQuery.getValidFilterCategories();
 
-        boolean queryContainsTwoFilters = categories.contains(A_FILTER_CATEGORY) && 
-                categories.contains(ANOTHER_FILTER_CATEGORY);
+        boolean queryContainsTwoFilters = categories.contains(A_FILTER_CATEGORY)
+                                          && categories.contains(ANOTHER_FILTER_CATEGORY);
         assertTrue(queryContainsTwoFilters);
     }
 }

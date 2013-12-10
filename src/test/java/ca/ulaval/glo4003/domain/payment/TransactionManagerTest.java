@@ -56,10 +56,8 @@ public class TransactionManagerTest {
 
     @Test
     public void whenProcessingATransactionTheTransactionIDIsReturned() throws InvalidCreditCardException {
-        long transactionID = transactionManager.processTransaction(A_CREDIT_CARD_NUMBER,
-                                                                   A_CREDIT_CARD_TYPE,
-                                                                   ticketsToBuy,
-                                                                   transactionService);
+        long transactionID = transactionManager.processTransaction(A_CREDIT_CARD_NUMBER, A_CREDIT_CARD_TYPE,
+                                                                   ticketsToBuy, transactionService);
         assertNotNull(transactionID);
     }
 
@@ -69,9 +67,7 @@ public class TransactionManagerTest {
         Mockito.when(ticket2.getPrice()).thenReturn(TICKET_2_PRICE);
         Mockito.when(creditCardFactory.create(A_CREDIT_CARD_TYPE, A_CREDIT_CARD_NUMBER)).thenReturn(creditCard);
 
-        transactionManager.processTransaction(A_CREDIT_CARD_NUMBER,
-                                              A_CREDIT_CARD_TYPE,
-                                              ticketsToBuy,
+        transactionManager.processTransaction(A_CREDIT_CARD_NUMBER, A_CREDIT_CARD_TYPE, ticketsToBuy,
                                               transactionService);
 
         verify(transactionService).processPayment(creditCard, TICKET_1_PRICE + TICKET_2_PRICE);
@@ -79,9 +75,7 @@ public class TransactionManagerTest {
 
     @Test
     public void whenProcessingATransactionAllTicketsAreBought() throws InvalidCreditCardException {
-        transactionManager.processTransaction(A_CREDIT_CARD_NUMBER,
-                                              A_CREDIT_CARD_TYPE,
-                                              ticketsToBuy,
+        transactionManager.processTransaction(A_CREDIT_CARD_NUMBER, A_CREDIT_CARD_TYPE, ticketsToBuy,
                                               transactionService);
 
         for (Ticket ticket : ticketsToBuy) {
@@ -94,9 +88,7 @@ public class TransactionManagerTest {
         Mockito.when(ticket1.getMatchIdentifier()).thenReturn(MATCH_IDENTIFIER);
         Mockito.when(ticket2.getMatchIdentifier()).thenReturn(MATCH_IDENTIFIER);
 
-        transactionManager.processTransaction(A_CREDIT_CARD_NUMBER,
-                                              A_CREDIT_CARD_TYPE,
-                                              ticketsToBuy,
+        transactionManager.processTransaction(A_CREDIT_CARD_NUMBER, A_CREDIT_CARD_TYPE, ticketsToBuy,
                                               transactionService);
 
         verify(matchRepository, times(ticketsToBuy.size())).update(MATCH_IDENTIFIER);
@@ -110,9 +102,7 @@ public class TransactionManagerTest {
         Mockito.when(transactionService.processPayment(creditCard, TICKET_1_PRICE + TICKET_2_PRICE))
                .thenReturn(A_TRANSACTION_ID);
 
-        transactionManager.processTransaction(A_CREDIT_CARD_NUMBER,
-                                              A_CREDIT_CARD_TYPE,
-                                              ticketsToBuy,
+        transactionManager.processTransaction(A_CREDIT_CARD_NUMBER, A_CREDIT_CARD_TYPE, ticketsToBuy,
                                               transactionService);
 
         verify(mailSender).sendPurchaseConfirmation(A_TRANSACTION_ID);
