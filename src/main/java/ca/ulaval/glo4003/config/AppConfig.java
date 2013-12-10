@@ -11,6 +11,7 @@ import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalogFactory;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryFactory;
 import ca.ulaval.glo4003.domain.payment.CreditCardFactory;
+import ca.ulaval.glo4003.domain.payment.TicketPurchaseFacade;
 import ca.ulaval.glo4003.domain.payment.TransactionManager;
 import ca.ulaval.glo4003.domain.payment.TransactionService;
 import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchCatalogFactory;
@@ -18,6 +19,7 @@ import ca.ulaval.glo4003.infrastructure.matchCatalog.JSONMatchQueryFactory;
 import ca.ulaval.glo4003.service.mailsender.MailSender;
 import ca.ulaval.glo4003.service.mailsender.SimpleMailMessageBuilder;
 import ca.ulaval.glo4003.service.transaction.TransactionServiceStub;
+import ca.ulaval.glo4003.web.converters.SectionViewConverter;
 
 @Configuration
 public class AppConfig {
@@ -49,6 +51,12 @@ public class AppConfig {
     public TransactionManager transactionManager() throws Exception {
         CreditCardFactory creditCardFactory = new CreditCardFactory();
         return new TransactionManager(creditCardFactory);
+    }
+
+    @Bean
+    public TicketPurchaseFacade ticketPurchaseFacade() throws Exception {
+        SectionViewConverter sectionConverter = new SectionViewConverter();
+        return new TicketPurchaseFacade(sectionConverter);
     }
 
     @Bean
