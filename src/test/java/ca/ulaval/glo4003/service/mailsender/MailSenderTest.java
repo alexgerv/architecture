@@ -16,14 +16,22 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class MailSenderTest {
-
-    private static final String EMAIL_ADDRESS = "userglo4003@gmail.com";
-    private static final String A_TEXT = "aText";
-
     private static final long A_TRANSACTION_NUMBER = 999999;
 
-    private static final String MAIL_MESSAGE_WITH_TRANSACTION_NUMBER = String.format("Thanks for buying!\nYour confirmation number is: %d",
+    private static final String A_DESTINATION = "userglo4003@gmail.com";
+    private static final String A_DEFAULT_SENDER = "userglo4003@gmail.com";
+    private static final String A_PERSONAL_SENDER = "uTickets";
+    private static final String A_SUBJECT = "Transaction";
+    private static final String A_SIGNATURE_ID = "signatureLogo";
+    private static final String A_SIGNATURE_LOGO = "src/main/webapp/resources/logo.png";
+    private static final String A_MESSAGE_TEMPLATE =
+                                                     "<h3>Thanks for buying!</h3><p>Your confirmation number is: %d</p><img src='cid:"
+                                                             + A_SIGNATURE_ID + "'>";
+    private static final String MAIL_MESSAGE_WITH_TRANSACTION_NUMBER =
+                                                                       String.format("<h3>Thanks for buying!</h3><p>Your confirmation number is: %d</p><img src='cid:"
+                                                                                             + A_SIGNATURE_ID + "'>",
                                                                                      A_TRANSACTION_NUMBER);
+
     @Mock
     SecurityContext securityContext;
 
@@ -46,15 +54,16 @@ public class MailSenderTest {
         mailSender = new MailSender(mailServer, mimeMessageBuilder, logger);
         SecurityContextHolder.setContext(securityContext);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-        Mockito.when(authentication.getName()).thenReturn(EMAIL_ADDRESS);
-        
-        Mockito.when(mimeMessageBuilder.setDefaultSender(EMAIL_ADDRESS)).thenReturn(mimeMessageBuilder);
-        Mockito.when(mimeMessageBuilder.setPersonalSender(EMAIL_ADDRESS)).thenReturn(mimeMessageBuilder);
-        Mockito.when(mimeMessageBuilder.setDestination(EMAIL_ADDRESS)).thenReturn(mimeMessageBuilder);
-        Mockito.when(mimeMessageBuilder.setSubject(A_TEXT)).thenReturn(mimeMessageBuilder);
-        Mockito.when(mimeMessageBuilder.setBody(A_TEXT)).thenReturn(mimeMessageBuilder);
-        Mockito.when(mimeMessageBuilder.setSignatureID(A_TEXT)).thenReturn(mimeMessageBuilder);
-        Mockito.when(mimeMessageBuilder.setSignatureLogo(A_TEXT)).thenReturn(mimeMessageBuilder);
+        Mockito.when(authentication.getName()).thenReturn(A_DESTINATION);
+
+        Mockito.when(mimeMessageBuilder.setDefaultSender(A_DEFAULT_SENDER)).thenReturn(mimeMessageBuilder);
+        Mockito.when(mimeMessageBuilder.setPersonalSender(A_PERSONAL_SENDER)).thenReturn(mimeMessageBuilder);
+        Mockito.when(mimeMessageBuilder.setDestination(A_DESTINATION)).thenReturn(mimeMessageBuilder);
+        Mockito.when(mimeMessageBuilder.setSubject(A_SUBJECT)).thenReturn(mimeMessageBuilder);
+        Mockito.when(mimeMessageBuilder.setBody(String.format(A_MESSAGE_TEMPLATE, A_TRANSACTION_NUMBER)))
+               .thenReturn(mimeMessageBuilder);
+        Mockito.when(mimeMessageBuilder.setSignatureID(A_SIGNATURE_ID)).thenReturn(mimeMessageBuilder);
+        Mockito.when(mimeMessageBuilder.setSignatureLogo(A_SIGNATURE_LOGO)).thenReturn(mimeMessageBuilder);
     }
 
     @Test
