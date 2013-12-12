@@ -6,12 +6,11 @@ import javax.inject.Inject;
 
 import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.Ticket;
-import ca.ulaval.glo4003.service.mailsender.MailSender;
 
 public class TransactionManager {
 
     @Inject
-    MailSender mailSender;
+    IMailSender mailSender;
     @Inject
     MatchRepository matchRepository;
 
@@ -41,8 +40,8 @@ public class TransactionManager {
     }
 
     // For test purpose only
-    protected TransactionManager(MailSender mailSender, MatchRepository matchRepository,
-            CreditCardFactory creditCardFactory) {
+    protected TransactionManager(IMailSender mailSender, MatchRepository matchRepository,
+                                 CreditCardFactory creditCardFactory) {
         this.mailSender = mailSender;
         this.matchRepository = matchRepository;
         this.creditCardFactory = creditCardFactory;

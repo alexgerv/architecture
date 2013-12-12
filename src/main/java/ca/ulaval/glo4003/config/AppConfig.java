@@ -13,6 +13,7 @@ import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalog;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchCatalogFactory;
 import ca.ulaval.glo4003.domain.matchCatalog.MatchQueryFactory;
 import ca.ulaval.glo4003.domain.payment.CreditCardFactory;
+import ca.ulaval.glo4003.domain.payment.IMailSender;
 import ca.ulaval.glo4003.domain.payment.TicketPurchaseFacade;
 import ca.ulaval.glo4003.domain.payment.TransactionManager;
 import ca.ulaval.glo4003.domain.payment.TransactionService;
@@ -77,7 +78,7 @@ public class AppConfig {
     }
 
     @Bean
-    public MailSender mailSender() {
+    public IMailSender mailSender() {
         MimeMessageBuilder mimeMessageBuilder = new MimeMessageBuilder();
         return new MailSender(mimeMessageBuilder);
     }

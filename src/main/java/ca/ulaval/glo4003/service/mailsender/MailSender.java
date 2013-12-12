@@ -9,7 +9,9 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-public class MailSender {
+import ca.ulaval.glo4003.domain.payment.IMailSender;
+
+public class MailSender implements IMailSender {
 
     private static final String DEFAULT_SENDER = "userglo4003@gmail.com";
     private static final String PERSONAL_SENDER = "uTickets";
