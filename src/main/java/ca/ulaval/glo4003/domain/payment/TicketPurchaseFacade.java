@@ -10,7 +10,6 @@ import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.Section;
 import ca.ulaval.glo4003.domain.match.Ticket;
-import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
 
 public class TicketPurchaseFacade {
 
@@ -45,10 +44,9 @@ public class TicketPurchaseFacade {
         return ticketsToBuy;
     }
 
-    public void processCartPurchase(ShoppingCart shoppingCart, long creditCardNumber, String creditCardType) throws InvalidCreditCardException {
-        Map<Section, List<Ticket>> cartContents = shoppingCart.getCartContent();
+    public void processCartPurchase(Map<Section, List<Ticket>> cartContents, long creditCardNumber,
+                                    String creditCardType) throws InvalidCreditCardException {
         buyTicketsFromCart(creditCardNumber, creditCardType, cartContents);
-        shoppingCart.empty();
     }
 
     private void buyTicketsFromCart(long creditCardNumber, String creditCardType,

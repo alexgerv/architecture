@@ -7,6 +7,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +20,7 @@ import org.springframework.ui.Model;
 
 import ca.ulaval.glo4003.domain.match.NoAvailableTicketsException;
 import ca.ulaval.glo4003.domain.match.Section;
+import ca.ulaval.glo4003.domain.match.Ticket;
 import ca.ulaval.glo4003.domain.payment.InvalidCreditCardException;
 import ca.ulaval.glo4003.domain.payment.TicketPurchaseFacade;
 import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
@@ -52,6 +56,7 @@ public class TicketPurchaseControllerTest {
     @Mock
     Section aSection;
 
+    Map<Section, List<Ticket>> cartContent = new HashMap<Section, List<Ticket>>();
     ArrayList<SectionViewModel> expectedSectionViewModel = new ArrayList<SectionViewModel>();
 
     @InjectMocks
@@ -138,7 +143,7 @@ public class TicketPurchaseControllerTest {
         doReturn(sectionViewModel).when(sectionConverter).convert(aSection);
         doReturn(CREDIT_CARD_NUMBER).when(creditCardViewModel).getNumber();
         doReturn(CREDIT_CARD_TYPE).when(creditCardViewModel).getType();
-        doThrow(new InvalidCreditCardException("")).when(ticketPurchaseFacade).processCartPurchase(shoppingCart,
+        doThrow(new InvalidCreditCardException("")).when(ticketPurchaseFacade).processCartPurchase(cartContent,
                                                                                                    CREDIT_CARD_NUMBER,
                                                                                                    CREDIT_CARD_TYPE);
         assertEquals(CART_PAGE, controller.purchaseCartContent(model, creditCardViewModel));

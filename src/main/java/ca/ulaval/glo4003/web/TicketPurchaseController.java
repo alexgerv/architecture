@@ -103,7 +103,8 @@ public class TicketPurchaseController {
         model.addAttribute("sections", sectionsInCart);
 
         try {
-            ticketPurchaseFacade.processCartPurchase(shoppingCart, creditCard.getNumber(), creditCard.getType());
+            ticketPurchaseFacade.processCartPurchase(cartContents, creditCard.getNumber(), creditCard.getType());
+            shoppingCart.empty();
         } catch (InvalidCreditCardException e) {
             String message = e.getMessage();
             model.addAttribute("message", message);

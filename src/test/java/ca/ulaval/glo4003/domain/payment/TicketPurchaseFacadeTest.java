@@ -20,7 +20,6 @@ import ca.ulaval.glo4003.domain.match.Match;
 import ca.ulaval.glo4003.domain.match.MatchRepository;
 import ca.ulaval.glo4003.domain.match.Section;
 import ca.ulaval.glo4003.domain.match.Ticket;
-import ca.ulaval.glo4003.domain.shoppingCart.ShoppingCart;
 
 public class TicketPurchaseFacadeTest {
 
@@ -46,8 +45,6 @@ public class TicketPurchaseFacadeTest {
     private TransactionService transactionService;
     @Mock
     private Ticket ticketToBuy;
-    @Mock
-    ShoppingCart shoppingCart;
 
     List<Ticket> ticketsToBuy;
     Map<Section, List<Ticket>> cartContent = new HashMap<Section, List<Ticket>>();
@@ -94,8 +91,7 @@ public class TicketPurchaseFacadeTest {
 
     @Test
     public void theCartTransactionIsProcessedWhenTheTicketsAreAvailable() throws InvalidCreditCardException {
-        doReturn(cartContent).when(shoppingCart).getCartContent();
-        facade.processCartPurchase(shoppingCart, CREDIT_CARD_NUMBER, CREDIT_CARD_TYPE);
+        facade.processCartPurchase(cartContent, CREDIT_CARD_NUMBER, CREDIT_CARD_TYPE);
         verify(transactionManager).processTransaction(CREDIT_CARD_NUMBER,
                                                       CREDIT_CARD_TYPE,
                                                       ticketsToBuy,
