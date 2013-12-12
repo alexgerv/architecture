@@ -51,7 +51,7 @@ def createSections(matchInformation, ticketID):
         admission = choice(admissionType)
     
         sections += os.linesep + '{"tickets":['
-        ticketNumber = randint(20, 100)
+        ticketNumber = randint(100, 200)
         while ticketNumber > 0:
             sections += createTicket(ticketID[0], "AVAILABLE", admission, price, matchInformation)
             sections += ','
