@@ -1,15 +1,8 @@
-'''
-Created on 2013-09-26
-#######################################################
-# @author: Philippe Bouillon # <!-- The VERY best --> #
-#######################################################
-'''
-
 from random import choice, randint
 import datetime
 import os
 
-NUMBER_OF_MATCHES = 1000
+NUMBER_OF_MATCHES = 300
 
 def createMatchInformations(folder, fileName):
     sportList = ['Football', 'Soccer', 'Badminton', 'Rugby', 'Volleyball', 'Basketball', 'Diving', 'Swimming', 'Golf']

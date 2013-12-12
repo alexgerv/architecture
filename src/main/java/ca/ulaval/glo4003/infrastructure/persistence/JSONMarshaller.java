@@ -20,7 +20,6 @@ public class JSONMarshaller<T> {
     public T load(String pathToJSON) throws FileNotFoundException {
         Gson gson = new Gson();
         BufferedReader reader = new BufferedReader(new FileReader(pathToJSON));
-
         return gson.fromJson(reader, type);
     }
 
